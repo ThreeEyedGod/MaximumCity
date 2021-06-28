@@ -71,7 +71,7 @@ preProcessBody :: T.Text -> LB.ByteString
 preProcessBody rawbody = do
     let d = eitherDecode (LB.fromChunks . return . T.encodeUtf8 $ rawbody) :: Either String Update
     case d of
-      Left _ -> "Perhaps Telegram"
+      Left _ -> "Not Telegram"
       Right theTelegram -> encode $ theTelegram
 
 preProcessPath :: Value -> LB.ByteString
@@ -123,6 +123,7 @@ data Event = Event
     body :: Maybe T.Text
   } deriving (Generic, FromJSON)
 
+{-- original inefficient code
 handler :: TC -> Event -> Context -> IO (Either String Lib.Response)
 handler tc Event {path, headers, body} context 
     | (preProcessBody (fromMaybe "" body)) == "Perhaps Telegram" =
@@ -159,5 +160,17 @@ handler tc Event {path, headers, body} context
             runTC tc $ handleUpdate responseBody update
             let responseHeaders = (object ["Access-Control-Allow-Headers" .= ("*" :: String), "Content-Type" .= ("application/json" :: String), "Access-Control-Allow-Origin" .= ("*" :: String), "Access-Control-Allow-Methods" .= ("POST,GET,OPTIONS" :: String)])
             pure $ Right $ Lib.Response 200 responseHeaders responseBody False
+--}
 
-
+handler :: TC -> Event -> Context -> IO (Either String Lib.Response)
+handler tc Event {path, headers, body} context = 
+  do
+    responseBody <- (kText (preProcessHeaders headers) (fromMaybe "" body))
+    case eitherDecode (LB.fromStrict (T.encodeUtf8 (fromMaybe "" body))) of
+      Left _ -> pure $ Right $ Lib.Response 200 responseHeaders "Not Telegram" False
+      Right update -> do
+          runTC tc $ handleUpdate responseBody update
+          pure $ Right $ Lib.Response 200 responseHeaders "Telegram" False
+    where
+        responseHeaders = (object ["Access-Control-Allow-Headers" .= ("*" :: String), "Content-Type" .= ("application/json" :: String), "Access-Control-Allow-Origin" .= ("*" :: String), "Access-Control-Allow-Methods" .= ("POST,GET,OPTIONS" :: String)])
+  
