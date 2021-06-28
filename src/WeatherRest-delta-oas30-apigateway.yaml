@@ -1,0 +1,96 @@
+openapi: "3.0.1"
+info:
+  title: "WeatherRest"
+  description: "Rest equivalent of test"
+  version: "2021-06-18T11:57:02Z"
+servers:
+- url: "https://9z4cslsqia.execute-api.ap-south-1.amazonaws.com/{basePath}"
+  variables:
+    basePath:
+      default: "/delta"
+paths:
+  /:
+    post:
+      responses:
+        "200":
+          description: "200 response"
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: "string"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empty"
+      x-amazon-apigateway-integration:
+        credentials: "arn:aws:iam::037551519982:role/service-role/StepFunctions-MyStateMachine-role-8a1d01b9"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:ap-south-1:states:action/StartSyncExecution"
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'http://localhost'"
+        requestTemplates:
+          application/json: "\n#set($data = $util.escapeJavaScript($input.json('$')))\n\
+            {\n    \"input\": \"{ \\\"body\\\": $data, \\\"headers\\\" : { #foreach($key\
+            \ in $input.params().header.keySet()) \\\"$key\\\": \\\"$util.escapeJavaScript($input.params().header.get($key))\\\
+            \" #if($foreach.hasNext),#end #end } }\",\n    \"stateMachineArn\": \"\
+            arn:aws:states:ap-south-1:037551519982:stateMachine:MyStateMachinePplus\"\
+            \n}\n\n"
+        passthroughBehavior: "when_no_templates"
+        type: "aws"
+    options:
+      responses:
+        "200":
+          description: "200 response"
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: "string"
+            Access-Control-Allow-Methods:
+              schema:
+                type: "string"
+            Access-Control-Allow-Headers:
+              schema:
+                type: "string"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empty"
+      x-amazon-apigateway-integration:
+        credentials: "arn:aws:iam::037551519982:role/service-role/StepFunctions-MyStateMachine-role-8a1d01b9"
+        httpMethod: "OPTIONS"
+        uri: "arn:aws:apigateway:ap-south-1:states:action/StartSyncExecution"
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'http://localhost'"
+        requestTemplates:
+          application/json: "#set($data = $util.escapeJavaScript($input.json('$')))\n\
+            {\n    \"input\": \"{ \\\"body\\\": \\\"$data\\\", \\\"headers\\\" : {\
+            \ #foreach($key in $input.params().header.keySet()) \\\"$key\\\" : \\\"\
+            $util.escapeJavaScript($header.get($key))\\\" #if($foreach.hasNext),#end\
+            \ #end } }\",\n    \"stateMachineArn\": \"arn:aws:states:ap-south-1:037551519982:stateMachine:MyStateMachinePplus\"\
+            \n}"
+        passthroughBehavior: "when_no_templates"
+        type: "aws"
+components:
+  schemas:
+    Empty:
+      title: "Empty Schema"
+      type: "object"
+x-amazon-apigateway-gateway-responses:
+  DEFAULT_5XX:
+    responseParameters:
+      gatewayresponse.header.Access-Control-Allow-Methods: "'OPTIONS,POST'"
+      gatewayresponse.header.Access-Control-Allow-Origin: "'http://localhost'"
+      gatewayresponse.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+  DEFAULT_4XX:
+    responseParameters:
+      gatewayresponse.header.Access-Control-Allow-Methods: "'OPTIONS,POST'"
+      gatewayresponse.header.Access-Control-Allow-Origin: "'http://localhost'"
+      gatewayresponse.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"

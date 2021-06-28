@@ -1,0 +1,218 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.4.
+--
+-- see: https://github.com/sol/hpack
+
+name:           MaximumCity
+version:        0.9.1
+description:    Please see the README on GitHub at <https://github.com/ThreeEyedGod/MaximumCity#readme>
+homepage:       https://github.com/githubuser/Threeeyedgod#readme
+bug-reports:    https://github.com/githubuser/Threeeyedgod/issues
+author:         Venkatesh N
+maintainer:     xyz@example.com
+copyright:      2020 Venkatesh N
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/Threeeyedgod
+  subdir: MaximumCity
+
+library
+  exposed-modules:
+      GeoIpAPI
+      IP2Location
+      JSONHelper
+      Lib
+      OpenWeatherAPI
+      PirateWeatherAPI
+      Telegram
+  other-modules:
+      Paths_MaximumCity
+  hs-source-dirs:
+      src
+  default-extensions:
+      RecordWildCards
+      OverloadedLists
+      OverloadedStrings
+      DeriveGeneric
+      UndecidableSuperClasses
+      ScopedTypeVariables
+  build-depends:
+      MonadRandom
+    , aeson
+    , aeson-pretty
+    , amazonka >=1.6.1
+    , amazonka-core >=1.6.1
+    , amazonka-lambda >=1.6.1
+    , amazonka-ssm >=1.6.1
+    , aws-lambda-haskell-runtime >=3.0.5
+    , base >=4.7 && <5
+    , binary >=0.8.4 && <0.9
+    , bytestring >=0.10.8.2
+    , cryptonite
+    , exceptions >=0.10.4
+    , ghc-typelits-extra >=0.4.1
+    , http-client >=0.7.8
+    , http-client-tls
+    , http-conduit >=2.3.7.3
+    , http-types >=0.12.3
+    , integer-gmp >=1.0.2.0
+    , integer-logarithms >1.0.3
+    , iproute ==1.7.*
+    , servant >=0.18.2
+    , servant-client >=0.11
+    , servant-client-core >=0.18.2
+    , servant-server
+    , telegram-api >=0.7.1.0
+    , text >=1.2.3.1
+    , void >=0.7.3
+  default-language: Haskell2010
+
+executable bootstrap
+  main-is: Main.hs
+  other-modules:
+      Paths_MaximumCity
+  hs-source-dirs:
+      app
+  default-extensions:
+      RecordWildCards
+      OverloadedLists
+      OverloadedStrings
+      DeriveGeneric
+      UndecidableSuperClasses
+      ScopedTypeVariables
+  ghc-options: -threaded -rtsopts -O2 -static -with-rtsopts=-N -XUndecidableSuperClasses -XScopedTypeVariables
+  cc-options: -static
+  ld-options: -static -pthread
+  build-depends:
+      MaximumCity
+    , MonadRandom
+    , aeson
+    , aeson-pretty
+    , amazonka >=1.6.1
+    , amazonka-core >=1.6.1
+    , amazonka-lambda >=1.6.1
+    , amazonka-ssm >=1.6.1
+    , aws-lambda-haskell-runtime >=3.0.5
+    , base >=4.7 && <5
+    , binary >=0.8.4 && <0.9
+    , bytestring >=0.10.8.2
+    , cryptonite
+    , exceptions >=0.10.4
+    , ghc-typelits-extra >=0.4.1
+    , http-client >=0.7.8
+    , http-client-tls
+    , http-conduit >=2.3.7.3
+    , http-types >=0.12.3
+    , integer-gmp >=1.0.2.0
+    , integer-logarithms >1.0.3
+    , iproute ==1.7.*
+    , servant >=0.18.2
+    , servant-client >=0.11
+    , servant-client-core >=0.18.2
+    , servant-server
+    , telegram-api >=0.7.1.0
+    , text >=1.2.3.1
+    , void >=0.7.3
+  default-language: Haskell2010
+
+test-suite MaximumCity-test
+  type: exitcode-stdio-1.0
+  main-is: TestsMain.hs
+  other-modules:
+      Spec
+      SpecE
+      Paths_MaximumCity
+  hs-source-dirs:
+      test
+  default-extensions:
+      RecordWildCards
+      OverloadedLists
+      OverloadedStrings
+      DeriveGeneric
+      UndecidableSuperClasses
+      ScopedTypeVariables
+  ghc-options: -threaded -rtsopts "-with-rtsopts=-N1 -s"
+  build-depends:
+      MaximumCity
+    , MonadRandom
+    , QuickCheck >2.14.2
+    , aeson
+    , aeson-pretty
+    , amazonka >=1.6.1
+    , amazonka-core >=1.6.1
+    , amazonka-lambda >=1.6.1
+    , amazonka-ssm >=1.6.1
+    , aws-lambda-haskell-runtime >=3.0.5
+    , base
+    , binary >=0.8.4 && <0.9
+    , bytestring >=0.10.8.2
+    , cryptonite
+    , exceptions >=0.10.4
+    , ghc-typelits-extra >=0.4.1
+    , hspec >=2.7.4 && <2.8
+    , hspec-core >=2.7.4
+    , http-client >=0.7.8
+    , http-client-tls
+    , http-conduit >=2.3.7.3
+    , http-types >=0.12.3
+    , integer-gmp >=1.0.2.0
+    , integer-logarithms >1.0.3
+    , iproute ==1.7.*
+    , servant >=0.18.2
+    , servant-client >=0.11
+    , servant-client-core >=0.18.2
+    , servant-server
+    , telegram-api >=0.7.1.0
+    , test-framework
+    , test-framework-quickcheck2
+    , text >=1.2.3.1
+    , void >=0.7.3
+  default-language: Haskell2010
+
+benchmark MaximumCity-benchmark
+  type: exitcode-stdio-1.0
+  main-is: Main.hs
+  other-modules:
+      Paths_MaximumCity
+  default-extensions:
+      RecordWildCards
+      OverloadedLists
+      OverloadedStrings
+      DeriveGeneric
+      UndecidableSuperClasses
+      ScopedTypeVariables
+  build-depends:
+      MonadRandom
+    , aeson
+    , aeson-pretty
+    , amazonka >=1.6.1
+    , amazonka-core >=1.6.1
+    , amazonka-lambda >=1.6.1
+    , amazonka-ssm >=1.6.1
+    , aws-lambda-haskell-runtime >=3.0.5
+    , base >=4.7 && <5
+    , binary >=0.8.4 && <0.9
+    , bytestring >=0.10.8.2
+    , cryptonite
+    , exceptions >=0.10.4
+    , ghc-typelits-extra >=0.4.1
+    , http-client >=0.7.8
+    , http-client-tls
+    , http-conduit >=2.3.7.3
+    , http-types >=0.12.3
+    , integer-gmp >=1.0.2.0
+    , integer-logarithms >1.0.3
+    , iproute ==1.7.*
+    , servant >=0.18.2
+    , servant-client >=0.11
+    , servant-client-core >=0.18.2
+    , servant-server
+    , telegram-api >=0.7.1.0
+    , text >=1.2.3.1
+    , void >=0.7.3
+  default-language: Haskell2010

@@ -1,0 +1,66 @@
+
+<html>
+
+<body>
+    <form id="inputs" name="Identification">
+        <label for="firstInteger">First Integer:</label><br>
+        <input id="firstInteger" type="number" name="firstInteger" value=1234><br>
+        <label for="secondInteger">Second Integer:</label><br>
+        <input id="secondInteger" type="number" name="secondInteger" value=5678><br><br>
+        <input type="button" value=" Go For it " onclick="myFunctionWhoAmI()">
+        <label for="WhereFrom"> The weather at </label><br>
+        <input id="WhereFrom" type="text" name="WhereFrom" value=1.2.3.4 size="30"><br>
+        <label for="Multiplied"> Answer to the large multiplication is </label><br>
+        <input id="Multiplied" type="text" name="Multiplied" value=0 size="30"><br>
+
+    <script type="text/javascript">
+        var referrer = parent.document.referrer;
+        console.log(' referrer is' + referrer);
+        console.log('In this iframe, the `window.origin` value is ' + window.origin);
+        console.log('In this iframe, the `self.origin` value is ' + self.origin);
+        console.log('FQDN ' + document.domain);
+
+    // This function handles arrays and objects
+    function eachRecursive(obj) {
+        for (var k in obj) {
+            if (typeof obj[k] == "object" && obj[k] !== null)
+                alert("object found ", eachRecursive(obj[k]));
+            else
+                alert("does not seem to be an object "); 
+    }
+    }
+
+        function myFunctionWhoAmI() {
+            let formData = new FormData(document.forms.Identification);
+            var firstNumber = Number(formData.get("firstInteger"));
+            var secondNumber = Number(formData.get("secondInteger"));
+            let xhr = new XMLHttpRequest();
+            let fakejson = JSON.stringify({
+                //"input": {"firstInteger": firstNumber, "secondInteger": secondNumber}
+                "firstInteger": firstNumber, 
+                "secondInteger": secondNumber
+            });
+            
+            let url = "https://9z4cslsqia.execute-api.ap-south-1.amazonaws.com/delta/";
+            xhr.open("POST", url);
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.send(fakejson);
+            xhr.addEventListener("readystatechange", () => {
+                if (xhr.readyState == 4) {
+                    var headers = xhr.getAllResponseHeaders();
+                    var text = xhr.responseText;
+                    const allstepJSON = JSON.parse(text);
+                    var myObject = eval('(' + allstepJSON.output + ')');
+                    document.getElementById("WhereFrom").value = myObject[0]["body"];
+                    document.getElementById("Multiplied").value = myObject[1]["body"];
+                }
+            })
+            return false;
+        }
+
+    </script>
+
+</form>
+</body>
+</html>
