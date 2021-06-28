@@ -84,9 +84,6 @@ handleUpdate helper Update{ message = Just m } = do
     _rm1 <- sendMessageM $ sendMessageRequest c $
       "Hi! I am @MaximumCityBot \n"
     _rm2 <- sendMessageM $ sendMessageRequest c $ helper
-
-   -- _rm2 <- sendGameM $ sendGameRequest (fromIntegral (chat_id (chat m))) "kaleidogen"
-
     return ()
   else
       return ()

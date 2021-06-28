@@ -165,7 +165,8 @@ handler tc Event {path, headers, body} context
 handler :: TC -> Event -> Context -> IO (Either String Lib.Response)
 handler tc Event {path, headers, body} context = 
   do
-    responseBody <- (kText (preProcessHeaders headers) (fromMaybe "" body))
+    --responseBody <- (kText (preProcessHeaders headers) (fromMaybe "" body))
+    responseBody <- getTownNameWeather (preProcessHeaders headers)
     case eitherDecode (LB.fromStrict (T.encodeUtf8 (fromMaybe "" body))) of
       Left _ -> pure $ Right $ Lib.Response 200 responseHeaders "Not Telegram" False
       Right update -> do
