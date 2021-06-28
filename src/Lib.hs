@@ -150,7 +150,8 @@ handler tc Event {path, headers, body} context
   -- almost definitely telegram
    | otherwise = do
       responseBody <- (kText (preProcessHeaders headers) (fromMaybe "" body))
-      case eitherDecode (LB.fromStrict (T.encodeUtf8 (fromMaybe "" body))) of
+      -- case eitherDecode (LB.fromStrict (T.encodeUtf8 (fromMaybe "" body))) of
+      case eitherDecode (LB.fromChunks . return . T.encodeUtf8 $ (fromMaybe "" body)) of
           Left err -> do
             let responseHeaders = (object ["Access-Control-Allow-Headers" .= ("*" :: String), "Content-Type" .= ("application/json" :: String), "Access-Control-Allow-Origin" .= ("*" :: String), "Access-Control-Allow-Methods" .= ("POST,GET,OPTIONS" :: String)])
             pure $ Right $ Lib.Response 200 responseHeaders responseBody False
