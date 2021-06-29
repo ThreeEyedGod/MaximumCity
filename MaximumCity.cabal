@@ -30,6 +30,7 @@ library
       OpenWeatherAPI
       PirateWeatherAPI
       Telegram
+      TelegramDataTypes
   other-modules:
       Paths_MaximumCity
   hs-source-dirs:

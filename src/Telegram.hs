@@ -4,7 +4,7 @@
 {-# OPTIONS_GHC -Wno-orphans  #-}
 {-# LANGUAGE DeriveGeneric #-}
 
-module Telegram (handleUpdate, getTelegramSettings, TC, runTC, TMessageBody) where
+module Telegram (handleUpdate, getTelegramSettings, TC, runTC) where
 import GHC.Generics (Generic)
 import qualified Data.ByteString as BS
 import qualified Data.Text as T
@@ -14,6 +14,8 @@ import Text.Printf
 import Data.Maybe
 import Data.Aeson
 import Control.Monad.IO.Class
+import GeoIpAPI
+
 import Control.Monad.Catch
 --import Servant.Client.Internal.HttpClient (ClientM(..))
 --import Servant.Client.Internal
@@ -23,46 +25,9 @@ import Network.HTTP.Client (Manager, newManager)
 import Network.HTTP.Client.TLS (tlsManagerSettings)
 import System.Environment
 import Control.Monad(void)
+import TelegramDataTypes
 
 type TC = (Token, Manager)
-
-data MessageMeta = FromMessageMeta
-  {
-    id :: Int,
-    is_bot :: Bool, --false
-    first_name :: T.Text,
-    last_name :: T.Text,
-    language_code :: T.Text --en
-  } 
-  deriving (Generic)
-data ChatTextMeta = ChatTextMeta
-  {
-    id_chat :: Int,
-    first_name_chat :: T.Text,
-    last_name_chat :: T.Text,
-    type_chat :: T.Text --private 
-  } deriving (Generic)
-
-data EntityDetails = EntityDetails {
-  offsetD :: Int,
-  lengthD :: Int,
-  typeD :: T.Text --bot_command
-} deriving (Generic)
-
-data MessageDetails  = MessageDetails {
-    fromMeta :: MessageMeta,
-    chatMeta :: ChatTextMeta,
-    dateMessage ::  Int,
-    actualMessage :: T.Text,
-    allEntityDetails :: [EntityDetails]
-} deriving (Generic)
-
-data TMessageBody = TMessageBody
- {
-    update_id :: Int,
-    message :: MessageDetails
- } deriving (Generic)
-
 
 runTC :: TC -> TelegramClient () -> IO ()
 runTC (token, manager) act = void $ runTelegramClient token manager act
@@ -74,7 +39,7 @@ getTelegramSettings = do
   let t = Token ("bot" <> T.pack token)
   manager <- newManager tlsManagerSettings
   return (t, manager)
-
+{--
 handleUpdate :: T.Text  -> Update -> TelegramClient ()
 handleUpdate helper Update{ message = Just m } = do
   let c = ChatId (chat_id (chat m))
@@ -87,8 +52,23 @@ handleUpdate helper Update{ message = Just m } = do
     return ()
   else
       return ()
+--}
+
+handleUpdate :: T.Text -> Update -> TelegramClient ()
+handleUpdate helper Update {message = Just m} = do
+  let c = ChatId (chat_id (chat m))
+  liftIO $ printf "message from %s: %s\n" (maybe "?" user_first_name (from m)) (maybe "" T.unpack (text m))
+  let whatUserTyped = T.dropWhileEnd (==' ') (fromMaybe "" (text m))
+  case whatUserTyped of
+    "/start" -> do
+                _rm1 <- sendMessageM $ sendMessageRequest c $ "Hi! I am @MaximumCityBot \n"
+                _rm4 <- sendMessageM $ sendMessageRequest c $ "Enter your place name \n"
+                return()
+    _        -> do
+                _rm3 <- sendMessageM $ sendMessageRequest c $ whatUserTyped
+                _rm2 <- sendMessageM $ sendMessageRequest c $ helper
+                return ()
 
 handleUpdate _ u =
   liftIO $ putStrLn $ "Unhandled message: " ++ show u
 
---deriving instance MonadMask ClientM
