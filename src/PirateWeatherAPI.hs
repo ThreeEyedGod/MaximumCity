@@ -63,9 +63,9 @@ getWeatherForTown town = do
   case d of
     Left e ->  return $ "Fail"
     Right stuff -> return $ Data.ByteString.Char8.pack 
-      (show (temperature (currently stuff)) ++ "  \n" 
-      ++ (summary (currently stuff) ++ "  \n "
-      ++ "Chance of rain " ++ show (precipProbability (currently stuff)) ++ "  \n"
-      ++ "Intensity of rain " ++ show (precipIntensity (currently stuff)) ++ "  \n"
-      ++ "Type of rain " ++ show (precipType (currently stuff))) ++ "  \n"
+      (show (temperature (currently stuff)) ++ "  " 
+      ++ (summary (currently stuff) ++ "  "
+      ++ "Chance of rain " ++ show (precipProbability (currently stuff)) ++ "  "
+      ++ "Intensity of rain " ++ show (precipIntensity (currently stuff)) ++ "  "
+      ++ "Type of rain " ++ show (precipType (currently stuff))) ++ "  "
       )

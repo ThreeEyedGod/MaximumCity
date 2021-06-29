@@ -102,13 +102,6 @@ getTownNameWeather headers = do
   let tw = show (Data.ByteString.Char8.unpack town ++ " is currently " ++ Data.ByteString.Char8.unpack weather1 ++ Data.ByteString.Char8.unpack weather2)    
   return $ Data.ByteString.Char8.pack tw
 
-kText :: LB.ByteString -> T.Text -> IO T.Text
-kText headers rawbody = do
-    let d = eitherDecode (LB.fromChunks . return . T.encodeUtf8 $ rawbody) :: Either String Update
-    case d of
-      Left _ -> getTownNameWeather headers
-      Right theTelegram -> return $ Data.ByteString.Char8.pack (show (update_id theTelegram))
-
 data Response = Response
   { statusCode :: Int,
     headers :: Value,
@@ -123,49 +116,9 @@ data Event = Event
     body :: Maybe T.Text
   } deriving (Generic, FromJSON)
 
-{-- original inefficient code
-handler :: TC -> Event -> Context -> IO (Either String Lib.Response)
-handler tc Event {path, headers, body} context 
-    | (preProcessBody (fromMaybe "" body)) == "Perhaps Telegram" =
-          case eitherDecode (LB.fromStrict (T.encodeUtf8 (fromMaybe "" body))) of
-            Left err -> pure $ Right Lib.Response
-                { statusCode = 400
-                , headers = object [
-                    "Content-Type" .= ("text/plain" :: String)
-                ]
-                , isBase64Encoded = False
-                , body = "Could not decode message: " <> T.pack err
-                }
-            Right update -> do
-                responseBody <- (kText (preProcessHeaders headers) (fromMaybe "" body))
-                runTC tc $ handleUpdate responseBody update
-                -- runTC tc $ handleUpdate Nothing update
-                pure $ Right Lib.Response
-                    { statusCode = 200
-                    , headers = object [
-                        "Content-Type" .= ("text/plain" :: String)
-                    ]
-                    , isBase64Encoded = False
-                    , body = "Done"
-                    }
-  -- almost definitely telegram
-   | otherwise = do
-      responseBody <- (kText (preProcessHeaders headers) (fromMaybe "" body))
-      -- case eitherDecode (LB.fromStrict (T.encodeUtf8 (fromMaybe "" body))) of
-      case eitherDecode (LB.fromChunks . return . T.encodeUtf8 $ (fromMaybe "" body)) of
-          Left err -> do
-            let responseHeaders = (object ["Access-Control-Allow-Headers" .= ("*" :: String), "Content-Type" .= ("application/json" :: String), "Access-Control-Allow-Origin" .= ("*" :: String), "Access-Control-Allow-Methods" .= ("POST,GET,OPTIONS" :: String)])
-            pure $ Right $ Lib.Response 200 responseHeaders responseBody False
-          Right update -> do 
-            runTC tc $ handleUpdate responseBody update
-            let responseHeaders = (object ["Access-Control-Allow-Headers" .= ("*" :: String), "Content-Type" .= ("application/json" :: String), "Access-Control-Allow-Origin" .= ("*" :: String), "Access-Control-Allow-Methods" .= ("POST,GET,OPTIONS" :: String)])
-            pure $ Right $ Lib.Response 200 responseHeaders responseBody False
---}
-
 handler :: TC -> Event -> Context -> IO (Either String Lib.Response)
 handler tc Event {path, headers, body} context = 
   do
-    --responseBody <- (kText (preProcessHeaders headers) (fromMaybe "" body))
     responseBody <- getTownNameWeather (preProcessHeaders headers)
     case eitherDecode (LB.fromStrict (T.encodeUtf8 (fromMaybe "" body))) of
       Left _ -> pure $ Right $ Lib.Response 200 responseHeaders "Not Telegram" False
