@@ -25,6 +25,8 @@ import Network.HTTP.Client (Manager, newManager)
 import Network.HTTP.Client.TLS (tlsManagerSettings)
 import System.Environment
 import Control.Monad(void)
+import GeoIpAPI
+
 import TelegramDataTypes
 
 type TC = (Token, Manager)
@@ -39,20 +41,6 @@ getTelegramSettings = do
   let t = Token ("bot" <> T.pack token)
   manager <- newManager tlsManagerSettings
   return (t, manager)
-{--
-handleUpdate :: T.Text  -> Update -> TelegramClient ()
-handleUpdate helper Update{ message = Just m } = do
-  let c = ChatId (chat_id (chat m))
-  liftIO $ printf "message from %s: %s\n" (maybe "?" user_first_name (from m)) (maybe "" T.unpack (text m))
-  if "/start" `T.isPrefixOf` fromMaybe "" (text m)
-  then do
-    _rm1 <- sendMessageM $ sendMessageRequest c $
-      "Hi! I am @MaximumCityBot \n"
-    _rm2 <- sendMessageM $ sendMessageRequest c $ helper
-    return ()
-  else
-      return ()
---}
 
 handleUpdate :: T.Text -> Update -> TelegramClient ()
 handleUpdate helper Update {message = Just m} = do
