@@ -24,13 +24,13 @@ import qualified Data.Text.Encoding as T
 import Control.Monad (MonadPlus (mzero))
 import qualified Data.ByteString.Lazy as BS
 import qualified Data.ByteString.Lazy.Char8 as BS8
-import Data.Word
 import GHC.Generics (Generic)
 import Data.Bits
 import Debug.Trace (trace)
 import Data.Binary.Get
 import Data.IP
 import Control.Exception
+import HttpHeadersPathDefinitions
 import Data.Aeson
   ( FromJSON (parseJSON),
     KeyValue ((.=)),
@@ -461,20 +461,6 @@ getInfoFromIpAddr ipAddr = do
   meta <- doInit myfile
   result <- doQuery myfile meta ipAddr
   return $ Data.ByteString.Char8.pack (city result)
-
-data Headers = Headers
-  { xForwardedFor :: T.Text
-  }
-  deriving (Show, Generic)
-
-instance FromJSON Headers where
-  parseJSON (Object v) = do
-    xForwardedFor <- v .: "X-Forwarded-For"
-    return $ Headers xForwardedFor
-  parseJSON _ = mzero
-
-instance ToJSON Headers where
-  toJSON (Headers xForwardedFor) = object ["xForwardedFor" .= xForwardedFor]
 
 extractXForwardedForHeader :: LB.ByteString -> IO T.Text
 extractXForwardedForHeader headers = do

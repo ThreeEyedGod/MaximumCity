@@ -40,36 +40,15 @@ import Weather (getTownNameWeatherFromIp, getTownNameWeatherFromTown)
 import Web.Telegram.API.Bot ( Update )
 
 import qualified Data.Aeson as TLO
-
-data Path = Path 
-  {
-    ipath :: T.Text
-  } deriving (Generic)
-instance FromJSON Path
-instance ToJSON Path
-
-data Headers = Headers
-  { 
-    xForwardedFor :: T.Text
-  }
-  deriving (Show, Generic)
-
-instance FromJSON Headers where
-  parseJSON (Object v) = do
-    xForwardedFor <- v .: "X-Forwarded-For"
-    return $ Headers xForwardedFor
-  parseJSON _ = mzero
-
-instance ToJSON Headers where
-  toJSON (Headers xForwardedFor) = object ["xForwardedFor" .= xForwardedFor]
+import HttpHeadersPathDefinitions
 
 preProcessHeaders :: Value -> LB.ByteString
 preProcessHeaders headers = do 
   let test = encode $ headers
   trace ("preProcessHeaders = " ++ show test) $ test
 
-preProcessBody :: T.Text -> LB.ByteString
-preProcessBody rawbody = do
+preProcessBodytoGetTelegram :: T.Text -> LB.ByteString
+preProcessBodytoGetTelegram rawbody = do
     let d = eitherDecode (LB.fromChunks . return . T.encodeUtf8 $ rawbody) :: Either String Update
     case d of
       Left _ -> "Not Telegram"
