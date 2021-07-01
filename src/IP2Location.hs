@@ -14,16 +14,33 @@ mobile brand, elevation, and usage type as values. It supports both IP addresses
 
 IP2Location LITE BIN databases are available for free at http://lite.ip2location.com/
 -}
-module IP2Location (Meta, IP2LocationRecord(..), getAPIVersion, doInit, doQuery) where
+module IP2Location (getInfoFromIpAddr, extractXForwardedForHeader, Meta, IP2LocationRecord (..), getAPIVersion, doInit, doQuery) where
 
+
+import qualified Data.ByteString.Lazy.Char8 as LB
+import qualified Data.Text as Data.ByteString.Char8
+import qualified Data.Text as T
+import qualified Data.Text.Encoding as T
+import Control.Monad (MonadPlus (mzero))
 import qualified Data.ByteString.Lazy as BS
 import qualified Data.ByteString.Lazy.Char8 as BS8
 import Data.Word
+import GHC.Generics (Generic)
 import Data.Bits
+import Debug.Trace (trace)
 import Data.Binary.Get
 import Data.IP
 import Control.Exception
-
+import Data.Aeson
+  ( FromJSON (parseJSON),
+    KeyValue ((.=)),
+    ToJSON (toJSON),
+    Value (Object),
+    eitherDecode,
+    encode,
+    object,
+    (.:),
+  )
 -- | Contains geolocation results.
 data IP2LocationRecord = IP2LocationRecord {
     -- | Country code
@@ -437,3 +454,31 @@ doQuery myfile meta myip = do
                             return $ search4 contents ipnum (databasetype meta) 0 (ipv4databasecount meta) (ipv4databaseaddr meta) (ipv4indexbaseaddr meta) (ipv4columnsize meta)
                         else do
                             return $ search6 contents ipnum (databasetype meta) 0 (ipv6databasecount meta) (ipv6databaseaddr meta) (ipv6indexbaseaddr meta) (ipv6columnsize meta)
+
+getInfoFromIpAddr :: String -> IO T.Text
+getInfoFromIpAddr ipAddr = do
+  let myfile = "IP2LOCATION-LITE-DB11.IPV6.BIN"
+  meta <- doInit myfile
+  result <- doQuery myfile meta ipAddr
+  return $ Data.ByteString.Char8.pack (city result)
+
+data Headers = Headers
+  { xForwardedFor :: T.Text
+  }
+  deriving (Show, Generic)
+
+instance FromJSON Headers where
+  parseJSON (Object v) = do
+    xForwardedFor <- v .: "X-Forwarded-For"
+    return $ Headers xForwardedFor
+  parseJSON _ = mzero
+
+instance ToJSON Headers where
+  toJSON (Headers xForwardedFor) = object ["xForwardedFor" .= xForwardedFor]
+
+extractXForwardedForHeader :: LB.ByteString -> IO T.Text
+extractXForwardedForHeader headers = do
+  let f = eitherDecode headers :: Either String Headers
+  case f of
+    Left _ -> trace ("f = " ++ show f) $ return $ "bad or no xForwardedFor header"
+    Right allHeaders -> getInfoFromIpAddr (Data.ByteString.Char8.unpack (xForwardedFor allHeaders))

@@ -8,9 +8,17 @@
 {-# OPTIONS_GHC -Wno-orphans #-}
 
 module Lib where
-import IP2Location
+import IP2Location ( doInit, doQuery, IP2LocationRecord(city) )
 import GHC.Generics ( Generic )
 import Data.Aeson
+    ( eitherDecode,
+      encode,
+      (.:),
+      object,
+      FromJSON(parseJSON),
+      Value(Object),
+      KeyValue((.=)),
+      ToJSON(toJSON) )
 import GHC.Integer.Logarithms ()
 import Aws.Lambda ( Context )
 import qualified Data.Text as Data.ByteString.Char8
@@ -18,18 +26,18 @@ import qualified Data.Text as T
 import qualified Data.Text.Encoding as T
 import qualified Data.ByteString.Lazy.Char8 as LB
 
-import Data.Maybe
-import Data.Text.Lazy as TL
+import Data.Maybe ( fromMaybe )
+import Data.Text.Lazy as TL ()
 import qualified Data.Text.Lazy.IO as TLO
 import qualified Data.Text.Lazy.Encoding as TLO
-import Network.AWS.Data.Headers
-import Control.Exception as X
-import Control.Monad
-import Debug.Trace
-import OpenWeatherAPI
-import PirateWeatherAPI
-import Telegram
-import Web.Telegram.API.Bot
+import Network.AWS.Data.Headers ()
+import Control.Exception as X ()
+import Control.Monad ( MonadPlus(mzero) )
+import Debug.Trace ( trace )
+
+import Telegram ( gettheTelegram, handleUpdate, runTC, TC )
+import Weather (getTownNameWeatherFromIp, getTownNameWeatherFromTown)
+import Web.Telegram.API.Bot ( Update )
 
 import qualified Data.Aeson as TLO
 
@@ -55,13 +63,6 @@ instance FromJSON Headers where
 instance ToJSON Headers where
   toJSON (Headers xForwardedFor) = object ["xForwardedFor" .= xForwardedFor]
 
-getInfoFromIpAddr :: String -> IO T.Text
-getInfoFromIpAddr ipAddr = do
-    let myfile = "IP2LOCATION-LITE-DB11.IPV6.BIN"
-    meta <- doInit myfile
-    result <- doQuery myfile meta ipAddr
-    return $ Data.ByteString.Char8.pack (city result)
-
 preProcessHeaders :: Value -> LB.ByteString
 preProcessHeaders headers = do 
   let test = encode $ headers
@@ -86,28 +87,7 @@ getPath p  = do
     Left _ -> "no path"
     Right aPath -> (ipath aPath)
 
-extractXForwardedForHeader :: LB.ByteString -> IO T.Text
-extractXForwardedForHeader headers = do
-    let f = eitherDecode headers :: Either String Headers
-    case f of
-      Left _ -> trace ("f = " ++ show f) $ return $ "bad or no xForwardedFor header"
-      Right allHeaders -> getInfoFromIpAddr (Data.ByteString.Char8.unpack (xForwardedFor allHeaders))
 
-
-getTownNameWeatherFromIp :: LB.ByteString -> IO T.Text
-getTownNameWeatherFromIp headers = do
-  town <- extractXForwardedForHeader headers
-  weather1 <- PirateWeatherAPI.getWeatherForTown $ Data.ByteString.Char8.unpack $ town
-  weather2 <- OpenWeatherAPI.getWeatherForTown $ Data.ByteString.Char8.unpack $ town
-  let tw = show (Data.ByteString.Char8.unpack town ++ " is currently " ++ Data.ByteString.Char8.unpack weather1 ++ Data.ByteString.Char8.unpack weather2)    
-  return $ Data.ByteString.Char8.pack tw
-
-getTownNameWeatherFromTown :: T.Text -> IO T.Text
-getTownNameWeatherFromTown town = do
-  weather1 <- PirateWeatherAPI.getWeatherForTown $ Data.ByteString.Char8.unpack $ town
-  weather2 <- OpenWeatherAPI.getWeatherForTown $ Data.ByteString.Char8.unpack $ town
-  let tw = show (Data.ByteString.Char8.unpack town ++ " is currently " ++ Data.ByteString.Char8.unpack weather1 ++ Data.ByteString.Char8.unpack weather2)
-  return $ Data.ByteString.Char8.pack tw
 data Response = Response
   { statusCode :: Int,
     headers :: Value,
@@ -125,13 +105,14 @@ data Event = Event
 handler :: TC -> Event -> Context -> IO (Either String Lib.Response)
 handler tc Event {path, headers, body} context = 
   do
-    responseBody <- getTownNameWeatherFromIp (preProcessHeaders headers)
     case eitherDecode (LB.fromStrict (T.encodeUtf8 (fromMaybe "" body))) of
-      Left _ -> pure $ Right $ Lib.Response 200 responseHeaders "Not Telegram" False
+      Left _ -> do
+        responseBody <- getTownNameWeatherFromIp (preProcessHeaders headers)
+        pure $ Right $ Lib.Response 200 responseHeaders responseBody False
       Right update -> do
           responseBody <- getTownNameWeatherFromTown (gettheTelegram update)
           runTC tc $ handleUpdate responseBody update 
-          pure $ Right $ Lib.Response 200 responseHeaders "Telegram" False
+          pure $ Right $ Lib.Response 200 responseHeaders responseBody False
     where
         responseHeaders = (object ["Access-Control-Allow-Headers" .= ("*" :: String), "Content-Type" .= ("application/json" :: String), "Access-Control-Allow-Origin" .= ("*" :: String), "Access-Control-Allow-Methods" .= ("POST,GET,OPTIONS" :: String)])
   
