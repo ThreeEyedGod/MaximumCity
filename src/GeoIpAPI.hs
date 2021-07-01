@@ -16,9 +16,6 @@ import GHC.Float as SF
 import Control.Monad (mapM_)
 import Prelude
 import qualified Data.Text as Data.ByteString.Char8
-
-  
-
 data ForwardGeoCode = ForwardGeoCode {
             latitude :: Float,
             longitude :: Float
@@ -43,17 +40,17 @@ instance ToJSON GeoIp
 
 statusExceptionHandler ::  SomeException -> IO B.ByteString
 statusExceptionHandler e = (putStrLn "Bad Error") >> (return B.empty)
-
+-- Gets LatLong for an IP 
 jsonGeoIpURL :: String
 jsonGeoIpURL = "https://freegeoip.app/json/"
-getGeoIpforThis :: String -> IO B.ByteString
-getGeoIpforThis town = simpleHttp jsonGeoIpURL `X.catch` statusExceptionHandler
-
+getGeoIpforThis ::  IO B.ByteString
+getGeoIpforThis = simpleHttp jsonGeoIpURL `X.catch` statusExceptionHandler
+-- Gets LatLong for a place
 jsonPositionStackURL :: String
-jsonPositionStackURL = "https://api.positionstack.com/v1/forward?access_key="
+jsonPositionStackURL = "http://api.positionstack.com/v1/forward?access_key="
 getForwardGeoCodeforThis :: String -> IO B.ByteString
 getForwardGeoCodeforThis town = do
-  key <- getEnv "API_POSITIONSTACK_KEY"
+  key <- getEnv "API_POSITIONSTACK_KEY" -- set this in AWS Env. Variables
   let urlCall = jsonPositionStackURL ++ key ++ "&query=" ++ town
   simpleHttp urlCall  `X.catch` statusExceptionHandler
 
@@ -62,7 +59,7 @@ getLatLongforThis town = do
   d <- (eitherDecode <$> getForwardGeoCodeforThis town) :: IO (Either String ForwardGeoCode)
   case d of
     Left e ->  do 
-                f <- (eitherDecode <$> getGeoIpforThis town) :: IO (Either String GeoIp)
+                f <- (eitherDecode <$> getGeoIpforThis) :: IO (Either String GeoIp)
                 case f of 
                   Left err -> return $ "Mystery Place" <> pack err
                   Right geoipstuff_backup -> return $ Data.ByteString.Char8.pack (show (latitude (geoipstuff_backup :: GeoIp))  ++ "," ++ show (longitude (geoipstuff_backup :: GeoIp)))
