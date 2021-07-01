@@ -94,14 +94,20 @@ extractXForwardedForHeader headers = do
       Right allHeaders -> getInfoFromIpAddr (Data.ByteString.Char8.unpack (xForwardedFor allHeaders))
 
 
-getTownNameWeather :: LB.ByteString -> IO T.Text
-getTownNameWeather headers = do
+getTownNameWeatherFromIp :: LB.ByteString -> IO T.Text
+getTownNameWeatherFromIp headers = do
   town <- extractXForwardedForHeader headers
   weather1 <- PirateWeatherAPI.getWeatherForTown $ Data.ByteString.Char8.unpack $ town
   weather2 <- OpenWeatherAPI.getWeatherForTown $ Data.ByteString.Char8.unpack $ town
   let tw = show (Data.ByteString.Char8.unpack town ++ " is currently " ++ Data.ByteString.Char8.unpack weather1 ++ Data.ByteString.Char8.unpack weather2)    
   return $ Data.ByteString.Char8.pack tw
 
+getTownNameWeatherFromTown :: T.Text -> IO T.Text
+getTownNameWeatherFromTown town = do
+  weather1 <- PirateWeatherAPI.getWeatherForTown $ Data.ByteString.Char8.unpack $ town
+  weather2 <- OpenWeatherAPI.getWeatherForTown $ Data.ByteString.Char8.unpack $ town
+  let tw = show (Data.ByteString.Char8.unpack town ++ " is currently " ++ Data.ByteString.Char8.unpack weather1 ++ Data.ByteString.Char8.unpack weather2)
+  return $ Data.ByteString.Char8.pack tw
 data Response = Response
   { statusCode :: Int,
     headers :: Value,
@@ -119,11 +125,12 @@ data Event = Event
 handler :: TC -> Event -> Context -> IO (Either String Lib.Response)
 handler tc Event {path, headers, body} context = 
   do
-    responseBody <- getTownNameWeather (preProcessHeaders headers)
+    responseBody <- getTownNameWeatherFromIp (preProcessHeaders headers)
     case eitherDecode (LB.fromStrict (T.encodeUtf8 (fromMaybe "" body))) of
       Left _ -> pure $ Right $ Lib.Response 200 responseHeaders "Not Telegram" False
       Right update -> do
-          runTC tc $ handleUpdate responseBody update
+          responseBody <- getTownNameWeatherFromTown (gettheTelegram update)
+          runTC tc $ handleUpdate responseBody update 
           pure $ Right $ Lib.Response 200 responseHeaders "Telegram" False
     where
         responseHeaders = (object ["Access-Control-Allow-Headers" .= ("*" :: String), "Content-Type" .= ("application/json" :: String), "Access-Control-Allow-Origin" .= ("*" :: String), "Access-Control-Allow-Methods" .= ("POST,GET,OPTIONS" :: String)])

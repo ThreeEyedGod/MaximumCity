@@ -65,6 +65,7 @@ extra-deps:
   - exceptions-0.10.4 
   - basic-0.1.0.0@sha256:a90b6636f079ee7b7dd22f7551242ad0cb1e01f00d30cd3a45b6e74abce0b3ac,1679
   - void-0.7.3
+  - text-1.2.3.1
 #  - hspec-hedgehog-0.0.1.2@sha256:4d09c7be34cdc941b78e4e964f71013ffeeb099ea32d8ede17ad9c03ae7a62e3,1470
 # - aws-lambda-haskell-runtime-3.0.5@sha256:3bbb01d7f13a614c6abac697d48cfd3e55513acd1d127c77a780dc4debf22950,2938
 #  - ghc-typelits-knownnat-0.7.4@sha256:f0af4581223edf0171e2121ab13fe8603952760ecaa0189f70cd351567fbb544,4820
