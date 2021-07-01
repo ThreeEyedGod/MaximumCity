@@ -1,6 +1,7 @@
 
 {-# LANGUAGE OverloadedStrings, DeriveGeneric #-}
 {-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module GeoIpAPI where
 import System.Environment
@@ -16,13 +17,46 @@ import GHC.Float as SF
 import Control.Monad (mapM_)
 import Prelude
 import qualified Data.Text as Data.ByteString.Char8
-data ForwardGeoCode = ForwardGeoCode {
-            latitude :: Float,
-            longitude :: Float
-} deriving (Show, Generic) 
+import Data.Aeson
+import Data.Aeson.Types
+import GHC.Generics
+data Locdata = Locdata {
+  latitude  :: Float,
+  longitude :: Float,
+  _type :: Text,
+  name :: Text,
+  number :: Int,
+  postal_code :: Int,
+  street :: Text,
+  confidence :: Int,
+  region :: Text,
+  region_code :: Text,
+  county :: Text,
+  locality :: Text,
+  administrative_area :: Text,
+  neighbourhood :: Text,
+  country :: Text,
+  country_code :: Text,
+  continent :: Text,
+  label :: Text
+} deriving (Show, Generic)
 
-instance FromJSON ForwardGeoCode
-instance ToJSON ForwardGeoCode
+data ForwardGeoData = ForwardGeoData {
+  _data :: [Locdata]
+} deriving (Show, Generic)
+
+instance FromJSON Locdata where
+    parseJSON = genericParseJSON defaultOptions { 
+      fieldLabelModifier = Prelude.drop 1 }
+
+keywordFieldLabelModifier "_type" = "type"
+keywordFieldLabelModifier "_data" = "data"
+
+instance FromJSON ForwardGeoData where
+  parseJSON = genericParseJSON defaultOptions {
+    fieldLabelModifier = Prelude.drop 1
+  }
+
 data GeoIp = GeoIp {ip::String,
                     country_code::String,
                     country_name::String,
@@ -56,11 +90,11 @@ getForwardGeoCodeforThis town = do
 
 getLatLongforThis :: String -> IO Text
 getLatLongforThis town = do 
-  d <- (eitherDecode <$> getForwardGeoCodeforThis town) :: IO (Either String ForwardGeoCode)
+  d <- (eitherDecode <$> getForwardGeoCodeforThis town) :: IO (Either String Locdata)
   case d of
     Left e ->  do 
                 f <- (eitherDecode <$> getGeoIpforThis) :: IO (Either String GeoIp)
                 case f of 
                   Left err -> return $ "Mystery Place" <> pack err
                   Right geoipstuff_backup -> return $ Data.ByteString.Char8.pack (show (latitude (geoipstuff_backup :: GeoIp))  ++ "," ++ show (longitude (geoipstuff_backup :: GeoIp)))
-    Right geoipstuff -> return $ Data.ByteString.Char8.pack (show (latitude (geoipstuff :: ForwardGeoCode)) ++ "," ++ show  (longitude (geoipstuff :: ForwardGeoCode)))
+    Right geoipstuff -> return $ Data.ByteString.Char8.pack (show (latitude (geoipstuff :: Locdata)) ++ "," ++ show  (longitude (geoipstuff :: Locdata)))
