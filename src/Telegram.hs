@@ -55,7 +55,7 @@ handleUpdate helper Update {message = Just m} = do
     let whatUserTyped = T.dropWhileEnd (==' ') (fromMaybe "" (text m))
     if "/start" `T.isPrefixOf` whatUserTyped
       then do
-        _rm1 <- sendMessageM $ sendMessageRequest c $ "Hi! I am @MaximumCityBot "
+        _rm1 <- sendMessageM $ sendMessageRequest c $ "Hi! I am @MaximumCityBot \n Check "
         _rm2 <- sendMessageM $ sendMessageRequest c $ "Enter your place name "
         return ()
       else do
