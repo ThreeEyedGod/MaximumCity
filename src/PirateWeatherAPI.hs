@@ -64,7 +64,7 @@ getWeatherForTown town = do
     Left e ->  return $ "Fail"
     Right stuff ->
         return $ Data.ByteString.Char8.pack $ Prelude.unlines [
-          (catSF "Current Tgemperature" (temperature (currently stuff))),
+          (catSF "Current Temperature " (temperature (currently stuff))),
           " F",
           (catSS " " (summary (currently stuff))),
           (catSF  "Chance of rain " (100 * precipProbability (currently stuff))),
