@@ -56,7 +56,6 @@ handleUpdate helper Update {message = Just m} = do
     if "/start" `T.isPrefixOf` whatUserTyped
       then do
         _rm1 <- sendMessageM $ sendMessageRequest c $ "Hi! I am @MaximumCityBot \n Enter your place name "
-        -- _rm2 <- sendMessageM $ sendMessageRequest c $ ""
         return ()
       else do
         _rm2 <- sendMessageM $ sendMessageRequest c $ helper

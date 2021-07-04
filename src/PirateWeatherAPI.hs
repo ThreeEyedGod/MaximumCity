@@ -61,10 +61,10 @@ getWeatherForTown town = do
   c <- getLatLongforThis town
   d <- (eitherDecode <$> (getJSON "https://api.pirateweather.net/forecast/C5CbUhSoxE35OEbZwFRYY3dZ9X4Mw5nB3PMtqBT3/" c)) :: IO (Either String DarkSky)
   case d of
-    Left e ->  return $ "Fail"
+    Left e ->  return $ "Fail " <> pack e
     Right stuff ->
         return $ Data.ByteString.Char8.pack $ Prelude.unlines [
-          (catSF "at Fahrenheit" (temperature (currently stuff))),
+          (catSF "at Fahrenheit " (temperature (currently stuff))),
           (catSS "" (summary (currently stuff))),
           (catSF  "Chance of rain " (100 * precipProbability (currently stuff))),
           (catSF  "Intensity of rain " (precipIntensity (currently stuff))),

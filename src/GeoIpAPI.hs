@@ -83,7 +83,7 @@ getLatLongforThis town = do
     Left e -> do
       f <- (eitherDecode <$> getGeoIpforThis) :: IO (Either String GeoIp)
       case f of
-        Left err -> return $ "Mystery Place" <> pack err
+        Left err -> return $ "Fail " <> pack err
         Right geoipstuff_backup -> return $ Data.ByteString.Char8.pack (show (latitude (geoipstuff_backup :: GeoIp)) ++ "," ++ show (longitude (geoipstuff_backup :: GeoIp)))
     Right geoipstuff ->
       return $

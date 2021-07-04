@@ -50,5 +50,5 @@ getWeatherForTown :: String -> IO Text
 getWeatherForTown town = do
   d <- (eitherDecode <$> (OpenWeatherAPI.getJSON town)) :: IO (Either String Temperatures)
   case d of
-    Left e ->  return $ "Fail"
+    Left e ->  return $ "Fail " <> pack e 
     Right stuff -> return $ Data.ByteString.Char8.pack (show (temp (test stuff)) ++ " Celsius and " ++ (description (Prelude.head (weather stuff))))
