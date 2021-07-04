@@ -5,13 +5,13 @@
 ? /Users/bumrap/Documents/code/MaximumCity/.stack-work/dist/x86_64-linux-dkda49f7ca9b244180d3cfb1987cbc9743/Cabal-2.4.0.1/build/autogen/cabal_macros.h
 : hash: 24b368cde768001bb76c120547e9db704418019c2dfc43f2e348b1ef1d100d1e
 /Users/bumrap/Documents/code/MaximumCity/src/Weather.hs:
-  hash: 9da1144ab33e357fe71ba7b37509a3c0465fb051030bb34e22230e3d5d207dcf
+  hash: 9cc7df9b78be109e7a789a6964281283f3da2c412dd01f53200ad7f87a3ff281
 /Users/bumrap/Documents/code/MaximumCity/src/JSONHelper.hs:
   hash: 8b61dcb423209e877c23bb003a92f5799275d03f3db4b9a02ac2ea1a29cea7cb
 /home/stackage/.stack/programs/x86_64-linux/ghc-8.6.5/lib/ghc-8.6.5/include/ghcversion.h:
   hash: ca33eca9a5d6d6c3a4138d1ebf5808e19d48d89df6929099f6aaebd64ffe7843
 /Users/bumrap/Documents/code/MaximumCity/src/OpenWeatherAPI.hs:
-  hash: bcfd26ffeba38407e629ef8a942be9e5ef63422b8b8a884211bb4f126d5a0d69
+  hash: 4ec4420ffbe330025eaa2a489375af14a89796bbd90010cb6a97574bc6e9766d
 /usr/include/stdc-predef.h:
   hash: ee35c95f8e09d071278e05e755a1bd41fbbf4517374d9464beabb1b16c1b58e9
 /Users/bumrap/Documents/code/MaximumCity/src/Lib.hs:
@@ -23,7 +23,7 @@
 /Users/bumrap/Documents/code/MaximumCity/src/IP2Location.hs:
   hash: a785f9cf265446c68d0bfea8fb7e7593c43667fc5f6bbb76eec670e5fbacfc57
 /Users/bumrap/Documents/code/MaximumCity/src/PirateWeatherAPI.hs:
-  hash: 4b185f033d3d880c1de630857633e04090d25548258ff3ebcf166bb48168df5b
+  hash: ebf9727be4330e42e33396c11e095d2b877c72754f2e6042c2c11c8b8e9e3a0c
 ? /Users/bumrap/Documents/code/MaximumCity/.stack-work/dist/x86_64-linux-dkda49f7ca9b244180d3cfb1987cbc9743/Cabal-2.4.0.1/build/autogen/Paths_MaximumCity.hs
 : hash: a2899859964b124e187beae936e5486cea07600ea27b82bb53ca28b38248dcf7
 /Users/bumrap/Documents/code/MaximumCity/MaximumCity.cabal:
