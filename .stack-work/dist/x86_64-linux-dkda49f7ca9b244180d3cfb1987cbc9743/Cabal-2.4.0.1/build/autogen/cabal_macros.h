@@ -242,6 +242,17 @@
   (major1) == 1 && (major2) == 7 && (minor) <= 8)
 #endif /* MIN_VERSION_iproute */
 
+/* package mtl-2.2.2 */
+#ifndef VERSION_mtl
+#define VERSION_mtl "2.2.2"
+#endif /* VERSION_mtl */
+#ifndef MIN_VERSION_mtl
+#define MIN_VERSION_mtl(major1,major2,minor) (\
+  (major1) <  2 || \
+  (major1) == 2 && (major2) <  2 || \
+  (major1) == 2 && (major2) == 2 && (minor) <= 2)
+#endif /* MIN_VERSION_mtl */
+
 /* package servant-0.18.2 */
 #ifndef VERSION_servant
 #define VERSION_servant "0.18.2"
@@ -463,10 +474,10 @@
 #endif /* MIN_TOOL_VERSION_strip */
 
 #ifndef CURRENT_PACKAGE_KEY
-#define CURRENT_PACKAGE_KEY "MaximumCity-0.9.1-JJMAHIWXIZ44nLLb8vFp6I"
+#define CURRENT_PACKAGE_KEY "MaximumCity-0.9.1-5B1Cv7JRrszHKNYX1c7Fy9"
 #endif /* CURRENT_PACKAGE_KEY */
 #ifndef CURRENT_COMPONENT_ID
-#define CURRENT_COMPONENT_ID "MaximumCity-0.9.1-JJMAHIWXIZ44nLLb8vFp6I"
+#define CURRENT_COMPONENT_ID "MaximumCity-0.9.1-5B1Cv7JRrszHKNYX1c7Fy9"
 #endif /* CURRENT_COMPONENT_ID */
 #ifndef CURRENT_PACKAGE_VERSION
 #define CURRENT_PACKAGE_VERSION "0.9.1"

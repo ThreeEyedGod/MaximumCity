@@ -24,6 +24,7 @@ source-repository head
 library
   exposed-modules:
       GeoIpAPI
+      Helper
       HttpHeadersPathDefinitions
       IP2Location
       JSONHelper
@@ -52,7 +53,7 @@ library
     , amazonka-core >=1.6.1
     , amazonka-lambda >=1.6.1
     , amazonka-ssm >=1.6.1
-    , aws-lambda-haskell-runtime >=3.0.5
+    , aws-lambda-haskell-runtime >=2.0.3
     , base >=4.7 && <5
     , binary >=0.8.4 && <0.9
     , bytestring >=0.10.8.2
@@ -66,6 +67,7 @@ library
     , integer-gmp >=1.0.2.0
     , integer-logarithms >1.0.3
     , iproute ==1.7.*
+    , mtl >=2.2.2
     , servant >=0.18.2
     , servant-client >=0.11
     , servant-client-core >=0.18.2
@@ -100,7 +102,7 @@ executable bootstrap
     , amazonka-core >=1.6.1
     , amazonka-lambda >=1.6.1
     , amazonka-ssm >=1.6.1
-    , aws-lambda-haskell-runtime >=3.0.5
+    , aws-lambda-haskell-runtime >=2.0.3
     , base >=4.7 && <5
     , binary >=0.8.4 && <0.9
     , bytestring >=0.10.8.2
@@ -114,6 +116,7 @@ executable bootstrap
     , integer-gmp >=1.0.2.0
     , integer-logarithms >1.0.3
     , iproute ==1.7.*
+    , mtl >=2.2.2
     , servant >=0.18.2
     , servant-client >=0.11
     , servant-client-core >=0.18.2
@@ -150,7 +153,7 @@ test-suite MaximumCity-test
     , amazonka-core >=1.6.1
     , amazonka-lambda >=1.6.1
     , amazonka-ssm >=1.6.1
-    , aws-lambda-haskell-runtime >=3.0.5
+    , aws-lambda-haskell-runtime >=2.0.3
     , base
     , binary >=0.8.4 && <0.9
     , bytestring >=0.10.8.2
@@ -166,6 +169,7 @@ test-suite MaximumCity-test
     , integer-gmp >=1.0.2.0
     , integer-logarithms >1.0.3
     , iproute ==1.7.*
+    , mtl >=2.2.2
     , servant >=0.18.2
     , servant-client >=0.11
     , servant-client-core >=0.18.2
@@ -197,7 +201,7 @@ benchmark MaximumCity-benchmark
     , amazonka-core >=1.6.1
     , amazonka-lambda >=1.6.1
     , amazonka-ssm >=1.6.1
-    , aws-lambda-haskell-runtime >=3.0.5
+    , aws-lambda-haskell-runtime >=2.0.3
     , base >=4.7 && <5
     , binary >=0.8.4 && <0.9
     , bytestring >=0.10.8.2
@@ -211,6 +215,7 @@ benchmark MaximumCity-benchmark
     , integer-gmp >=1.0.2.0
     , integer-logarithms >1.0.3
     , iproute ==1.7.*
+    , mtl >=2.2.2
     , servant >=0.18.2
     , servant-client >=0.11
     , servant-client-core >=0.18.2

@@ -137,6 +137,20 @@ packages:
       sha256: c9b38b60593401bb378b694a42b085d46f74f97d86d39edeb01a616965f2b581
   original:
     hackage: text-1.2.3.1
+- completed:
+    hackage: mtl-2.2.2@sha256:1050fb71acd9f5d67da7d992583f5bd0eb14407b9dc7acc122af1b738b706ca3,2261
+    pantry-tree:
+      size: 1713
+      sha256: b8bdc2259e2f943a7252fb164805666fe108ac959d398e0af27b43ba2ebc241c
+  original:
+    hackage: mtl-2.2.2
+- completed:
+    hackage: aws-lambda-haskell-runtime-2.0.3@sha256:0270ce918256e377968337de8e19a8c6af8fbae408ee76b4c2bee3b5bb9ac790,2899
+    pantry-tree:
+      size: 1411
+      sha256: 62e1f09cddc92bfe20d0f5ffce195152e67e9887524caad98d9f4d869430846c
+  original:
+    hackage: aws-lambda-haskell-runtime-2.0.3
 snapshots:
 - completed:
     size: 524996
