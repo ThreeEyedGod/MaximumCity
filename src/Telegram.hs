@@ -38,15 +38,6 @@ runTC :: TC -> TelegramClient () -> IO ()
 runTC (token, manager) act = void $ runTelegramClient token manager act
 
 -- t.me/MaximumCityBot http api
-{--
-getTelegramSettings :: IO TC
-getTelegramSettings = do
-  token <- getEnv "TELEGRAM_TOKEN"
-  let t = Token ("bot" <> T.pack token)
-  manager <- newManager tlsManagerSettings
-  return (t, manager)
---}
-
 getTelegramSettings :: IO (Either String TC)
 getTelegramSettings = do
   tk <- getKey "TELEGRAM_TOKEN"
@@ -59,6 +50,7 @@ getTelegramSettings = do
 
 {--
   To Do: got to refactor so that end is based on a long space so New York City can come in rightly
+  Look into https :// hackage . haskell . org / package / text -1.2 . 4.1 / docs / Data - Text.html #g : 17
 --}
 gettheTelegram :: Update -> T.Text
 gettheTelegram Update {message = Just m} =
