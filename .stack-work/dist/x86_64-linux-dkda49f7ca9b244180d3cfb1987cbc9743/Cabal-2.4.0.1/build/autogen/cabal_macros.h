@@ -253,6 +253,17 @@
   (major1) == 2 && (major2) == 2 && (minor) <= 2)
 #endif /* MIN_VERSION_mtl */
 
+/* package process-1.6.5.0 */
+#ifndef VERSION_process
+#define VERSION_process "1.6.5.0"
+#endif /* VERSION_process */
+#ifndef MIN_VERSION_process
+#define MIN_VERSION_process(major1,major2,minor) (\
+  (major1) <  1 || \
+  (major1) == 1 && (major2) <  6 || \
+  (major1) == 1 && (major2) == 6 && (minor) <= 5)
+#endif /* MIN_VERSION_process */
+
 /* package servant-0.18.2 */
 #ifndef VERSION_servant
 #define VERSION_servant "0.18.2"
@@ -474,10 +485,10 @@
 #endif /* MIN_TOOL_VERSION_strip */
 
 #ifndef CURRENT_PACKAGE_KEY
-#define CURRENT_PACKAGE_KEY "MaximumCity-0.9.1-5B1Cv7JRrszHKNYX1c7Fy9"
+#define CURRENT_PACKAGE_KEY "MaximumCity-0.9.1-LEr8uGFrrVw4f41lBijWbf"
 #endif /* CURRENT_PACKAGE_KEY */
 #ifndef CURRENT_COMPONENT_ID
-#define CURRENT_COMPONENT_ID "MaximumCity-0.9.1-5B1Cv7JRrszHKNYX1c7Fy9"
+#define CURRENT_COMPONENT_ID "MaximumCity-0.9.1-LEr8uGFrrVw4f41lBijWbf"
 #endif /* CURRENT_COMPONENT_ID */
 #ifndef CURRENT_PACKAGE_VERSION
 #define CURRENT_PACKAGE_VERSION "0.9.1"

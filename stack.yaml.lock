@@ -151,6 +151,27 @@ packages:
       sha256: 62e1f09cddc92bfe20d0f5ffce195152e67e9887524caad98d9f4d869430846c
   original:
     hackage: aws-lambda-haskell-runtime-2.0.3
+- completed:
+    hackage: random-strings-0.1.1.0@sha256:935a7a23dab45411960df77636a29b44ce42b89eeb15f2b1e809d771491fa677,2517
+    pantry-tree:
+      size: 663
+      sha256: 5a382966fdd8d5220b5791f3bff6db00d2ea29235e2716dadd52461b8a8beb97
+  original:
+    hackage: random-strings-0.1.1.0@sha256:935a7a23dab45411960df77636a29b44ce42b89eeb15f2b1e809d771491fa677,2517
+- completed:
+    hackage: process-1.6.5.0@sha256:0f42f038aca38f990b68083a1b5bed34ace91b93539095a9ec1e2d44cd435ddb,2469
+    pantry-tree:
+      size: 1211
+      sha256: 853918f4b144d67d8246a82ad65bd3dfbcfde71aefb69386c1bbd6a8e53a95c4
+  original:
+    hackage: process-1.6.5.0
+- completed:
+    hackage: QuickCheck-2.13.2@sha256:636e7265bf75122e7e2f97627c47aad3b772ee3b35b134cafb6095116ce8d07a,6974
+    pantry-tree:
+      size: 2202
+      sha256: b917f922fc59d98d47b789f50c5a569d1b80ae08d52f4fbebbaad7fc62479e0d
+  original:
+    hackage: QuickCheck-2.13.2
 snapshots:
 - completed:
     size: 524996

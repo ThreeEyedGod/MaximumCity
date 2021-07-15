@@ -68,6 +68,7 @@ library
     , integer-logarithms >1.0.3
     , iproute ==1.7.*
     , mtl >=2.2.2
+    , process >=1.6.5.0
     , servant >=0.18.2
     , servant-client >=0.11
     , servant-client-core >=0.18.2
@@ -117,6 +118,7 @@ executable bootstrap
     , integer-logarithms >1.0.3
     , iproute ==1.7.*
     , mtl >=2.2.2
+    , process >=1.6.5.0
     , servant >=0.18.2
     , servant-client >=0.11
     , servant-client-core >=0.18.2
@@ -130,8 +132,7 @@ test-suite MaximumCity-test
   type: exitcode-stdio-1.0
   main-is: TestsMain.hs
   other-modules:
-      Spec
-      SpecE
+      SpecHelper
       Paths_MaximumCity
   hs-source-dirs:
       test
@@ -146,7 +147,7 @@ test-suite MaximumCity-test
   build-depends:
       MaximumCity
     , MonadRandom
-    , QuickCheck >2.14.2
+    , QuickCheck >=2.13.2
     , aeson
     , aeson-pretty
     , amazonka >=1.6.1
@@ -170,6 +171,8 @@ test-suite MaximumCity-test
     , integer-logarithms >1.0.3
     , iproute ==1.7.*
     , mtl >=2.2.2
+    , process >=1.6.5.0
+    , random-strings >=0.1.1.0
     , servant >=0.18.2
     , servant-client >=0.11
     , servant-client-core >=0.18.2
@@ -216,6 +219,7 @@ benchmark MaximumCity-benchmark
     , integer-logarithms >1.0.3
     , iproute ==1.7.*
     , mtl >=2.2.2
+    , process >=1.6.5.0
     , servant >=0.18.2
     , servant-client >=0.11
     , servant-client-core >=0.18.2
