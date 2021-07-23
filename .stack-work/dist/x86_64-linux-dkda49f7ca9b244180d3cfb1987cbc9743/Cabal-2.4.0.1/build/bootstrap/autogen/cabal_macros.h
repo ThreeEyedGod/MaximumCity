@@ -496,7 +496,7 @@
 #endif /* MIN_TOOL_VERSION_strip */
 
 #ifndef CURRENT_COMPONENT_ID
-#define CURRENT_COMPONENT_ID "MaximumCity-0.9.1-4arzRGCcwFJAoE8EW6OR33-bootstrap"
+#define CURRENT_COMPONENT_ID "MaximumCity-0.9.1-4WWL9tuswjVLRIF1VIPcKX-bootstrap"
 #endif /* CURRENT_COMPONENT_ID */
 #ifndef CURRENT_PACKAGE_VERSION
 #define CURRENT_PACKAGE_VERSION "0.9.1"

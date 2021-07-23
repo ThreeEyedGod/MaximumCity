@@ -165,6 +165,17 @@
   (major1) == 0 && (major2) == 25 && (minor) <= 0)
 #endif /* MIN_VERSION_cryptonite */
 
+/* package either-5.0.1.1 */
+#ifndef VERSION_either
+#define VERSION_either "5.0.1.1"
+#endif /* VERSION_either */
+#ifndef MIN_VERSION_either
+#define MIN_VERSION_either(major1,major2,minor) (\
+  (major1) <  5 || \
+  (major1) == 5 && (major2) <  0 || \
+  (major1) == 5 && (major2) == 0 && (minor) <= 1)
+#endif /* MIN_VERSION_either */
+
 /* package exceptions-0.10.4 */
 #ifndef VERSION_exceptions
 #define VERSION_exceptions "0.10.4"
@@ -208,6 +219,17 @@
   (major1) == 2 && (major2) <  7 || \
   (major1) == 2 && (major2) == 7 && (minor) <= 1)
 #endif /* MIN_VERSION_hspec_core */
+
+/* package hspec-expectations-0.8.2 */
+#ifndef VERSION_hspec_expectations
+#define VERSION_hspec_expectations "0.8.2"
+#endif /* VERSION_hspec_expectations */
+#ifndef MIN_VERSION_hspec_expectations
+#define MIN_VERSION_hspec_expectations(major1,major2,minor) (\
+  (major1) <  0 || \
+  (major1) == 0 && (major2) <  8 || \
+  (major1) == 0 && (major2) == 8 && (minor) <= 2)
+#endif /* MIN_VERSION_hspec_expectations */
 
 /* package http-client-0.7.8 */
 #ifndef VERSION_http_client
@@ -562,7 +584,7 @@
 #endif /* MIN_TOOL_VERSION_strip */
 
 #ifndef CURRENT_COMPONENT_ID
-#define CURRENT_COMPONENT_ID "MaximumCity-0.9.1-CTqKbDrpFCGLnU0b38EXxm-MaximumCity-test"
+#define CURRENT_COMPONENT_ID "MaximumCity-0.9.1-hGUHBouw6QCB27KlT7uHu-MaximumCity-test"
 #endif /* CURRENT_COMPONENT_ID */
 #ifndef CURRENT_PACKAGE_VERSION
 #define CURRENT_PACKAGE_VERSION "0.9.1"
