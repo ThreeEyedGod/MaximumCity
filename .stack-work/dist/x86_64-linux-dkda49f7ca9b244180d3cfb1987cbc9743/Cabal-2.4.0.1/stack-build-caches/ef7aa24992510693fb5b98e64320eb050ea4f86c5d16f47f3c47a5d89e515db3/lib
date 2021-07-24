@@ -1,5 +1,5 @@
 /Users/bumrap/Documents/code/MaximumCity/src/Telegram.hs:
-  hash: 14da2a1f00f93c9ac831193e8a6bad7a7a9347a7d6131000f61e7b75117a9a31
+  hash: 1a01b9e77b7085e83f0641760e7766ddbdb636089abced9a23bdd436a67f8209
 /Users/bumrap/Documents/code/MaximumCity/src/TelegramDataTypes.hs:
   hash: 6b1c7a7796e16f33d01fd836e155a186ff5d8631cfb9fdad78d68a251f59f451
 ? /Users/bumrap/Documents/code/MaximumCity/.stack-work/dist/x86_64-linux-dkda49f7ca9b244180d3cfb1987cbc9743/Cabal-2.4.0.1/build/autogen/cabal_macros.h
@@ -9,7 +9,7 @@
 /Users/bumrap/Documents/code/MaximumCity/src/JSONHelper.hs:
   hash: 8b61dcb423209e877c23bb003a92f5799275d03f3db4b9a02ac2ea1a29cea7cb
 /Users/bumrap/Documents/code/MaximumCity/src/Helper.hs:
-  hash: 6a8cfefa73d98ae973213d9b7cb7a60cd7e2daa8ed65aa0c0a2f299c54be1887
+  hash: 7b489470ee3cec1d4e0052ae62037e2efd33cc3218e6e2c1cb5e0f841752a96a
 /home/stackage/.stack/programs/x86_64-linux/ghc-8.6.5/lib/ghc-8.6.5/include/ghcversion.h:
   hash: ca33eca9a5d6d6c3a4138d1ebf5808e19d48d89df6929099f6aaebd64ffe7843
 /Users/bumrap/Documents/code/MaximumCity/src/OpenWeatherAPI.hs:
@@ -25,7 +25,7 @@
 /Users/bumrap/Documents/code/MaximumCity/src/IP2Location.hs:
   hash: a785f9cf265446c68d0bfea8fb7e7593c43667fc5f6bbb76eec670e5fbacfc57
 /Users/bumrap/Documents/code/MaximumCity/src/PirateWeatherAPI.hs:
-  hash: 1189dbc5a07749f178a2d33bf87339243bce5bd85feb7e19dcedeea11fed442a
+  hash: 0aeeb458a76b7663363944a206fe3149248b99d6104541934790cf54f7fee60c
 ? /Users/bumrap/Documents/code/MaximumCity/.stack-work/dist/x86_64-linux-dkda49f7ca9b244180d3cfb1987cbc9743/Cabal-2.4.0.1/build/autogen/Paths_MaximumCity.hs
 : hash: c6f7a140d40164d8f1bcd46af92ed5ba61924753655ef17595c73ddd1618f615
 /Users/bumrap/Documents/code/MaximumCity/MaximumCity.cabal:
