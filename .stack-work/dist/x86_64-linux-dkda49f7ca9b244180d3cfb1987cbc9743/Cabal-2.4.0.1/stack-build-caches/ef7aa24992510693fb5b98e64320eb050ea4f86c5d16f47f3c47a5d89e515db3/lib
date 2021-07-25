@@ -1,5 +1,5 @@
 /Users/bumrap/Documents/code/MaximumCity/src/Telegram.hs:
-  hash: 88c01caf86c6aef8f17320bef3ab483b897de158beb1981a2d137b2d753cf87d
+  hash: c9bb4bd9be19018016df42526a1c4d34c07aeba436273eba8896ec5b4d994d85
 /Users/bumrap/Documents/code/MaximumCity/src/TelegramDataTypes.hs:
   hash: 6b1c7a7796e16f33d01fd836e155a186ff5d8631cfb9fdad78d68a251f59f451
 ? /Users/bumrap/Documents/code/MaximumCity/.stack-work/dist/x86_64-linux-dkda49f7ca9b244180d3cfb1987cbc9743/Cabal-2.4.0.1/build/autogen/cabal_macros.h
@@ -25,7 +25,7 @@
 /Users/bumrap/Documents/code/MaximumCity/src/IP2Location.hs:
   hash: ffd2cc961fa76b7e9d8b529bf24e3d5b29da46e27f2e36903e1425089b7d93f5
 /Users/bumrap/Documents/code/MaximumCity/src/PirateWeatherAPI.hs:
-  hash: c8197e3bc5da2116425529c33c3f66d76107cb74ab1938c34c70ad8238c61af3
+  hash: c6fbf2c56bced7c6b8a51176da59ddfdecd2890809451f75ad22cb7a9a714dc6
 ? /Users/bumrap/Documents/code/MaximumCity/.stack-work/dist/x86_64-linux-dkda49f7ca9b244180d3cfb1987cbc9743/Cabal-2.4.0.1/build/autogen/Paths_MaximumCity.hs
 : hash: c6f7a140d40164d8f1bcd46af92ed5ba61924753655ef17595c73ddd1618f615
 /Users/bumrap/Documents/code/MaximumCity/MaximumCity.cabal:
