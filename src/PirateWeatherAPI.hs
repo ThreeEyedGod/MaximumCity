@@ -145,10 +145,12 @@ getWeatherForTown town = do
                 (catSS "ALERT! What: " $ description $ firstAlert ),
                 " "]
             Nothing -> do 
-              case maybeHead $ (PirateWeatherAPI._data (daily stuff)) of 
-                Just dailyForecast -> return $ Data.ByteString.Char8.pack $ Prelude.unlines [ --unlines sticks in newline after each element
-                      (catSF "Tomorrow! " $ sunriseTime $ dailyForecast ), " "]
-                Nothing -> 
+              --case maybeHead $ (PirateWeatherAPI._data (daily stuff)) of 
+                --Just dailyForecast -> return $ Data.ByteString.Char8.pack $ Prelude.unlines [ --unlines sticks in newline after each element
+                  --    (catSF "Tomorrow! " $ sunriseTime $ dailyForecast ), " "]
+                --Nothing -> 
+                  return $ Data.ByteString.Char8.pack $ rightNowWeather
+                  {--
                   return $ Data.ByteString.Char8.pack $ Prelude.unlines [ --unlines sticks in newline after each element
                     (catSF "at Celsius " $ fahrenheitToCelsius (temperature (currently stuff))),
                     (catSS "" (summary (currently stuff))),
@@ -167,3 +169,4 @@ getWeatherForTown town = do
                     (catSI  "Nearest Storm Distance Km " (nearestStormDistance (currently stuff))), 
                     (catSI  "Nearest Storm Bearing " (nearestStormBearing (currently stuff))), 
                     " "]
+                    --}
