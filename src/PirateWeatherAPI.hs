@@ -40,7 +40,7 @@ getWeatherForTown town = do
                   case maybeHead $ (dly_data (daily stuff)) of 
                     Just dailyForecast -> do
                       return $ Data.ByteString.Char8.pack $ rightNowWeather ++ 
-                            (Prelude.take 1 $ getAllDaysForecast (dly_data (daily stuff)))
+                            getAllDaysForecast (dly_data (daily stuff))
                     Nothing -> 
                       return $ Data.ByteString.Char8.pack $ rightNowWeather
 
