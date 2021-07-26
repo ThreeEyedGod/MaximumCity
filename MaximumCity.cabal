@@ -31,6 +31,7 @@ library
       Lib
       OpenWeatherAPI
       PirateWeatherAPI
+      PirateWeatherHeaders
       Telegram
       TelegramDataTypes
       Weather
