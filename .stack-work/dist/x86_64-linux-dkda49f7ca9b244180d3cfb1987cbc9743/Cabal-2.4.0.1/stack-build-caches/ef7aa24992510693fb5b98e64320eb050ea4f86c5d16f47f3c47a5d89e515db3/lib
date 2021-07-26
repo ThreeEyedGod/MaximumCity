@@ -5,7 +5,7 @@
 ? /Users/bumrap/Documents/code/MaximumCity/.stack-work/dist/x86_64-linux-dkda49f7ca9b244180d3cfb1987cbc9743/Cabal-2.4.0.1/build/autogen/cabal_macros.h
 : hash: 9df602650bfa946dfe5cbf8e518f56e0125fd01bccd2ef3fa864133be97a1755
 /Users/bumrap/Documents/code/MaximumCity/src/PirateWeatherHeaders.hs:
-  hash: e7bd360148f0d33dc2ce1249233ca2b0d918ad1d97d133fc5e490539564d1bc7
+  hash: 366bedb2d6190b10cc1a3812440553691de8d94b665d22fd91848fd3ef41b124
 /Users/bumrap/Documents/code/MaximumCity/src/Weather.hs:
   hash: efcb26854b876b72ac52cc593b33f8d7811a5b41d8209901a206fec6342db230
 /Users/bumrap/Documents/code/MaximumCity/src/JSONHelper.hs:

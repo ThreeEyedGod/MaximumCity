@@ -27,7 +27,7 @@ data DarkSky = DarkSky {
     --hourly:: DarkSkyDataPoint,
     daily :: DarkSkyDataPointDaily,
     alerts :: [DarkSkyAlert],
-    flags :: DarkSkyFlags, -- nearest station causing problems 
+    --flags :: DarkSkyFlags, -- nearest station causing problems 
     offset :: Float
 } deriving (Show, Generic)
 
@@ -87,7 +87,7 @@ instance FromJSON DarkSkyDataPointDailyDetails where
   }
 data DarkSkyFlags = DarkSkyFlags {
   flg_sources :: [String],
-  flg_neareststation :: Int, 
+  flg_neareststation :: Int, -- this has to map to nearest-station
   flg_units :: String
 } deriving (Show, Generic)
 instance FromJSON DarkSkyFlags where
