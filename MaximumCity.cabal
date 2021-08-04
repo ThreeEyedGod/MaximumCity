@@ -60,7 +60,7 @@ library
     , integer-logarithms
     , iproute
     , servant
-    , telegram-api
+    , telegram-api >=0.7.3.0
     , text
   default-language: Haskell2010
 
@@ -95,7 +95,7 @@ executable bootstrap
     , integer-logarithms
     , iproute
     , servant
-    , telegram-api
+    , telegram-api >=0.7.3.0
     , text
   default-language: Haskell2010
 
@@ -136,7 +136,7 @@ test-suite MaximumCity-test
     , iproute
     , random-strings >=0.1.1.0
     , servant
-    , telegram-api
+    , telegram-api >=0.7.3.0
     , test-framework
     , test-framework-quickcheck2
     , text
@@ -168,6 +168,6 @@ benchmark MaximumCity-benchmark
     , integer-logarithms
     , iproute
     , servant
-    , telegram-api
+    , telegram-api >=0.7.3.0
     , text
   default-language: Haskell2010

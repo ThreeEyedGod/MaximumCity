@@ -26,7 +26,7 @@ dependencies:
 - binary
 - iproute
 - http-conduit
-- telegram-api
+- telegram-api >= 0.7.3.0
 #- servant-server
 #- servant-client
 - http-client

@@ -37,7 +37,8 @@ resolver: lts-17.15
 #   - wai
 packages: 
   - . 
-  - ../haskell-telegram-api
+#  - ../haskell-telegram-api
+
 # The following packages have been ignored due to incompatibility with the
 # resolver compiler, dependency conflicts with other packages
 # or unsatisfied dependencies.
@@ -56,6 +57,8 @@ extra-deps:
 - random-strings-0.1.1.0@sha256:935a7a23dab45411960df77636a29b44ce42b89eeb15f2b1e809d771491fa677,2517
 - hjson-1.3.2@sha256:3f8d4a582efbbd4265ab6035a71efa13aa3fc85e71e556c5613e5c9da0e8e325,456
 #  - aws-lambda-haskell-runtime-2.0.3
+- git: https://github.com/ThreeEyedGod/haskell-telegram-api.git
+  commit: a665f6c8fb574cd11832fd09c04ee7189cb6f233
 
 #******
 
