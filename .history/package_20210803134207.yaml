@@ -1,0 +1,153 @@
+name:                MaximumCity
+version:             0.9.5
+github:              "githubuser/Threeeyedgod/MaximumCity"
+license:             BSD3
+author:              "Venkatesh N"
+maintainer:          "xyz@example.com"
+copyright:           "2020 Venkatesh N"
+
+description:         Please see the README on GitHub at <https://github.com/ThreeEyedGod/MaximumCity#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+# *******
+- aeson
+# - http-types
+- text
+# - aeson-pretty
+# - unordered-containers
+# #- integer-logarithms
+# - ghc-typelits-extra
+# #- integer-gmp
+# - amazonka-lambda
+# - amazonka-core
+# - amazonka
+# - amazonka-ssm
+- bytestring
+- binary
+- iproute
+- http-conduit
+# - telegram-api
+# - servant-server
+# - servant-client
+# - http-client
+- http-client-tls
+# - http-types
+# #- cryptonite
+# - MonadRandom
+# - servant-client-core
+# - servant
+# - exceptions
+# - unliftio
+# - unliftio-core
+# - void
+# - text
+# - mtl
+# - aws-lambda-haskell-runtime >= 4.1.1
+# - process
+
+# ***********************
+
+# - base >= 4.7 && < 5
+# - aeson
+# - http-types >= 0.12.3
+# - text >= 1.2.3.1
+# - aeson-pretty
+# - unordered-containers >= 0.2.14.0
+# - integer-logarithms > 1.0.3
+# - ghc-typelits-extra >= 0.4.1
+# - integer-gmp >= 1.0.2.0
+# - amazonka-lambda
+# - amazonka-core
+# - amazonka
+# - amazonka-ssm
+# - bytestring >= 0.10.8.2
+# - binary >=0.8.4 && < 0.9
+# - iproute >=1.7 && < 1.8
+# - http-conduit >= 2.3.7.3
+# - telegram-api >= 0.7.1.0 
+# - servant-server
+# - servant-client >= 0.11
+# - http-client >= 0.7.8
+# - http-client-tls
+# - http-types >= 0.12.3
+# - cryptonite
+# - MonadRandom
+# - servant-client-core
+# - servant
+# - exceptions >= 0.10.4
+# - unliftio >= 0.2.19
+# - unliftio-core >= 0.1.1.0
+# - void >= 0.7.3
+# - text >= 1.2.4.1
+# - mtl >= 2.2.2
+# - aws-lambda-haskell-runtime >= 4.1.1
+# - process >= 1.6.9.0
+
+# ***********************
+
+#- aws-lambda-haskell-runtime >= 3.0.5
+#- aws-lambda-haskell-runtime >= 2.0.3
+
+# ***********************
+
+#- empty-monad >= 0.1.0.1
+##- lens-datetime >= 0.3
+##- time >= 1.9.3
+##- parallel >= 3.2.2.0
+
+
+library:
+  source-dirs: src
+
+executables:
+  bootstrap:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -O2
+    - -static
+    - -with-rtsopts=-N
+    - -XUndecidableSuperClasses
+    - -XScopedTypeVariables
+    cc-options: -static
+    ld-options: -static -pthread
+    dependencies:
+    - MaximumCity
+    executable-static: true
+
+tests:
+  MaximumCity-test:
+    source-dirs:         test
+    main:                TestsMain.hs
+    dependencies:        
+                       - base 
+                       - MaximumCity
+                       - test-framework
+                       - test-framework-quickcheck2
+                       - QuickCheck > 2.14.2
+                       - hspec ^>= 2.7.4
+#                       - hspec-hedgehog
+#                       - hedgehog  >= 1.0.2 && < 2 
+                       - hspec-core >= 2.7.4
+                       - random-strings >= 0.1.1.0
+                       - QuickCheck >= 2.13.2
+                       - either >= 5.0.1.1
+                       - hspec-expectations >= 0.8.2
+    ghc-options:       -threaded -rtsopts "-with-rtsopts=-N1 -s"
+
+apply-ghc-options: everything
+
+benchmarks:
+  MaximumCity-benchmark:
+      main:             Main.hs
+
+default-extensions:
+  - RecordWildCards
+  - OverloadedLists
+  - OverloadedStrings
+  - DeriveGeneric
+  - UndecidableSuperClasses
+  - ScopedTypeVariables

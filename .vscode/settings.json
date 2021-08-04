@@ -1,0 +1,5 @@
+{
+    "telemetry.enableCrashReporter": false,
+    "npm.autoDetect": "off",
+    "php.suggest.basic": false
+}
