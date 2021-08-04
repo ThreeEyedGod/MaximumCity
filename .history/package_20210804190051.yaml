@@ -44,6 +44,7 @@ executables:
     ld-options: -static -pthread
     dependencies:
     - MaximumCity
+    # executable-static: true
 
 tests:
   MaximumCity-test:
@@ -64,6 +65,8 @@ tests:
                        - either >= 5.0.1.1
                        - hspec-expectations >= 0.8.2
     ghc-options:       -threaded -rtsopts "-with-rtsopts=-N1 -s"
+
+# apply-ghc-options: everything
 
 benchmarks:
   MaximumCity-benchmark:

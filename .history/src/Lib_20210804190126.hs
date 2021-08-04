@@ -23,6 +23,7 @@ import Data.Aeson
       Value (Object)
        )
 import GHC.Integer.Logarithms ()
+--import Aws.Lambda ( Context )
 import Aws.Lambda
 import qualified Data.Text as Data.ByteString.Char8
 import qualified Data.Text as T

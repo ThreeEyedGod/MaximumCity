@@ -65,6 +65,7 @@ tests:
                        - hspec-expectations >= 0.8.2
     ghc-options:       -threaded -rtsopts "-with-rtsopts=-N1 -s"
 
+
 benchmarks:
   MaximumCity-benchmark:
       main:             Main.hs
