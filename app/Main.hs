@@ -29,24 +29,9 @@ main =  do
             Right tk -> runLambda (pure ()) (run "" tk)
       where
             run :: Text -> TC -> RunCallback APIGatewayHandlerType context
-            run s tc opts = do 
+            run s tc opts = do -- | ignore the 'context' part of opts for now
                   case (eitherDecode (eventObject opts)) of  
                         Left _  -> error "Fail " -- | No "Event" in Telegram hand off
                         Right inComingEvent -> do
                               result <- processApiGatewayRequest s tc inComingEvent (contextObject opts)
                               return . pure $ result
-
-{--
-                  | not (Prelude.null (unpack s)) = do -- no telegram token. Route it to bad handler
-                        case (eitherDecode (eventObject opts)) of  
-                              Left _  -> error "Fail "
-                              Right inComingEvent -> do
-                                    result <- processApiGatewayRequest s tc inComingEvent (contextObject opts)
-                                    return . pure $ result
-                  | otherwise = do -- OK case regular handler will deal with it
-                        case (eitherDecode (eventObject opts)) of  
-                              Left _  -> error "Fail "
-                              Right inComingEvent -> do
-                                    result <- processApiGatewayRequest s tc inComingEvent (contextObject opts)
-                                    return . pure $ result
---}

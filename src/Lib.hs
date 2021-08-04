@@ -87,6 +87,6 @@ processApiGatewayRequest t tc Event {path, headers, body} context =
           else 
             runTC tc $ handleUpdate responseBody update         
           pure . APIGatewayResult $ mkApiGatewayResponse 200 responseHeaders responseBodyText
-    where
+  where
       responseHeaders :: H1.ResponseHeaders = [("Access-Control-Allow-Headers","*"), ("Content-Type","application/json"), ("Access-Control-Allow-Origin","*"), ("Access-Control-Allow-Methods", "POST,GET,OPTIONS")]
 

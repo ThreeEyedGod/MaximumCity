@@ -60,7 +60,7 @@ getAllDaysForecast :: [DarkSkyDataPointDailyDetails] -> String
 getAllDaysForecast [] = []
 getAllDaysForecast (x : xs) = 
           Prelude.unlines [   (catSS "Tomorrow : " $ dd_summary $ x ),
-                              (catSF "Max Rain " $ dd_precipIntensityMax $ x ),
+                              (catSF "Max Rain mm " $ dd_precipIntensityMax $ x ),
                               (catSF "Max Temp Celsius " $ fahrenheitToCelsius (dd_temperatureHigh $ x) ),
                               (catSF "Min Temp Celsius " $ fahrenheitToCelsius (dd_temperatureLow $ x) ),
                               (catSF "UV Index " $ dd_uvIndex $ x),
