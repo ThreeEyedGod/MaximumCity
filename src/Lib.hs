@@ -70,40 +70,7 @@ getPath p  = do
     Left _ -> "no path"
     Right aPath -> (ipath aPath)
 
-{--
-    To Do: Need to factor in s into the response body
---}
-badhandler :: String -> Event -> Context context -> IO (LambdaResult 'APIGatewayHandlerType)
-badhandler s Event {path, headers, body} context =
-  do
-    case eitherDecode (LB.fromStrict (T.encodeUtf8 (fromMaybe "" body))) of
-      Left _ -> do
-        responseBody <- getTownNameWeatherFromIp (preProcessHeaders headers)
-        let responseBodyText :: ApiGatewayResponseBody = ApiGatewayResponseBody responseBody
-        pure . APIGatewayResult $ mkApiGatewayResponse 200 responseHeaders responseBodyText
-      Right update -> do
-        responseBody <- getTownNameWeatherFromTown (gettheTelegram update)
-        let responseBodyText :: ApiGatewayResponseBody = ApiGatewayResponseBody responseBody
-        pure . APIGatewayResult $ mkApiGatewayResponse 200 responseHeaders responseBodyText
-  where
-    responseHeaders :: H1.ResponseHeaders = [("Access-Control-Allow-Headers","*"), ("Content-Type","application/json"), ("Access-Control-Allow-Origin","*"), ("Access-Control-Allow-Methods", "POST,GET,OPTIONS")]
-
-handler :: TC -> Event -> Context context -> IO (LambdaResult 'APIGatewayHandlerType)
-handler tc Event {path, headers, body} context = 
-  do
-    case eitherDecode (LB.fromStrict (T.encodeUtf8 (fromMaybe "" body))) of
-      Left _ -> do
-        responseBody <- getTownNameWeatherFromIp (preProcessHeaders headers)
-        let responseBodyText :: ApiGatewayResponseBody = ApiGatewayResponseBody responseBody
-        pure . APIGatewayResult $ mkApiGatewayResponse 200 responseHeaders responseBodyText
-      Right update -> do
-          responseBody <- getTownNameWeatherFromTown (gettheTelegram update)
-          let responseBodyText :: ApiGatewayResponseBody = ApiGatewayResponseBody responseBody
-          runTC tc $ handleUpdate responseBody update 
-          pure . APIGatewayResult $ mkApiGatewayResponse 200 responseHeaders responseBodyText
-    where
-      responseHeaders :: H1.ResponseHeaders = [("Access-Control-Allow-Headers","*"), ("Content-Type","application/json"), ("Access-Control-Allow-Origin","*"), ("Access-Control-Allow-Methods", "POST,GET,OPTIONS")]
-
+-- | To Do: Need to factor in t into the response body message !
 processApiGatewayRequest :: T.Text -> TC -> Event -> Context context -> IO (LambdaResult 'APIGatewayHandlerType)
 processApiGatewayRequest t tc Event {path, headers, body} context = 
   do
