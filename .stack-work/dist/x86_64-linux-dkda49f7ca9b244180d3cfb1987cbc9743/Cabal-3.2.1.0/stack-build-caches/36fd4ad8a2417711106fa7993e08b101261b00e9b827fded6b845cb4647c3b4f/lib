@@ -1,5 +1,5 @@
 /Users/bumrap/Documents/code/MaximumCity/src/Telegram.hs:
-  hash: 810fbdf304d050277ca543b8a4b752087f8aa0adbd37304cab9887e38a17ab78
+  hash: 25cc10a9c567b534a2fa1e4c7e8bf8eaa36e6d506d275edff70888aa49fd503c
 /Users/bumrap/Documents/code/MaximumCity/src/TelegramDataTypes.hs:
   hash: 6b1c7a7796e16f33d01fd836e155a186ff5d8631cfb9fdad78d68a251f59f451
 /Users/bumrap/Documents/code/MaximumCity/src/PirateWeatherHeaders.hs:
@@ -9,13 +9,13 @@
 /Users/bumrap/Documents/code/MaximumCity/src/JSONHelper.hs:
   hash: eccad42b113193642fa1e1383444fd5d9ce5493c8a6eccd3f617fbb1f05ccc04
 /Users/bumrap/Documents/code/MaximumCity/src/Helper.hs:
-  hash: dc57ebd503ceea5007babcf4d4677b88cbaa44be579277176e802ab846bdeb9d
+  hash: c157a6bdfc7f4bfdc7ac11d464cefddfb231e513d32151f3d546b24742d321d3
 /Users/bumrap/Documents/code/MaximumCity/src/OpenWeatherAPI.hs:
   hash: c3f60a9f3b620e7a6edfe2d9fbd62cc8f47bc62745b466e4305a6e72611ddc14
 /usr/include/stdc-predef.h:
   hash: ee35c95f8e09d071278e05e755a1bd41fbbf4517374d9464beabb1b16c1b58e9
 /Users/bumrap/Documents/code/MaximumCity/src/Lib.hs:
-  hash: a9fdc161be16ee31041d250a3c1c1e7ee4ec954b4ca74d3ef7ab8142ba2b1a31
+  hash: 97fd8f650c07cd2a15f81ec74c53e5c21b232d3658e60cd7621f7f2f82801a2d
 /Users/bumrap/.stack/programs/x86_64-linux-dkda49f7ca9b244180d3cfb1987cbc9743/ghc-8.10.5/lib/ghc-8.10.5/include/ghcversion.h:
   hash: 978e1ee5cc15f512bf3fe7643fcf888a02ef374c98ddcb8d14f38e2e0fa63dde
 /Users/bumrap/Documents/code/MaximumCity/src/HttpHeadersPathDefinitions.hs:
