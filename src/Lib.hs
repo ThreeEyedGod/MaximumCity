@@ -81,42 +81,12 @@ getPath p  = do
 processApiGatewayRequest :: Maybe TC -> Event -> Context context -> IO (LambdaResult 'APIGatewayHandlerType)
 processApiGatewayRequest tc Event {path, headers, body} context = do  
   (responseBody, update) <- mkRespBodygetUpdate Event {path, headers, body}   
-  let responseBodyText :: ApiGatewayResponseBody = ApiGatewayResponseBody responseBody
-  let responseHeaders :: H1.ResponseHeaders = [("Access-Control-Allow-Headers","*"), ("Content-Type","application/json"), ("Access-Control-Allow-Origin","*"), ("Access-Control-Allow-Methods", "POST,GET,OPTIONS")]
-  runTC tc $ handleUpdate responseBody update         
-  pure . APIGatewayResult $ mkApiGatewayResponse 200 responseHeaders responseBodyText
+  --let responseBodyText :: ApiGatewayResponseBody = ApiGatewayResponseBody responseBody
+  --let responseHeaders :: H1.ResponseHeaders = [("Access-Control-Allow-Headers","*"), ("Content-Type","application/json"), ("Access-Control-Allow-Origin","*"), ("Access-Control-Allow-Methods", "POST,GET,OPTIONS")]
+  runTC tc $ handleUpdate responseBody update
+  pure $ formAPIGatewayResult responseBody          
+  --pure . APIGatewayResult $ mkApiGatewayResponse 200 responseHeaders responseBodyText
 
-{- | take inputs as an Event
-     extract the actual telegram "update" from the body of the Event
-     If body is malformed or missing then use the headers to go get weather for IP location in the header
-      and create a response body
-     else of body's good go get weather for place in the telegram "update"
-      and create a response body
-     return as a pair (responsebody and telegram update message)
--}
-
-
-{- mkRespBodygetUpdate :: Event -> IO (T.Text, Maybe Update)
-mkRespBodygetUpdate Event {path, headers, body} = do
-    case eitherDecode (LB.fromStrict (T.encodeUtf8 (fromMaybe "" body))) of
-      Left _ -> do
-          responseBody <- getTownNameWeatherFromIp (preProcessHeaders headers)
-          pure (responseBody, Nothing)
-      Right update -> do 
-          responseBody <- getTownNameWeatherFromTown (gettheTelegram update)
-          pure (responseBody, Just update)
- -}
- 
-{- mkRespBodygetUpdate :: Event -> IO (T.Text, Maybe Update)
-mkRespBodygetUpdate Event {path, headers, body} = do
-    case eitherDecode (LB.fromStrict (T.encodeUtf8 (fromMaybe "" body))) of
-      Left _ -> do
-          responseBody <- getWeather (Just (preProcessHeaders headers)) Nothing
-          pure (responseBody, Nothing)
-      Right update -> do 
-          responseBody <- getWeather Nothing (Just (gettheTelegram update))
-          pure (responseBody, Just update)
- -}
 mkRespBodygetUpdate :: Event -> IO (T.Text, Maybe Update)
 mkRespBodygetUpdate Event {path, headers, body} = do
     let a = getHdrBdyMaybe Event {path, headers, body} 
@@ -125,4 +95,10 @@ mkRespBodygetUpdate Event {path, headers, body} = do
 
 getHdrBdyMaybe :: Event -> (LB.ByteString, Maybe Update) 
 getHdrBdyMaybe Event {path, headers, body} = (preProcessHeaders headers, TLO.decode $ (LB.fromStrict (T.encodeUtf8 (fromMaybe "" body))))
+
+formAPIGatewayResult ::  T.Text -> LambdaResult 'APIGatewayHandlerType
+formAPIGatewayResult responseBody = do
+  let responseHeaders :: H1.ResponseHeaders = [("Access-Control-Allow-Headers","*"), ("Content-Type","application/json"), ("Access-Control-Allow-Origin","*"), ("Access-Control-Allow-Methods", "POST,GET,OPTIONS")]
+  let responseBodyText :: ApiGatewayResponseBody = ApiGatewayResponseBody responseBody
+  APIGatewayResult $ mkApiGatewayResponse 200 responseHeaders responseBodyText
 
