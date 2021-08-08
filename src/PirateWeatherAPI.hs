@@ -66,7 +66,7 @@ getAllDaysForecast (x : xs) =
                               (catSF "Min Temp Celsius " $ fahrenheitToCelsius (dd_temperatureLow $ x) ),
                               (catSF "UV Index " $ dd_uvIndex $ x),
                               "  "] 
-                              -- for now: just tomorrow ++ getAllDaysForecast xs
+                              ++ getAllDaysForecast xs
 
 getAllalerts :: [DarkSkyAlert] -> String
 getAllalerts [] = []

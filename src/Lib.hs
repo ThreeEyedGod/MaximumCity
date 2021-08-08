@@ -47,7 +47,6 @@ import qualified Data.Aeson as TLO
 import HttpHeadersPathDefinitions as H
 import qualified Network.HTTP.Types as H1
 
-
 preProcessHeaders :: Value -> LB.ByteString
 preProcessHeaders headers = do 
   let test = encode $ headers
@@ -72,20 +71,11 @@ getPath p  = do
     Left _ -> "no path"
     Right aPath -> (ipath aPath)
 
-{- | take inputs of a telegram token, an Event and a Context
-     make a response body and extract the actual telegram "update"
-     create standard http response header for 200 + API Gateway
-     call a telegram channel message back function
-     return complete standard http response back for API gateway 
--}
 processApiGatewayRequest :: Maybe TC -> Event -> Context context -> IO (LambdaResult 'APIGatewayHandlerType)
 processApiGatewayRequest tc Event {path, headers, body} context = do  
   (responseBody, update) <- mkRespBodygetUpdate Event {path, headers, body}   
-  --let responseBodyText :: ApiGatewayResponseBody = ApiGatewayResponseBody responseBody
-  --let responseHeaders :: H1.ResponseHeaders = [("Access-Control-Allow-Headers","*"), ("Content-Type","application/json"), ("Access-Control-Allow-Origin","*"), ("Access-Control-Allow-Methods", "POST,GET,OPTIONS")]
-  runTC tc $ handleUpdate responseBody update
-  pure $ formAPIGatewayResult responseBody          
-  --pure . APIGatewayResult $ mkApiGatewayResponse 200 responseHeaders responseBodyText
+  runTC tc $ handleUpdate responseBody update -- | this function handles response to Telegram
+  pure $ formAPIGatewayResult 200 responseBody          
 
 mkRespBodygetUpdate :: Event -> IO (T.Text, Maybe Update)
 mkRespBodygetUpdate Event {path, headers, body} = do
@@ -96,9 +86,9 @@ mkRespBodygetUpdate Event {path, headers, body} = do
 getHdrBdyMaybe :: Event -> (LB.ByteString, Maybe Update) 
 getHdrBdyMaybe Event {path, headers, body} = (preProcessHeaders headers, TLO.decode $ (LB.fromStrict (T.encodeUtf8 (fromMaybe "" body))))
 
-formAPIGatewayResult ::  T.Text -> LambdaResult 'APIGatewayHandlerType
-formAPIGatewayResult responseBody = do
+formAPIGatewayResult ::  Int -> T.Text -> LambdaResult 'APIGatewayHandlerType
+formAPIGatewayResult statusCode responseBody = do
   let responseHeaders :: H1.ResponseHeaders = [("Access-Control-Allow-Headers","*"), ("Content-Type","application/json"), ("Access-Control-Allow-Origin","*"), ("Access-Control-Allow-Methods", "POST,GET,OPTIONS")]
   let responseBodyText :: ApiGatewayResponseBody = ApiGatewayResponseBody responseBody
-  APIGatewayResult $ mkApiGatewayResponse 200 responseHeaders responseBodyText
+  APIGatewayResult $ mkApiGatewayResponse statusCode responseHeaders responseBodyText
 
