@@ -66,6 +66,17 @@
   (major1) == 0 && (major2) == 10 && (minor) <= 12)
 #endif /* MIN_VERSION_bytestring */
 
+/* package errors-2.3.0 */
+#ifndef VERSION_errors
+#define VERSION_errors "2.3.0"
+#endif /* VERSION_errors */
+#ifndef MIN_VERSION_errors
+#define MIN_VERSION_errors(major1,major2,minor) (\
+  (major1) <  2 || \
+  (major1) == 2 && (major2) <  3 || \
+  (major1) == 2 && (major2) == 3 && (minor) <= 0)
+#endif /* MIN_VERSION_errors */
+
 /* package http-client-0.6.4.1 */
 #ifndef VERSION_http_client
 #define VERSION_http_client "0.6.4.1"
@@ -320,10 +331,10 @@
 #endif /* MIN_TOOL_VERSION_strip */
 
 #ifndef CURRENT_PACKAGE_KEY
-#define CURRENT_PACKAGE_KEY "MaximumCity-0.9.9-5guWFLj4ABVB8OeureHmEw"
+#define CURRENT_PACKAGE_KEY "MaximumCity-0.9.9-bH9q4X1sM4C26ZsnCFXS3"
 #endif /* CURRENT_PACKAGE_KEY */
 #ifndef CURRENT_COMPONENT_ID
-#define CURRENT_COMPONENT_ID "MaximumCity-0.9.9-5guWFLj4ABVB8OeureHmEw"
+#define CURRENT_COMPONENT_ID "MaximumCity-0.9.9-bH9q4X1sM4C26ZsnCFXS3"
 #endif /* CURRENT_COMPONENT_ID */
 #ifndef CURRENT_PACKAGE_VERSION
 #define CURRENT_PACKAGE_VERSION "0.9.9"

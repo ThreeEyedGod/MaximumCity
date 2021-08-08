@@ -52,6 +52,7 @@ library
     , base >=4.7 && <5
     , binary
     , bytestring
+    , errors >=2.3.0
     , http-client
     , http-client-tls
     , http-conduit
@@ -87,6 +88,7 @@ executable bootstrap
     , base >=4.7 && <5
     , binary
     , bytestring
+    , errors >=2.3.0
     , http-client
     , http-client-tls
     , http-conduit
@@ -124,6 +126,7 @@ test-suite MaximumCity-test
     , binary
     , bytestring
     , either >=5.0.1.1
+    , errors >=2.3.0
     , hspec >=2.7.4 && <2.8
     , hspec-core >=2.7.4
     , hspec-expectations >=0.8.2
@@ -160,6 +163,7 @@ benchmark MaximumCity-benchmark
     , base >=4.7 && <5
     , binary
     , bytestring
+    , errors >=2.3.0
     , http-client
     , http-client-tls
     , http-conduit
