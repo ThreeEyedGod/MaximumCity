@@ -47,7 +47,10 @@ import qualified Data.Aeson as TLO
 import HttpHeadersPathDefinitions as H
 import qualified Network.HTTP.Types as H1
 
-preProcessHeaders :: Value -> LB.ByteString
+type StatusCode = Int
+type ResponseBody = T.Text
+
+preProcessHeaders :: Value -> PreprocessedHeaders
 preProcessHeaders headers = do 
   let test = encode $ headers
   trace ("preProcessHeaders = " ++ show test) $ test
@@ -77,16 +80,16 @@ processApiGatewayRequest tc Event {path, headers, body} context = do
   runTC tc $ handleUpdate responseBody update -- | this function handles response to Telegram
   pure $ formAPIGatewayResult 200 responseBody          
 
-mkRespBodygetUpdate :: Event -> IO (T.Text, Maybe Update)
+mkRespBodygetUpdate :: Event -> IO (ResponseBody, Maybe Update)
 mkRespBodygetUpdate Event {path, headers, body} = do
     let a = getHdrBdyMaybe Event {path, headers, body} 
     responseBody <- getWeather (Just (fst a)) (gettheTelegramMaybe (snd a))
     pure (responseBody, snd a)
 
-getHdrBdyMaybe :: Event -> (LB.ByteString, Maybe Update) 
+getHdrBdyMaybe :: Event -> (PreprocessedHeaders, Maybe Update) 
 getHdrBdyMaybe Event {path, headers, body} = (preProcessHeaders headers, TLO.decode $ (LB.fromStrict (T.encodeUtf8 (fromMaybe "" body))))
 
-formAPIGatewayResult ::  Int -> T.Text -> LambdaResult 'APIGatewayHandlerType
+formAPIGatewayResult ::  StatusCode -> ResponseBody -> LambdaResult 'APIGatewayHandlerType
 formAPIGatewayResult statusCode responseBody = do
   let responseHeaders :: H1.ResponseHeaders = [("Access-Control-Allow-Headers","*"), ("Content-Type","application/json"), ("Access-Control-Allow-Origin","*"), ("Access-Control-Allow-Methods", "POST,GET,OPTIONS")]
   let responseBodyText :: ApiGatewayResponseBody = ApiGatewayResponseBody responseBody

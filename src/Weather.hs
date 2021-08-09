@@ -19,7 +19,7 @@ type PreprocessedHeaders = LB.ByteString
 type PlaceName = T.Text 
 type TheWeatherThere = T.Text
 
-getTownNameWeatherFromIp :: LB.ByteString -> IO T.Text
+getTownNameWeatherFromIp :: PreprocessedHeaders -> IO TheWeatherThere
 getTownNameWeatherFromIp headers = do
   town <- extractXForwardedForHeader headers
   if "Fail" `T.isPrefixOf` town
@@ -28,7 +28,7 @@ getTownNameWeatherFromIp headers = do
     else do
       getTownNameWeatherFromTown town
 
-getTownNameWeatherFromTown :: T.Text -> IO T.Text
+getTownNameWeatherFromTown :: PlaceName -> IO TheWeatherThere
 getTownNameWeatherFromTown town = do
   weather1 <- PirateWeatherAPI.getWeatherForTown $ Data.ByteString.Char8.unpack $ town
   if "Fail" `T.isPrefixOf` weather1
@@ -40,6 +40,6 @@ getTownNameWeatherFromTown town = do
     let tw = (Data.ByteString.Char8.unpack town ++ " is currently " ++ Data.ByteString.Char8.unpack weather1)
     return $ Data.ByteString.Char8.pack tw
 
-getWeather :: Maybe LB.ByteString -> Maybe T.Text -> IO T.Text
+getWeather :: Maybe PreprocessedHeaders -> Maybe PlaceName -> IO TheWeatherThere
 getWeather (Just p) Nothing = getTownNameWeatherFromIp p
 getWeather _ (Just pl) = getTownNameWeatherFromTown pl 

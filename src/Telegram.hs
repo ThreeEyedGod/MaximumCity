@@ -34,7 +34,7 @@ import Data.Aeson
 type TC = (Token, Manager)
 
 runTC :: Maybe TC -> TelegramClient () -> IO ()
-runTC Nothing _ = pure ()
+runTC Nothing _ = pure () -- | really nothing can be done vis-a-vis telegram!
 runTC (Just (token, manager)) act = void $ runTelegramClient token manager act
 
 -- t.me/MaximumCityBot http api
