@@ -34,6 +34,7 @@ library
       PirateWeatherHeaders
       Telegram
       TelegramDataTypes
+      WaterLevelLakes
       Weather
   other-modules:
       Paths_MaximumCity
@@ -60,6 +61,7 @@ library
     , integer-gmp
     , integer-logarithms
     , iproute
+    , pdf-toolbox-document
     , servant
     , telegram-api >=0.7.3.0
     , text
@@ -96,6 +98,7 @@ executable bootstrap
     , integer-gmp
     , integer-logarithms
     , iproute
+    , pdf-toolbox-document
     , servant
     , telegram-api >=0.7.3.0
     , text
@@ -137,6 +140,7 @@ test-suite MaximumCity-test
     , integer-gmp
     , integer-logarithms
     , iproute
+    , pdf-toolbox-document
     , random-strings >=0.1.1.0
     , servant
     , telegram-api >=0.7.3.0
@@ -171,6 +175,7 @@ benchmark MaximumCity-benchmark
     , integer-gmp
     , integer-logarithms
     , iproute
+    , pdf-toolbox-document
     , servant
     , telegram-api >=0.7.3.0
     , text

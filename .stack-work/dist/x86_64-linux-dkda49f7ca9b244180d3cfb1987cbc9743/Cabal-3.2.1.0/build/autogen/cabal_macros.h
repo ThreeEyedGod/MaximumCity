@@ -154,6 +154,17 @@
   (major1) == 1 && (major2) == 7 && (minor) <= 11)
 #endif /* MIN_VERSION_iproute */
 
+/* package pdf-toolbox-document-0.1.2 */
+#ifndef VERSION_pdf_toolbox_document
+#define VERSION_pdf_toolbox_document "0.1.2"
+#endif /* VERSION_pdf_toolbox_document */
+#ifndef MIN_VERSION_pdf_toolbox_document
+#define MIN_VERSION_pdf_toolbox_document(major1,major2,minor) (\
+  (major1) <  0 || \
+  (major1) == 0 && (major2) <  1 || \
+  (major1) == 0 && (major2) == 1 && (minor) <= 2)
+#endif /* MIN_VERSION_pdf_toolbox_document */
+
 /* package servant-0.18.2 */
 #ifndef VERSION_servant
 #define VERSION_servant "0.18.2"
@@ -331,10 +342,10 @@
 #endif /* MIN_TOOL_VERSION_strip */
 
 #ifndef CURRENT_PACKAGE_KEY
-#define CURRENT_PACKAGE_KEY "MaximumCity-0.9.9-bH9q4X1sM4C26ZsnCFXS3"
+#define CURRENT_PACKAGE_KEY "MaximumCity-0.9.9-2xVkEaadq52v0xbwgEtbi"
 #endif /* CURRENT_PACKAGE_KEY */
 #ifndef CURRENT_COMPONENT_ID
-#define CURRENT_COMPONENT_ID "MaximumCity-0.9.9-bH9q4X1sM4C26ZsnCFXS3"
+#define CURRENT_COMPONENT_ID "MaximumCity-0.9.9-2xVkEaadq52v0xbwgEtbi"
 #endif /* CURRENT_COMPONENT_ID */
 #ifndef CURRENT_PACKAGE_VERSION
 #define CURRENT_PACKAGE_VERSION "0.9.9"

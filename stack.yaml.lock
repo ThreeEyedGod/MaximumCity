@@ -47,6 +47,13 @@ packages:
   original:
     hackage: hjson-1.3.2@sha256:3f8d4a582efbbd4265ab6035a71efa13aa3fc85e71e556c5613e5c9da0e8e325,456
 - completed:
+    hackage: base16-bytestring-1.0.1.0@sha256:33b9d57afa334d06485033e930c6b13fc760baf88fd8f715ae2f9a4b46e19a54,2641
+    pantry-tree:
+      size: 595
+      sha256: 24661ef9b1089d468227300f8ceb89194b5cce68b9f6ed8109b01f63c07f54e3
+  original:
+    hackage: base16-bytestring-1.0.1.0@sha256:33b9d57afa334d06485033e930c6b13fc760baf88fd8f715ae2f9a4b46e19a54,2641
+- completed:
     name: telegram-api
     version: 0.7.3.0
     git: https://github.com/ThreeEyedGod/haskell-telegram-api.git
@@ -57,6 +64,45 @@ packages:
   original:
     git: https://github.com/ThreeEyedGod/haskell-telegram-api.git
     commit: a665f6c8fb574cd11832fd09c04ee7189cb6f233
+- completed:
+    subdir: content
+    name: pdf-toolbox-content
+    version: 0.1.1
+    git: https://github.com/ThreeEyedGod/pdf-toolbox.git
+    pantry-tree:
+      size: 1518
+      sha256: 6114ca9e731bde2601e8767b7a002037224880de10d575051b70c4c68ab0a57c
+    commit: ad92304f5bf591513c47d432f3dc256dcdab000c
+  original:
+    subdir: content
+    git: https://github.com/ThreeEyedGod/pdf-toolbox.git
+    commit: ad92304f5bf591513c47d432f3dc256dcdab000c
+- completed:
+    subdir: document
+    name: pdf-toolbox-document
+    version: 0.1.2
+    git: https://github.com/ThreeEyedGod/pdf-toolbox.git
+    pantry-tree:
+      size: 1406
+      sha256: 72d6b19b2cae905ad6e4cc788376ffbfbe554e5a835460a36df6f6ee5fa2cfb4
+    commit: ad92304f5bf591513c47d432f3dc256dcdab000c
+  original:
+    subdir: document
+    git: https://github.com/ThreeEyedGod/pdf-toolbox.git
+    commit: ad92304f5bf591513c47d432f3dc256dcdab000c
+- completed:
+    subdir: core
+    name: pdf-toolbox-core
+    version: 0.1.1
+    git: https://github.com/ThreeEyedGod/pdf-toolbox.git
+    pantry-tree:
+      size: 2165
+      sha256: 5ae0724e8b3a916837690aa16cb10d875a759b91b278f6f49cfb063b2be3a402
+    commit: ad92304f5bf591513c47d432f3dc256dcdab000c
+  original:
+    subdir: core
+    git: https://github.com/ThreeEyedGod/pdf-toolbox.git
+    commit: ad92304f5bf591513c47d432f3dc256dcdab000c
 snapshots:
 - completed:
     size: 567679
