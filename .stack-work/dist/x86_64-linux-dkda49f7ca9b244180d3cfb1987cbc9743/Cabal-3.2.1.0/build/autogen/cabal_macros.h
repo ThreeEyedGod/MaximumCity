@@ -22,6 +22,17 @@
   (major1) == 1 && (major2) == 5 && (minor) <= 6)
 #endif /* MIN_VERSION_aeson */
 
+/* package attoparsec-0.13.2.5 */
+#ifndef VERSION_attoparsec
+#define VERSION_attoparsec "0.13.2.5"
+#endif /* VERSION_attoparsec */
+#ifndef MIN_VERSION_attoparsec
+#define MIN_VERSION_attoparsec(major1,major2,minor) (\
+  (major1) <  0 || \
+  (major1) == 0 && (major2) <  13 || \
+  (major1) == 0 && (major2) == 13 && (minor) <= 2)
+#endif /* MIN_VERSION_attoparsec */
+
 /* package aws-lambda-haskell-runtime-4.1.1 */
 #ifndef VERSION_aws_lambda_haskell_runtime
 #define VERSION_aws_lambda_haskell_runtime "4.1.1"
@@ -198,6 +209,39 @@
   (major1) == 1 && (major2) == 2 && (minor) <= 4)
 #endif /* MIN_VERSION_text */
 
+/* package time-1.9.3 */
+#ifndef VERSION_time
+#define VERSION_time "1.9.3"
+#endif /* VERSION_time */
+#ifndef MIN_VERSION_time
+#define MIN_VERSION_time(major1,major2,minor) (\
+  (major1) <  1 || \
+  (major1) == 1 && (major2) <  9 || \
+  (major1) == 1 && (major2) == 9 && (minor) <= 3)
+#endif /* MIN_VERSION_time */
+
+/* package utf8-string-1.0.2 */
+#ifndef VERSION_utf8_string
+#define VERSION_utf8_string "1.0.2"
+#endif /* VERSION_utf8_string */
+#ifndef MIN_VERSION_utf8_string
+#define MIN_VERSION_utf8_string(major1,major2,minor) (\
+  (major1) <  1 || \
+  (major1) == 1 && (major2) <  0 || \
+  (major1) == 1 && (major2) == 0 && (minor) <= 2)
+#endif /* MIN_VERSION_utf8_string */
+
+/* package word8-0.1.3 */
+#ifndef VERSION_word8
+#define VERSION_word8 "0.1.3"
+#endif /* VERSION_word8 */
+#ifndef MIN_VERSION_word8
+#define MIN_VERSION_word8(major1,major2,minor) (\
+  (major1) <  0 || \
+  (major1) == 0 && (major2) <  1 || \
+  (major1) == 0 && (major2) == 1 && (minor) <= 3)
+#endif /* MIN_VERSION_word8 */
+
 /* tool alex-3.2.6 */
 #ifndef TOOL_VERSION_alex
 #define TOOL_VERSION_alex "3.2.6"
@@ -342,10 +386,10 @@
 #endif /* MIN_TOOL_VERSION_strip */
 
 #ifndef CURRENT_PACKAGE_KEY
-#define CURRENT_PACKAGE_KEY "MaximumCity-0.9.9-2xVkEaadq52v0xbwgEtbi"
+#define CURRENT_PACKAGE_KEY "MaximumCity-0.9.9-2BEVAipGnfm9aVPUKoMldL"
 #endif /* CURRENT_PACKAGE_KEY */
 #ifndef CURRENT_COMPONENT_ID
-#define CURRENT_COMPONENT_ID "MaximumCity-0.9.9-2xVkEaadq52v0xbwgEtbi"
+#define CURRENT_COMPONENT_ID "MaximumCity-0.9.9-2BEVAipGnfm9aVPUKoMldL"
 #endif /* CURRENT_COMPONENT_ID */
 #ifndef CURRENT_PACKAGE_VERSION
 #define CURRENT_PACKAGE_VERSION "0.9.9"

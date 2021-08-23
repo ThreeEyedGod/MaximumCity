@@ -30,7 +30,7 @@ version = Version [0,9,9] []
 bindir, libdir, dynlibdir, datadir, libexecdir, sysconfdir :: FilePath
 
 bindir     = "/Users/bumrap/Documents/code/MaximumCity/.stack-work/install/x86_64-linux-dkda49f7ca9b244180d3cfb1987cbc9743/b3195bf2bfe66793cb516fe7261674c483c5d86b150beb2478b7f1ee386a50b2/8.10.5/bin"
-libdir     = "/Users/bumrap/Documents/code/MaximumCity/.stack-work/install/x86_64-linux-dkda49f7ca9b244180d3cfb1987cbc9743/b3195bf2bfe66793cb516fe7261674c483c5d86b150beb2478b7f1ee386a50b2/8.10.5/lib/x86_64-linux-ghc-8.10.5/MaximumCity-0.9.9-1v85bYAJ9NblzaWETTCuV-bootstrap"
+libdir     = "/Users/bumrap/Documents/code/MaximumCity/.stack-work/install/x86_64-linux-dkda49f7ca9b244180d3cfb1987cbc9743/b3195bf2bfe66793cb516fe7261674c483c5d86b150beb2478b7f1ee386a50b2/8.10.5/lib/x86_64-linux-ghc-8.10.5/MaximumCity-0.9.9-4LZPcW451kF1X1fR7duBWh-bootstrap"
 dynlibdir  = "/Users/bumrap/Documents/code/MaximumCity/.stack-work/install/x86_64-linux-dkda49f7ca9b244180d3cfb1987cbc9743/b3195bf2bfe66793cb516fe7261674c483c5d86b150beb2478b7f1ee386a50b2/8.10.5/lib/x86_64-linux-ghc-8.10.5"
 datadir    = "/Users/bumrap/Documents/code/MaximumCity/.stack-work/install/x86_64-linux-dkda49f7ca9b244180d3cfb1987cbc9743/b3195bf2bfe66793cb516fe7261674c483c5d86b150beb2478b7f1ee386a50b2/8.10.5/share/x86_64-linux-ghc-8.10.5/MaximumCity-0.9.9"
 libexecdir = "/Users/bumrap/Documents/code/MaximumCity/.stack-work/install/x86_64-linux-dkda49f7ca9b244180d3cfb1987cbc9743/b3195bf2bfe66793cb516fe7261674c483c5d86b150beb2478b7f1ee386a50b2/8.10.5/libexec/x86_64-linux-ghc-8.10.5/MaximumCity-0.9.9"

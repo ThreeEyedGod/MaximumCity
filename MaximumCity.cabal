@@ -30,10 +30,12 @@ library
       JSONHelper
       Lib
       OpenWeatherAPI
+      ParserHelper
       PirateWeatherAPI
       PirateWeatherHeaders
       Telegram
       TelegramDataTypes
+      WaterLevelHeaders
       WaterLevelLakes
       Weather
   other-modules:
@@ -49,6 +51,7 @@ library
       ScopedTypeVariables
   build-depends:
       aeson
+    , attoparsec >=0.13.2.5
     , aws-lambda-haskell-runtime >=4.1.1
     , base >=4.7 && <5
     , binary
@@ -65,6 +68,9 @@ library
     , servant
     , telegram-api >=0.7.3.0
     , text
+    , time >=1.9.3
+    , utf8-string
+    , word8 >=0.1
   default-language: Haskell2010
 
 executable bootstrap
@@ -86,6 +92,7 @@ executable bootstrap
   build-depends:
       MaximumCity
     , aeson
+    , attoparsec >=0.13.2.5
     , aws-lambda-haskell-runtime >=4.1.1
     , base >=4.7 && <5
     , binary
@@ -102,6 +109,9 @@ executable bootstrap
     , servant
     , telegram-api >=0.7.3.0
     , text
+    , time >=1.9.3
+    , utf8-string
+    , word8 >=0.1
   default-language: Haskell2010
 
 test-suite MaximumCity-test
@@ -124,6 +134,7 @@ test-suite MaximumCity-test
       MaximumCity
     , QuickCheck >=2.13.2
     , aeson
+    , attoparsec >=0.13.2.5
     , aws-lambda-haskell-runtime >=4.1.1
     , base
     , binary
@@ -147,6 +158,9 @@ test-suite MaximumCity-test
     , test-framework
     , test-framework-quickcheck2
     , text
+    , time >=1.9.3
+    , utf8-string
+    , word8 >=0.1
   default-language: Haskell2010
 
 benchmark MaximumCity-benchmark
@@ -163,6 +177,7 @@ benchmark MaximumCity-benchmark
       ScopedTypeVariables
   build-depends:
       aeson
+    , attoparsec >=0.13.2.5
     , aws-lambda-haskell-runtime >=4.1.1
     , base >=4.7 && <5
     , binary
@@ -179,4 +194,7 @@ benchmark MaximumCity-benchmark
     , servant
     , telegram-api >=0.7.3.0
     , text
+    , time >=1.9.3
+    , utf8-string
+    , word8 >=0.1
   default-language: Haskell2010
