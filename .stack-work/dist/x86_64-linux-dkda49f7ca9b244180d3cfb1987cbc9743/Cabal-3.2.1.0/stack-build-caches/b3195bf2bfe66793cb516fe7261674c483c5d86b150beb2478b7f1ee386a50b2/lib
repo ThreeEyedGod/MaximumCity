@@ -1,11 +1,11 @@
 /Users/bumrap/Documents/code/MaximumCity/src/ParserHelper.hs:
-  hash: 6cec469a0b0a221be25e97b7c19d5c8caeafdeeb28a6e25032b3020a9c275a0c
+  hash: 961a24a8fc27d9725c21aa34fd804d9a72194e80e47701b1582702899df45939
 /Users/bumrap/Documents/code/MaximumCity/src/Telegram.hs:
   hash: fc8f5d98a2552e674731dc171578b5beeb70cf19cf9c16f9a6a9eaabb6292eda
 /Users/bumrap/Documents/code/MaximumCity/src/TelegramDataTypes.hs:
   hash: 6b1c7a7796e16f33d01fd836e155a186ff5d8631cfb9fdad78d68a251f59f451
 /Users/bumrap/Documents/code/MaximumCity/src/WaterLevelHeaders.hs:
-  hash: d9f3fe9229607394ab2897152a3f4e37f05518559845cd89b4472acc3f3dbd83
+  hash: 316a68ce2b17e670e60dc012b94688d5682d005188801dabbcf61ee2ea756e5c
 /Users/bumrap/Documents/code/MaximumCity/src/PirateWeatherHeaders.hs:
   hash: 9542e4f8d23dc8f27cf2906801e2244aaeb9dd0f90533c3a7b7124285a90df0a
 /Users/bumrap/Documents/code/MaximumCity/src/Weather.hs:
@@ -15,7 +15,7 @@
 /Users/bumrap/Documents/code/MaximumCity/src/Helper.hs:
   hash: c157a6bdfc7f4bfdc7ac11d464cefddfb231e513d32151f3d546b24742d321d3
 /Users/bumrap/Documents/code/MaximumCity/src/WaterLevelLakes.hs:
-  hash: cf8be6c764fa4cda899109357c92535461ac8dc6579c1fb8e1f8748469aaa2b5
+  hash: c0636aee7903abe87281f3772bd51dac8e6ceb12cb2a4e0c504175c99ad64018
 /Users/bumrap/Documents/code/MaximumCity/src/OpenWeatherAPI.hs:
   hash: c3f60a9f3b620e7a6edfe2d9fbd62cc8f47bc62745b466e4305a6e72611ddc14
 /usr/include/stdc-predef.h:
