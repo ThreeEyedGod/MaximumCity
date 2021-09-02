@@ -1,0 +1,14 @@
+? /Users/bumrap/Documents/code/MaximumCity/.stack-work/dist/x86_64-linux-dkda49f7ca9b244180d3cfb1987cbc9743/Cabal-3.2.1.0/build/bootstrap/autogen/Paths_MaximumCity.hs
+: hash: bccc589138740539543e26497069e02bc6a08d53812430bc04c16ee8381b16f3
+/usr/include/stdc-predef.h:
+  hash: ee35c95f8e09d071278e05e755a1bd41fbbf4517374d9464beabb1b16c1b58e9
+/Users/bumrap/.stack/programs/x86_64-linux-dkda49f7ca9b244180d3cfb1987cbc9743/ghc-8.10.5/lib/ghc-8.10.5/include/ghcversion.h:
+  hash: 978e1ee5cc15f512bf3fe7643fcf888a02ef374c98ddcb8d14f38e2e0fa63dde
+? /Users/bumrap/Documents/code/MaximumCity/.stack-work/dist/x86_64-linux-dkda49f7ca9b244180d3cfb1987cbc9743/Cabal-3.2.1.0/build/bootstrap/autogen/cabal_macros.h
+: hash: 08923d026ca0bbb2cddef5054542d75fbd7e075145273e0eebe25e298c41e85b
+/Users/bumrap/Documents/code/MaximumCity/app/Main.hs:
+  hash: 63f78f4651445db1e056a95fa2e0e64631943047137253e60bbbf4fdd713b1c8
+/Users/bumrap/Documents/code/MaximumCity/package.yaml:
+  hash: c1b79a3b80bce8aa8166630831f9121e10099e57b475535bc941f0255001aaaf
+/Users/bumrap/Documents/code/MaximumCity/MaximumCity.cabal:
+  hash: fb284e44e5026008caa9e38daa217337acc6633932d9f23c5ae1f5993cf5d0aa

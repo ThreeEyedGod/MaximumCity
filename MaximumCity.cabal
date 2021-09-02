@@ -64,6 +64,7 @@ library
     , integer-gmp
     , integer-logarithms
     , iproute
+    , naqsha >=0.3.0.1
     , pdf-toolbox-document
     , servant
     , telegram-api >=0.7.3.0
@@ -105,6 +106,7 @@ executable bootstrap
     , integer-gmp
     , integer-logarithms
     , iproute
+    , naqsha >=0.3.0.1
     , pdf-toolbox-document
     , servant
     , telegram-api >=0.7.3.0
@@ -151,6 +153,7 @@ test-suite MaximumCity-test
     , integer-gmp
     , integer-logarithms
     , iproute
+    , naqsha >=0.3.0.1
     , pdf-toolbox-document
     , random-strings >=0.1.1.0
     , servant
@@ -190,6 +193,7 @@ benchmark MaximumCity-benchmark
     , integer-gmp
     , integer-logarithms
     , iproute
+    , naqsha >=0.3.0.1
     , pdf-toolbox-document
     , servant
     , telegram-api >=0.7.3.0

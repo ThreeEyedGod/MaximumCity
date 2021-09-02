@@ -176,6 +176,17 @@
   (major1) == 1 && (major2) == 7 && (minor) <= 11)
 #endif /* MIN_VERSION_iproute */
 
+/* package naqsha-0.3.0.1 */
+#ifndef VERSION_naqsha
+#define VERSION_naqsha "0.3.0.1"
+#endif /* VERSION_naqsha */
+#ifndef MIN_VERSION_naqsha
+#define MIN_VERSION_naqsha(major1,major2,minor) (\
+  (major1) <  0 || \
+  (major1) == 0 && (major2) <  3 || \
+  (major1) == 0 && (major2) == 3 && (minor) <= 0)
+#endif /* MIN_VERSION_naqsha */
+
 /* package pdf-toolbox-document-0.1.2 */
 #ifndef VERSION_pdf_toolbox_document
 #define VERSION_pdf_toolbox_document "0.1.2"
@@ -397,7 +408,7 @@
 #endif /* MIN_TOOL_VERSION_strip */
 
 #ifndef CURRENT_COMPONENT_ID
-#define CURRENT_COMPONENT_ID "MaximumCity-0.9.9-4LZPcW451kF1X1fR7duBWh-bootstrap"
+#define CURRENT_COMPONENT_ID "MaximumCity-0.9.9-JYG4XQBNPaLLpiyoAeFOdI-bootstrap"
 #endif /* CURRENT_COMPONENT_ID */
 #ifndef CURRENT_PACKAGE_VERSION
 #define CURRENT_PACKAGE_VERSION "0.9.9"

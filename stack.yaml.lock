@@ -103,6 +103,13 @@ packages:
     subdir: core
     git: https://github.com/ThreeEyedGod/pdf-toolbox.git
     commit: ad92304f5bf591513c47d432f3dc256dcdab000c
+- completed:
+    hackage: naqsha-0.3.0.1@sha256:1d13ac58a2604341641d001ab82020326823ab028d679839e0417bbad9dfab2b,2566
+    pantry-tree:
+      size: 1213
+      sha256: 69a27c066eaab5b389bdbeb205e256b223b5631b6f9855462e9e988eb5936a85
+  original:
+    hackage: naqsha-0.3.0.1@sha256:1d13ac58a2604341641d001ab82020326823ab028d679839e0417bbad9dfab2b,2566
 snapshots:
 - completed:
     size: 567679
