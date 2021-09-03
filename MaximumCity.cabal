@@ -31,6 +31,7 @@ library
       Lib
       OpenWeatherAPI
       ParserHelper
+      PdfHelper
       PirateWeatherAPI
       PirateWeatherHeaders
       Telegram

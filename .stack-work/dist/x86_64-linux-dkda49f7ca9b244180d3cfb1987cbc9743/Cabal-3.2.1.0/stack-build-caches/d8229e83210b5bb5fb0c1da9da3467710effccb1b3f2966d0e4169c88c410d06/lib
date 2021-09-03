@@ -1,11 +1,11 @@
 /Users/bumrap/Documents/code/MaximumCity/src/ParserHelper.hs:
-  hash: 0b74428321fd484ae3115bffa2c7b391ca40148bba1a4034eed35ee985539160
+  hash: 50d22debc3243007c974e04f8b7281af0360df745c1162930a8fa8566210ecb4
 /Users/bumrap/Documents/code/MaximumCity/src/Telegram.hs:
   hash: fc8f5d98a2552e674731dc171578b5beeb70cf19cf9c16f9a6a9eaabb6292eda
 /Users/bumrap/Documents/code/MaximumCity/src/TelegramDataTypes.hs:
   hash: 6b1c7a7796e16f33d01fd836e155a186ff5d8631cfb9fdad78d68a251f59f451
 /Users/bumrap/Documents/code/MaximumCity/src/WaterLevelHeaders.hs:
-  hash: afc14a70d6f5ad60bde74123149fafe56c9d3b191a9554475ddddbdb92f7f5cc
+  hash: efe50462f7e8085de47bf1650f70619649af3dc603dd729514def10f4e03d780
 /Users/bumrap/Documents/code/MaximumCity/src/PirateWeatherHeaders.hs:
   hash: 9542e4f8d23dc8f27cf2906801e2244aaeb9dd0f90533c3a7b7124285a90df0a
 /Users/bumrap/Documents/code/MaximumCity/src/Weather.hs:
@@ -15,7 +15,7 @@
 /Users/bumrap/Documents/code/MaximumCity/src/Helper.hs:
   hash: c157a6bdfc7f4bfdc7ac11d464cefddfb231e513d32151f3d546b24742d321d3
 /Users/bumrap/Documents/code/MaximumCity/src/WaterLevelLakes.hs:
-  hash: 7296c2fe94312605f2eac9b6f7bd9a4e200033c095883bb957602af461f41f51
+  hash: 477f3a4dc2a8951d354c33f52a7dbfd9252be60c0d49b708a51d1b7464ea5c30
 /Users/bumrap/Documents/code/MaximumCity/src/OpenWeatherAPI.hs:
   hash: c3f60a9f3b620e7a6edfe2d9fbd62cc8f47bc62745b466e4305a6e72611ddc14
 /usr/include/stdc-predef.h:
@@ -37,6 +37,8 @@
 ? /Users/bumrap/Documents/code/MaximumCity/.stack-work/dist/x86_64-linux-dkda49f7ca9b244180d3cfb1987cbc9743/Cabal-3.2.1.0/build/autogen/Paths_MaximumCity.hs
 : hash: 9fee555c646bbc6acb916f80d26e5efd09230551879b39839df3a7e413978b74
 /Users/bumrap/Documents/code/MaximumCity/MaximumCity.cabal:
-  hash: fb284e44e5026008caa9e38daa217337acc6633932d9f23c5ae1f5993cf5d0aa
+  hash: 7762d8ddcfff995f1a704cda7f90cdb60448074edba074a2f3d530b498c7194a
 /Users/bumrap/Documents/code/MaximumCity/src/GeoIpAPI.hs:
   hash: da25c1280dc014b60f0494844cbbaefa17af9a2c605668b326593a6e6e673f25
+/Users/bumrap/Documents/code/MaximumCity/src/PdfHelper.hs:
+  hash: 1a98d6ae631210b2eba6ae29f0f7221f695e4862e57bcb41d64833dcc80c69a6
