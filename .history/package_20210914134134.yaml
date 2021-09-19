@@ -1,0 +1,87 @@
+name:                MaximumCity
+version:             0.9.9
+github:              "githubuser/Threeeyedgod/MaximumCity"
+license:             BSD3
+author:              "Venkatesh N"
+maintainer:          "xyz@example.com"
+copyright:           "2020 Venkatesh N"
+
+description:         Please see the README on GitHub at <https://github.com/ThreeEyedGod/MaximumCity#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- aeson
+- text
+- integer-logarithms
+- integer-gmp
+- bytestring
+- binary
+- iproute
+- http-conduit
+- telegram-api >= 0.7.3.0
+- http-client
+- http-client-tls
+- http-types
+- servant
+- aws-lambda-haskell-runtime >= 4.1.1
+- errors >= 2.3.0
+#- pdf-toolbox-document == 0.0.5.1 
+- pdf-toolbox-document
+- attoparsec >= 0.13.2.5
+- time >= 1.9.3
+- utf8-string
+- word8 >=0.1
+- naqsha >= 0.3.0.1
+
+library:
+  source-dirs: src
+              ,waterL
+
+executables:
+  bootstrap:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -O2
+    - -static
+    - -with-rtsopts=-N
+    - -XUndecidableSuperClasses
+    - -XScopedTypeVariables
+    cc-options: -static
+    ld-options: -static -pthread
+    dependencies:
+    - MaximumCity
+
+tests:
+  MaximumCity-test:
+    source-dirs:         test
+    main:                TestsMain.hs
+    dependencies:        
+                       - base 
+                       - MaximumCity
+                       - test-framework
+                       - test-framework-quickcheck2
+                       - QuickCheck > 2.14.2
+                       - hspec ^>= 2.7.4
+#                       - hspec-hedgehog
+#                       - hedgehog  >= 1.0.2 && < 2 
+                       - hspec-core >= 2.7.4
+                       - random-strings >= 0.1.1.0
+                       - QuickCheck >= 2.13.2
+                       - either >= 5.0.1.1
+                       - hspec-expectations >= 0.8.2
+    ghc-options:       -threaded -rtsopts "-with-rtsopts=-N1 -s"
+
+benchmarks:
+  MaximumCity-benchmark:
+      main:             Main.hs
+
+default-extensions:
+  - RecordWildCards
+  - OverloadedLists
+  - OverloadedStrings
+  - DeriveGeneric
+  - UndecidableSuperClasses
+  - ScopedTypeVariables
