@@ -51,9 +51,11 @@ type StatusCode = Int
 type ResponseBody = T.Text
 
 preProcessHeaders :: Value -> PreprocessedHeaders
-preProcessHeaders headers = do 
+preProcessHeaders headers = encode headers 
+
+{- preProcessHeaders headers = do 
   let test = encode $ headers
-  trace ("preProcessHeaders = " ++ show test) $ test
+  trace ("preProcessHeaders = " ++ show test) $ test -}
 
 preProcessBodytoGetTelegram :: T.Text -> LB.ByteString
 preProcessBodytoGetTelegram rawbody = do
@@ -63,9 +65,10 @@ preProcessBodytoGetTelegram rawbody = do
       Right theTelegram -> encode $ theTelegram
 
 preProcessPath :: Value -> LB.ByteString
-preProcessPath path  = do
+preProcessPath path  = encode path 
+{- preProcessPath path  = do
   let maybePath = encode $ path
-  maybePath
+  maybePath -}
 
 getPath :: LB.ByteString -> T.Text
 getPath p  = do

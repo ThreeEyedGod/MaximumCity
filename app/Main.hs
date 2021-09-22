@@ -8,6 +8,7 @@
 
 module Main where
 
+import Control.Exception
 import Aws.Lambda
 import Data.Text
 import Data.Maybe
@@ -21,8 +22,11 @@ import HttpHeadersPathDefinitions
 import Data.Aeson
 import Lib
 
+catchAllHander (SomeException e) =
+  putStrLn $ "[caught] " <> show e
+
 main :: IO ()
-main =  do
+main =  handle catchAllHander $ do
       res <- getTelegramSettings 
       case res of 
             Left msg -> runLambda (pure ()) (run Nothing)
@@ -31,7 +35,8 @@ main =  do
             run :: Maybe TC -> RunCallback APIGatewayHandlerType context
             run tc opts = do -- | ignore the 'context' part of opts for now
                   inComingEvent <- case (eitherDecode (eventObject opts)) of  
-                        Left _  -> error "Fail No Event" -- | cannot figure out what something that came in is
+                        -- Left _  -> error "Fail No Event" -- | cannot figure out what something that came in is
+                        Left _ -> fail "Fail No Event"
                         Right inComingEvent -> pure inComingEvent
                   
                   result <- processApiGatewayRequest tc inComingEvent (contextObject opts)
