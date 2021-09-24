@@ -5,7 +5,7 @@
 /Users/bumrap/Documents/Code/MaximumCity/src/PirateWeatherHeaders.hs:
   hash: 9542e4f8d23dc8f27cf2906801e2244aaeb9dd0f90533c3a7b7124285a90df0a
 /Users/bumrap/Documents/Code/MaximumCity/src/Weather.hs:
-  hash: 5bbc3a7707eafcc377190cb311384bb5c150417a964131a31efc39c4c22ac8fd
+  hash: bebd8e6313b70417c1c3b65dd778cb487f74024a13bfaf1638d93c26d63f2a7a
 /Users/bumrap/Documents/Code/MaximumCity/src/Helper.hs:
   hash: 724228255270b96fd334ab943b1cc2d59b0773b01c64b7c6fea61b5ec729a13a
 /Users/bumrap/Documents/Code/MaximumCity/src/WaterLevels/MH/Core/WaterLevelHeaders.hs:
@@ -23,7 +23,7 @@
 /Users/bumrap/.stack/programs/x86_64-linux-dkda49f7ca9b244180d3cfb1987cbc9743/ghc-8.10.5/lib/ghc-8.10.5/include/ghcversion.h:
   hash: 978e1ee5cc15f512bf3fe7643fcf888a02ef374c98ddcb8d14f38e2e0fa63dde
 /Users/bumrap/Documents/Code/MaximumCity/src/Lib.hs:
-  hash: 4703984c4ef531ebbca58bdb060aaf0092f121facf8cbe52666cd154a98f0f4e
+  hash: 54bf2973bcae02214ee1f9a1772457e20499ee181fba20edac34708c26819b18
 /Users/bumrap/Documents/Code/MaximumCity/src/WaterLevels/MH/Core/ParserHelper.hs:
   hash: ae5826a723d3924f79ee9fc13cf1212ab969c8044eb581044d077d4521fb43cb
 ? /Users/bumrap/Documents/Code/MaximumCity/.stack-work/dist/x86_64-linux-dkda49f7ca9b244180d3cfb1987cbc9743/Cabal-3.2.1.0/build/autogen/cabal_macros.h
