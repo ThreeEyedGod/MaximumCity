@@ -33,6 +33,7 @@ jsonPirateWeatherURL = "https://api.pirateweather.net/forecast/"
 theURL :: String -> String
 theURL q = jsonPirateWeatherURL ++ q ++ "/"
 
+
 _getWeatherForTown :: String -> IO Text
 _getWeatherForTown town =  _preProcess town >>= (\z -> _goGetDarkSkyJson z) >>= (\x -> _extractWeather x)
 

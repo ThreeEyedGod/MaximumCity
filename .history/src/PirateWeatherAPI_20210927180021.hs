@@ -33,18 +33,20 @@ jsonPirateWeatherURL = "https://api.pirateweather.net/forecast/"
 theURL :: String -> String
 theURL q = jsonPirateWeatherURL ++ q ++ "/"
 
+
 _getWeatherForTown :: String -> IO Text
 _getWeatherForTown town =  _preProcess town >>= (\z -> _goGetDarkSkyJson z) >>= (\x -> _extractWeather x)
 
 _preProcess:: String -> IO (LatLong , Either String Key) 
-_preProcess town = getLatLongforThis town >>= (\a ->  ( getPirateWeatherSettings >>=  (\b -> pure $ ( a:: LatLong , b))))
+_preProcess town = getLatLongforThis town >>= (\a ->  ( getPirateWeatherSettings >>= 
+  (\b -> pure $ ( a:: LatLong , b))))
 
 _goGetDarkSkyJson :: (LatLong , Either String Key) -> IO (Either String DarkSky)
 _goGetDarkSkyJson (ll , kee) 
   | "Fail:" `isPrefixOf` ll = return $ Left $ unpack $ _returnStdFail "getWeatherForTown" "getLatLongforThis"
   | isLeft kee = return $ Left $ unpack $ _returnStdFail "getWeatherForTown" "getPirateWeatherSettings"
   | otherwise  =  do 
-        x <- (eitherDecode <$> (getJSON (theURL (fromRight defaultKey kee)) ll)) :: IO (Either String DarkSky) -- | Http Call to PIrate Net !
+        x <- (eitherDecode <$> (getJSON (theURL (fromRight defaultKey kee)) ll)) :: IO (Either String DarkSky) 
         case x of 
           Left e -> return $ Left $ unpack $ _returnStdFail "getWeatherForTown" "eitherDecode DarkSky"
           Right stuff -> return $ Right $ stuff 

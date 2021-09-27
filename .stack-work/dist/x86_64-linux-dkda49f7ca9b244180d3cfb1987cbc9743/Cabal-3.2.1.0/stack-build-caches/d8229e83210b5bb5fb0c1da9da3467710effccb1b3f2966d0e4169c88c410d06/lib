@@ -35,7 +35,7 @@
 ? /Users/bumrap/Documents/Code/MaximumCity/.stack-work/dist/x86_64-linux-dkda49f7ca9b244180d3cfb1987cbc9743/Cabal-3.2.1.0/build/autogen/Paths_MaximumCity.hs
 : hash: 46aee1f06ec5b8177d6f7c3b43f646281e56df307321cb36b820fd4ba380ae72
 /Users/bumrap/Documents/Code/MaximumCity/src/PirateWeatherAPI.hs:
-  hash: 0d91388b760b1dc41c004f9bcd5bd8f130d579e73909d8c59ee777c7126bd343
+  hash: 92a10a0514e785c5ed5500652d8e2d87b788308d53407894e3f1986efc5f6808
 /Users/bumrap/Documents/Code/MaximumCity/src/GeoIpAPI.hs:
   hash: 7bce7d58d7da3437499363ca8f4dfe2b73a076821a924239118fe6ccb13c7f48
 /Users/bumrap/Documents/Code/MaximumCity/src/PdfHelper.hs:
