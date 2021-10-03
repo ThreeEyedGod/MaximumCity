@@ -77,6 +77,17 @@
   (major1) == 0 && (major2) == 10 && (minor) <= 12)
 #endif /* MIN_VERSION_bytestring */
 
+/* package either-5.0.1.1 */
+#ifndef VERSION_either
+#define VERSION_either "5.0.1.1"
+#endif /* VERSION_either */
+#ifndef MIN_VERSION_either
+#define MIN_VERSION_either(major1,major2,minor) (\
+  (major1) <  5 || \
+  (major1) == 5 && (major2) <  0 || \
+  (major1) == 5 && (major2) == 0 && (minor) <= 1)
+#endif /* MIN_VERSION_either */
+
 /* package errors-2.3.0 */
 #ifndef VERSION_errors
 #define VERSION_errors "2.3.0"
@@ -397,10 +408,10 @@
 #endif /* MIN_TOOL_VERSION_strip */
 
 #ifndef CURRENT_PACKAGE_KEY
-#define CURRENT_PACKAGE_KEY "MaximumCity-0.9.9-uYftAqEFaFA0zjN6iJems"
+#define CURRENT_PACKAGE_KEY "MaximumCity-0.9.9-3qUfKD51vkgHyM6aIft8Pq"
 #endif /* CURRENT_PACKAGE_KEY */
 #ifndef CURRENT_COMPONENT_ID
-#define CURRENT_COMPONENT_ID "MaximumCity-0.9.9-uYftAqEFaFA0zjN6iJems"
+#define CURRENT_COMPONENT_ID "MaximumCity-0.9.9-3qUfKD51vkgHyM6aIft8Pq"
 #endif /* CURRENT_COMPONENT_ID */
 #ifndef CURRENT_PACKAGE_VERSION
 #define CURRENT_PACKAGE_VERSION "0.9.9"
