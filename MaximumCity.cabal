@@ -23,6 +23,7 @@ source-repository head
 
 library
   exposed-modules:
+      EnvPolHelper
       GeoIpAPI
       Helper
       HttpHeadersPathDefinitions
@@ -50,6 +51,7 @@ library
       DeriveGeneric
       UndecidableSuperClasses
       ScopedTypeVariables
+  ghc-options: -O2 -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin
   build-depends:
       aeson
     , attoparsec >=0.13.2.5
@@ -68,6 +70,8 @@ library
     , iproute
     , naqsha >=0.3.0.1
     , pdf-toolbox-document
+    , polysemy
+    , polysemy-plugin
     , servant
     , telegram-api >=0.7.3.0
     , text
@@ -89,7 +93,7 @@ executable bootstrap
       DeriveGeneric
       UndecidableSuperClasses
       ScopedTypeVariables
-  ghc-options: -threaded -rtsopts -O2 -static -with-rtsopts=-N -XUndecidableSuperClasses -XScopedTypeVariables
+  ghc-options: -threaded -rtsopts -O2 -static -with-rtsopts=-N -XUndecidableSuperClasses -XScopedTypeVariables -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin
   cc-options: -static
   ld-options: -static -pthread
   build-depends:
@@ -111,6 +115,8 @@ executable bootstrap
     , iproute
     , naqsha >=0.3.0.1
     , pdf-toolbox-document
+    , polysemy
+    , polysemy-plugin
     , servant
     , telegram-api >=0.7.3.0
     , text
@@ -123,6 +129,7 @@ test-suite MaximumCity-test
   type: exitcode-stdio-1.0
   main-is: TestsMain.hs
   other-modules:
+      SpecEnvPolHelper
       SpecHelper
       Paths_MaximumCity
   hs-source-dirs:
@@ -134,7 +141,7 @@ test-suite MaximumCity-test
       DeriveGeneric
       UndecidableSuperClasses
       ScopedTypeVariables
-  ghc-options: -threaded -rtsopts "-with-rtsopts=-N1 -s"
+  ghc-options: -threaded -rtsopts "-with-rtsopts=-N1 -s" -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin
   build-depends:
       MaximumCity
     , QuickCheck >=2.13.2
@@ -158,6 +165,9 @@ test-suite MaximumCity-test
     , iproute
     , naqsha >=0.3.0.1
     , pdf-toolbox-document
+    , polysemy
+    , polysemy-plugin
+    , process >=1.6.9.0
     , random-strings >=0.1.1.0
     , servant
     , telegram-api >=0.7.3.0
@@ -199,6 +209,8 @@ benchmark MaximumCity-benchmark
     , iproute
     , naqsha >=0.3.0.1
     , pdf-toolbox-document
+    , polysemy
+    , polysemy-plugin
     , servant
     , telegram-api >=0.7.3.0
     , text

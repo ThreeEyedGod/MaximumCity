@@ -110,6 +110,20 @@ packages:
       sha256: 69a27c066eaab5b389bdbeb205e256b223b5631b6f9855462e9e988eb5936a85
   original:
     hackage: naqsha-0.3.0.1@sha256:1d13ac58a2604341641d001ab82020326823ab028d679839e0417bbad9dfab2b,2566
+- completed:
+    hackage: polysemy-1.6.0.0@sha256:29a73b1bf3d0049b12041016b7ee25e76bd8f6e99f9c37c2dde2b46368246697,6184
+    pantry-tree:
+      size: 4577
+      sha256: c4ca508b4a6786fc27e0f484344ce8dba119ea2f7fe47fb7379a51313a94cd10
+  original:
+    hackage: polysemy-1.6.0.0@sha256:29a73b1bf3d0049b12041016b7ee25e76bd8f6e99f9c37c2dde2b46368246697,6184
+- completed:
+    hackage: polysemy-plugin-0.4.1.0@sha256:1780e13e8d00820e71ff7a8c2c58faee6e379b76fe9b3c95a1dd2d856f43fa25,3168
+    pantry-tree:
+      size: 1284
+      sha256: 4cca9065dc15426a064bbbd9b9ba97e925d9a1952d46f063debd935a537f5f3d
+  original:
+    hackage: polysemy-plugin-0.4.1.0@sha256:1780e13e8d00820e71ff7a8c2c58faee6e379b76fe9b3c95a1dd2d856f43fa25,3168
 snapshots:
 - completed:
     size: 567679

@@ -4,10 +4,27 @@ import Test.QuickCheck.Monadic (assert, monadicIO, pick, pre, run, forAllM)
 import Test.QuickCheck
 
 import qualified SpecHelper as SH
+import qualified SpecEnvPolHelper as SEPH
+import System.Environment
+import Debug.Trace
+
+
+{- printEnvironment :: [(String, String)] -> IO ()
+printEnvironment [] = pure ()
+printEnvironment (elem : xs) = do 
+  putStrLn $ fst elem 
+  putStrLn " "
+  putStrLn $ snd elem 
+  putStrLn " "
+  printEnvironment xs -}
+  
 
 main :: IO ()
 main = do 
-  --works as below. But the hspec one also does. Hence returing this one
-  --quickCheck . verbose $ SH.propIO SH.genKeys SH.prop_thereAndBackAgain_bool
+  
+{-   a <- getEnvironment
+  printEnvironment a
+ -}
   hspec $ do
     SH.libH
+    SEPH.libEPH

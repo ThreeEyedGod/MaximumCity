@@ -69,6 +69,7 @@ orDieonNothing :: Maybe a -> String -> Either String a
 Just a  `orDieonNothing` _      = return a
 Nothing `orDieonNothing` string = Left string
 
+
 -- composeMaybe
 (<..>) ::  (a -> Maybe b) -> (b -> Maybe c) -> (a -> Maybe c)
 f <..> g = \x ->

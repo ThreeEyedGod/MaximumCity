@@ -8,6 +8,22 @@ copyright:           "2020 Venkatesh N"
 
 description:         Please see the README on GitHub at <https://github.com/ThreeEyedGod/MaximumCity#readme>
 
+default-extensions:
+  # Recommended for Polysemy
+  - DataKinds
+  - FlexibleContexts
+  - GADTs
+   -XGADTs
+  - LambdaCase
+  - PolyKinds
+  - RankNTypes
+  - ScopedTypeVariables
+  - TypeApplications
+  - TypeOperators
+  - TypeFamilies
+  - TemplateHaskell
+  - XTemplateHaskell
+
 dependencies:
 - base >= 4.7 && < 5
 - aeson
@@ -33,9 +49,12 @@ dependencies:
 - word8 >=0.1
 - naqsha >= 0.3.0.1
 - either >= 5.0.1.1
+- polysemy
+- polysemy-plugin
 
 library:
   source-dirs: src
+  ghc-options: -O2 -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin
 
 executables:
   bootstrap:
@@ -49,6 +68,9 @@ executables:
     - -with-rtsopts=-N
     - -XUndecidableSuperClasses
     - -XScopedTypeVariables
+    - -flate-specialise 
+    - -fspecialise-aggressively
+    - -fplugin=Polysemy.Plugin
     cc-options: -static
     ld-options: -static -pthread
     dependencies:
@@ -72,7 +94,9 @@ tests:
                        - QuickCheck >= 2.13.2
                        - either >= 5.0.1.1
                        - hspec-expectations >= 0.8.2
-    ghc-options:       -threaded -rtsopts "-with-rtsopts=-N1 -s"
+                       - process >= 1.6.9.0
+                       - polysemy
+    ghc-options:       -threaded -rtsopts "-with-rtsopts=-N1 -s" -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin
 
 benchmarks:
   MaximumCity-benchmark:
