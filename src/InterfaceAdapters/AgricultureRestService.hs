@@ -20,7 +20,7 @@ type AgricultureAPI =
        Summary "retrieve weather of a place sent thru Telegram (TelegramMessage -> TheWeatherThere)"
                       :> ReqBody '[ JSON] TelegramMessage
                       :> Post    '[ PlainText] UseCases.WWI.TheWeatherThere -- Post    /weather
-  :<|> Summary "retrieve weather of a place sent on the Web (PlaceName -> TheWeatherThere)"
+  :<|> Summary "retrieve weather of a place sent not as a JSON (PlaceName -> TheWeatherThere)"
                       :> ReqBody '[ PlainText] UseCases.WWI.PlaceName
                       :> Post    '[ PlainText] UseCases.WWI.TheWeatherThere -- Post    /weather
 

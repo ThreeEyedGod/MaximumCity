@@ -24,7 +24,6 @@ source-repository head
 library
   exposed-modules:
       ExternalInterfaces.ApplicationAssembly
-      ExternalInterfaces.Lib
       ExternalInterfaces.ServantShim
       InterfaceAdapters.AgricultureRestService
       InterfaceAdapters.Config

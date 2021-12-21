@@ -23,6 +23,12 @@ import           InterfaceAdapters.Weather.WWIWebPirate
 import           UseCases.WWI
 import           UseCases.AgricultureUseCase
 
+
+servApp :: IO Application 
+servApp = do 
+      c <- loadConfig
+      pure $ createApp c 
+      
 -- | creates the WAI Application that can be executed by Warp.run.
 -- All Polysemy interpretations must be executed here.
 createApp :: Config -> Application
