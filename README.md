@@ -9,9 +9,7 @@ The idea behind this project is that of an experimental ["serverless" computing 
 Synopsis
 ---------
 
-MaximumCity is code built on Haskell. It comprises of a minimalist working program deployed to AWS lambda, whose workflows are managed by AWS Step Functions and accessible using AWS API Gateway. The development environment includes a CI pipeline using Github Actions. QuickTest and Hspec for unit testing.  The IDE is VSCode with Haskell for Visual Studio Code extension on a MacOS.
-
-The intent was to gain a rapid understanding of a soup-to-nuts development cycle using VScode, Haskell, GitHub and Github-Actions for a cloud-hosted Function-as-a-Service aka Serverless environment.
+MaximumCity is code built on Haskell. It comprises of a program deployed to AWS lambda, whose workflows are accessible using AWS API Gateway. An effect library is used for Separation of Concerns. The development environment includes a CI pipeline using Github Actions. QuickTest and Hspec for unit testing.  The IDE is VSCode with Haskell for Visual Studio Code extension on a MacOS. Major Libraries include Polysemy, Servant, AWS Lambda runtime, Attoparsec and pdf-toolbox. 
 
 ### Functionality  
 Provides a telegram interface for a Weather sourcing task which uses caller's IP or location to get weather from a implementation of [DarkSky](https://twitter.com/alexanderrey007/status/1370733643279269889).
