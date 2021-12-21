@@ -8,7 +8,6 @@
 module InterfaceAdapters.AgricultureRestService where
 import           Polysemy
 import           Polysemy.Error
-import           Data.Either
 import           Servant
 import           qualified UseCases.AgricultureUseCase as UC (weatherTown, WeatherStatus, WeatherStatusError)
 import           UseCases.WWI

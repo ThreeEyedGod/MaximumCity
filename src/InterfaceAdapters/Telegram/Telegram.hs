@@ -22,10 +22,8 @@ import qualified Data.Text as T
 import qualified Data.Text.Encoding as T
 import Text.Printf
 import Debug.Trace (trace)
---import Data.ByteArray (convert)
 import Data.Maybe
 import Data.Either.Combinators
---import Data.Text.Show
 import Control.Monad.IO.Class
 import InterfaceAdapters.Utils.Helper
 import InterfaceAdapters.Utils.HttpHeadersPathDefinitions as H
@@ -51,7 +49,6 @@ runTC :: Maybe TC -> TelegramClient () -> IO ()
 runTC Nothing _ = pure () -- | really nothing can be done vis-a-vis telegram!
 runTC (Just (token, manager)) act = void $ runTelegramClient token manager act
 
--- t.me/MaximumCityBot http api
 getTelegramSettings :: IO (Either String TC)
 getTelegramSettings = do
   tk <- getKey "TELEGRAM_TOKEN"
@@ -79,6 +76,7 @@ preProcessBodytoGetTelegram rawbody = do
 gettheTelegram :: Update -> T.Text
 gettheTelegram Update {message = Just m} = T.dropWhileEnd (==' ') (fromMaybe "" (text m))
 
+-- | Maybe version of the getthetelegram
 gettheTelegramMaybe :: Maybe Update -> Maybe T.Text
 gettheTelegramMaybe Nothing = Nothing
 gettheTelegramMaybe (Just u) = Just (gettheTelegram u)
@@ -86,6 +84,7 @@ gettheTelegramMaybe (Just u) = Just (gettheTelegram u)
 getTelegram :: Maybe T.Text -> Maybe T.Text
 getTelegram tape = rightToMaybe $ eitherDecode (LB.fromStrict (T.encodeUtf8 (fromMaybe "" tape)))
 
+-- | pushes a message to Telegram Chatid
 _pushTelegramMsg :: T.Text -> ChatId -> TelegramClient ()
 _pushTelegramMsg msg cid  = (sendMessageM $ sendMessageRequest cid $ msg) >> return ()
 

@@ -42,6 +42,8 @@ _getTownNameWeatherFromIp town
   | "Fail" `T.isPrefixOf` town = return $ "Fail:getTownNameWeatherFromIp | town"
   | otherwise = _getTownNameWeatherFromTown town
 
+-- | water levels of lakes in a region as percent of same time last year or full capacity
+-- | from Water modules 
 _helperLivePercent :: (Maybe Region, Maybe PercentLiveStorage) -> IO String
 _helperLivePercent ( Nothing , _ ) = pure $ " % livelake level Not Available "
 _helperLivePercent ( _ , Nothing ) = pure $ " % livelake level Not Available "

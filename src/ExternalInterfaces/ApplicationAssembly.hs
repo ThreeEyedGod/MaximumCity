@@ -48,6 +48,7 @@ liftServer config = hoistServer agricultureAPI (interpretServer config) agricult
     handleErrors (Left (WeatherStatusNotPossible msg)) = Left err412 { errBody = pack msg}
     handleErrors (Right value) = Right value
 
+-- | port and verbose are unused
 selectWWICombination :: (Member (Input Config) r, Member (Embed IO) r, Member Trace r)
                  => Config -> Sem (WWI PlaceName TheWeatherThere : r) a -> Sem r a
 selectWWICombination Config {port = 8080, backend = PirateWeather, frontend = Telegram, gateway = AWSAPIRest, verbose = True} = runWWITelegramPirate

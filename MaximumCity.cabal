@@ -30,7 +30,6 @@ library
       InterfaceAdapters.IP.GeoIpAPI
       InterfaceAdapters.IP.IP2Location
       InterfaceAdapters.Telegram.Telegram
-      InterfaceAdapters.Telegram.TelegramDataTypes
       InterfaceAdapters.Utils.EnvPolHelper
       InterfaceAdapters.Utils.Helper
       InterfaceAdapters.Utils.HttpHeadersPathDefinitions

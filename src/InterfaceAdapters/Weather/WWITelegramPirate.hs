@@ -31,7 +31,6 @@ import qualified Data.Aeson as TLO (decode, encode)
 
 import qualified Data.Text as T
 import qualified Data.Text.Encoding as T
-import           Data.Typeable
 
 import Data.Maybe
 import Data.Aeson

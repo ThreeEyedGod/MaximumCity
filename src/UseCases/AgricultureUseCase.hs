@@ -12,7 +12,6 @@ module UseCases.AgricultureUseCase
 )
 where
 
-import           qualified Data.Text as T
 import           Polysemy
 import           Polysemy.Error
 import           Polysemy.Input           ()
