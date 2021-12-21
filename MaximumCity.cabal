@@ -23,23 +23,31 @@ source-repository head
 
 library
   exposed-modules:
-      EnvPolHelper
-      GeoIpAPI
-      Helper
-      HttpHeadersPathDefinitions
-      IP2Location
-      JSONHelper
-      Lib
-      OpenWeatherAPI
-      PdfHelper
-      PirateWeatherAPI
-      PirateWeatherHeaders
-      Telegram
-      TelegramDataTypes
-      WaterLevels.MH.Core.ParserHelper
-      WaterLevels.MH.Core.WaterLevelHeaders
-      WaterLevels.MH.Core.WaterLevelLakes
-      Weather
+      ExternalInterfaces.ApplicationAssembly
+      ExternalInterfaces.Lib
+      ExternalInterfaces.ServantShim
+      InterfaceAdapters.AgricultureRestService
+      InterfaceAdapters.Config
+      InterfaceAdapters.IP.GeoIpAPI
+      InterfaceAdapters.IP.IP2Location
+      InterfaceAdapters.Telegram.Telegram
+      InterfaceAdapters.Telegram.TelegramDataTypes
+      InterfaceAdapters.Utils.EnvPolHelper
+      InterfaceAdapters.Utils.Helper
+      InterfaceAdapters.Utils.HttpHeadersPathDefinitions
+      InterfaceAdapters.Utils.JSONHelper
+      InterfaceAdapters.Utils.PdfHelper
+      InterfaceAdapters.Water.MH.Core.ParserHelper
+      InterfaceAdapters.Water.MH.Core.WaterLevelHeaders
+      InterfaceAdapters.Water.MH.Core.WaterLevelLakes
+      InterfaceAdapters.Weather.OpenWeatherAPI
+      InterfaceAdapters.Weather.PirateWeatherAPI
+      InterfaceAdapters.Weather.PirateWeatherHeaders
+      InterfaceAdapters.Weather.Weather
+      InterfaceAdapters.Weather.WWITelegramPirate
+      InterfaceAdapters.Weather.WWIWebPirate
+      UseCases.AgricultureUseCase
+      UseCases.WWI
   other-modules:
       Paths_MaximumCity
   hs-source-dirs:
@@ -54,6 +62,7 @@ library
   ghc-options: -O2 -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin
   build-depends:
       aeson
+    , amazonka-core >=1.6.1
     , attoparsec >=0.13.2.5
     , aws-lambda-haskell-runtime >=4.1.1
     , base >=4.7 && <5
@@ -68,15 +77,22 @@ library
     , integer-gmp
     , integer-logarithms
     , iproute
+    , mtl >=2.2.2
     , naqsha >=0.3.0.1
+    , network-uri >=2.6.4.1
     , pdf-toolbox-document
     , polysemy
     , polysemy-plugin
+    , protolude >=0.3.0
     , servant
+    , servant-server
+    , serverless-haskell >=0.12.6
     , telegram-api >=0.7.3.0
     , text
     , time >=1.9.3
+    , tls >=1.5.5
     , utf8-string
+    , wai >=3.2.1.2
     , word8 >=0.1
   default-language: Haskell2010
 
@@ -99,6 +115,7 @@ executable bootstrap
   build-depends:
       MaximumCity
     , aeson
+    , amazonka-core >=1.6.1
     , attoparsec >=0.13.2.5
     , aws-lambda-haskell-runtime >=4.1.1
     , base >=4.7 && <5
@@ -113,15 +130,22 @@ executable bootstrap
     , integer-gmp
     , integer-logarithms
     , iproute
+    , mtl >=2.2.2
     , naqsha >=0.3.0.1
+    , network-uri >=2.6.4.1
     , pdf-toolbox-document
     , polysemy
     , polysemy-plugin
+    , protolude >=0.3.0
     , servant
+    , servant-server
+    , serverless-haskell >=0.12.6
     , telegram-api >=0.7.3.0
     , text
     , time >=1.9.3
+    , tls >=1.5.5
     , utf8-string
+    , wai >=3.2.1.2
     , word8 >=0.1
   default-language: Haskell2010
 
@@ -146,6 +170,7 @@ test-suite MaximumCity-test
       MaximumCity
     , QuickCheck >=2.13.2
     , aeson
+    , amazonka-core >=1.6.1
     , attoparsec >=0.13.2.5
     , aws-lambda-haskell-runtime >=4.1.1
     , base
@@ -163,19 +188,26 @@ test-suite MaximumCity-test
     , integer-gmp
     , integer-logarithms
     , iproute
+    , mtl >=2.2.2
     , naqsha >=0.3.0.1
+    , network-uri >=2.6.4.1
     , pdf-toolbox-document
     , polysemy
     , polysemy-plugin
     , process >=1.6.9.0
+    , protolude >=0.3.0
     , random-strings >=0.1.1.0
     , servant
+    , servant-server
+    , serverless-haskell >=0.12.6
     , telegram-api >=0.7.3.0
     , test-framework
     , test-framework-quickcheck2
     , text
     , time >=1.9.3
+    , tls >=1.5.5
     , utf8-string
+    , wai >=3.2.1.2
     , word8 >=0.1
   default-language: Haskell2010
 
@@ -193,6 +225,7 @@ benchmark MaximumCity-benchmark
       ScopedTypeVariables
   build-depends:
       aeson
+    , amazonka-core >=1.6.1
     , attoparsec >=0.13.2.5
     , aws-lambda-haskell-runtime >=4.1.1
     , base >=4.7 && <5
@@ -207,14 +240,21 @@ benchmark MaximumCity-benchmark
     , integer-gmp
     , integer-logarithms
     , iproute
+    , mtl >=2.2.2
     , naqsha >=0.3.0.1
+    , network-uri >=2.6.4.1
     , pdf-toolbox-document
     , polysemy
     , polysemy-plugin
+    , protolude >=0.3.0
     , servant
+    , servant-server
+    , serverless-haskell >=0.12.6
     , telegram-api >=0.7.3.0
     , text
     , time >=1.9.3
+    , tls >=1.5.5
     , utf8-string
+    , wai >=3.2.1.2
     , word8 >=0.1
   default-language: Haskell2010

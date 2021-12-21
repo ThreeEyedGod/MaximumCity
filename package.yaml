@@ -13,7 +13,7 @@ default-extensions:
   - DataKinds
   - FlexibleContexts
   - GADTs
-   -XGADTs
+  - XGADTs
   - LambdaCase
   - PolyKinds
   - RankNTypes
@@ -39,6 +39,7 @@ dependencies:
 - http-client-tls
 - http-types
 - servant
+- servant-server
 - aws-lambda-haskell-runtime >= 4.1.1
 - errors >= 2.3.0
 #- pdf-toolbox-document == 0.0.5.1 
@@ -51,6 +52,13 @@ dependencies:
 - either >= 5.0.1.1
 - polysemy
 - polysemy-plugin
+- network-uri >= 2.6.4.1
+- tls >= 1.5.5
+- protolude >= 0.3.0
+- serverless-haskell >= 0.12.6
+- amazonka-core >= 1.6.1
+- wai >= 3.2.1.2
+- mtl >= 2.2.2
 
 library:
   source-dirs: src

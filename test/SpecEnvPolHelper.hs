@@ -12,7 +12,7 @@ import Test.QuickCheck (expectFailure, listOf, suchThat, elements, Arbitrary, Pr
 import Test.QuickCheck.Monadic (assert, monadicIO, pick, pre, run, forAllM)
 import Test.Hspec.Expectations (shouldReturn)
 
-import EnvPolHelper
+import InterfaceAdapters.Utils.EnvPolHelper
 
 libEPH :: Spec
 libEPH = describe "getkey Env Polysemy Tests" $ do

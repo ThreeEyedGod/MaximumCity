@@ -9,7 +9,7 @@ import Test.Hspec.QuickCheck (prop)
 import Test.Hspec.Core.QuickCheck (modifyMaxSuccess)
 import Debug.Trace
 import Test.QuickCheck (expectFailure, listOf, suchThat, elements, Arbitrary, Property, arbitrary, quickCheck, (==>), forAll, Gen, choose)
-import Helper
+import InterfaceAdapters.Utils.Helper
 import Data.Aeson
 import Data.ByteString.Lazy
 import qualified Data.Text.Encoding as T

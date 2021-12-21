@@ -124,6 +124,41 @@ packages:
       sha256: 4cca9065dc15426a064bbbd9b9ba97e925d9a1952d46f063debd935a537f5f3d
   original:
     hackage: polysemy-plugin-0.4.1.0@sha256:1780e13e8d00820e71ff7a8c2c58faee6e379b76fe9b3c95a1dd2d856f43fa25,3168
+- completed:
+    hackage: network-uri-2.6.4.1@sha256:a4765164ed0a2d1668446eb2e03460ce98645fbf083598c690846af79b7de10d,2936
+    pantry-tree:
+      size: 551
+      sha256: 68ccb16e252378b2ee6da3e076f6eb55dd7928f0d4dd8beb1969433e9bf6f549
+  original:
+    hackage: network-uri-2.6.4.1
+- completed:
+    hackage: tls-1.5.5@sha256:f6681d6624071211edd509a8f56e0c96b4f003bb349b7dc706d4333775a373c5,6996
+    pantry-tree:
+      size: 4897
+      sha256: 6400901a8f8ddd0c7d2fb30c95857753a654a60a63fcec38aab4a08b23e0984f
+  original:
+    hackage: tls-1.5.5
+- completed:
+    hackage: serverless-haskell-0.12.6@sha256:0baa32b609a68965bcd6e13f0165e2c1cb7a24602c3fd55b77c7d1cab49866ca,2664
+    pantry-tree:
+      size: 1846
+      sha256: 0aad6e7c1ea6e0a0f623b102101ff644049eb980a3c9c13889c31f73e8fc53cd
+  original:
+    hackage: serverless-haskell-0.12.6
+- completed:
+    hackage: amazonka-core-1.6.1@sha256:b94fe11830b5fa707a4372ebcc0e659759b3e885677e3ecaca2939b299b0bc96,5143
+    pantry-tree:
+      size: 3438
+      sha256: c3dc6d7d87310017d331e88d771db23df5b42aaee591edf23d5f10592e02eabc
+  original:
+    hackage: amazonka-core-1.6.1
+- completed:
+    hackage: servant-0.18.3@sha256:0fbf8f9274bdfda6a778d6d7ec714c9f0abd17102af9bc002a93fe3ed284e8ca,5309
+    pantry-tree:
+      size: 2662
+      sha256: 206f6289793fc25e4708e454ebb3e478710e8634017a47f05cff41a20b50a08b
+  original:
+    hackage: servant-0.18.3
 snapshots:
 - completed:
     size: 567679

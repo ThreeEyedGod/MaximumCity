@@ -17,16 +17,24 @@ import Data.Text.Encoding (decodeUtf8', encodeUtf8)
 import Data.ByteString (ByteString)
 import Network.HTTP.Types.Header
 import qualified Network.HTTP.Types as H
-import Telegram
-import HttpHeadersPathDefinitions
+import InterfaceAdapters.Telegram.Telegram -- eventually to be removed
 import Data.Aeson
-import Lib
+
+import ExternalInterfaces.ApplicationAssembly (createApp, loadConfig)
+import InterfaceAdapters.Config
+import ExternalInterfaces.ServantShim
+import Network.Wai
+  ( Application
+  )
+import Data.Aeson
+import Data.Aeson.Embedded
+import AWSLambda.Events.APIGateway
 
 catchAllHandler (SomeException e) =
   putStrLn $ "[caught] " <> show e
 
 main :: IO ()
-main =  handle catchAllHandler $  do
+{- main =  handle catchAllHandler $  do
       res <- getTelegramSettings 
       case res of 
             Left msg -> runLambda (pure ()) (run Nothing)
@@ -40,4 +48,15 @@ main =  handle catchAllHandler $  do
                   
                   result <- processApiGatewayRequest tc inComingEvent (contextObject opts)
                   return . pure $ result
+ -}
+main = handle catchAllHandler $ redirectmain
 
+servApp :: IO Application 
+servApp = do 
+      c <- loadConfig
+      pure $ createApp c 
+
+redirectmain :: IO ()
+redirectmain = handle catchAllHandler $ do
+      app <- servApp
+      apiGatewayMain $ makeHandler app
