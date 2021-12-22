@@ -67,7 +67,7 @@ weatherTownTelegram updt = do
             Right tk -> embed (_callTelegramClient (Just tk) ain)
       pure $ (fst ain)
 
--- | exeptions that may occur during Weather/Telegram operations
+-- | exceptions that may occur during Weather/Telegram operations
 data WeatherTelegramException = EntityNotFound String
     | EntityAlreadyExists String
     | InternalError String

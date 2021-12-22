@@ -24,4 +24,3 @@ data WWI p w m a where
 
 -- | makeSem uses TemplateHaskell to generate effect functions (or smart Constructors) from the GADT definition:
 makeSem ''WWI
-

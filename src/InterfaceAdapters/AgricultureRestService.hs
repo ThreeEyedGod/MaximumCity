@@ -26,8 +26,8 @@ type AgricultureAPI =
 -- | implements the AgricultureAPI
 agricultureServer :: (Member (Embed IO) r, Member UC.WeatherStatus r, Member (Error UC.WeatherStatusError) r) => ServerT AgricultureAPI (Sem r)
 agricultureServer =
-        weatherTownTelegram -- POST   /TelegramMessage -> TheWeatherThere
-  :<|>  UC.weatherTown     -- POST    /PlaceName -> TheWeatherThere
+                    weatherTownTelegram -- POST   /TelegramMessage -> TheWeatherThere
+              :<|>  UC.weatherTown     -- POST    /PlaceName -> TheWeatherThere
 
 -- | boilerplate needed to guide type inference
 agricultureAPI :: Proxy AgricultureAPI

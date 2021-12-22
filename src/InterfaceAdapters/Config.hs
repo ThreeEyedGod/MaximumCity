@@ -10,5 +10,5 @@ data Config = Config {
 }
 
 data Backend = PirateWeather | OpenWeather deriving (Show, Eq)
-data Frontend = Telegram | Signal | Web | Whatsapp | CLI deriving (Show, Eq)
+data Frontend = Telegram | Signal | Web | Whatsapp | CL deriving (Show, Eq)
 data Gateway  = AWSAPIRest | Other deriving (Show, Eq)

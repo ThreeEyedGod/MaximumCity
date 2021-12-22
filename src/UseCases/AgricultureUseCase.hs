@@ -25,4 +25,3 @@ newtype WeatherStatusError = WeatherStatusNotPossible String -- deriving (Show, 
 
 weatherTown :: Member WeatherStatus r => PlaceName -> Sem r TheWeatherThere
 weatherTown plname = getWeatherTown plname
-

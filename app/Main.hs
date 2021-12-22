@@ -19,7 +19,6 @@ import Network.Wai
   )
 import AWSLambda.Events.APIGateway
 
-
 main :: IO ()
 main = handle catchAllHandler $ redirectmain
 
