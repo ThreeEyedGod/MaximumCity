@@ -50,16 +50,20 @@ import UseCases.WWI
 import UseCases.AgricultureUseCase
 import InterfaceAdapters.Telegram.Telegram
 import qualified InterfaceAdapters.Weather.Weather as IWW
+import InterfaceAdapters.Preferences
 
-runWWITelegramPirate :: (Member (Embed IO) r) => Sem (WWI PlaceName TheWeatherThere : r) a -> Sem r a
+runWWITelegramPirate :: (Member (Embed IO) r) => Sem (WeatherStatus : r) a -> Sem r a
 runWWITelegramPirate = interpret (\(GetWeatherTown req) -> embed (interfaceTelegramPirate req))
 
-interfaceTelegramPirate :: PlaceName -> IO TheWeatherThere
-interfaceTelegramPirate pl = IWW.getWeather Nothing (Just pl)
+interfaceTelegramPirate :: UserAsk -> IO TheWeatherThere
+-- interfaceTelegramPirate UserAsk {placeName = pl, prefs = _ }  = IWW.getWeather Nothing (Just pl)
+interfaceTelegramPirate forthis@UserAsk {placeName = pl, prefs = Preferences {userdata = WaterLevels, usersize = Mini, usertimespan = JustNow}}  = IWW.getAgInfo forthis
 
+-- | weatherTown is in AgUseCase
 weatherTownTelegram :: (Member (Embed IO) r , Member WeatherStatus r, Member (Error WeatherStatusError) r) => TelegramMessage -> Sem r TheWeatherThere
 weatherTownTelegram updt = do 
-      responseBody <- (weatherTown . gettheTelegram) updt
+      -- responseBody <- (weatherTown . gettheTelegram) updt
+      responseBody <- weatherTown $ UserAsk {placeName = gettheTelegram updt, prefs = Preferences {userdata = WaterLevels, usersize = Mini, usertimespan = JustNow}}
       let ain = (responseBody, Just updt)
       res <- embed getTelegramSettings
       case res of

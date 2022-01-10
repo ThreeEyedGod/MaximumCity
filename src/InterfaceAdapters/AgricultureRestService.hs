@@ -9,10 +9,13 @@ module InterfaceAdapters.AgricultureRestService where
 import           Polysemy
 import           Polysemy.Error
 import           Servant
-import           qualified UseCases.AgricultureUseCase as UC (weatherTown, WeatherStatus, WeatherStatusError)
+import           qualified UseCases.AgricultureUseCase as UC (weatherTown)
 import           UseCases.WWI
 import           InterfaceAdapters.Telegram.Telegram
 import           InterfaceAdapters.Weather.WWITelegramPirate
+import           InterfaceAdapters.Weather.WWIWebPirate
+import qualified Data.Text as T
+
                                      
 -- | Declaring the routes of the REST API for Agriculture weather 
 type AgricultureAPI =
@@ -24,10 +27,8 @@ type AgricultureAPI =
                       :> Post    '[ PlainText] UseCases.WWI.TheWeatherThere -- Post    /weather
 
 -- | implements the AgricultureAPI
-agricultureServer :: (Member (Embed IO) r, Member UC.WeatherStatus r, Member (Error UC.WeatherStatusError) r) => ServerT AgricultureAPI (Sem r)
-agricultureServer =
-                    weatherTownTelegram -- POST   /TelegramMessage -> TheWeatherThere
-              :<|>  UC.weatherTown     -- POST    /PlaceName -> TheWeatherThere
+agricultureServer :: (Member (Embed IO) r, Member WeatherStatus r, Member (Error WeatherStatusError) r) => ServerT AgricultureAPI (Sem r)
+agricultureServer = weatherTownTelegram :<|>  weatherTownWeb
 
 -- | boilerplate needed to guide type inference
 agricultureAPI :: Proxy AgricultureAPI

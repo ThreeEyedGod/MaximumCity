@@ -12,6 +12,7 @@ module InterfaceAdapters.Weather.Weather
   , _getTownNameWeatherFromTown
   , getWeather
   , PreprocessedHeaders
+  , getAgInfo
 ) where
 import Control.Monad.IO.Class
 import qualified Data.ByteString.Lazy.Char8 as LB
@@ -29,6 +30,8 @@ import InterfaceAdapters.IP.IP2Location
 import InterfaceAdapters.Water.MH.Core.WaterLevelLakes
 import InterfaceAdapters.Water.MH.Core.WaterLevelHeaders
 import InterfaceAdapters.Utils.HttpHeadersPathDefinitions
+import InterfaceAdapters.Preferences
+import UseCases.WWI (UserAsk (..))
 
 
 type PreprocessedHeaders = LB.ByteString 
@@ -65,3 +68,7 @@ _getTownNameWeatherFromTown town =  (getWaterLakeLevelForPlace_LiveToday_wrtStor
 getWeather :: Maybe PreprocessedHeaders -> Maybe PlaceName -> IO TheWeatherThere
 getWeather (Just p) Nothing = extractXForwardedForHeader p >>= _getTownNameWeatherFromIp 
 getWeather _ (Just pl) = _getTownNameWeatherFromTown pl 
+
+getAgInfo ::  UserAsk -> IO TheWeatherThere
+getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = WeatherWaterLevels, usersize = Detailed, usertimespan = NearForecast}} = _getTownNameWeatherFromTown pl 
+getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = WaterLevels, usersize = Mini, usertimespan = JustNow}} = (getWaterLakeLevelForPlace_LiveToday_wrtStorage pl >>=  _helperLivePercent) >>= (\wll -> _mkWeatherThere pl "" wll)

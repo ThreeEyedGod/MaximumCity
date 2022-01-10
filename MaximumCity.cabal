@@ -29,6 +29,7 @@ library
       InterfaceAdapters.Config
       InterfaceAdapters.IP.GeoIpAPI
       InterfaceAdapters.IP.IP2Location
+      InterfaceAdapters.Preferences
       InterfaceAdapters.Telegram.Telegram
       InterfaceAdapters.Utils.EnvPolHelper
       InterfaceAdapters.Utils.Helper

@@ -24,6 +24,20 @@ import           UseCases.WWI
 import           UseCases.AgricultureUseCase
 
 
+{--
+  @LambdaFiring
+  1. LoadConfig and then 'Select' the right backendfrontend runWWI___
+  2. runWWI_ then sets it so that GetWeatherTown is 'interpreted' to Weather.getWeather
+  2a. the structure of interpretation is in WWI
+
+  @DataFlowIn
+  1. Servant sucks in the actual API (POST/GET/whatever) in AgriRestServices and 
+  2. which then makes the call to the mapped runWWI_function in (in WWITelegramPirate, WWIWebPirate, other) and processes the frontend specific JSON or Text
+  3. which then makes the call to AgriUsecase - weatherTown which loads up preferences
+  3. which then calls WWI:GetWeatherTown
+  4. See @LambdaFiring#2!
+--}
+
 servApp :: IO Application 
 servApp = do 
       c <- loadConfig
@@ -50,9 +64,9 @@ liftServer config = hoistServer agricultureAPI (interpretServer config) agricult
 
 -- | port and verbose are unused
 selectWWICombination :: (Member (Input Config) r, Member (Embed IO) r, Member Trace r)
-                 => Config -> Sem (WWI PlaceName TheWeatherThere : r) a -> Sem r a
-selectWWICombination Config {port = 8080, backend = PirateWeather, frontend = Telegram, gateway = AWSAPIRest, verbose = True} = runWWITelegramPirate
-selectWWICombination Config {port = 8080, backend = PirateWeather, frontend = Web, gateway = AWSAPIRest, verbose = True} = runWWIWebPirate
+                 => Config -> Sem (WeatherStatus : r) a -> Sem r a
+selectWWICombination Config {port = 8080, backend = PirateWeather, frontend = Telegram, gateway = AWSAPIRest,  verbose = True} = runWWITelegramPirate
+selectWWICombination Config {port = 8080, backend = PirateWeather, frontend = Web, gateway = AWSAPIRest,  verbose = True} = runWWIWebPirate
 
 -- | if the config flag verbose is set to True, trace to Console, else ignore all trace messages
 selectTraceVerbosity :: (Member (Embed IO) r) => Config -> (Sem (Trace : r) a -> Sem r a)
@@ -61,7 +75,3 @@ selectTraceVerbosity config =
     then traceToStdout
     else ignoreTrace
 
--- | load application config. In real life, this would load a config file or read commandline args.
--- | port, verbose are unused
-loadConfig :: IO Config
-loadConfig = return Config {port = 8080, backend = PirateWeather, frontend = Telegram, gateway = AWSAPIRest, verbose = True}

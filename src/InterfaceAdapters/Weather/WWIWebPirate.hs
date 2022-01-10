@@ -5,14 +5,17 @@
 {-# LANGUAGE TemplateHaskell, LambdaCase, BlockArguments, GADTs
            , FlexibleContexts, TypeOperators, DataKinds, PolyKinds, ScopedTypeVariables #-}
 {-# LANGUAGE NamedFieldPuns #-}
+{-# LANGUAGE TypeFamilies        #-}
+{-# LANGUAGE DeriveDataTypeable  #-}
 module InterfaceAdapters.Weather.WWIWebPirate
   ( 
     runWWIWebPirate
+  , weatherTownWeb
   ) 
 where
 
 import Polysemy
-
+import Polysemy.Error
 import Control.Monad.IO.Class
 import qualified Data.ByteString.Lazy.Char8 as LB
 import qualified Data.Text as Data.ByteString.Char8
@@ -37,17 +40,20 @@ import Data.Aeson
       object,
       Value (Object)
        )
-import Web.Telegram.API.Bot ( Update )
 
 import InterfaceAdapters.Utils.HttpHeadersPathDefinitions as H
 import InterfaceAdapters.Weather.PirateWeatherAPI
 import UseCases.WWI
 import UseCases.AgricultureUseCase
-import InterfaceAdapters.Telegram.Telegram
 import qualified InterfaceAdapters.Weather.Weather as IWW
+import InterfaceAdapters.Preferences
 
-runWWIWebPirate :: (Member (Embed IO) r) => Sem (WWI PlaceName TheWeatherThere : r) a -> Sem r a
+runWWIWebPirate :: (Member (Embed IO) r) => Sem (WeatherStatus : r) a -> Sem r a
 runWWIWebPirate = interpret (\(GetWeatherTown req) -> embed (interfaceWebPirate req))
 
-interfaceWebPirate :: PlaceName -> IO TheWeatherThere
-interfaceWebPirate pn = IWW.getWeather Nothing (Just pn)
+interfaceWebPirate :: UserAsk -> IO TheWeatherThere
+interfaceWebPirate UserAsk {placeName = pl, prefs = _ } = IWW.getWeather Nothing (Just pl)
+
+-- | weatherTown is in AgUseCase
+weatherTownWeb :: (Member (Embed IO) r , Member WeatherStatus r, Member (Error WeatherStatusError) r) => PlaceName -> Sem r TheWeatherThere
+weatherTownWeb pln = weatherTown $ UserAsk {placeName = pln}

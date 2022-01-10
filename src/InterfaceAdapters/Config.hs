@@ -12,3 +12,9 @@ data Config = Config {
 data Backend = PirateWeather | OpenWeather deriving (Show, Eq)
 data Frontend = Telegram | Signal | Web | Whatsapp | CL deriving (Show, Eq)
 data Gateway  = AWSAPIRest | Other deriving (Show, Eq)
+
+-- | load application config. In real life, this would load a config file or read commandline args.
+-- | port, verbose are unused
+loadConfig :: IO Config
+loadConfig = return Config {port = 8080, backend = PirateWeather, frontend = Telegram, gateway = AWSAPIRest,  verbose = True}
+

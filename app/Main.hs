@@ -11,7 +11,7 @@ module Main where
 import Control.Exception
 import Prelude
 
-import ExternalInterfaces.ApplicationAssembly (createApp, loadConfig, servApp)
+import ExternalInterfaces.ApplicationAssembly (createApp, servApp)
 import InterfaceAdapters.Config
 import ExternalInterfaces.ServantShim (makeHandler)
 import Network.Wai
