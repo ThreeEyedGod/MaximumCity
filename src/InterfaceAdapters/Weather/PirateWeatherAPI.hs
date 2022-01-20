@@ -5,6 +5,8 @@
 module InterfaceAdapters.Weather.PirateWeatherAPI where
 import Data.Aeson as Q
 import Data.Text
+import Data.Maybe
+import Data.Monoid
 import Control.Applicative
 import Control.Monad
 import GHC.Generics ()
@@ -16,6 +18,7 @@ import InterfaceAdapters.IP.GeoIpAPI
 import InterfaceAdapters.Utils.JSONHelper
 import InterfaceAdapters.Utils.Helper
 import InterfaceAdapters.Weather.PirateWeatherHeaders
+import InterfaceAdapters.Preferences
 
 type LatLong = Text
 type Key = String
@@ -37,6 +40,9 @@ theURL q = jsonPirateWeatherURL ++ q ++ "/"
 _getWeatherForTown :: String -> IO Text
 _getWeatherForTown town =  _preProcess town >>= (\z -> _goGetDarkSkyJson z) >>= (\x -> _extractWeather x)
 
+_getWeatherForTownN :: String -> IO Text
+_getWeatherForTownN town =  _preProcess town >>= (\z -> _goGetDarkSkyJson z) >>= (\x -> pure $ _extractWeatherN x)
+
 _preProcess:: String -> IO (LatLong , Either String Key) 
 _preProcess town = getLatLongforThis town >>= (\a ->  ( getPirateWeatherSettings >>=  (\b -> pure $ ( a:: LatLong , b))))
 
@@ -49,6 +55,10 @@ _goGetDarkSkyJson (ll , kee)
         case x of 
           Left e -> return $ Left $ unpack $ _returnStdFail "getWeatherForTown" "eitherDecode DarkSky"
           Right stuff -> return $ Right $ stuff 
+
+
+_extractWeatherN :: Either String DarkSky -> Text
+_extractWeatherN dS  = _extractWeatherNow dS <> (fromMaybe "" $ _extractWeatherAlerts dS) <> (fromMaybe "" $ _extractWeatherForecast dS)
 
 _extractWeather :: Either String DarkSky -> IO Text
 _extractWeather dS 
@@ -64,6 +74,25 @@ _extractWeather dS
                                       getAllDaysForecast (dly_data (daily d))
               Nothing -> pure $ Data.ByteString.Char8.pack $ rightNowWeather
 
+_extractWeatherNow:: Either String DarkSky -> Text
+_extractWeatherNow dS 
+  | isLeft dS = _returnStdFail "getWeatherForTown" "eitherDecode DarkSky"
+  | isRight dS = Data.ByteString.Char8.pack $ parseNowWeather (currently d) 
+  where Right d = dS
+
+_extractWeatherForecast:: Either String DarkSky -> Maybe Text
+_extractWeatherForecast dS 
+  | isJust . maybeHead $ (dly_data (daily d)) = Just $ Data.ByteString.Char8.pack $ getAllDaysForecast (dly_data (daily d))
+  | otherwise = Nothing
+  where 
+    Right d  = dS 
+
+_extractWeatherAlerts :: Either String DarkSky -> Maybe Text
+_extractWeatherAlerts dS 
+  | isJust . maybeHead $ (alerts d) = Just $ Data.ByteString.Char8.pack $ getAllalerts (alerts d) 
+  | otherwise = Nothing 
+  where 
+    Right d = dS 
 
 -- | parse DarkSkyJSOn to extract out text for current weather, alerts and forecasts
 parseNowWeather :: DarkSkyDataPoint -> String

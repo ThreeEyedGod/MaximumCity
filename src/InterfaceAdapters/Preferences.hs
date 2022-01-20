@@ -17,10 +17,10 @@ data Preferences = Preferences {
 
 data Agdata = Weather | WaterLevels | WeatherWaterLevels | Monsoon | All deriving (Show, Eq)
 data Datasize = Mini | Standard | Detailed deriving (Show, Eq)
-data Timespan = JustNow | Alerts | NearForecast | LongRange deriving (Show, Eq)
+data Timespan = RightNow | Alerts | NearForecast | LongRange deriving (Show, Eq)
 
 getPreferences :: IO Preferences
-getPreferences = return Preferences {userdata = WeatherWaterLevels, usersize = Mini, usertimespan = JustNow}
+getPreferences = return Preferences {userdata = WeatherWaterLevels, usersize = Mini, usertimespan = RightNow}
 
 data MyPreferences m a where
   ReadPrefs :: String -> MyPreferences m Preferences

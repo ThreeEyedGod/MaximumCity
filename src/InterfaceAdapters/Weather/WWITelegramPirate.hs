@@ -56,14 +56,12 @@ runWWITelegramPirate :: (Member (Embed IO) r) => Sem (WeatherStatus : r) a -> Se
 runWWITelegramPirate = interpret (\(GetWeatherTown req) -> embed (interfaceTelegramPirate req))
 
 interfaceTelegramPirate :: UserAsk -> IO TheWeatherThere
--- interfaceTelegramPirate UserAsk {placeName = pl, prefs = _ }  = IWW.getWeather Nothing (Just pl)
-interfaceTelegramPirate forthis@UserAsk {placeName = pl, prefs = Preferences {userdata = WaterLevels, usersize = Mini, usertimespan = JustNow}}  = IWW.getAgInfo forthis
+interfaceTelegramPirate forthis@UserAsk {placeName = pl, prefs = Preferences {userdata = WaterLevels, usersize = Mini, usertimespan = RightNow}}  = IWW.getAgInfo forthis
 
 -- | weatherTown is in AgUseCase
 weatherTownTelegram :: (Member (Embed IO) r , Member WeatherStatus r, Member (Error WeatherStatusError) r) => TelegramMessage -> Sem r TheWeatherThere
 weatherTownTelegram updt = do 
-      -- responseBody <- (weatherTown . gettheTelegram) updt
-      responseBody <- weatherTown $ UserAsk {placeName = gettheTelegram updt, prefs = Preferences {userdata = WaterLevels, usersize = Mini, usertimespan = JustNow}}
+      responseBody <- weatherTown $ UserAsk {placeName = gettheTelegram updt, prefs = Preferences {userdata = WaterLevels, usersize = Mini, usertimespan = RightNow}}
       let ain = (responseBody, Just updt)
       res <- embed getTelegramSettings
       case res of

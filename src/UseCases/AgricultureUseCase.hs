@@ -16,7 +16,7 @@ import           Polysemy
 import           Polysemy.Error
 import           Polysemy.Input           ()
 import           Polysemy.Trace           (Trace, trace)
-import           UseCases.WWI             (WWI, PlaceName, TheWeatherThere, getWeatherTown, WeatherStatus, UserAsk)
+import           UseCases.WWI             (WWI, PlaceName, TheWeatherThere, getWeatherTown, WeatherStatus, UserAsk (..))
 import           InterfaceAdapters.Preferences
 {- 
 type User = User String 
