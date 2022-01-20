@@ -61,7 +61,7 @@ interfaceTelegramPirate forthis@UserAsk {placeName = pl, prefs = Preferences {us
 -- | weatherTown is in AgUseCase
 weatherTownTelegram :: (Member (Embed IO) r , Member WeatherStatus r, Member (Error WeatherStatusError) r) => TelegramMessage -> Sem r TheWeatherThere
 weatherTownTelegram updt = do 
-      responseBody <- weatherTown $ UserAsk {placeName = gettheTelegram updt, prefs = Preferences {userdata = WaterLevels, usersize = Mini, usertimespan = RightNow}}
+      responseBody <- weatherTown $ UserAsk {placeName = gettheTelegram updt, prefs = Preferences {userdata = WeatherWaterLevels, usersize = Mini, usertimespan = RightNow}}
       let ain = (responseBody, Just updt)
       res <- embed getTelegramSettings
       case res of
