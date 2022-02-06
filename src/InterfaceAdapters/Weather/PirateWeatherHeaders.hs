@@ -8,16 +8,16 @@ import GHC.Generics
 import Prelude
 
 data DarkSky = DarkSky {
-    latitude::Float,
-    longitude::Float,
+    latitude :: Float,
+    longitude :: Float,
+    offset :: Float,
     timezone::String,
     currently:: DarkSkyDataPoint,
     --minutely::DarkSkyDataPoint,
     --hourly:: DarkSkyDataPoint,
     daily :: DarkSkyDataPointDaily,
-    alerts :: [DarkSkyAlert],
+    alerts :: [DarkSkyAlert]
     --flags :: DarkSkyFlags, -- nearest station causing problems 
-    offset :: Float
 } deriving (Show, Generic)
 
 data DarkSkyDataPointDaily = DarkSkyDataPointDaily {
