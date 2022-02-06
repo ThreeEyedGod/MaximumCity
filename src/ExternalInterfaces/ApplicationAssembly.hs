@@ -27,13 +27,14 @@ import           UseCases.AgricultureUseCase
 {--
   @LambdaFiring
   1. LoadConfig and then 'Select' the right backendfrontend runWWI___
-  2. runWWI_ then sets it so that GetWeatherTown is 'interpreted' to Weather.getWeather
+  2. runWWI_ then sets it so that GetWeatherTown is 'interpreted' to Weather.getAgInfo
   2a. the structure of interpretation is in WWI
 
   @DataFlowIn
   1. Servant sucks in the actual API (POST/GET/whatever) in AgriRestServices and 
+  1a. Depending on the http-call (Post or Get or etc) weatherTownTelegram or weatherTownWeb is called
   2. which then makes the call to the mapped runWWI_function in (in WWITelegramPirate, WWIWebPirate, other) and processes the frontend specific JSON or Text
-  3. which then makes the call to AgriUsecase - weatherTown which loads up preferences
+  3. which then makes the call to AgriUsecase - weatherTown
   3. which then calls WWI:GetWeatherTown
   4. See @LambdaFiring#2!
 --}

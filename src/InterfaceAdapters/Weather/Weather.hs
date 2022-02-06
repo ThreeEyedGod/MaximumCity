@@ -31,11 +31,9 @@ import InterfaceAdapters.Water.MH.Core.WaterLevelLakes
 import InterfaceAdapters.Water.MH.Core.WaterLevelHeaders
 import InterfaceAdapters.Utils.HttpHeadersPathDefinitions
 import InterfaceAdapters.Preferences
-import UseCases.WWI (UserAsk (..) )
+import UseCases.WWI (UserAsk (..), PlaceName, TheWeatherThere )
 
 type PreprocessedHeaders = LB.ByteString 
-type PlaceName = T.Text 
-type TheWeatherThere = T.Text
 type WaterLevel = String
 type WeatherText = T.Text
 
@@ -61,14 +59,16 @@ _handlePirateResponse weather1 town wll
 
 _getTownNameWeatherFromTown :: PlaceName -> IO TheWeatherThere
 _getTownNameWeatherFromTown town =  (getWaterLakeLevelForPlace_LiveToday_wrtStorage town >>=  _helperLivePercent) >>=
-  (\wl -> ((InterfaceAdapters.Weather.PirateWeatherAPI._getWeatherForTownN $ Data.ByteString.Char8.unpack town) >>= 
+  (\wl -> ((InterfaceAdapters.Weather.PirateWeatherAPI._getWeatherForTown $ Data.ByteString.Char8.unpack town) >>= 
     (\w -> _handlePirateResponse w town wl)))
 
 getWeather :: Maybe PreprocessedHeaders -> Maybe PlaceName -> IO TheWeatherThere
 getWeather (Just p) Nothing = extractXForwardedForHeader p >>= _getTownNameWeatherFromIp 
 getWeather _ (Just pl) = _getTownNameWeatherFromTown pl 
 
-
 getAgInfo ::  UserAsk -> IO TheWeatherThere
 getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = WeatherWaterLevels, usersize = Detailed, usertimespan = NearForecast}} = _getTownNameWeatherFromTown pl 
+getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = WeatherWaterLevels, usersize = Mini, usertimespan = RightNow}} = _getTownNameWeatherFromTown pl 
 getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = WaterLevels, usersize = Mini, usertimespan = RightNow}} = (getWaterLakeLevelForPlace_LiveToday_wrtStorage pl >>=  _helperLivePercent) >>= (\wll -> _mkWeatherThere pl "" wll)
+getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = Weather, usersize = Mini, usertimespan = NearForecast}} = weatherCurrentForecast $ Data.ByteString.Char8.unpack pl 
+getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = Weather, usersize = Mini, usertimespan = Alerts}} = weatherCurrentAlerts $ Data.ByteString.Char8.unpack pl 

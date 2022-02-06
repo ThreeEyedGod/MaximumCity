@@ -37,28 +37,54 @@ jsonPirateWeatherURL = "https://api.pirateweather.net/forecast/"
 theURL :: String -> String
 theURL q = jsonPirateWeatherURL ++ q ++ "/"
 
-_getWeatherForTown :: String -> IO Text
-_getWeatherForTown town =  _preProcess town >>= (\z -> _goGetDarkSkyJson z) >>= (\x -> _extractWeather x)
+getLatLongPirateKey:: String -> IO (LatLong , Either String Key) 
+getLatLongPirateKey town = getLatLongforThis town >>= (\a ->  ( getPirateWeatherSettings >>=  (\b -> pure $ ( a:: LatLong , b))))
 
-_getWeatherForTownN :: String -> IO Text
-_getWeatherForTownN town =  _preProcess town >>= (\z -> _goGetDarkSkyJson z) >>= (\x -> pure $ _extractWeatherN x)
+townDarkSky :: String -> IO (Either String DarkSky)
+townDarkSky town = getLatLongPirateKey town >>= (\z -> getDarkSkyjson z)
 
-_preProcess:: String -> IO (LatLong , Either String Key) 
-_preProcess town = getLatLongforThis town >>= (\a ->  ( getPirateWeatherSettings >>=  (\b -> pure $ ( a:: LatLong , b))))
-
-_goGetDarkSkyJson :: (LatLong , Either String Key) -> IO (Either String DarkSky)
-_goGetDarkSkyJson (ll , kee) 
-  | "Fail:" `isPrefixOf` ll = return $ Left $ unpack $ _returnStdFail "getWeatherForTown" "getLatLongforThis"
-  | isLeft kee = return $ Left $ unpack $ _returnStdFail "getWeatherForTown" "getPirateWeatherSettings"
+getDarkSkyjson :: (LatLong , Either String Key) -> IO (Either String DarkSky)
+getDarkSkyjson (ll , kee) 
+  | "Fail:" `isPrefixOf` ll = return $ Left $ unpack $ _returnStdFail "getDarkSkyjson" "Missing Lat Long"
+  | isLeft kee = return $ Left $ unpack $ _returnStdFail "getDarkSkyjson" "Missing Pirate Key"
   | otherwise  =  do 
         x <- (eitherDecode <$> (getJSON (theURL (fromRight defaultKey kee)) ll)) :: IO (Either String DarkSky) -- | Http Call to PIrate Net !
         case x of 
-          Left e -> return $ Left $ unpack $ _returnStdFail "getWeatherForTown" "eitherDecode DarkSky"
+          Left e -> return $ Left $ unpack $ _returnStdFail "getDarkSkyjson" "Missing DarkSky json"
           Right stuff -> return $ Right $ stuff 
 
+currentweatherAlertsForecast :: Either String DarkSky -> Text
+currentweatherAlertsForecast dS  = (fromMaybe "Missing DarkSky " $ weatherCurrent dS) <> (fromMaybe "No Alerts issued " $ weatherAlerts dS) <> (fromMaybe "No Forecast available " $ weatherForecast dS)
+
+currentweatherAlerts :: Either String DarkSky -> Text
+currentweatherAlerts dS  = (fromMaybe "Missing DarkSky " $ weatherCurrent dS) <> (fromMaybe "No Alerts issued " $ weatherAlerts dS)
+
+currentweatherForecast :: Either String DarkSky -> Text
+currentweatherForecast dS  = (fromMaybe "Missing DarkSky " $ weatherCurrent dS) <> (fromMaybe "No Forecast available " $ weatherForecast dS)
+
+currentAlertsForecast :: Either String DarkSky -> Text
+currentAlertsForecast dS  = (fromMaybe "No Alerts issued " $ weatherAlerts dS) <> (fromMaybe "No Forecast available " $ weatherForecast dS)
+
+currentWeather :: Either String DarkSky -> Text
+currentWeather dS  = (fromMaybe "Missing DarkSky " $ weatherCurrent dS) 
+
+onlyWeatherCurrent :: String -> IO Text
+onlyWeatherCurrent town  = townDarkSky town >>= (\x -> pure $ currentWeather x)
+
+weatherCurrentAlerts :: String -> IO Text
+weatherCurrentAlerts town  = townDarkSky town >>= (\x -> pure $ currentweatherAlerts x)
+
+weatherCurrentForecast :: String -> IO Text
+weatherCurrentForecast town  = townDarkSky town >>= (\x -> pure $ currentweatherForecast x)
+
+weatherAlertsForecast :: String -> IO Text
+weatherAlertsForecast town  = townDarkSky town >>= (\x -> pure $ currentAlertsForecast x)
+
+_getWeatherForTown :: String -> IO Text
+_getWeatherForTown town =  getLatLongPirateKey town >>= (\z -> getDarkSkyjson z) >>=  (\x -> pure $ _extractWeatherN x)
 
 _extractWeatherN :: Either String DarkSky -> Text
-_extractWeatherN dS  = _extractWeatherNow dS <> (fromMaybe "" $ _extractWeatherAlerts dS) <> (fromMaybe "" $ _extractWeatherForecast dS)
+_extractWeatherN dS  = (fromMaybe "Missing DarkSky " $ weatherCurrent dS) <> (fromMaybe "No Alerts " $ weatherAlerts dS) <> (fromMaybe "Missing Forecast " $ weatherForecast dS)
 
 _extractWeather :: Either String DarkSky -> IO Text
 _extractWeather dS 
@@ -74,21 +100,24 @@ _extractWeather dS
                                       getAllDaysForecast (dly_data (daily d))
               Nothing -> pure $ Data.ByteString.Char8.pack $ rightNowWeather
 
-_extractWeatherNow:: Either String DarkSky -> Text
-_extractWeatherNow dS 
-  | isLeft dS = _returnStdFail "getWeatherForTown" "eitherDecode DarkSky"
-  | isRight dS = Data.ByteString.Char8.pack $ parseNowWeather (currently d) 
+
+
+-- | Process an error string or Darksky to extract either weather, alerts or forecast 
+weatherCurrent:: Either String DarkSky -> Maybe Text
+weatherCurrent dS 
+  | isLeft dS =  Nothing -- | _returnStdFail "weatherCurrent" "Missing DarkSky"
+  | isRight dS = Just $ Data.ByteString.Char8.pack $ parseNowWeather (currently d) 
   where Right d = dS
 
-_extractWeatherForecast:: Either String DarkSky -> Maybe Text
-_extractWeatherForecast dS 
+weatherForecast:: Either String DarkSky -> Maybe Text
+weatherForecast dS 
   | isJust . maybeHead $ (dly_data (daily d)) = Just $ Data.ByteString.Char8.pack $ getAllDaysForecast (dly_data (daily d))
   | otherwise = Nothing
   where 
     Right d  = dS 
 
-_extractWeatherAlerts :: Either String DarkSky -> Maybe Text
-_extractWeatherAlerts dS 
+weatherAlerts :: Either String DarkSky -> Maybe Text
+weatherAlerts dS 
   | isJust . maybeHead $ (alerts d) = Just $ Data.ByteString.Char8.pack $ getAllalerts (alerts d) 
   | otherwise = Nothing 
   where 
