@@ -111,14 +111,14 @@ weatherCurrent dS
 
 weatherForecast:: Either String DarkSky -> Maybe Text
 weatherForecast dS 
-  | isJust . maybeHead $ (dly_data (daily d)) = Just $ Data.ByteString.Char8.pack $ getAllDaysForecast (dly_data (daily d))
+  | (isRight dS) && (isJust . maybeHead $ (dly_data (daily d))) = Just $ Data.ByteString.Char8.pack $ getAllDaysForecast (dly_data (daily d))
   | otherwise = Nothing
   where 
     Right d  = dS 
 
 weatherAlerts :: Either String DarkSky -> Maybe Text
 weatherAlerts dS 
-  | isJust . maybeHead $ (alerts d) = Just $ Data.ByteString.Char8.pack $ getAllalerts (alerts d) 
+  | (isRight dS) && (isJust . maybeHead $ (alerts d)) = Just $ Data.ByteString.Char8.pack $ getAllalerts (alerts d) 
   | otherwise = Nothing 
   where 
     Right d = dS 
