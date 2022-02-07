@@ -10,8 +10,8 @@ import Prelude
 data DarkSky = DarkSky {
     latitude :: Float,
     longitude :: Float,
-    offset :: Float,
     timezone::String,
+    offset :: Float,
     currently:: DarkSkyDataPoint,
     --minutely::DarkSkyDataPoint,
     --hourly:: DarkSkyDataPoint,
@@ -77,7 +77,8 @@ instance FromJSON DarkSkyDataPointDailyDetails where
 data DarkSkyFlags = DarkSkyFlags {
   flg_sources :: [String],
   flg_neareststation :: Int, -- this has to map to nearest-station
-  flg_units :: String
+  flg_units :: String,
+  version :: String
 } deriving (Show, Generic)
 instance FromJSON DarkSkyFlags where
   parseJSON = genericParseJSON defaultOptions {
