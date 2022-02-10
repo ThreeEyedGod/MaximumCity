@@ -34,7 +34,7 @@ import InterfaceAdapters.Utils.Helper
 
 import Control.Applicative
 import Data.Text.Encoding as TSE
-import InterfaceAdapters.IP.GeoIpAPI
+import InterfaceAdapters.IP.GeoIpAPI (getLatLongforThis)
 
 -- | Begin Maharashtra  ********
 wlURL :: String
