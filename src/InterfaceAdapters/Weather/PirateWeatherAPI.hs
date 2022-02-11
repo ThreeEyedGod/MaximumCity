@@ -48,7 +48,7 @@ getDarkSkyjson (ll , kee)
   | "Fail:" `isPrefixOf` ll = return $ Left $ unpack $ _returnStdFail "getDarkSkyjson" "Missing Lat Long"
   | isLeft kee = return $ Left $ unpack $ _returnStdFail "getDarkSkyjson" "Missing Pirate Key"
   | otherwise  =  do 
-        let t = pack (unpack ll ++ "?exclude=minutely,hourly,daily,alerts")
+        let t = pack (unpack ll ++ "?exclude=minutely,hourly,alerts")
         x <- (eitherDecode <$> (getJSON (theURL (fromRight defaultKey kee)) t)) :: IO (Either String DarkSky) -- | Http Call to PIrate Net !
         case x of 
           Left e -> return $ Left $ unpack $ _returnStdFail "getDarkSkyjson" "Missing DarkSky json"
