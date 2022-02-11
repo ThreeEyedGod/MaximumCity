@@ -45,7 +45,8 @@ data OpenCageComponentsData = OpenCageComponentsData {
             continent :: String,
             country :: String,
             country_code :: String,
-            municipality :: String,
+            county :: String,
+            postcode :: String,
             state :: String,
             state_code :: String,
             state_district :: String
@@ -53,19 +54,28 @@ data OpenCageComponentsData = OpenCageComponentsData {
 
 hyphentoUnderscore_toLower :: Char -> Char 
 hyphentoUnderscore_toLower x 
-      | isPunctuation '-' = '_'
+      | generalCategory x == DashPunctuation = '_'
       | otherwise         = DC.toLower x
 
 instance FromJSON OpenCageComponentsData where
   parseJSON = genericParseJSON defaultOptions {
-    constructorTagModifier = Prelude.map hyphentoUnderscore_toLower
+    fieldLabelModifier = Prelude.map hyphentoUnderscore_toLower
+    --, constructorTagModifier = Prelude.map hyphentoUnderscore_toLower
+    --, constructorTagModifier = camelTo2 '_'
+  }
+instance ToJSON OpenCageComponentsData where
+  toJSON = genericToJSON defaultOptions {
+    fieldLabelModifier = Prelude.map hyphentoUnderscore_toLower
+    --, constructorTagModifier = Prelude.map hyphentoUnderscore_toLower
+    --, constructorTagModifier = camelTo2 '_'
   }
 
+
 data OpenCageResultData = OpenCageResultData {
-         bounds :: OpenCageBoundsData,
-         components :: OpenCageComponentsData,
-         confidence :: Int,
-         formatted :: String,
+         --bounds :: OpenCageBoundsData,
+         --components :: OpenCageComponentsData,
+         --confidence :: Int,
+         --formatted :: String,
          geometry :: OpenCageLocdata
 } deriving (Show, Generic, FromJSON)
 
@@ -88,15 +98,17 @@ data OpenCagetimestamp = OpenCagetimestamp {
    } deriving (Show, Generic, FromJSON)
 
 data OpenCageForwardGeoData = OpenCageForwardGeoData {
-    documentation :: String
-  , licenses      :: [OpenCageLicenseData]
-  , rate          :: OpenCageRateData
-  , results       :: [OpenCageResultData]
-  , status        :: OpenCageStatus
-  , stay_informed :: OpenCagestayInformed 
-  , thanks        :: String
-  , timestamp     :: OpenCagetimestamp 
-  , total_results :: Int
+    --documentation :: String
+  --, licenses      :: [OpenCageLicenseData]
+  --,
+  -- rate          :: OpenCageRateData
+  --, 
+  results       :: [OpenCageResultData]
+  --, status        :: OpenCageStatus
+  --, stay_informed :: OpenCagestayInformed 
+  --, thanks        :: String
+  --, timestamp     :: OpenCagetimestamp 
+  --, total_results :: Int
 } deriving (Show, Generic, FromJSON)
 
 data OpenCageLocdata = OpenCageLocdata
