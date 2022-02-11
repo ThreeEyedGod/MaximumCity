@@ -10,13 +10,13 @@ import Prelude
 data DarkSky = DarkSky {
     latitude :: Float,
     longitude :: Float,
-    timezone::String,
+    timezone :: String,
     offset :: Float,
-    currently:: DarkSkyDataPoint,
+    currently :: DarkSkyDataPoint,
     --minutely::DarkSkyDataPoint,
     --hourly:: DarkSkyDataPoint,
-    daily :: DarkSkyDataPointDaily,
-    alerts :: [DarkSkyAlert]
+    daily :: DarkSkyDataPointDaily
+    --, alerts :: [DarkSkyAlert]
     --flags :: DarkSkyFlags, -- nearest station causing problems 
 } deriving (Show, Generic)
 
