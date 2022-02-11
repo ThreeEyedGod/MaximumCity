@@ -19,6 +19,7 @@ import qualified Data.Text as Data.ByteString.Char8
 import InterfaceAdapters.Utils.Helper
 import Data.Text.Lazy as TL
 import Data.Text.Lazy.Encoding as TLE
+import Data.Char as DC
 
 data OpenCageLicenseData = OpenCageLicenseData {
     name :: String
@@ -34,9 +35,10 @@ data OpenCageBoundsData  = OpenCageBoundsData {
             northeast :: OpenCageLocdata,
             southwest :: OpenCageLocdata
          } deriving (Show, Generic, FromJSON)
-{- data OpenCageComponentsData = OpenCageComponentsData {
-            ISO_3166-1_alpha-2 :: String,
-            ISO_3166-1_alpha-3 :: String,
+
+data OpenCageComponentsData = OpenCageComponentsData {
+            iso_3166_1_alpha_2 :: String,
+            iso_3166_1_alpha_3 :: String,
             _category :: String,
             _type :: String,
             city :: String,
@@ -48,7 +50,17 @@ data OpenCageBoundsData  = OpenCageBoundsData {
             state_code :: String,
             state_district :: String
          } deriving (Show, Generic)
- -}
+
+hyphentoUnderscore_toLower :: Char -> Char 
+hyphentoUnderscore_toLower x 
+      | isPunctuation '-' = '_'
+      | otherwise         = DC.toLower x
+
+instance FromJSON OpenCageComponentsData where
+  parseJSON = genericParseJSON defaultOptions {
+    constructorTagModifier = Prelude.map hyphentoUnderscore_toLower
+  }
+
 data OpenCageResultData = OpenCageResultData {
          bounds :: OpenCageBoundsData,
          -- components :: OpenCageComponentsData,
@@ -170,7 +182,7 @@ getLatLongforThis town = do
         -- f <- (eitherDecode <$> getGeoIpforThis) :: IO (Either String GeoIp)
         f <- (eitherDecode <$> getOpenCageForwardGeoCodefor town) :: IO (Either String OpenCageForwardGeoData)
         case f of
-          Left err -> return $ "Fail:getLatLongforThis | eitherDecode getGeoIpforThis" 
+          Left err -> return $ "Fail:getLatLongforThis | eitherDecode getOpenCageForwardGeoCodefor" 
           -- Right geoipstuff_backup -> return $ Data.ByteString.Char8.pack (show (latitude (geoipstuff_backup :: GeoIp)) ++ "," ++ show (longitude (geoipstuff_backup :: GeoIp)))
           Right geo_backup -> return $ Data.ByteString.Char8.pack (show (lat (geometry (Prelude.head (results (geo_backup :: OpenCageForwardGeoData))))) ++ "," ++ show (lng (geometry (Prelude.head (results (geo_backup :: OpenCageForwardGeoData))))))
       Right geoipstuff ->
