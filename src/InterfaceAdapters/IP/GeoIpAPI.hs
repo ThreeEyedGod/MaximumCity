@@ -63,7 +63,7 @@ instance FromJSON OpenCageComponentsData where
 
 data OpenCageResultData = OpenCageResultData {
          bounds :: OpenCageBoundsData,
-         -- components :: OpenCageComponentsData,
+         components :: OpenCageComponentsData,
          confidence :: Int,
          formatted :: String,
          geometry :: OpenCageLocdata
