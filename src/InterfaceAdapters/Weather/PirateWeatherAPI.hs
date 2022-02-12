@@ -19,7 +19,7 @@ import InterfaceAdapters.Utils.JSONHelper
 import InterfaceAdapters.Utils.Helper
 import InterfaceAdapters.Weather.PirateWeatherHeaders
 import InterfaceAdapters.Preferences
-
+import InterfaceAdapters.IP.GeoLatLong (getLatLongforThis)
 type LatLong = Text
 type Key = String
 defaultKey = "NoKey" :: Key

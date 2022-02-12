@@ -14,6 +14,7 @@ import InterfaceAdapters.Utils.PdfHelper
 import Data.Attoparsec.ByteString as Att
 import qualified Data.List as DL
 import Data.Attoparsec.ByteString.Char8 (skipSpace, isDigit_w8, manyTill, isHorizontalSpace, endOfLine, char, decimal, space, double, letter_ascii)
+import InterfaceAdapters.IP.GeoLatLong (getLatLongforThis)
 
 import Naqsha.Geometry
 import Naqsha.Geometry.Spherical
@@ -34,7 +35,6 @@ import InterfaceAdapters.Utils.Helper
 
 import Control.Applicative
 import Data.Text.Encoding as TSE
-import InterfaceAdapters.IP.GeoIpAPI (getLatLongforThis)
 
 -- | Begin Maharashtra  ********
 wlURL :: String

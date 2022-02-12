@@ -69,6 +69,13 @@ orDieonNothing :: Maybe a -> String -> Either String a
 Just a  `orDieonNothing` _      = return a
 Nothing `orDieonNothing` string = Left string
 
+key :: String -> IO (Either String String)
+key k= do
+  tk <- getKey k
+  case tk of
+    Left _ -> pure $ Left $ "Fail " ++ k ++ " | Token error"
+    Right token -> pure $ Right $ token
+
 
 -- composeMaybe
 (<..>) ::  (a -> Maybe b) -> (b -> Maybe c) -> (a -> Maybe c)

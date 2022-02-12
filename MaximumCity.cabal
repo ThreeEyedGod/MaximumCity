@@ -27,7 +27,9 @@ library
       ExternalInterfaces.ServantShim
       InterfaceAdapters.AgricultureRestService
       InterfaceAdapters.Config
+      InterfaceAdapters.IP.GeoCodeOpenCage
       InterfaceAdapters.IP.GeoIpAPI
+      InterfaceAdapters.IP.GeoLatLong
       InterfaceAdapters.IP.IP2Location
       InterfaceAdapters.Preferences
       InterfaceAdapters.Telegram.Telegram
