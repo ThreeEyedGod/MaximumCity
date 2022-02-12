@@ -113,7 +113,7 @@ data OpenCageLocdata = OpenCageLocdata
 
 statusExceptionHandler ::  SomeException -> IO B.ByteString
 statusExceptionHandler e = (putStrLn "Bad Error") >> (return B.empty)
-jsonOpenCageURL = "https://api.opencagedata.com/geocode/v1/json?key=8d21df2243834a4f9d5336725c5cc179&q="
+jsonOpenCageURL = "https://api.opencagedata.com/geocode/v1/json?key=" 
 
 getOpenCageSettings :: IO (Either String String)
 getOpenCageSettings = key "API_OPENCAGE_KEY"
@@ -125,5 +125,5 @@ getOpenCageForwardGeoCodefor town = do
           case k of 
             Left errMsgString ->   return $ TLE.encodeUtf8 $ TL.pack errMsgString -- make String ByteString
             Right key         ->   do
-                  let urlCall = jsonOpenCageURL ++ town ++ "&pretty=1&no_annotations=1&countrycode=in&limit=1"
+                  let urlCall = jsonOpenCageURL ++ key ++ "&q=" ++ town ++ "&pretty=1&no_annotations=1&countrycode=in&limit=1"
                   simpleHttp urlCall `X.catch` statusExceptionHandler
