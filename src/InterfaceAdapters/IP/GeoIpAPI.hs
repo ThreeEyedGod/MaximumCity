@@ -73,7 +73,7 @@ getPositionStackSettings = do
     Right token -> pure $ Right $ token
  -}
 
-getPositionStackSettings :: IO (Either String String)
+getPositionStackSettings :: IO (Either ErrLeftString KeyString)
 getPositionStackSettings = key "API_POSITIONSTACK_KEY"
 
 -- Gets LatLong only for places only in INDIA (IN)

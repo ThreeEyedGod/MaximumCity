@@ -20,6 +20,8 @@ import Data.Char (isDigit)
 
 type InFunction = String
 type CalleeFunction = String
+type ErrLeftString = String
+type KeyString = String
 
 maybeHead :: [a] -> Maybe a
 maybeHead []    = Nothing
@@ -53,7 +55,7 @@ data EnvError
   | SomeIOError IOError
   deriving (Eq, Show)
 
-badEnv :: String -> IOException -> IO (Either EnvError String)
+badEnv :: String -> IOException -> IO (Either EnvError KeyString)
 badEnv env ex
       | Prelude.null env = return $ Left $ EmptyKeyError "Environment key not given "
       | isDoesNotExistError ex = return $ Left $ (MissingEnvError env)
@@ -69,7 +71,7 @@ orDieonNothing :: Maybe a -> String -> Either String a
 Just a  `orDieonNothing` _      = return a
 Nothing `orDieonNothing` string = Left string
 
-key :: String -> IO (Either String String)
+key :: String -> IO (Either ErrLeftString String)
 key k= do
   tk <- getKey k
   case tk of

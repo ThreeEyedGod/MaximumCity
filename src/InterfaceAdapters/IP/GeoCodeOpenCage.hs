@@ -115,7 +115,7 @@ statusExceptionHandler ::  SomeException -> IO B.ByteString
 statusExceptionHandler e = (putStrLn "Bad Error") >> (return B.empty)
 jsonOpenCageURL = "https://api.opencagedata.com/geocode/v1/json?key=" 
 
-getOpenCageSettings :: IO (Either String String)
+getOpenCageSettings :: IO (Either ErrLeftString KeyString)
 getOpenCageSettings = key "API_OPENCAGE_KEY"
 
 -- Gets LatLong only for places only in INDIA (IN)
