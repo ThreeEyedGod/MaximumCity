@@ -21,6 +21,7 @@ import Data.Text.Lazy as TL
 import Data.Text.Lazy.Encoding as TLE
 import Data.Char as DC
 import InterfaceAdapters.IP.GeoCodeOpenCage (getOpenCageForwardGeoCodefor, OpenCageForwardGeoData (..), OpenCageResultData(..), OpenCageLocdata(..))
+import InterfaceAdapters.Utils.JSONHelper
 
 data Locdata = Locdata
   { latitude :: Float,
@@ -79,10 +80,7 @@ getPositionStackSettings = key "API_POSITIONSTACK_KEY"
 -- Gets LatLong only for places only in INDIA (IN)
 getPositionStackForwardGeoCodefor :: String -> IO B.ByteString
 getPositionStackForwardGeoCodefor town = do
-   k <- getPositionStackSettings -- set this in AWS Env. Variables
-   case k of
-     Left errMsgString -> 
-          return $ TLE.encodeUtf8 $ TL.pack errMsgString -- make String ByteString
-     Right key ->  do
-          let urlCall = jsonPositionStackURL ++ key ++ "&limit=1&fields=results.latitude,results.longitude&country=IN&query=" ++ town
-          simpleHttp urlCall `X.catch` statusExceptionHandler
+  k <- getPositionStackSettings
+  case k of -- set this in AWS Env. Variables
+     Left errMsgString -> return $ TLE.encodeUtf8 $ TL.pack errMsgString -- make String ByteString
+     Right key         -> getJSON (jsonPositionStackURL ++ key ++ "&limit=1&fields=results.latitude,results.longitude&country=IN&query=") (T.pack town)

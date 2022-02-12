@@ -72,7 +72,7 @@ Just a  `orDieonNothing` _      = return a
 Nothing `orDieonNothing` string = Left string
 
 key :: String -> IO (Either ErrLeftString String)
-key k= do
+key k = do
   tk <- getKey k
   case tk of
     Left _ -> pure $ Left $ "Fail " ++ k ++ " | Token error"
