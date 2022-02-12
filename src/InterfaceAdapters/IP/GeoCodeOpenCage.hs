@@ -20,6 +20,8 @@ import InterfaceAdapters.Utils.Helper
 import Data.Text.Lazy as TL
 import Data.Text.Lazy.Encoding as TLE
 import Data.Char as DC
+import InterfaceAdapters.Utils.JSONHelper
+
 
 data OpenCageLicenseData = OpenCageLicenseData {
     name :: String
@@ -124,6 +126,7 @@ getOpenCageForwardGeoCodefor town = do
           k <- getOpenCageSettings -- set this in AWS Env. Variables
           case k of 
             Left errMsgString ->   return $ TLE.encodeUtf8 $ TL.pack errMsgString -- make String ByteString
-            Right key         ->   do
-                  let urlCall = jsonOpenCageURL ++ key ++ "&q=" ++ town ++ "&pretty=1&no_annotations=1&countrycode=in&limit=1"
+            Right key         ->   getJSON (jsonOpenCageURL ++ key ++ "&q=" ++ town) (T.pack "&pretty=1&no_annotations=1&countrycode=in&limit=1")
+{-                   let urlCall = jsonOpenCageURL ++ key ++ "&q=" ++ town ++ "&pretty=1&no_annotations=1&countrycode=in&limit=1"
                   simpleHttp urlCall `X.catch` statusExceptionHandler
+ -}
