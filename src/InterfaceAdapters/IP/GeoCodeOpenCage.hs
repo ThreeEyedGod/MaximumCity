@@ -127,6 +127,3 @@ getOpenCageForwardGeoCodefor town = do
           case k of 
             Left errMsgString ->   return $ TLE.encodeUtf8 $ TL.pack errMsgString -- make String ByteString
             Right key         ->   getJSON (jsonOpenCageURL ++ key ++ "&q=" ++ town) (T.pack "&pretty=1&no_annotations=1&countrycode=in&limit=1")
-{-                   let urlCall = jsonOpenCageURL ++ key ++ "&q=" ++ town ++ "&pretty=1&no_annotations=1&countrycode=in&limit=1"
-                  simpleHttp urlCall `X.catch` statusExceptionHandler
- -}

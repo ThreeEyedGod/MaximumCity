@@ -10,10 +10,7 @@ import Data.Text as T
 import Control.Applicative
 import Control.Monad
 import qualified Data.ByteString.Lazy as B
-{- import Network.HTTP.Conduit (simpleHttp)
-import Control.Exception as X
-import GHC.Generics
-import GHC.Float as SF  -}
+
 import Prelude
 import qualified Data.Text as Data.ByteString.Char8
 import InterfaceAdapters.Utils.Helper

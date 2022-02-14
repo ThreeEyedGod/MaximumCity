@@ -66,14 +66,6 @@ getGeoIpforThis = simpleHttp jsonGeoIpURL `X.catch` statusExceptionHandler
 jsonPositionStackURL :: String
 jsonPositionStackURL = "http://api.positionstack.com/v1/forward?access_key="
 
-{- getPositionStackSettings :: IO (Either String String)
-getPositionStackSettings = do
-  tk <- getKey "API_POSITIONSTACK_KEY"
-  case tk of
-    Left _ -> pure $ Left $ "Fail:getPositionStackSettings | PositionStack Token error"
-    Right token -> pure $ Right $ token
- -}
-
 getPositionStackSettings :: IO (Either ErrLeftString KeyString)
 getPositionStackSettings = key "API_POSITIONSTACK_KEY"
 

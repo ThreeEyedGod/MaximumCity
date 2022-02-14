@@ -1,4 +1,3 @@
-
 {-# LANGUAGE OverloadedStrings, DeriveGeneric #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 
@@ -87,22 +86,6 @@ _getWeatherForTown town =  getLatLongPirateKey town >>= (\z -> getDarkSkyjson z)
 _extractWeatherN :: Either String DarkSky -> Text
 -- _extractWeatherN dS  = (fromMaybe "Missing DarkSky " $ weatherCurrent dS) <> (fromMaybe "No Alerts " $ weatherAlerts dS) <> (fromMaybe "Missing Forecast " $ weatherForecast dS)
 _extractWeatherN dS  = (fromMaybe "Missing DarkSky " $ weatherCurrent dS) <> (fromMaybe "Missing Forecast " $ weatherForecast dS)
-
-{- _extractWeather :: Either String DarkSky -> IO Text
-_extractWeather dS 
-  | isLeft dS = pure $ _returnStdFail "getWeatherForTown" "eitherDecode DarkSky"
-  | isRight dS = do 
-      let Right d = dS
-      let rightNowWeather = parseNowWeather (currently d) 
-      case maybeHead $ (alerts d) of
-          Just atLeastOneAlert -> pure $ Data.ByteString.Char8.pack $ rightNowWeather ++ getAllalerts (alerts d) 
-          Nothing -> do 
-            case maybeHead $ (dly_data (daily d)) of 
-              Just dailyForecast -> pure $ Data.ByteString.Char8.pack $ rightNowWeather ++ 
-                                      getAllDaysForecast (dly_data (daily d))
-              Nothing -> pure $ Data.ByteString.Char8.pack $ rightNowWeather
- -}
-
 
 -- | Process an error string or Darksky to extract either weather, alerts or forecast 
 weatherCurrent:: Either String DarkSky -> Maybe Text
