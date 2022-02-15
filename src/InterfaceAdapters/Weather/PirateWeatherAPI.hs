@@ -62,6 +62,10 @@ currentweatherAlerts dS  = (fromMaybe "Missing DarkSky " $ weatherCurrent dS) <>
 currentweatherForecast :: Either String DarkSky -> Text
 currentweatherForecast dS  = (fromMaybe "Missing DarkSky " $ weatherCurrent dS) <> (fromMaybe "No Forecast available " $ weatherForecast dS)
 
+currentweatherForecastMini :: Either String DarkSky -> Text
+currentweatherForecastMini dS  = (fromMaybe "Missing DarkSky " $ weatherCurrentMini dS) <> (fromMaybe "No Forecast available " $ weatherForecastMini dS)
+
+
 {- currentAlertsForecast :: Either String DarkSky -> Text
 currentAlertsForecast dS  = (fromMaybe "No Alerts issued " $ weatherAlerts dS) <> (fromMaybe "No Forecast available " $ weatherForecast dS)
  -}
@@ -75,7 +79,11 @@ onlyWeatherCurrent town  = townDarkSky town >>= (\x -> pure $ currentWeather x)
 weatherCurrentAlerts town  = townDarkSky town >>= (\x -> pure $ currentweatherAlerts x)
  -}
 weatherCurrentForecast :: String -> IO Text
-weatherCurrentForecast town  = townDarkSky town >>= (\x -> pure $ currentweatherForecast x)
+weatherCurrentForecast town  = townDarkSky town >>= (\x -> pure $ currentweatherForecastMini x)
+
+weatherCurrentForecastMini :: String -> IO Text
+weatherCurrentForecastMini town  = townDarkSky town >>= (\x -> pure $ currentweatherForecastMini x)
+
 
 {- weatherAlertsForecast :: String -> IO Text
 weatherAlertsForecast town  = townDarkSky town >>= (\x -> pure $ currentAlertsForecast x)
@@ -100,6 +108,20 @@ weatherForecast dS
   | otherwise = Nothing
   where 
     Right d  = dS 
+
+weatherCurrentMini :: Either String DarkSky -> Maybe Text
+weatherCurrentMini dS 
+  | isLeft dS =  Nothing -- | _returnStdFail "weatherCurrent" "Missing DarkSky"
+  | isRight dS = Just $ Data.ByteString.Char8.pack $ parseNowWeatherMini (currently d) 
+  where Right d = dS
+
+weatherForecastMini :: Either String DarkSky -> Maybe Text
+weatherForecastMini dS 
+  | (isRight dS) && (isJust . maybeHead $ (dly_data (daily d))) = Just $ Data.ByteString.Char8.pack $ getAllDaysForecastMini (dly_data (daily d))
+  | otherwise = Nothing
+  where 
+    Right d  = dS 
+
 
 {- weatherAlerts :: Either String DarkSky -> Maybe Text
 weatherAlerts dS 
@@ -141,6 +163,28 @@ getAllDaysForecast (x : xs) =
                               (catSF "UV Index " $ dd_uvIndex $ x),
                               "  "] 
                               ++ getAllDaysForecast xs
+
+parseNowWeatherMini :: DarkSkyDataPoint -> String
+parseNowWeatherMini dsdp = Prelude.unlines [ --unlines sticks in newline after each element
+                    (catSF "Celsius " $ fahrenheitToCelsius (temperature dsdp)),
+                    (catSS "It is " (summary dsdp)),
+                    (catSF  "Chance of rain % " (100 * precipProbability dsdp)),
+                    (catSF  "Humdity  % " (100 * (humidity dsdp))), 
+                    (catSF  "Windspeed at m/s " (windSpeed dsdp)), 
+                    "  "]
+
+
+getAllDaysForecastMini :: [DarkSkyDataPointDailyDetails] -> String
+getAllDaysForecastMini [] = []
+getAllDaysForecastMini (x : xs) = 
+          Prelude.unlines [   (catSI "Forecasts available for days: " $ ((Prelude.length xs) + 1)),
+                              (catSS "Tomorrow : " $ dd_summary $ x ),
+                              (catSF "Max Rain mm " $ dd_precipIntensityMax $ x ),
+                              (catSF "Max Temp Celsius " $ fahrenheitToCelsius (dd_temperatureHigh $ x) ),
+                              (catSF "Min Temp Celsius " $ fahrenheitToCelsius (dd_temperatureLow $ x) ),
+                              (catSF "UV Index " $ dd_uvIndex $ x),
+                              "  "] 
+
 
 {- getAllalerts :: [DarkSkyAlert] -> String
 getAllalerts [] = []
