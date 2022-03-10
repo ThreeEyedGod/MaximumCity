@@ -3,8 +3,8 @@
 {-# LANGUAGE TypeApplications #-}
 
 {-# LANGUAGE GADTs, TypeInType, ScopedTypeVariables, StandaloneDeriving #-}
-{-# LANGUAGE TemplateHaskell, LambdaCase, BlockArguments, GADTs
-           , FlexibleContexts, FlexibleInstances, TypeOperators, DataKinds, PolyKinds, ScopedTypeVariables #-}
+{-# LANGUAGE TemplateHaskell, LambdaCase, BlockArguments, GADTs,
+           NamedFieldPuns, FlexibleContexts, FlexibleInstances, TypeOperators, DataKinds, PolyKinds, ScopedTypeVariables #-}
 
 module UseCases.AgricultureUseCase
 ( 
@@ -26,7 +26,9 @@ class UserInput x where
 
 instance UserInput TelegramMessage where
   getInfo updt = do 
-      responseBody <- getWeatherTown $ UserAsk {placeName = gettheTelegram updt, prefs = Preferences {userdata = Weather, usersize = Mini, usertimespan = NearForecast}} 
+      -- responseBody <- getWeatherTown $ UserAsk {placeName = gettheTelegram updt, prefs = Preferences {userdata = Weather, usersize = Mini, usertimespan = NearForecast}} 
+      thisuserprefs <- embed getPreferences
+      responseBody <- getWeatherTown $ UserAsk {placeName = gettheTelegram updt, prefs = thisuserprefs} 
       let ain = (responseBody, Just updt) :: UserMsg
       sendBackMsg ain
       pure $ (fst ain)
