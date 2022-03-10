@@ -65,9 +65,9 @@ liftServer config = hoistServer agricultureAPI (interpretServer config) agricult
 
 -- | port and verbose are unused
 selectWWICombination :: (Member (Input Config) r, Member (Embed IO) r, Member Trace r)
-                 => Config -> Sem (WeatherStatus : r) a -> Sem r a
-selectWWICombination Config {port = 8080, backend = PirateWeather, frontend = Telegram, gateway = AWSAPIRest,  verbose = True} = runWWITelegramPirate
-selectWWICombination Config {port = 8080, backend = PirateWeather, frontend = Web, gateway = AWSAPIRest,  verbose = True} = runWWIWebPirate
+                 => Config -> Sem (WWI : r) a -> Sem r a
+selectWWICombination Config {port = 8080, backend = PirateWeather, frontend = Telegram, geoend = OpenCage, gateway = AWSAPIRest,  verbose = True} = runWWITelegramPirate
+selectWWICombination Config {port = 8080, backend = PirateWeather, frontend = Web, geoend = OpenCage, gateway = AWSAPIRest,  verbose = True} = runWWIWebPirate
 
 -- | if the config flag verbose is set to True, trace to Console, else ignore all trace messages
 selectTraceVerbosity :: (Member (Embed IO) r) => Config -> (Sem (Trace : r) a -> Sem r a)

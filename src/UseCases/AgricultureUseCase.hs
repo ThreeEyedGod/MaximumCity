@@ -4,32 +4,32 @@
 
 {-# LANGUAGE GADTs, TypeInType, ScopedTypeVariables, StandaloneDeriving #-}
 {-# LANGUAGE TemplateHaskell, LambdaCase, BlockArguments, GADTs
-           , FlexibleContexts, TypeOperators, DataKinds, PolyKinds, ScopedTypeVariables #-}
+           , FlexibleContexts, FlexibleInstances, TypeOperators, DataKinds, PolyKinds, ScopedTypeVariables #-}
 
 module UseCases.AgricultureUseCase
 ( 
-    weatherTown
+            getInfo
 )
 where
 
 import           Polysemy
+
 import           Polysemy.Error
 import           Polysemy.Input           ()
 import           Polysemy.Trace           (Trace, trace)
-import           UseCases.WWI             (WWI, PlaceName, TheWeatherThere, getWeatherTown, WeatherStatus, UserAsk (..))
+import           UseCases.WWI             (WWI, PlaceName, TheWeatherThere, getWeatherTown, sendBackMsg, UserAsk (..), UserMsg (..))
 import           InterfaceAdapters.Preferences
-{- 
-type User = User String 
--- | Persistence is a key/value store Day / [Reservation]
-type Persistence = KVS User Preferences
- -}
--- | getWeatherTown is in WWI and it's mapped to a functon in runWWI__
-weatherTown :: Member (WWI UserAsk TheWeatherThere) r => UserAsk -> Sem r TheWeatherThere
-weatherTown ua = getWeatherTown ua
+import           InterfaceAdapters.Telegram.Telegram
 
-{- fetch :: (Member Persistence r, Member Trace r) => User -> Sem r (Maybe Preferences)
-fetch user = do
-  trace $ "fetch preferences for " ++ show user
-  maybePrefs <- getKvs day
-  return maybePrefs
- -}
+class UserInput x where 
+      getInfo :: (Member (Embed IO) r, Member WWI r) => x -> Sem r TheWeatherThere
+
+instance UserInput TelegramMessage where
+  getInfo updt = do 
+      responseBody <- getWeatherTown $ UserAsk {placeName = gettheTelegram updt, prefs = Preferences {userdata = Weather, usersize = Mini, usertimespan = NearForecast}} 
+      let ain = (responseBody, Just updt) :: UserMsg
+      sendBackMsg ain
+      pure $ (fst ain)
+
+instance UserInput PlaceName where 
+      getInfo pln = getWeatherTown $ UserAsk {placeName = pln}

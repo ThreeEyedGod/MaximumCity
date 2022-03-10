@@ -9,7 +9,7 @@ module InterfaceAdapters.AgricultureRestService where
 import           Polysemy
 import           Polysemy.Error
 import           Servant
-import           qualified UseCases.AgricultureUseCase as UC (weatherTown)
+import           qualified UseCases.AgricultureUseCase as UC (getInfo)
 import           UseCases.WWI
 import           InterfaceAdapters.Telegram.Telegram
 import           InterfaceAdapters.Weather.WWITelegramPirate
@@ -27,10 +27,9 @@ type AgricultureAPI =
                       :> Post    '[ PlainText] UseCases.WWI.TheWeatherThere -- Post    /weather
 
 -- | implements the AgricultureAPI
-agricultureServer :: (Member (Embed IO) r, Member WeatherStatus r, Member (Error WeatherStatusError) r) => ServerT AgricultureAPI (Sem r)
-agricultureServer = weatherTownTelegram :<|>  weatherTownWeb
+agricultureServer :: (Member (Embed IO) r, Member WWI r) => ServerT AgricultureAPI (Sem r)
+agricultureServer =  UC.getInfo :<|>  UC.getInfo
 
 -- | boilerplate needed to guide type inference
 agricultureAPI :: Proxy AgricultureAPI
 agricultureAPI = Proxy
- 

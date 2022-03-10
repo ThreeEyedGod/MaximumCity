@@ -10,7 +10,6 @@
 module InterfaceAdapters.Weather.WWIWebPirate
   ( 
     runWWIWebPirate
-  , weatherTownWeb
   ) 
 where
 
@@ -48,12 +47,8 @@ import UseCases.AgricultureUseCase
 import qualified InterfaceAdapters.Weather.Weather as IWW
 import InterfaceAdapters.Preferences
 
-runWWIWebPirate :: (Member (Embed IO) r) => Sem (WeatherStatus : r) a -> Sem r a
+runWWIWebPirate :: (Member (Embed IO) r) => Sem (WWI : r) a -> Sem r a
 runWWIWebPirate = interpret (\(GetWeatherTown req) -> embed (interfaceWebPirate req))
 
 interfaceWebPirate :: UserAsk -> IO TheWeatherThere
 interfaceWebPirate UserAsk {placeName = pl, prefs = _ } = IWW.getWeather Nothing (Just pl)
-
--- | weatherTown is in AgUseCase
-weatherTownWeb :: (Member (Embed IO) r , Member WeatherStatus r, Member (Error WeatherStatusError) r) => PlaceName -> Sem r TheWeatherThere
-weatherTownWeb pln = weatherTown $ UserAsk {placeName = pln}

@@ -133,13 +133,13 @@ weatherAlerts dS
 -- | parse DarkSkyJSOn to extract out text for current weather, alerts and forecasts
 parseNowWeather :: DarkSkyDataPoint -> String
 parseNowWeather dsdp = Prelude.unlines [ --unlines sticks in newline after each element
-                    (catSF "at Celsius " $ fahrenheitToCelsius (temperature dsdp)),
-                    (catSS "It is " (summary dsdp)),
+                    (catSF "Current temperature Celsius " $ fahrenheitToCelsius (temperature dsdp)),
+                    (catSS "Conditions " (summary dsdp)),
                     (catSF  "Chance of rain % " (100 * precipProbability dsdp)),
                     (catSF  "Intensity of rain in mm/hour " (precipIntensity dsdp)),
                     (catSS  "Type of rain " (precipType dsdp)), 
                     (catSF  "Dew Point Celsius " (dewPoint dsdp)), 
-                    (catSF  "Humdity  % " (100 * (humidity dsdp))), 
+                    (catSF  "Humidity  % " (100 * (humidity dsdp))), 
                     (catSF  "Windspeed at m/s " (windSpeed dsdp)), 
                     (catSF  "Wind Gust m/s " (windGust dsdp)), 
                     (catSF  "Wind Bearing " (windBearing dsdp)), 
@@ -166,10 +166,10 @@ getAllDaysForecast (x : xs) =
 
 parseNowWeatherMini :: DarkSkyDataPoint -> String
 parseNowWeatherMini dsdp = Prelude.unlines [ --unlines sticks in newline after each element
-                    (catSF "Celsius " $ fahrenheitToCelsius (temperature dsdp)),
-                    (catSS "It is " (summary dsdp)),
+                    (catSF "Current Temperature Celsius " $ fahrenheitToCelsius (temperature dsdp)),
+                    (catSS "Conditions " (summary dsdp)),
                     (catSF  "Chance of rain % " (100 * precipProbability dsdp)),
-                    (catSF  "Humdity  % " (100 * (humidity dsdp))), 
+                    (catSF  "Humidity % " (100 * (humidity dsdp))), 
                     (catSF  "Windspeed at m/s " (windSpeed dsdp)), 
                     "  "]
 
@@ -177,12 +177,11 @@ parseNowWeatherMini dsdp = Prelude.unlines [ --unlines sticks in newline after e
 getAllDaysForecastMini :: [DarkSkyDataPointDailyDetails] -> String
 getAllDaysForecastMini [] = []
 getAllDaysForecastMini (x : xs) = 
-          Prelude.unlines [   (catSI "Forecasts available for days: " $ ((Prelude.length xs) + 1)),
+          Prelude.unlines [   
                               (catSS "Tomorrow : " $ dd_summary $ x ),
                               (catSF "Max Rain mm " $ dd_precipIntensityMax $ x ),
                               (catSF "Max Temp Celsius " $ fahrenheitToCelsius (dd_temperatureHigh $ x) ),
                               (catSF "Min Temp Celsius " $ fahrenheitToCelsius (dd_temperatureLow $ x) ),
-                              (catSF "UV Index " $ dd_uvIndex $ x),
                               "  "] 
 
 
