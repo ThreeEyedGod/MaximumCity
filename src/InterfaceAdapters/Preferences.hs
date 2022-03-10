@@ -20,7 +20,7 @@ data Datasize = Mini | Standard | Detailed deriving (Show, Eq)
 data Timespan = RightNow | Alerts | NearForecast | LongRange deriving (Show, Eq)
 
 getPreferences :: IO Preferences
-getPreferences = return Preferences {userdata = Weather, usersize = Mini, usertimespan = RightNow}
+getPreferences = return Preferences {userdata = Weather, usersize = Mini, usertimespan = NearForecast}
 
 data MyPreferences m a where
   ReadPrefs :: String -> MyPreferences m Preferences
