@@ -71,4 +71,5 @@ getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = WeatherWaterL
 getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = WeatherWaterLevels, usersize = Mini, usertimespan = RightNow}} = _getTownNameWeatherFromTown pl 
 getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = WaterLevels, usersize = Mini, usertimespan = RightNow}} = (getWaterLakeLevelForPlace_LiveToday_wrtStorage pl >>=  _helperLivePercent) >>= (\wll -> _mkWeatherThere pl "" wll)
 getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = Weather, usersize = Mini, usertimespan = NearForecast}} = weatherCurrentForecastMini $ Data.ByteString.Char8.unpack pl 
+getAgInfo _ = return $ Data.ByteString.Char8.pack "Malformed UserAsk "
 -- getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = Weather, usersize = Mini, usertimespan = Alerts}} = weatherCurrentAlerts $ Data.ByteString.Char8.unpack pl 

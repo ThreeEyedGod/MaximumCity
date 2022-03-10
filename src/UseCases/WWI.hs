@@ -25,8 +25,8 @@ import InterfaceAdapters.Telegram.Telegram
 type PlaceName = T.Text 
 type TheWeatherThere = T.Text
 data UserAsk = UserAsk {
-  placeName :: PlaceName
-, prefs     :: Preferences
+    placeName :: PlaceName
+  , prefs     :: Preferences
 }
 type UserMsg = (TheWeatherThere, Maybe TelegramMessage)
 newtype WeatherStatusError = WeatherStatusNotPossible String -- deriving (Show, Eq)

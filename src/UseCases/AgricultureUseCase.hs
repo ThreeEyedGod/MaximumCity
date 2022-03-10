@@ -26,12 +26,11 @@ class UserInput x where
 
 instance UserInput TelegramMessage where
   getInfo updt = do 
-      -- responseBody <- getWeatherTown $ UserAsk {placeName = gettheTelegram updt, prefs = Preferences {userdata = Weather, usersize = Mini, usertimespan = NearForecast}} 
       thisuserprefs <- embed getPreferences
       responseBody <- getWeatherTown $ UserAsk {placeName = gettheTelegram updt, prefs = thisuserprefs} 
-      let ain = (responseBody, Just updt) :: UserMsg
-      sendBackMsg ain
-      pure $ (fst ain)
+      let msg = (responseBody, Just updt) :: UserMsg
+      sendBackMsg msg
+      pure $ (fst msg)
 
 instance UserInput PlaceName where 
-      getInfo pln = getWeatherTown $ UserAsk {placeName = pln}
+      getInfo plName = getWeatherTown $ UserAsk {placeName = plName}
