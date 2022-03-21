@@ -36,7 +36,8 @@ catchAllHandler (SomeException e) =
 
 redirectmain :: IO ()
 redirectmain = handle catchAllHandler $ do
-      let conf = awsConfig (AWSRegion Mumbai) & awscCredentials .~ FromProfile "MaximumCity-role-3x5dxzgh"
+      --let conf = awsConfig (AWSRegion Mumbai) & awscCredentials .~ FromProfileName "MaximumCity-role-3x5dxzgh"
+      let conf = awsConfig (AWSRegion Mumbai) & awscCredentials .~ Discover
       ssmSession <- connect conf ssmService
       result1 <- doPutParameter (ParameterName "/AAA/BBB") (ParameterValue "CCC") ssmSession
       (value, version) <- doGetParameter (ParameterName "/AAA/BBB") ssmSession
