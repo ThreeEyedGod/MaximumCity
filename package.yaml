@@ -59,6 +59,17 @@ dependencies:
 - amazonka-core >= 1.6.1
 - wai >= 3.2.1.2
 - mtl >= 2.2.2
+- amazonka-ssm
+- amazonka >= 1.6.1
+- aws-easy
+#- aws-via-haskell
+- directory
+- filepath
+- text
+- lens
+- unliftio-core                  >= 0.1    && < 0.2
+- amazonka-s3
+- template-haskell
 
 library:
   source-dirs: src
@@ -104,6 +115,8 @@ tests:
                        - hspec-expectations >= 0.8.2
                        - process >= 1.6.9.0
                        - polysemy
+                       - amazonka-s3 >= 1.6.1
+                       - template-haskell
     ghc-options:       -threaded -rtsopts "-with-rtsopts=-N1 -s" -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin
 
 benchmarks:

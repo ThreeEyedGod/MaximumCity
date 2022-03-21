@@ -13,6 +13,7 @@ import GHC.Generics
 import Prelude
 import Data.Bifunctor (first)
 import qualified Data.ByteString.Lazy as B
+import System.IO (stdout, hFlush)
 import System.IO.Error (isDoesNotExistError, tryIOError)
 import System.Environment (getEnv)
 import Numeric
@@ -88,3 +89,6 @@ f <..> g = \x ->
 
 _returnStdFail :: InFunction -> CalleeFunction -> Text 
 _returnStdFail withinFunction calledFunction = pack $ "Fail:" ++ withinFunction ++ " | " ++ calledFunction
+
+logMessage :: String -> IO ()
+logMessage s = putStrLn s >> hFlush stdout

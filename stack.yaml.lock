@@ -54,6 +54,17 @@ packages:
   original:
     hackage: base16-bytestring-1.0.1.0@sha256:33b9d57afa334d06485033e930c6b13fc760baf88fd8f715ae2f9a4b46e19a54,2641
 - completed:
+    name: aws-easy
+    version: 0.1.0.3
+    git: https://github.com/rcook/aws-easy.git
+    pantry-tree:
+      size: 927
+      sha256: 23179f9d349d1d353d2421b0b6faf2fda8e342ccd8b7fd7a10a1db43116907d1
+    commit: 417e09a1223afbca0e023fb486e8db7f000161fd
+  original:
+    git: https://github.com/rcook/aws-easy.git
+    commit: 417e09a1223afbca0e023fb486e8db7f000161fd
+- completed:
     name: telegram-api
     version: 0.7.3.0
     git: https://github.com/ThreeEyedGod/haskell-telegram-api.git
@@ -159,9 +170,23 @@ packages:
       sha256: 206f6289793fc25e4708e454ebb3e478710e8634017a47f05cff41a20b50a08b
   original:
     hackage: servant-0.18.3
+- completed:
+    hackage: amazonka-ssm-1.6.1@sha256:9b1c4673dd4a8f713291fb325c2179daab7cc94a962c8e1fab6968bd572c8148,7854
+    pantry-tree:
+      size: 25252
+      sha256: 14a7382ed189d03aaf35adecece88dfaf6c78829c4fbd16f3db7e0df9f7cb39d
+  original:
+    hackage: amazonka-ssm-1.6.1
+- completed:
+    hackage: unliftio-core-0.1.2.0@sha256:b0a7652ffce2284a6cebe05c99eb60573a8fb6631163f34b0b30a80b4a78cb23,1081
+    pantry-tree:
+      size: 328
+      sha256: 9d970bf5f98e68e8fc129b04d6c9d8eb1e641c7556ffd0f0a168a259335b6fd7
+  original:
+    hackage: unliftio-core-0.1.2.0@sha256:b0a7652ffce2284a6cebe05c99eb60573a8fb6631163f34b0b30a80b4a78cb23,1081
 snapshots:
 - completed:
-    size: 567679
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/17/15.yaml
-    sha256: 72e87841a0ab5b72f6f018e8ee692fd972b7bb32a944990f028e10d6eb528e63
-  original: lts-17.15
+    size: 590100
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/18/28.yaml
+    sha256: 428ec8d5ce932190d3cbe266b9eb3c175cd81e984babf876b64019e2cbe4ea68
+  original: lts-18.28

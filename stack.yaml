@@ -22,7 +22,10 @@ user-message: |
 # resolver: https://example.com/snapshots/2018-01-01.yaml
 #resolver: lts-15.16
 #resolver: lts-14.27
-resolver: lts-17.15
+#resolver: lts-17.15
+#resolver: lts-18.14
+resolver: lts-18.28
+
 
 # User packages to be built.
 # Various formats can be used as shown in the example below.
@@ -57,6 +60,12 @@ extra-deps:
 #- pdf-toolbox-document-0.0.5.1@sha256:8642f8a1b51c668642a1e1322a147159fa3cc4f620279c4fd4475d7b1b67b28f,1983
 #- pdf-toolbox-content-0.0.3.3@sha256:14fcf23e9cbbf965d848b6346601f8fa20b198e513af1e27ecacf2731bd2be95,1713
 #- pdf-toolbox-core-0.0.3.3@sha256:533a467e0af8d7f422b5983064b77c6ac23cd37579444450ce3567d9cdf6cf7f,2500
+#- git: https://github.com/ThreeEyedGod/aws-via-haskell.git
+#  commit: 20daa4f7f91dc88a96d12642dffce7b6dc8a7340
+  #subdirs: 
+   #- lib
+- git: https://github.com/rcook/aws-easy.git
+  commit: 417e09a1223afbca0e023fb486e8db7f000161fd
 - git: https://github.com/ThreeEyedGod/haskell-telegram-api.git
   commit: a665f6c8fb574cd11832fd09c04ee7189cb6f233
 - git: https://github.com/ThreeEyedGod/pdf-toolbox.git
@@ -73,6 +82,11 @@ extra-deps:
 - serverless-haskell-0.12.6
 - amazonka-core-1.6.1
 - servant-0.18.3
+- amazonka-ssm-1.6.1
+#- aws-easy-0.1.0.3@sha256:bf5bace0de8373d5b72f61dc6d4e1b1fe26df65565516514415d759d67949525,2902
+- unliftio-core-0.1.2.0@sha256:b0a7652ffce2284a6cebe05c99eb60573a8fb6631163f34b0b30a80b4a78cb23,1081
+#- lens-5.0.1
+# - indexed-traversable-instances-0.1.1@sha256:69ce2476ac8376bc269ca05a7a5973f033d4a7736793dc22a3ec3032da70ceb7,3224
 #
 # extra-deps: []
 

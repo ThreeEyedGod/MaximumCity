@@ -5,6 +5,7 @@ import Test.QuickCheck
 
 import qualified SpecHelper as SH
 import qualified SpecEnvPolHelper as SEPH
+import qualified SpecAWSSSMParmStore as AWSSSM
 import System.Environment
 import Debug.Trace
 
@@ -28,3 +29,4 @@ main = do
   hspec $ do
     SH.libH
     SEPH.libEPH
+    AWSSSM.libAWSSSM

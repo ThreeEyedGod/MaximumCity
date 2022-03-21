@@ -31,6 +31,9 @@ library
       InterfaceAdapters.IP.GeoIpAPI
       InterfaceAdapters.IP.GeoLatLong
       InterfaceAdapters.IP.IP2Location
+      InterfaceAdapters.Parameters.AWSSSMParmStore
+      InterfaceAdapters.Parameters.AWSViaHaskell
+      InterfaceAdapters.Parameters.SSMImports
       InterfaceAdapters.Preferences
       InterfaceAdapters.Telegram.Telegram
       InterfaceAdapters.Utils.EnvPolHelper
@@ -63,14 +66,20 @@ library
   ghc-options: -O2 -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin
   build-depends:
       aeson
+    , amazonka >=1.6.1
     , amazonka-core >=1.6.1
+    , amazonka-s3
+    , amazonka-ssm
     , attoparsec >=0.13.2.5
+    , aws-easy
     , aws-lambda-haskell-runtime >=4.1.1
     , base >=4.7 && <5
     , binary
     , bytestring
+    , directory
     , either >=5.0.1.1
     , errors >=2.3.0
+    , filepath
     , http-client
     , http-client-tls
     , http-conduit
@@ -78,6 +87,7 @@ library
     , integer-gmp
     , integer-logarithms
     , iproute
+    , lens
     , mtl >=2.2.2
     , naqsha >=0.3.0.1
     , network-uri >=2.6.4.1
@@ -89,9 +99,11 @@ library
     , servant-server
     , serverless-haskell >=0.12.6
     , telegram-api >=0.7.3.0
+    , template-haskell
     , text
     , time >=1.9.3
     , tls >=1.5.5
+    , unliftio-core ==0.1.*
     , utf8-string
     , wai >=3.2.1.2
     , word8 >=0.1
@@ -116,14 +128,20 @@ executable bootstrap
   build-depends:
       MaximumCity
     , aeson
+    , amazonka >=1.6.1
     , amazonka-core >=1.6.1
+    , amazonka-s3
+    , amazonka-ssm
     , attoparsec >=0.13.2.5
+    , aws-easy
     , aws-lambda-haskell-runtime >=4.1.1
     , base >=4.7 && <5
     , binary
     , bytestring
+    , directory
     , either >=5.0.1.1
     , errors >=2.3.0
+    , filepath
     , http-client
     , http-client-tls
     , http-conduit
@@ -131,6 +149,7 @@ executable bootstrap
     , integer-gmp
     , integer-logarithms
     , iproute
+    , lens
     , mtl >=2.2.2
     , naqsha >=0.3.0.1
     , network-uri >=2.6.4.1
@@ -142,9 +161,11 @@ executable bootstrap
     , servant-server
     , serverless-haskell >=0.12.6
     , telegram-api >=0.7.3.0
+    , template-haskell
     , text
     , time >=1.9.3
     , tls >=1.5.5
+    , unliftio-core ==0.1.*
     , utf8-string
     , wai >=3.2.1.2
     , word8 >=0.1
@@ -154,6 +175,7 @@ test-suite MaximumCity-test
   type: exitcode-stdio-1.0
   main-is: TestsMain.hs
   other-modules:
+      SpecAWSSSMParmStore
       SpecEnvPolHelper
       SpecHelper
       Paths_MaximumCity
@@ -171,14 +193,20 @@ test-suite MaximumCity-test
       MaximumCity
     , QuickCheck >=2.13.2
     , aeson
+    , amazonka >=1.6.1
     , amazonka-core >=1.6.1
+    , amazonka-s3 >=1.6.1
+    , amazonka-ssm
     , attoparsec >=0.13.2.5
+    , aws-easy
     , aws-lambda-haskell-runtime >=4.1.1
     , base
     , binary
     , bytestring
+    , directory
     , either >=5.0.1.1
     , errors >=2.3.0
+    , filepath
     , hspec >=2.7.4 && <2.8
     , hspec-core >=2.7.4
     , hspec-expectations >=0.8.2
@@ -189,6 +217,7 @@ test-suite MaximumCity-test
     , integer-gmp
     , integer-logarithms
     , iproute
+    , lens
     , mtl >=2.2.2
     , naqsha >=0.3.0.1
     , network-uri >=2.6.4.1
@@ -202,11 +231,13 @@ test-suite MaximumCity-test
     , servant-server
     , serverless-haskell >=0.12.6
     , telegram-api >=0.7.3.0
+    , template-haskell
     , test-framework
     , test-framework-quickcheck2
     , text
     , time >=1.9.3
     , tls >=1.5.5
+    , unliftio-core ==0.1.*
     , utf8-string
     , wai >=3.2.1.2
     , word8 >=0.1
@@ -226,14 +257,20 @@ benchmark MaximumCity-benchmark
       ScopedTypeVariables
   build-depends:
       aeson
+    , amazonka >=1.6.1
     , amazonka-core >=1.6.1
+    , amazonka-s3
+    , amazonka-ssm
     , attoparsec >=0.13.2.5
+    , aws-easy
     , aws-lambda-haskell-runtime >=4.1.1
     , base >=4.7 && <5
     , binary
     , bytestring
+    , directory
     , either >=5.0.1.1
     , errors >=2.3.0
+    , filepath
     , http-client
     , http-client-tls
     , http-conduit
@@ -241,6 +278,7 @@ benchmark MaximumCity-benchmark
     , integer-gmp
     , integer-logarithms
     , iproute
+    , lens
     , mtl >=2.2.2
     , naqsha >=0.3.0.1
     , network-uri >=2.6.4.1
@@ -252,9 +290,11 @@ benchmark MaximumCity-benchmark
     , servant-server
     , serverless-haskell >=0.12.6
     , telegram-api >=0.7.3.0
+    , template-haskell
     , text
     , time >=1.9.3
     , tls >=1.5.5
+    , unliftio-core ==0.1.*
     , utf8-string
     , wai >=3.2.1.2
     , word8 >=0.1
