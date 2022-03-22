@@ -47,6 +47,8 @@ getAction key = do
   let conf = awsConfig (AWSRegion Mumbai) & awscCredentials .~ Discover
   ssmSession <- connect conf ssmService
   (value, version) <- doGetParameter (ParameterName "/AAA/BBB") ssmSession
+  logMessage $ T.unpack value
+  -- the next line is a problem 
   return (decode $ (BL.fromChunks . return . T.encodeUtf8 $ value))
 
 
@@ -55,6 +57,6 @@ storeEntity :: (ToJSON a) => String -> a -> IO ()
 storeEntity key val = do 
   let conf = awsConfig (AWSRegion Mumbai) & awscCredentials .~ Discover
   ssmSession <- connect conf ssmService
-  result1 <- doPutParameter (ParameterName "/AAA/BBB") (ParameterValue "{value :: \"CCC\"}") ssmSession
+  result1 <- doPutParameter (ParameterName "/AAA/BBB") (ParameterValue "{\"value\" :: \"CCC\"}") ssmSession
   return ()
 
