@@ -47,10 +47,7 @@ getAction key = do
   let conf = awsConfig (AWSRegion Mumbai) & awscCredentials .~ Discover
   ssmSession <- connect conf ssmService
   (value, version) <- doGetParameter (ParameterName "/AAA/BBB") ssmSession
-  if version > 0 
-    then do
-      return (decode $ (BL.fromChunks . return . T.encodeUtf8 $ value))
-    else return Nothing
+  return (decode $ (BL.fromChunks . return . T.encodeUtf8 $ value))
 
 
 -- | store persistent entity of type a and identified by id to the filesystem
