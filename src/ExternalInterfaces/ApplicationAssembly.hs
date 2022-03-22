@@ -20,6 +20,7 @@ import           InterfaceAdapters.Config
 import           InterfaceAdapters.AgricultureRestService
 import           InterfaceAdapters.Weather.WWITelegramPirate
 import           InterfaceAdapters.Weather.WWIWebPirate
+import           InterfaceAdapters.Parameters.KVSAWSSSMParmStore
 import           UseCases.WWI
 import           UseCases.AgricultureUseCase
 

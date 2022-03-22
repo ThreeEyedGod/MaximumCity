@@ -21,8 +21,6 @@ import           UseCases.WWI             (WWI, PlaceName, TheWeatherThere, getW
 import           InterfaceAdapters.Preferences
 import           InterfaceAdapters.Telegram.Telegram
 import           InterfaceAdapters.Utils.Helper
-import           InterfaceAdapters.Parameters.AWSSSMParmStore (doGetParameter, doPutParameter, ParameterName (..), ParameterValue (..), ssmService)
-import           InterfaceAdapters.Parameters.AWSViaHaskell
 
 
 class UserInput x where 

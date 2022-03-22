@@ -34,7 +34,7 @@ library
       InterfaceAdapters.Parameters.AWSSSMParmStore
       InterfaceAdapters.Parameters.AWSViaHaskell
       InterfaceAdapters.Parameters.KVS
-      InterfaceAdapters.Parameters.KVSFileServer
+      InterfaceAdapters.Parameters.KVSAWSSSMParmStore
       InterfaceAdapters.Parameters.KVSInMemory
       InterfaceAdapters.Parameters.SSMImports
       InterfaceAdapters.Preferences

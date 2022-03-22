@@ -6,8 +6,12 @@
 
 module InterfaceAdapters.Preferences where
 
+import Data.Maybe
 import Polysemy
 import Data.Function             ((&))
+import InterfaceAdapters.Parameters.KVS
+import InterfaceAdapters.Parameters.KVSAWSSSMParmStore
+import InterfaceAdapters.Utils.Helper
 
 data Preferences = Preferences {
   userdata :: Agdata
@@ -19,8 +23,25 @@ data Agdata = Weather | WaterLevels | WeatherWaterLevels | Monsoon | All derivin
 data Datasize = Mini | Standard | Detailed deriving (Show, Eq)
 data Timespan = RightNow | Alerts | NearForecast | LongRange deriving (Show, Eq)
 
+runGetParm :: String -> IO (Maybe String)
+runGetParm key = do 
+  getKvs key
+  & runKvsAsAWSSSMParmStore
+  & runM
+
+runSetParm :: String -> String -> IO ()
+runSetParm key val = do 
+  insertKvs key val 
+  & runKvsAsAWSSSMParmStore
+  & runM
+
 getPreferences :: IO Preferences
-getPreferences = return Preferences {userdata = Weather, usersize = Mini, usertimespan = NearForecast}
+getPreferences = do 
+  runSetParm "/AAA/BBB" "CCC"
+  logMessage "runSetParm done "
+  x <- runGetParm "/AAA/BBB"
+  logMessage (fromMaybe "Nothing" x)
+  return Preferences {userdata = Weather, usersize = Mini, usertimespan = NearForecast}
 
 data MyPreferences m a where
   ReadPrefs :: String -> MyPreferences m Preferences
