@@ -70,6 +70,7 @@ dependencies:
 - unliftio-core                  >= 0.1    && < 0.2
 - amazonka-s3
 - template-haskell
+- containers
 
 library:
   source-dirs: src

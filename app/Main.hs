@@ -19,15 +19,6 @@ import Network.Wai
   )
 import AWSLambda.Events.APIGateway
 
-import           InterfaceAdapters.Utils.Helper
-import           InterfaceAdapters.Parameters.AWSSSMParmStore (doGetParameter, doPutParameter, ParameterName (..), ParameterValue (..), ssmService)
-import           InterfaceAdapters.Parameters.AWSViaHaskell
-import Network.AWS.Auth
-import Network.AWS.S3.Types
-import           Language.Haskell.TH
-import           Network.AWS (Service)
-import           Control.Lens
-
 main :: IO ()
 main = handle catchAllHandler $ redirectmain
 
@@ -36,12 +27,5 @@ catchAllHandler (SomeException e) =
 
 redirectmain :: IO ()
 redirectmain = handle catchAllHandler $ do
-      --let conf = awsConfig (AWSRegion Mumbai) & awscCredentials .~ FromProfileName "MaximumCity-role-3x5dxzgh"
-      let conf = awsConfig (AWSRegion Mumbai) & awscCredentials .~ Discover
-      ssmSession <- connect conf ssmService
-      result1 <- doPutParameter (ParameterName "/AAA/BBB") (ParameterValue "CCC") ssmSession
-      (value, version) <- doGetParameter (ParameterName "/AAA/BBB") ssmSession
-      logMessage $ "Value: " <> show value
-
       app <- servApp -- | in ApplicationAssembly 
       apiGatewayMain $ makeHandler app -- | makeHandler is in ServantShim

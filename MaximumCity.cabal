@@ -33,6 +33,9 @@ library
       InterfaceAdapters.IP.IP2Location
       InterfaceAdapters.Parameters.AWSSSMParmStore
       InterfaceAdapters.Parameters.AWSViaHaskell
+      InterfaceAdapters.Parameters.KVS
+      InterfaceAdapters.Parameters.KVSFileServer
+      InterfaceAdapters.Parameters.KVSInMemory
       InterfaceAdapters.Parameters.SSMImports
       InterfaceAdapters.Preferences
       InterfaceAdapters.Telegram.Telegram
@@ -76,6 +79,7 @@ library
     , base >=4.7 && <5
     , binary
     , bytestring
+    , containers
     , directory
     , either >=5.0.1.1
     , errors >=2.3.0
@@ -138,6 +142,7 @@ executable bootstrap
     , base >=4.7 && <5
     , binary
     , bytestring
+    , containers
     , directory
     , either >=5.0.1.1
     , errors >=2.3.0
@@ -203,6 +208,7 @@ test-suite MaximumCity-test
     , base
     , binary
     , bytestring
+    , containers
     , directory
     , either >=5.0.1.1
     , errors >=2.3.0
@@ -267,6 +273,7 @@ benchmark MaximumCity-benchmark
     , base >=4.7 && <5
     , binary
     , bytestring
+    , containers
     , directory
     , either >=5.0.1.1
     , errors >=2.3.0
