@@ -50,7 +50,8 @@ getAction key = do
   logMessage $ T.unpack value
   -- the next line is a problem 
   -- return $ (decode $ (BL.fromChunks . return . T.encodeUtf8 $ value)) 
-  return $ (decode $ (BL.fromStrict . T.encodeUtf8 $ T.concat ["\"", value, "\""])) 
+  -- return $ (decode $ (BL.fromStrict . T.encodeUtf8 $ T.concat ["\"", value, "\""])) 
+  return $ (decode $ (BL.fromStrict . T.encodeUtf8 $ value))
 
 
 -- | store persistent entity of type a and identified by id to the filesystem
@@ -58,6 +59,6 @@ storeEntity :: (ToJSON a) => String -> a -> IO ()
 storeEntity key val = do 
   let conf = awsConfig (AWSRegion Mumbai) & awscCredentials .~ Discover
   ssmSession <- connect conf ssmService
-  result1 <- doPutParameter (ParameterName "/AAA/BBB") (ParameterValue "{\"value\" :: \"CCC\"}") ssmSession
+  result1 <- doPutParameter (ParameterName "/AAA/BBB") (ParameterValue "\"{\"value\" :: \"CCC\"}\"") ssmSession
   return ()
 
