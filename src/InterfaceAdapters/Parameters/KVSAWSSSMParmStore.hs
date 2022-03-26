@@ -59,6 +59,6 @@ storeEntity :: (ToJSON a) => String -> a -> IO ()
 storeEntity key val = do 
   let conf = awsConfig (AWSRegion Mumbai) & awscCredentials .~ Discover
   ssmSession <- connect conf ssmService
-  result1 <- doPutParameter (ParameterName "/AAA/BBB") (ParameterValue "\"{\"value\" :: \"CCC\"}\"") ssmSession
+  result1 <- doPutParameter (ParameterName "/AAA/BBB") (ParameterValue "\"{\"value\" : \"CCC\"}\"") ssmSession
   return ()
 
