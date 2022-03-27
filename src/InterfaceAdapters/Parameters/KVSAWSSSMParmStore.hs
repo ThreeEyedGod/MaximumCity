@@ -42,16 +42,16 @@ runKvsAsAWSSSMParmStore = interpret $ \case
   InsertKvs key val -> embed (storeEntity (show key) val)
   --DeleteKvs key     -> embed (removeFile (show key))
 
-getAction :: (Show k, Show v, FromJSON v, ToJSON v) => k -> IO (Maybe v)
+getAction :: (Show k, Show v, FromJSON v) => k -> IO (Maybe v)
 getAction key = do
   let conf = awsConfig (AWSRegion Mumbai) & awscCredentials .~ Discover
   ssmSession <- connect conf ssmService
-  (value, version) <- doGetParameter (ParameterName "/AAA/BBB") ssmSession :: IO (T.Text, Integer)
+  (value, version) <- doGetParameter (ParameterName "/AAA/BBB") ssmSession
   logMessage $ T.unpack value
   let maybeV = toMaybe value
   return $ maybeV
    where 
-     toMaybe val = (decode . BL.fromStrict . T.encodeUtf8) val
+     toMaybe val = decode . TL.encodeUtf8 $ (TL.fromStrict val)
 
   -- the next line is a problem 
   --return $ decode $ (BL.fromStrict . T.encodeUtf8 $ value) :: Maybe Object
