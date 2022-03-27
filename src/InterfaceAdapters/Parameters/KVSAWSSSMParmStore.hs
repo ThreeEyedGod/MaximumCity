@@ -1,6 +1,6 @@
 {-# LANGUAGE TemplateHaskell, LambdaCase, BlockArguments, GADTs
            , FlexibleContexts, TypeOperators, DataKinds, PolyKinds, ScopedTypeVariables #-}
-
+{-# LANGUAGE OverloadedStrings #-}
 
 module InterfaceAdapters.Parameters.KVSAWSSSMParmStore
   ( runKvsAsAWSSSMParmStore
@@ -46,12 +46,15 @@ getAction :: (Show k, Show v, FromJSON v, ToJSON v) => k -> IO (Maybe v)
 getAction key = do
   let conf = awsConfig (AWSRegion Mumbai) & awscCredentials .~ Discover
   ssmSession <- connect conf ssmService
-  (value, version) <- doGetParameter (ParameterName "/AAA/BBB") ssmSession
+  (value, version) <- doGetParameter (ParameterName "/AAA/BBB") ssmSession :: IO (T.Text, Integer)
   logMessage $ T.unpack value
+  let maybeV = toMaybe value
+  return $ maybeV
+   where 
+     toMaybe val = (decode . BL.fromStrict . T.encodeUtf8) val
+
   -- the next line is a problem 
-  -- return $ (decode $ (BL.fromChunks . return . T.encodeUtf8 $ value)) 
-  -- return $ (decode $ (BL.fromStrict . T.encodeUtf8 $ T.concat ["\"", value, "\""])) 
-  return $ (decode $ (BL.fromStrict . T.encodeUtf8 $ value))
+  --return $ decode $ (BL.fromStrict . T.encodeUtf8 $ value) :: Maybe Object
 
 
 -- | store persistent entity of type a and identified by id to the filesystem
@@ -59,6 +62,6 @@ storeEntity :: (ToJSON a) => String -> a -> IO ()
 storeEntity key val = do 
   let conf = awsConfig (AWSRegion Mumbai) & awscCredentials .~ Discover
   ssmSession <- connect conf ssmService
-  result1 <- doPutParameter (ParameterName "/AAA/BBB") (ParameterValue "\"{\"value\" : \"CCC\"}\"") ssmSession
+  result1 <- doPutParameter (ParameterName "/AAA/BBB") (ParameterValue "{\"value\" : \"CCC\"}") ssmSession
   return ()
 
