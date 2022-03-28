@@ -8,7 +8,7 @@ module InterfaceAdapters.Parameters.KVSAWSSSMParmStore
 where
 
 import           Control.Exception
-import           Data.Aeson        (FromJSON, ToJSON, eitherDecodeFileStrict, encodeFile, decode, Value)
+import           Data.Aeson        (FromJSON, ToJSON, eitherDecodeFileStrict, encodeFile, decode, decodeStrict', Value)
 import           Data.List         (isSuffixOf)
 import           InterfaceAdapters.Parameters.KVS (KVS (..))
 import           Polysemy
@@ -42,14 +42,13 @@ runKvsAsAWSSSMParmStore = interpret $ \case
   InsertKvs key val -> embed (storeEntity (show key) val)
   --DeleteKvs key     -> embed (removeFile (show key))
 
-getAction :: (Show k, Read v) => k -> IO (Maybe v)
+getAction :: (Show k, FromJSON v) => k -> IO (Maybe v)
 getAction key = do
   let conf = awsConfig (AWSRegion Mumbai) & awscCredentials .~ Discover
   ssmSession <- connect conf ssmService
   (value, version) <- doGetParameter (ParameterName "/AAA/BBB") ssmSession
   logMessage $ T.unpack value
-  return $ (read . T.unpack) value
-  -- return $ decode $ (BL.fromStrict . T.encodeUtf8 $ value) :: Maybe Object
+  return $ (decodeStrict' . T.encodeUtf8) $ value
 
 
 -- | store persistent entity of type a and identified by id to the filesystem
