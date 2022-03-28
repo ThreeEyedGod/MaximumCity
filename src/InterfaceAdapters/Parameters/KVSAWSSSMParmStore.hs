@@ -35,26 +35,21 @@ import           Control.Lens
 
 
 -- | File Based implementation of key value store
-runKvsAsAWSSSMParmStore :: (Member (Embed IO) r, Show k, Read k, ToJSON v, FromJSON v, Show v) => Sem (KVS k v : r) a -> Sem r a
+runKvsAsAWSSSMParmStore :: (Member (Embed IO) r, Show k, Read k, Read v, ToJSON v, FromJSON v, Show v) => Sem (KVS k v : r) a -> Sem r a
 runKvsAsAWSSSMParmStore = interpret $ \case
   --ListAllKvs        -> embed retrieveAll
   GetKvs key        -> embed (getAction key)
   InsertKvs key val -> embed (storeEntity (show key) val)
   --DeleteKvs key     -> embed (removeFile (show key))
 
-getAction :: (Show k, Show v, FromJSON v) => k -> IO (Maybe v)
+getAction :: (Show k, Read v) => k -> IO (Maybe v)
 getAction key = do
   let conf = awsConfig (AWSRegion Mumbai) & awscCredentials .~ Discover
   ssmSession <- connect conf ssmService
   (value, version) <- doGetParameter (ParameterName "/AAA/BBB") ssmSession
   logMessage $ T.unpack value
-  let maybeV = toMaybe value
-  return $ maybeV
-   where 
-     toMaybe val = decode . TL.encodeUtf8 $ (TL.fromStrict val)
-
-  -- the next line is a problem 
-  --return $ decode $ (BL.fromStrict . T.encodeUtf8 $ value) :: Maybe Object
+  return $ (read . T.unpack) value
+  -- return $ decode $ (BL.fromStrict . T.encodeUtf8 $ value) :: Maybe Object
 
 
 -- | store persistent entity of type a and identified by id to the filesystem
