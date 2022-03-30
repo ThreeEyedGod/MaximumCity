@@ -12,6 +12,7 @@ module InterfaceAdapters.Parameters.AWSSSMParmStore
     , putParameter
     , ssm
     , doGetParameter
+    , doGetParameterArr
     , doPutParameter
     , ParameterName (..)
     , ParameterValue (..)
@@ -21,7 +22,6 @@ module InterfaceAdapters.Parameters.AWSSSMParmStore
 
 
 import Network.AWS
-
 
 import           InterfaceAdapters.Parameters.AWSViaHaskell
 import           Control.Monad (void)
@@ -54,3 +54,9 @@ doGetParameter (ParameterName pn) = withAWS $ do
 doPutParameter :: ParameterName -> ParameterValue -> SSMSession -> IO ()
 doPutParameter (ParameterName pn) (ParameterValue pv) = withAWS $
     void (send $ putParameter pn pv String & ppOverwrite .~ Just True)
+
+doGetParameterArr :: ParameterName -> SSMSession -> IO [Text]
+doGetParameterArr (ParameterName pn) = withAWS $ do
+  result <- send $ getParameters (NonEmpty.fromList [pn])
+  let paramArr = result ^. grsParameters
+  return $ map (\x -> fromJust (x ^. pValue)) paramArr
