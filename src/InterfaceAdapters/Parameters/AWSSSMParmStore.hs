@@ -1,3 +1,4 @@
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -23,6 +24,7 @@ module InterfaceAdapters.Parameters.AWSSSMParmStore
 
 import Network.AWS
 
+import Data.Aeson.Types (FromJSON, ToJSON)
 import           InterfaceAdapters.Parameters.AWSViaHaskell
 import           Control.Monad (void)
 import           Control.Lens
@@ -42,14 +44,14 @@ import Polysemy.State
 wrapAWSService 'ssm "SSMService" "SSMSession"
 
 newtype ParameterName = ParameterName Text
-
-newtype ParameterValue = ParameterValue Text
+newtype ParameterValue = ParameterValue Text deriving (FromJSON)
 
 doGetParameter :: ParameterName -> SSMSession -> IO (Text, Integer)
 doGetParameter (ParameterName pn) = withAWS $ do
     result <- send $ getParameters (NonEmpty.fromList [pn])
     let param = head $ result ^. grsParameters
-    return $ (fromJust (param ^. pValue), fromJust (param ^. pVersion))
+    let pVal = fromJust (param ^. pValue)
+    return $ (pVal, fromJust (param ^. pVersion))
 
 doPutParameter :: ParameterName -> ParameterValue -> SSMSession -> IO ()
 doPutParameter (ParameterName pn) (ParameterValue pv) = withAWS $

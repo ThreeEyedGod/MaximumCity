@@ -1,6 +1,6 @@
 {-# LANGUAGE TemplateHaskell, LambdaCase, BlockArguments, GADTs
            , FlexibleContexts, TypeOperators, DataKinds, PolyKinds, ScopedTypeVariables #-}
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE OverloadedStrings, DeriveGeneric #-}
 
 module InterfaceAdapters.Parameters.KVSAWSSSMParmStore
   ( runKvsAsAWSSSMParmStore
@@ -34,13 +34,12 @@ import           Language.Haskell.TH
 import           Network.AWS (Service)
 import           Control.Lens
 
-
 -- | File Based implementation of key value store
 runKvsAsAWSSSMParmStore :: (Member (Embed IO) r, Show k, ToJSON v, FromJSON v) => Sem (KVS k v : r) a -> Sem r a
 runKvsAsAWSSSMParmStore = interpret $ \case
   --ListAllKvs        -> embed retrieveAll
-  -- GetKvs key        -> embed (getAction key)
-  GetKvs key        -> embed (getAction1 key)
+  GetKvs key        -> embed (getAction key)
+  -- GetKvs key        -> embed (getAction1 key)
   InsertKvs key val -> embed (storeEntity (show key) val)
   --DeleteKvs key     -> embed (removeFile (show key))
 
@@ -48,25 +47,25 @@ getAction :: (Show k, FromJSON v) => k -> IO (Maybe v)
 getAction key = do
   let conf = awsConfig (AWSRegion Mumbai) & awscCredentials .~ Discover
   ssmSession <- connect conf ssmService
-  (valueText, version) <- doGetParameter (ParameterName "/AAA/BBB") ssmSession
+  (valueText, version) <- doGetParameter (ParameterName "/AAA/BBB") ssmSession 
   logMessage $ T.unpack valueText
   let valueBS = T.encodeUtf8 valueText
-  let vMaybe = decodeStrict' valueBS
+  let vMaybe = decodeStrict' valueBS 
   return $ vMaybe
 
-getAction1 :: (Show k, FromJSON v) => k -> IO (Maybe v)
+{- getAction1 :: (Show k, FromJSON v) => k -> IO (Maybe v)
 getAction1 key = do
   let conf = awsConfig (AWSRegion Mumbai) & awscCredentials .~ Discover
   ssmSession <- connect conf ssmService
-  rows <- doGetParameterArr (ParameterName "/AAA/BBB") ssmSession :: IO [T.Text]
+  rows <- doGetParameterArr (ParameterName "/AAA/BBB") ssmSession :: IO [ParameterValue]
   case rows of
     [] -> return Nothing
-    value : _ -> return $ (decodeStrict' . T.encodeUtf8) value
-
+    value : _ -> return $ decodeStrict' $ T.encodeUtf8 value 
+ -}
 
 storeEntity :: (ToJSON a) => String -> a -> IO ()
 storeEntity key val = do
   let conf = awsConfig (AWSRegion Mumbai) & awscCredentials .~ Discover
   ssmSession <- connect conf ssmService
-  result1 <- doPutParameter (ParameterName "/AAA/BBB") (ParameterValue "[{\"value\" : \"CCC\"}]") ssmSession
+  result1 <- doPutParameter (ParameterName "/AAA/BBB") (ParameterValue (T.pack $ "{\"value\" : \"CCC\"}")) ssmSession
   return ()
