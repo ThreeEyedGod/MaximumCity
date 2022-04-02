@@ -71,6 +71,7 @@ dependencies:
 - amazonka-s3
 - template-haskell
 - containers
+- json > 0.10
 
 library:
   source-dirs: src

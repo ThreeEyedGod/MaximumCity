@@ -37,6 +37,9 @@ import           InterfaceAdapters.Parameters.SSMImports
 import           System.Directory (getHomeDirectory)
 import           System.FilePath ((</>))
 
+import GHC.Generics
+import Text.JSON.Generic
+
 import Polysemy
 import Polysemy.State
 

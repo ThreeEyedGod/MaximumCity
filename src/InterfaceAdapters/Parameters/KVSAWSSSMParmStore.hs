@@ -34,8 +34,12 @@ import           Language.Haskell.TH
 import           Network.AWS (Service)
 import           Control.Lens
 
+import           GHC.Generics
+import           Text.JSON.Generic
+
+
 -- | File Based implementation of key value store
-runKvsAsAWSSSMParmStore :: (Member (Embed IO) r, Show k, ToJSON v, FromJSON v) => Sem (KVS k v : r) a -> Sem r a
+runKvsAsAWSSSMParmStore :: (Member (Embed IO) r, Show k, Show v, ToJSON v, FromJSON v) => Sem (KVS k v : r) a -> Sem r a
 runKvsAsAWSSSMParmStore = interpret $ \case
   --ListAllKvs        -> embed retrieveAll
   GetKvs key        -> embed (getAction key)
@@ -43,7 +47,7 @@ runKvsAsAWSSSMParmStore = interpret $ \case
   InsertKvs key val -> embed (storeEntity (show key) val)
   --DeleteKvs key     -> embed (removeFile (show key))
 
-getAction :: (Show k, FromJSON v) => k -> IO (Maybe v)
+getAction :: (Show k, FromJSON v, Show v) => k -> IO (Maybe v)
 getAction key = do
   let conf = awsConfig (AWSRegion Mumbai) & awscCredentials .~ Discover
   ssmSession <- connect conf ssmService

@@ -91,6 +91,7 @@ library
     , integer-gmp
     , integer-logarithms
     , iproute
+    , json >0.10
     , lens
     , mtl >=2.2.2
     , naqsha >=0.3.0.1
@@ -154,6 +155,7 @@ executable bootstrap
     , integer-gmp
     , integer-logarithms
     , iproute
+    , json >0.10
     , lens
     , mtl >=2.2.2
     , naqsha >=0.3.0.1
@@ -223,6 +225,7 @@ test-suite MaximumCity-test
     , integer-gmp
     , integer-logarithms
     , iproute
+    , json >0.10
     , lens
     , mtl >=2.2.2
     , naqsha >=0.3.0.1
@@ -285,6 +288,7 @@ benchmark MaximumCity-benchmark
     , integer-gmp
     , integer-logarithms
     , iproute
+    , json >0.10
     , lens
     , mtl >=2.2.2
     , naqsha >=0.3.0.1
