@@ -85,6 +85,8 @@ extra-deps:
 - amazonka-ssm-1.6.1
 #- aws-easy-0.1.0.3@sha256:bf5bace0de8373d5b72f61dc6d4e1b1fe26df65565516514415d759d67949525,2902
 - unliftio-core-0.1.2.0@sha256:b0a7652ffce2284a6cebe05c99eb60573a8fb6631163f34b0b30a80b4a78cb23,1081
+- aeson-1.5.6.0@rev:5
+
 #- lens-5.0.1
 # - indexed-traversable-instances-0.1.1@sha256:69ce2476ac8376bc269ca05a7a5973f033d4a7736793dc22a3ec3032da70ceb7,3224
 #

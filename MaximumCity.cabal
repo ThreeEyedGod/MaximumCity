@@ -68,7 +68,7 @@ library
       ScopedTypeVariables
   ghc-options: -O2 -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin
   build-depends:
-      aeson
+      aeson >=1.5.6.0
     , amazonka >=1.6.1
     , amazonka-core >=1.6.1
     , amazonka-s3
@@ -132,7 +132,7 @@ executable bootstrap
   ld-options: -static -pthread
   build-depends:
       MaximumCity
-    , aeson
+    , aeson >=1.5.6.0
     , amazonka >=1.6.1
     , amazonka-core >=1.6.1
     , amazonka-s3
@@ -199,7 +199,7 @@ test-suite MaximumCity-test
   build-depends:
       MaximumCity
     , QuickCheck >=2.13.2
-    , aeson
+    , aeson >=1.5.6.0
     , amazonka >=1.6.1
     , amazonka-core >=1.6.1
     , amazonka-s3 >=1.6.1
@@ -265,7 +265,7 @@ benchmark MaximumCity-benchmark
       UndecidableSuperClasses
       ScopedTypeVariables
   build-depends:
-      aeson
+      aeson >=1.5.6.0
     , amazonka >=1.6.1
     , amazonka-core >=1.6.1
     , amazonka-s3
