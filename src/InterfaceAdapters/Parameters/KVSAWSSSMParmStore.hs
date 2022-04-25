@@ -26,16 +26,17 @@ import Data.Text.Lazy.Encoding    as TL
 import Data.Text.Lazy.IO          as TL
 
 import           InterfaceAdapters.Utils.Helper
-import           InterfaceAdapters.Parameters.AWSSSMParmStore (doGetParameter, doGetParameterArr, doPutParameter, ParameterName (..), ParameterValue (..), ssmService)
-import           InterfaceAdapters.Parameters.AWSViaHaskell
-import           Network.AWS.Auth
-import           Network.AWS.S3.Types
+import           InterfaceAdapters.Parameters.AWSSSMParmStore (doGetParameter, doPutParameter, ParameterName (..), ParameterValue (..))
+--import           InterfaceAdapters.Parameters.AWSSSMParmStore (doGetParameter, doGetParameterArr, doPutParameter, ParameterName (..), ParameterValue (..), ssmService)
+-- import           InterfaceAdapters.Parameters.AWSViaHaskell
+import           Amazonka.Auth
+import           Amazonka.S3.Types
 import           Language.Haskell.TH
-import           Network.AWS (Service)
+import           Amazonka (Service)
 import           Control.Lens
 
 import           GHC.Generics
-import           Text.JSON.Generic
+--import           Text.JSON.Generic
 
 
 -- | File Based implementation of key value store
@@ -49,13 +50,15 @@ runKvsAsAWSSSMParmStore = interpret $ \case
 
 getAction :: (Show k, FromJSON v, Show v) => k -> IO (Maybe v)
 getAction key = do
-  let conf = awsConfig (AWSRegion Mumbai) & awscCredentials .~ Discover
-  ssmSession <- connect conf ssmService
-  (valueText, version) <- doGetParameter (ParameterName "/AAA/BBB") ssmSession 
+  --let conf = awsConfig (AWSRegion Mumbai) & awscCredentials .~ Discover
+  --ssmSession <- connect conf ssmService
+  --(valueText, version) <- doGetParameter (ParameterName "/AAA/BBB") ssmSession 
+  (valueText, version) <- doGetParameter (ParameterName "/AAA/BBB")
   logMessage $ T.unpack valueText
   let valueBS = T.encodeUtf8 valueText
   let vMaybe = decodeStrict' valueBS 
   return $ vMaybe
+
 
 {- getAction1 :: (Show k, FromJSON v) => k -> IO (Maybe v)
 getAction1 key = do
@@ -69,7 +72,8 @@ getAction1 key = do
 
 storeEntity :: (ToJSON a) => String -> a -> IO ()
 storeEntity key val = do
-  let conf = awsConfig (AWSRegion Mumbai) & awscCredentials .~ Discover
-  ssmSession <- connect conf ssmService
-  result1 <- doPutParameter (ParameterName "/AAA/BBB") (ParameterValue (T.pack $ "{\"value\" : \"CCC\"}")) ssmSession
+  -- let conf = awsConfig (AWSRegion Mumbai) & awscCredentials .~ Discover
+  -- ssmSession <- connect conf ssmService
+  -- result1 <- doPutParameter (ParameterName "/AAA/BBB") (ParameterValue (T.pack $ "{\"value\" : \"CCC\"}")) ssmSession
+  result1 <- doPutParameter (ParameterName "/AAA/BBB") (ParameterValue (T.pack $ "{\"value\" : \"CCC\"}"))
   return ()

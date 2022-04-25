@@ -20,7 +20,8 @@ import qualified Data.Text                   as T
 import qualified Data.Text.Encoding          as T
 import           GHC.IO.Exception            (IOError, IOErrorType (OtherError),
                                               IOException (IOError))
-import           Network.AWS.Lens            ((%~), (?~), (^.))
+--import           Network.AWS.Lens            ((%~), (?~), (^.))
+import           Control.Lens                ((%~), (?~), (^.))
 import           Network.HTTP.Types          hiding (Header)
 import           Network.Wai                 (Application,
                                               RequestBodyLength (ChunkedBody),

@@ -32,7 +32,6 @@ library
       InterfaceAdapters.IP.GeoLatLong
       InterfaceAdapters.IP.IP2Location
       InterfaceAdapters.Parameters.AWSSSMParmStore
-      InterfaceAdapters.Parameters.AWSViaHaskell
       InterfaceAdapters.Parameters.KVS
       InterfaceAdapters.Parameters.KVSAWSSSMParmStore
       InterfaceAdapters.Parameters.KVSInMemory
@@ -68,34 +67,29 @@ library
       ScopedTypeVariables
   ghc-options: -O2 -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin
   build-depends:
-      aeson >=1.5.6.0
-    , amazonka >=1.6.1
-    , amazonka-core >=1.6.1
+      aeson >=2.0.3.0
+    , amazonka
+    , amazonka-core
     , amazonka-s3
     , amazonka-ssm
-    , attoparsec >=0.13.2.5
-    , aws-easy
-    , aws-lambda-haskell-runtime >=4.1.1
-    , base >=4.7 && <5
-    , binary
-    , bytestring
-    , containers
-    , directory
+    , attoparsec >=0.14.4
+    , aws-lambda-haskell-runtime
+    , base >=4.12 && <5
+    , binary >=0.8.8.0
+    , bytestring >=0.10.12.1
+    , containers >=0.6.4.1
+    , directory >=1.3.6.2
     , either >=5.0.1.1
-    , errors >=2.3.0
-    , filepath
-    , http-client
-    , http-client-tls
-    , http-conduit
-    , http-types
+    , filepath >=1.4.2.1
+    , http-client >=0.7.11
+    , http-client-tls >=0.3.6.1
+    , http-conduit >=2.3.8
+    , http-types >=0.12.3
     , integer-gmp
-    , integer-logarithms
-    , iproute
-    , json >0.10
-    , lens
+    , iproute >=1.7.12
+    , lens >=5.0.1
     , mtl >=2.2.2
     , naqsha >=0.3.0.1
-    , network-uri >=2.6.4.1
     , pdf-toolbox-document
     , polysemy
     , polysemy-plugin
@@ -104,11 +98,9 @@ library
     , servant-server
     , serverless-haskell >=0.12.6
     , telegram-api >=0.7.3.0
-    , template-haskell
+    , template-haskell >=2.17.0.0
     , text
     , time >=1.9.3
-    , tls >=1.5.5
-    , unliftio-core ==0.1.*
     , utf8-string
     , wai >=3.2.1.2
     , word8 >=0.1
@@ -132,34 +124,29 @@ executable bootstrap
   ld-options: -static -pthread
   build-depends:
       MaximumCity
-    , aeson >=1.5.6.0
-    , amazonka >=1.6.1
-    , amazonka-core >=1.6.1
+    , aeson >=2.0.3.0
+    , amazonka
+    , amazonka-core
     , amazonka-s3
     , amazonka-ssm
-    , attoparsec >=0.13.2.5
-    , aws-easy
-    , aws-lambda-haskell-runtime >=4.1.1
-    , base >=4.7 && <5
-    , binary
-    , bytestring
-    , containers
-    , directory
+    , attoparsec >=0.14.4
+    , aws-lambda-haskell-runtime
+    , base >=4.12 && <5
+    , binary >=0.8.8.0
+    , bytestring >=0.10.12.1
+    , containers >=0.6.4.1
+    , directory >=1.3.6.2
     , either >=5.0.1.1
-    , errors >=2.3.0
-    , filepath
-    , http-client
-    , http-client-tls
-    , http-conduit
-    , http-types
+    , filepath >=1.4.2.1
+    , http-client >=0.7.11
+    , http-client-tls >=0.3.6.1
+    , http-conduit >=2.3.8
+    , http-types >=0.12.3
     , integer-gmp
-    , integer-logarithms
-    , iproute
-    , json >0.10
-    , lens
+    , iproute >=1.7.12
+    , lens >=5.0.1
     , mtl >=2.2.2
     , naqsha >=0.3.0.1
-    , network-uri >=2.6.4.1
     , pdf-toolbox-document
     , polysemy
     , polysemy-plugin
@@ -168,11 +155,9 @@ executable bootstrap
     , servant-server
     , serverless-haskell >=0.12.6
     , telegram-api >=0.7.3.0
-    , template-haskell
+    , template-haskell >=2.17.0.0
     , text
     , time >=1.9.3
-    , tls >=1.5.5
-    , unliftio-core ==0.1.*
     , utf8-string
     , wai >=3.2.1.2
     , word8 >=0.1
@@ -199,37 +184,32 @@ test-suite MaximumCity-test
   build-depends:
       MaximumCity
     , QuickCheck >=2.13.2
-    , aeson >=1.5.6.0
-    , amazonka >=1.6.1
-    , amazonka-core >=1.6.1
+    , aeson >=2.0.3.0
+    , amazonka
+    , amazonka-core
     , amazonka-s3 >=1.6.1
     , amazonka-ssm
-    , attoparsec >=0.13.2.5
-    , aws-easy
-    , aws-lambda-haskell-runtime >=4.1.1
+    , attoparsec >=0.14.4
+    , aws-lambda-haskell-runtime
     , base
-    , binary
-    , bytestring
-    , containers
-    , directory
+    , binary >=0.8.8.0
+    , bytestring >=0.10.12.1
+    , containers >=0.6.4.1
+    , directory >=1.3.6.2
     , either >=5.0.1.1
-    , errors >=2.3.0
-    , filepath
+    , filepath >=1.4.2.1
     , hspec >=2.7.4 && <2.8
     , hspec-core >=2.7.4
     , hspec-expectations >=0.8.2
-    , http-client
-    , http-client-tls
-    , http-conduit
-    , http-types
+    , http-client >=0.7.11
+    , http-client-tls >=0.3.6.1
+    , http-conduit >=2.3.8
+    , http-types >=0.12.3
     , integer-gmp
-    , integer-logarithms
-    , iproute
-    , json >0.10
-    , lens
+    , iproute >=1.7.12
+    , lens >=5.0.1
     , mtl >=2.2.2
     , naqsha >=0.3.0.1
-    , network-uri >=2.6.4.1
     , pdf-toolbox-document
     , polysemy
     , polysemy-plugin
@@ -245,8 +225,6 @@ test-suite MaximumCity-test
     , test-framework-quickcheck2
     , text
     , time >=1.9.3
-    , tls >=1.5.5
-    , unliftio-core ==0.1.*
     , utf8-string
     , wai >=3.2.1.2
     , word8 >=0.1
@@ -265,34 +243,29 @@ benchmark MaximumCity-benchmark
       UndecidableSuperClasses
       ScopedTypeVariables
   build-depends:
-      aeson >=1.5.6.0
-    , amazonka >=1.6.1
-    , amazonka-core >=1.6.1
+      aeson >=2.0.3.0
+    , amazonka
+    , amazonka-core
     , amazonka-s3
     , amazonka-ssm
-    , attoparsec >=0.13.2.5
-    , aws-easy
-    , aws-lambda-haskell-runtime >=4.1.1
-    , base >=4.7 && <5
-    , binary
-    , bytestring
-    , containers
-    , directory
+    , attoparsec >=0.14.4
+    , aws-lambda-haskell-runtime
+    , base >=4.12 && <5
+    , binary >=0.8.8.0
+    , bytestring >=0.10.12.1
+    , containers >=0.6.4.1
+    , directory >=1.3.6.2
     , either >=5.0.1.1
-    , errors >=2.3.0
-    , filepath
-    , http-client
-    , http-client-tls
-    , http-conduit
-    , http-types
+    , filepath >=1.4.2.1
+    , http-client >=0.7.11
+    , http-client-tls >=0.3.6.1
+    , http-conduit >=2.3.8
+    , http-types >=0.12.3
     , integer-gmp
-    , integer-logarithms
-    , iproute
-    , json >0.10
-    , lens
+    , iproute >=1.7.12
+    , lens >=5.0.1
     , mtl >=2.2.2
     , naqsha >=0.3.0.1
-    , network-uri >=2.6.4.1
     , pdf-toolbox-document
     , polysemy
     , polysemy-plugin
@@ -301,11 +274,9 @@ benchmark MaximumCity-benchmark
     , servant-server
     , serverless-haskell >=0.12.6
     , telegram-api >=0.7.3.0
-    , template-haskell
+    , template-haskell >=2.17.0.0
     , text
     , time >=1.9.3
-    , tls >=1.5.5
-    , unliftio-core ==0.1.*
     , utf8-string
     , wai >=3.2.1.2
     , word8 >=0.1

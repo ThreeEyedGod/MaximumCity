@@ -14,9 +14,9 @@ import Prelude
 import ExternalInterfaces.ApplicationAssembly (createApp, servApp)
 import InterfaceAdapters.Config
 import ExternalInterfaces.ServantShim (makeHandler)
-import Network.Wai
+{- import Network.Wai
   ( Application
-  )
+  ) -}
 import AWSLambda.Events.APIGateway
 
 main :: IO ()

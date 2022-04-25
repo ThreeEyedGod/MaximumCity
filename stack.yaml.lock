@@ -5,26 +5,120 @@
 
 packages:
 - completed:
-    hackage: amazonka-1.6.1@sha256:f58b63e83876f93aa03c54e54b3eb8ba9358af93819d41f4a5a8f8b7d8b8399c,3544
+    size: 27774022
+    subdir: lib/amazonka
+    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
+    name: amazonka
+    version: '2.0'
+    sha256: ebf6af6f47642073347ec2d95308074b97a114fe8cada9d61adf54fac61eb8d3
     pantry-tree:
-      size: 992
-      sha256: d792656a70ee42df262a599bc6608bda069e33092d665c3438a6eeeaf7db4fb2
+      size: 1257
+      sha256: e17ad8cda04779c4b6801d54e4cbf20a19bf57811e036aa8e8ecfebe76b25db9
   original:
-    hackage: amazonka-1.6.1@sha256:f58b63e83876f93aa03c54e54b3eb8ba9358af93819d41f4a5a8f8b7d8b8399c,3544
+    subdir: lib/amazonka
+    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
 - completed:
-    hackage: aws-lambda-haskell-runtime-4.1.1@sha256:c3b3452d3a7f36950c22760fe44b51d49b43624fa3a0253e5bfc3d94809bb8fd,3024
+    size: 27774022
+    subdir: lib/amazonka-core
+    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
+    name: amazonka-core
+    version: '2.0'
+    sha256: ebf6af6f47642073347ec2d95308074b97a114fe8cada9d61adf54fac61eb8d3
     pantry-tree:
-      size: 1453
-      sha256: b7e8426edb0b5d06713a26362308abbec03379e1f3ad9c6d63973088ad75cf62
+      size: 3117
+      sha256: 2eadbad33f65f20781409c4de9faee04e7e4baa92906db696b78689f53de0a83
   original:
-    hackage: aws-lambda-haskell-runtime-4.1.1@sha256:c3b3452d3a7f36950c22760fe44b51d49b43624fa3a0253e5bfc3d94809bb8fd,3024
+    subdir: lib/amazonka-core
+    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
 - completed:
-    hackage: safe-exceptions-checked-0.1.0@sha256:ae142f284c6b102f0e7606a69a5719f4f72771d9cc353af72fa4484326689100,1603
+    size: 27774022
+    subdir: lib/services/amazonka-sts
+    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
+    name: amazonka-sts
+    version: '2.0'
+    sha256: ebf6af6f47642073347ec2d95308074b97a114fe8cada9d61adf54fac61eb8d3
     pantry-tree:
-      size: 298
-      sha256: d1f8ba50967547f26cdc37cbc64bdc85af57d856986876a6a5767a61977bc299
+      size: 2932
+      sha256: 64ed22eaaea868b32cf56f162d1bd7332b048d8f2ea073c4e9827ed08e71cc70
   original:
-    hackage: safe-exceptions-checked-0.1.0@sha256:ae142f284c6b102f0e7606a69a5719f4f72771d9cc353af72fa4484326689100,1603
+    subdir: lib/services/amazonka-sts
+    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
+- completed:
+    size: 27774022
+    subdir: lib/services/amazonka-ssm
+    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
+    name: amazonka-ssm
+    version: '2.0'
+    sha256: ebf6af6f47642073347ec2d95308074b97a114fe8cada9d61adf54fac61eb8d3
+    pantry-tree:
+      size: 53634
+      sha256: 110e5cf1189657baa2a374408eb35c937d45e279baa51d28f1f8ee25a5e76d07
+  original:
+    subdir: lib/services/amazonka-ssm
+    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
+- completed:
+    size: 27774022
+    subdir: lib/services/amazonka-dynamodb
+    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
+    name: amazonka-dynamodb
+    version: '2.0'
+    sha256: ebf6af6f47642073347ec2d95308074b97a114fe8cada9d61adf54fac61eb8d3
+    pantry-tree:
+      size: 24222
+      sha256: 35c575ca698414ba74f43ab3825c9bc386e30b4ee052acfe86d187ee92bfd16e
+  original:
+    subdir: lib/services/amazonka-dynamodb
+    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
+- completed:
+    size: 27774022
+    subdir: lib/services/amazonka-kinesis
+    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
+    name: amazonka-kinesis
+    version: '2.0'
+    sha256: ebf6af6f47642073347ec2d95308074b97a114fe8cada9d61adf54fac61eb8d3
+    pantry-tree:
+      size: 9301
+      sha256: 08200168cddec61ec2bc29ba60a4e216c6f5cddef33a510c5632b1c1a8511883
+  original:
+    subdir: lib/services/amazonka-kinesis
+    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
+- completed:
+    size: 27774022
+    subdir: lib/services/amazonka-s3
+    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
+    name: amazonka-s3
+    version: '2.0'
+    sha256: ebf6af6f47642073347ec2d95308074b97a114fe8cada9d61adf54fac61eb8d3
+    pantry-tree:
+      size: 37929
+      sha256: 57bc3c2aa426230e1f339fee5710eb43ace36d05c91113bd035b4de5aac26329
+  original:
+    subdir: lib/services/amazonka-s3
+    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
+- completed:
+    size: 27774022
+    subdir: lib/services/amazonka-sso
+    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
+    name: amazonka-sso
+    version: '2.0'
+    sha256: ebf6af6f47642073347ec2d95308074b97a114fe8cada9d61adf54fac61eb8d3
+    pantry-tree:
+      size: 1869
+      sha256: f11babeeaf0481ae68134ced86e9d1d9396d1beb7bd70e0a1e6b77bc4148a192
+  original:
+    subdir: lib/services/amazonka-sso
+    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
+- completed:
+    name: aws-lambda-haskell-runtime
+    version: 4.1.1
+    git: https://github.com/ThreeEyedGod/aws-lambda-haskell-runtime.git
+    pantry-tree:
+      size: 3424
+      sha256: 99652c8b2d056a2e2ec282d46e9dea1f483d947c09548580c72bd11118930a2d
+    commit: f432f76e7eeea126444c943d6928e81267b28323
+  original:
+    git: https://github.com/ThreeEyedGod/aws-lambda-haskell-runtime.git
+    commit: f432f76e7eeea126444c943d6928e81267b28323
 - completed:
     hackage: hjpath-3.0.1@sha256:3e53da08892308b1ff0622ca7ac9fc0084346ecd891e10b78df7fda20da10f9e,527
     pantry-tree:
@@ -47,34 +141,16 @@ packages:
   original:
     hackage: hjson-1.3.2@sha256:3f8d4a582efbbd4265ab6035a71efa13aa3fc85e71e556c5613e5c9da0e8e325,456
 - completed:
-    hackage: base16-bytestring-1.0.1.0@sha256:33b9d57afa334d06485033e930c6b13fc760baf88fd8f715ae2f9a4b46e19a54,2641
-    pantry-tree:
-      size: 595
-      sha256: 24661ef9b1089d468227300f8ceb89194b5cce68b9f6ed8109b01f63c07f54e3
-  original:
-    hackage: base16-bytestring-1.0.1.0@sha256:33b9d57afa334d06485033e930c6b13fc760baf88fd8f715ae2f9a4b46e19a54,2641
-- completed:
-    name: aws-easy
-    version: 0.1.0.3
-    git: https://github.com/rcook/aws-easy.git
-    pantry-tree:
-      size: 927
-      sha256: 23179f9d349d1d353d2421b0b6faf2fda8e342ccd8b7fd7a10a1db43116907d1
-    commit: 417e09a1223afbca0e023fb486e8db7f000161fd
-  original:
-    git: https://github.com/rcook/aws-easy.git
-    commit: 417e09a1223afbca0e023fb486e8db7f000161fd
-- completed:
     name: telegram-api
     version: 0.7.3.0
     git: https://github.com/ThreeEyedGod/haskell-telegram-api.git
     pantry-tree:
       size: 2905
-      sha256: e581fa8f8360b3ef4db46d37d2f13350fa20cf0e5166b587099b782b1254183c
-    commit: a665f6c8fb574cd11832fd09c04ee7189cb6f233
+      sha256: 1882ddb012122f5bcebc2c695efd015eafab93a8898967289076fe549b63a5bf
+    commit: 2a0baf07d85935a42ca23df4b3b0cad52f8f5fb6
   original:
     git: https://github.com/ThreeEyedGod/haskell-telegram-api.git
-    commit: a665f6c8fb574cd11832fd09c04ee7189cb6f233
+    commit: 2a0baf07d85935a42ca23df4b3b0cad52f8f5fb6
 - completed:
     subdir: content
     name: pdf-toolbox-content
@@ -122,78 +198,19 @@ packages:
   original:
     hackage: naqsha-0.3.0.1@sha256:1d13ac58a2604341641d001ab82020326823ab028d679839e0417bbad9dfab2b,2566
 - completed:
-    hackage: polysemy-1.6.0.0@sha256:29a73b1bf3d0049b12041016b7ee25e76bd8f6e99f9c37c2dde2b46368246697,6184
+    name: protolude
+    version: 0.3.1
+    git: https://github.com/protolude/protolude.git
     pantry-tree:
-      size: 4577
-      sha256: c4ca508b4a6786fc27e0f484344ce8dba119ea2f7fe47fb7379a51313a94cd10
+      size: 3146
+      sha256: 685ed0191298da9540e772ffa746eb078d4f4a77ed8012a9933d3c79644b1054
+    commit: 3e249724fd0ead27370c8c297b1ecd38f92cbd5b
   original:
-    hackage: polysemy-1.6.0.0@sha256:29a73b1bf3d0049b12041016b7ee25e76bd8f6e99f9c37c2dde2b46368246697,6184
-- completed:
-    hackage: polysemy-plugin-0.4.1.0@sha256:1780e13e8d00820e71ff7a8c2c58faee6e379b76fe9b3c95a1dd2d856f43fa25,3168
-    pantry-tree:
-      size: 1284
-      sha256: 4cca9065dc15426a064bbbd9b9ba97e925d9a1952d46f063debd935a537f5f3d
-  original:
-    hackage: polysemy-plugin-0.4.1.0@sha256:1780e13e8d00820e71ff7a8c2c58faee6e379b76fe9b3c95a1dd2d856f43fa25,3168
-- completed:
-    hackage: network-uri-2.6.4.1@sha256:a4765164ed0a2d1668446eb2e03460ce98645fbf083598c690846af79b7de10d,2936
-    pantry-tree:
-      size: 551
-      sha256: 68ccb16e252378b2ee6da3e076f6eb55dd7928f0d4dd8beb1969433e9bf6f549
-  original:
-    hackage: network-uri-2.6.4.1
-- completed:
-    hackage: tls-1.5.5@sha256:f6681d6624071211edd509a8f56e0c96b4f003bb349b7dc706d4333775a373c5,6996
-    pantry-tree:
-      size: 4897
-      sha256: 6400901a8f8ddd0c7d2fb30c95857753a654a60a63fcec38aab4a08b23e0984f
-  original:
-    hackage: tls-1.5.5
-- completed:
-    hackage: serverless-haskell-0.12.6@sha256:0baa32b609a68965bcd6e13f0165e2c1cb7a24602c3fd55b77c7d1cab49866ca,2664
-    pantry-tree:
-      size: 1846
-      sha256: 0aad6e7c1ea6e0a0f623b102101ff644049eb980a3c9c13889c31f73e8fc53cd
-  original:
-    hackage: serverless-haskell-0.12.6
-- completed:
-    hackage: amazonka-core-1.6.1@sha256:b94fe11830b5fa707a4372ebcc0e659759b3e885677e3ecaca2939b299b0bc96,5143
-    pantry-tree:
-      size: 3438
-      sha256: c3dc6d7d87310017d331e88d771db23df5b42aaee591edf23d5f10592e02eabc
-  original:
-    hackage: amazonka-core-1.6.1
-- completed:
-    hackage: servant-0.18.3@sha256:0fbf8f9274bdfda6a778d6d7ec714c9f0abd17102af9bc002a93fe3ed284e8ca,5309
-    pantry-tree:
-      size: 2662
-      sha256: 206f6289793fc25e4708e454ebb3e478710e8634017a47f05cff41a20b50a08b
-  original:
-    hackage: servant-0.18.3
-- completed:
-    hackage: amazonka-ssm-1.6.1@sha256:9b1c4673dd4a8f713291fb325c2179daab7cc94a962c8e1fab6968bd572c8148,7854
-    pantry-tree:
-      size: 25252
-      sha256: 14a7382ed189d03aaf35adecece88dfaf6c78829c4fbd16f3db7e0df9f7cb39d
-  original:
-    hackage: amazonka-ssm-1.6.1
-- completed:
-    hackage: unliftio-core-0.1.2.0@sha256:b0a7652ffce2284a6cebe05c99eb60573a8fb6631163f34b0b30a80b4a78cb23,1081
-    pantry-tree:
-      size: 328
-      sha256: 9d970bf5f98e68e8fc129b04d6c9d8eb1e641c7556ffd0f0a168a259335b6fd7
-  original:
-    hackage: unliftio-core-0.1.2.0@sha256:b0a7652ffce2284a6cebe05c99eb60573a8fb6631163f34b0b30a80b4a78cb23,1081
-- completed:
-    hackage: aeson-1.5.6.0@sha256:5003bb6fd260d2e2d5a51dee2bf5c8e8f29e4e0e0288fef805c22dcc80ecab06,6788
-    pantry-tree:
-      size: 37981
-      sha256: 1f61b87807bfb4362a978a492e2f17be9e3ebfe32f983ee49863ddde970b32ce
-  original:
-    hackage: aeson-1.5.6.0@rev:5
+    git: https://github.com/protolude/protolude.git
+    commit: 3e249724fd0ead27370c8c297b1ecd38f92cbd5b
 snapshots:
 - completed:
-    size: 590100
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/18/28.yaml
-    sha256: 428ec8d5ce932190d3cbe266b9eb3c175cd81e984babf876b64019e2cbe4ea68
-  original: lts-18.28
+    size: 617368
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/19/3.yaml
+    sha256: a209d3455279ee76eb45f01f73bbb960ceaaa8dfad8891435384689df4dcb653
+  original: lts-19.3

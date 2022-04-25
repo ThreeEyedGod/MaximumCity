@@ -2,7 +2,7 @@
 {-# LANGUAGE DuplicateRecordFields #-}
 
 module InterfaceAdapters.Weather.PirateWeatherAPI where
-import Data.Aeson as Q
+import Data.Aeson (eitherDecode)
 import Data.Text
 import Data.Maybe
 import Data.Monoid
