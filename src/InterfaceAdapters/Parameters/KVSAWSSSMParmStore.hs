@@ -8,7 +8,7 @@ module InterfaceAdapters.Parameters.KVSAWSSSMParmStore
 where
 
 import           Control.Exception
-import           Data.Aeson        (FromJSON, ToJSON, eitherDecodeFileStrict, encodeFile, decode, decode', decodeStrict', Value)
+import           Data.Aeson        (FromJSON, ToJSON, eitherDecodeFileStrict, encodeFile, decode, decode', decodeStrict', Value, eitherDecodeStrict')
 import           Data.List         (isSuffixOf)
 import           InterfaceAdapters.Parameters.KVS (KVS (..))
 import           Polysemy
@@ -59,9 +59,13 @@ getAction key = do
   logMessage "After doGetParameter "
   logMessage $ T.unpack valueText
   let valueBS = T.encodeUtf8 valueText
-  let vMaybe = decodeStrict' valueBS 
-  --logMessage (fromMaybe "Nothing in vMaybe" vMaybe)
-  return $ vMaybe
+  --let vMaybe = decodeStrict' valueBS 
+  case eitherDecodeStrict' valueBS of 
+    Left err -> do 
+      logMessage err 
+      return $ Nothing 
+    Right okMaybeV -> return okMaybeV
+  -- return $ vMaybe
 
 
 {- getAction1 :: (Show k, FromJSON v) => k -> IO (Maybe v)
