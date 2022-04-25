@@ -40,6 +40,7 @@ getPreferences = do
   runSetParm "/AAA/BBB" "CCC"
   logMessage "runSetParm done "
   x <- runGetParm "/AAA/BBB"
+  logMessage "After runGetParm "
   logMessage (fromMaybe "Nothing" x)
   return Preferences {userdata = Weather, usersize = Mini, usertimespan = NearForecast}
 

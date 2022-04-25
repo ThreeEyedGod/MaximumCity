@@ -15,6 +15,8 @@ import           Polysemy
 import           System.Directory  (doesFileExist, listDirectory, removeFile)
 import           Data.Text 
 import           qualified Data.List.NonEmpty as NonEmpty (fromList)
+import Data.Maybe
+
 
 import Data.ByteString            as B
 import Data.ByteString.Lazy       as BL
@@ -54,9 +56,11 @@ getAction key = do
   --ssmSession <- connect conf ssmService
   --(valueText, version) <- doGetParameter (ParameterName "/AAA/BBB") ssmSession 
   (valueText, version) <- doGetParameter (ParameterName "/AAA/BBB")
+  logMessage "After doGetParameter "
   logMessage $ T.unpack valueText
   let valueBS = T.encodeUtf8 valueText
   let vMaybe = decodeStrict' valueBS 
+  --logMessage (fromMaybe "Nothing in vMaybe" vMaybe)
   return $ vMaybe
 
 
