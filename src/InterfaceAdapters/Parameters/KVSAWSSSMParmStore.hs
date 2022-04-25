@@ -83,5 +83,5 @@ storeEntity key val = do
   -- let conf = awsConfig (AWSRegion Mumbai) & awscCredentials .~ Discover
   -- ssmSession <- connect conf ssmService
   -- result1 <- doPutParameter (ParameterName "/AAA/BBB") (ParameterValue (T.pack $ "{\"value\" : \"CCC\"}")) ssmSession
-  result1 <- doPutParameter (ParameterName "/AAA/BBB") (ParameterValue (T.pack $ "{\"value\" : \"CCC\"}"))
+  result1 <- doPutParameter (ParameterName "/AAA/BBB") (ParameterValue (T.pack $ "\"{\"value\" : \"CCC\"}\""))
   return ()
