@@ -91,7 +91,7 @@ doPutParameter (ParameterName pn) (ParameterValue pv) = do
                 , AWS.envRegion = AWS.Mumbai
                 }
     AWS.runResourceT $ do
-        void (AWS.send env $ newPutParameter pn pv) 
+        void (AWS.send env $ newPutParameter pn pv & putParameter_overwrite .~ Just True) 
 
 {- doGetParameterArr :: ParameterName -> SSMSession -> IO [Text]
 doGetParameterArr (ParameterName pn) = withAWS $ do
