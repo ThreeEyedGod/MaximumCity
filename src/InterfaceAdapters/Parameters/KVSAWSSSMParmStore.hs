@@ -1,5 +1,5 @@
 {-# LANGUAGE TemplateHaskell, LambdaCase, BlockArguments, GADTs
-           , FlexibleContexts, TypeOperators, DataKinds, PolyKinds, ScopedTypeVariables #-}
+           , FlexibleContexts, TypeOperators, DataKinds, PolyKinds, ScopedTypeVariables, TypeApplications #-}
 {-# LANGUAGE OverloadedStrings, DeriveGeneric #-}
 
 module InterfaceAdapters.Parameters.KVSAWSSSMParmStore
@@ -59,13 +59,14 @@ getAction key = do
   logMessage "After doGetParameter "
   logMessage $ T.unpack valueText
   let valueBS = T.encodeUtf8 valueText
-  --let vMaybe = decodeStrict' valueBS 
-  case eitherDecodeStrict' valueBS of 
+  let vMaybe = decodeStrict' valueBS 
+{-   case eitherDecodeStrict' @Value valueBS of 
     Left err -> do 
       logMessage err 
       return $ Nothing 
-    Right okMaybeV -> return okMaybeV
-  -- return $ vMaybe
+    Right okMaybeV -> return (Just okMaybeV)
+ -}  
+  return $ vMaybe
 
 
 {- getAction1 :: (Show k, FromJSON v) => k -> IO (Maybe v)
@@ -83,5 +84,5 @@ storeEntity key val = do
   -- let conf = awsConfig (AWSRegion Mumbai) & awscCredentials .~ Discover
   -- ssmSession <- connect conf ssmService
   -- result1 <- doPutParameter (ParameterName "/AAA/BBB") (ParameterValue (T.pack $ "{\"value\" : \"CCC\"}")) ssmSession
-  result1 <- doPutParameter (ParameterName "/AAA/BBB") (ParameterValue (T.pack $ "\"{\"value\" : \"CCC\"}\""))
+  result1 <- doPutParameter (ParameterName "/AAA/BBB") (ParameterValue (T.pack $ "{ \"value\": \"CCC\" }"))
   return ()
