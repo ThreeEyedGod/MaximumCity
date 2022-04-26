@@ -63,14 +63,14 @@ getAction key = do
   let valueTextQuotes  = T.pack valueStringQuotes
   --let valueBS = T.encodeUtf8 valueText
   let valueBS = T.encodeUtf8 valueTextQuotes
-  let vMaybe = decodeStrict' valueBS 
-{-   case eitherDecodeStrict' @Value valueBS of 
+  -- let vMaybe = decodeStrict' valueBS 
+  --case eitherDecodeStrict' @Value valueBS of 
+  case eitherDecodeStrict' valueBS of 
     Left err -> do 
       logMessage err 
       return $ Nothing 
     Right okMaybeV -> return (Just okMaybeV)
- -}  
-  return $ vMaybe
+  --return $ vMaybe
 
 
 {- getAction1 :: (Show k, FromJSON v) => k -> IO (Maybe v)
