@@ -67,6 +67,7 @@ dependencies:
 - servant
 - servant-server
 - mtl >= 2.2.2
+- string-interpolate >= 0.3.1.1
 
 library:
   source-dirs: src

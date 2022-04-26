@@ -1,6 +1,7 @@
 {-# LANGUAGE TemplateHaskell, LambdaCase, BlockArguments, GADTs
            , FlexibleContexts, TypeOperators, DataKinds, PolyKinds, ScopedTypeVariables, TypeApplications #-}
 {-# LANGUAGE OverloadedStrings, DeriveGeneric #-}
+{-# LANGUAGE QuasiQuotes #-}
 
 module InterfaceAdapters.Parameters.KVSAWSSSMParmStore
   ( runKvsAsAWSSSMParmStore
@@ -16,7 +17,8 @@ import           System.Directory  (doesFileExist, listDirectory, removeFile)
 import           Data.Text 
 import           qualified Data.List.NonEmpty as NonEmpty (fromList)
 import Data.Maybe
-
+--import Data.String.Interpolate.IsString
+import Data.String.Interpolate ( i )
 
 import Data.ByteString            as B
 import Data.ByteString.Lazy       as BL
@@ -58,14 +60,15 @@ getAction key = do
   (valueText, version) <- doGetParameter (ParameterName "/AAA/BBB")
   logMessage "After doGetParameter "
   logMessage $ T.unpack valueText
-  let valueString = T.unpack valueText 
-  let valueStringQuotes = "\"" ++ valueString ++ "\""
-  let valueTextQuotes  = T.pack valueStringQuotes
-  --let valueBS = T.encodeUtf8 valueText
-  let valueBS = T.encodeUtf8 valueTextQuotes
+  --let valueString = T.unpack valueText 
+  --let valueStringQuotes = "\"" ++ valueString ++ "\""
+  --let valueTextQuotes  = T.pack valueStringQuotes
+  let valueBS = T.encodeUtf8 valueText
+  --let valueBS = T.encodeUtf8 valueTextQuotes
   -- let vMaybe = decodeStrict' valueBS 
   --case eitherDecodeStrict' @Value valueBS of 
-  case eitherDecodeStrict' valueBS of 
+  -- case eitherDecodeStrict' [i|valueBS|] of 
+  case eitherDecodeStrict' [i|#{valueText}|] of 
     Left err -> do 
       logMessage err 
       return $ Nothing 
