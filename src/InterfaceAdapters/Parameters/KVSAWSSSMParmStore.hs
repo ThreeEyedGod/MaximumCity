@@ -58,7 +58,11 @@ getAction key = do
   (valueText, version) <- doGetParameter (ParameterName "/AAA/BBB")
   logMessage "After doGetParameter "
   logMessage $ T.unpack valueText
-  let valueBS = T.encodeUtf8 valueText
+  let valueString = T.unpack valueText 
+  let valueStringQuotes = "\"" ++ valueString ++ "\""
+  let valueTextQuotes  = T.pack valueStringQuotes
+  --let valueBS = T.encodeUtf8 valueText
+  let valueBS = T.encodeUtf8 valueTextQuotes
   let vMaybe = decodeStrict' valueBS 
 {-   case eitherDecodeStrict' @Value valueBS of 
     Left err -> do 
