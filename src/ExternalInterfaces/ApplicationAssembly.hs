@@ -40,11 +40,9 @@ import           UseCases.AgricultureUseCase
   4. See @LambdaFiring#2!
 --}
 
-servApp :: IO Application 
-servApp = do 
-      c <- loadConfig
-      pure $ createApp c 
-      
+servApp :: IO Application
+servApp = do createApp <$> loadConfig
+
 -- | creates the WAI Application that can be executed by Warp.run.
 -- All Polysemy interpretations must be executed here.
 createApp :: Config -> Application

@@ -1,8 +1,3 @@
-{-# LANGUAGE TemplateHaskell #-}
-{-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE TypeApplications #-}
-
-{-# LANGUAGE GADTs, TypeInType, ScopedTypeVariables, StandaloneDeriving #-}
 {-# LANGUAGE TemplateHaskell, LambdaCase, BlockArguments, GADTs,
            NamedFieldPuns, FlexibleContexts, FlexibleInstances, TypeOperators, DataKinds, PolyKinds, ScopedTypeVariables #-}
 
@@ -22,7 +17,6 @@ import           InterfaceAdapters.Preferences
 import           InterfaceAdapters.Telegram.Telegram
 import           InterfaceAdapters.Utils.Helper
 
-
 class UserInput x where 
       getInfo :: (Member (Embed IO) r, Member WWI r) => x -> Sem r TheWeatherThere
 
@@ -32,7 +26,7 @@ instance UserInput TelegramMessage where
       responseBody <- getWeatherTown $ UserAsk {placeName = gettheTelegram updt, prefs = thisuserprefs} 
       let msg = (responseBody, Just updt) :: UserMsg
       sendBackMsg msg
-      pure $ (fst msg)
+      pure (fst msg)
 
 instance UserInput PlaceName where 
       getInfo plName = getWeatherTown $ UserAsk {placeName = plName}

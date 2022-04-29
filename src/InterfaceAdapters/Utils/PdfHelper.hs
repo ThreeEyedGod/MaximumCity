@@ -1,11 +1,6 @@
-{-# LANGUAGE DeriveAnyClass #-}
-{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
-{-# LANGUAGE StandaloneDeriving #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
-{-# LANGUAGE NamedFieldPuns #-}
 
 module InterfaceAdapters.Utils.PdfHelper where
 
@@ -51,5 +46,4 @@ getPDFProperties url  = do
 getPagesofPDFfromTo :: URL -> FirstPage -> LastPage -> IO T.Text 
 getPagesofPDFfromTo url pageBeg pageEnd = do
       (root, total, title) <- getPDFProperties url
-      extract <- readPagesPdf root pageBeg pageEnd
-      pure extract
+      readPagesPdf root pageBeg pageEnd

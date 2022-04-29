@@ -1,8 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE StandaloneDeriving #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# OPTIONS_GHC -Wno-orphans  #-}
-{-# LANGUAGE DeriveGeneric #-}
 
 module InterfaceAdapters.Telegram.Telegram (
     _handleUpdate
@@ -11,7 +8,7 @@ module InterfaceAdapters.Telegram.Telegram (
   , runTC
   , gettheTelegram
   , gettheTelegramMaybe
-  , getTelegram 
+  , getTelegram
   , _callTelegramClient
   , TelegramMessage
 ) where
@@ -42,7 +39,7 @@ import Data.Aeson
        )
 
 type TC = (Token, Manager)
-type AllInputs  = (H.ResponseBody, Maybe Update) 
+type AllInputs  = (H.ResponseBody, Maybe Update)
 type TelegramMessage = Update
 
 runTC :: Maybe TC -> TelegramClient () -> IO ()
@@ -53,21 +50,21 @@ getTelegramSettings :: IO (Either String TC)
 getTelegramSettings = do
   tk <- getKey "TELEGRAM_TOKEN"
   case tk of
-    Left msg -> trace ("Left " ++ show msg) $ pure $ Left $ "Fail:getTelegramSettings | Telegram Token error"
+    Left msg -> trace ("Left " ++ show msg) $ pure $ Left "Fail:getTelegramSettings | Telegram Token error"
     Right token -> do
       let t = Token ("bot" <> T.pack token)
       manager <- newManager tlsManagerSettings
-      trace ("Right  " ++ show token) $ return $ Right $ (t, manager)
+      trace ("Right  " ++ show token) $ return $ Right (t, manager)
 
 _callTelegramClient :: Maybe TC -> AllInputs -> IO ()
-_callTelegramClient tc allin = runTC tc $ _handleUpdate (fst allin) (snd allin)
+_callTelegramClient tc allin = runTC tc $ uncurry _handleUpdate allin
 
 preProcessBodytoGetTelegram :: T.Text -> LB.ByteString
 preProcessBodytoGetTelegram rawbody = do
     let d = eitherDecode (LB.fromChunks . return . T.encodeUtf8 $ rawbody) :: Either String Update
     case d of
       Left _ -> "Fail:preProcessBodytoGetTelegram | Not Telegram"
-      Right theTelegram -> encode $ theTelegram
+      Right theTelegram -> encode theTelegram
 
 {--
   To Do: got to refactor so that end is based on a long space so New York City can come in rightly
@@ -86,11 +83,11 @@ getTelegram tape = rightToMaybe $ eitherDecode (LB.fromStrict (T.encodeUtf8 (fro
 
 -- | pushes a message to Telegram Chatid
 _pushTelegramMsg :: T.Text -> ChatId -> TelegramClient ()
-_pushTelegramMsg msg cid  = (sendMessageM $ sendMessageRequest cid $ msg) >> return ()
+_pushTelegramMsg msg cid  = void (sendMessageM $ sendMessageRequest cid msg)
 
 _handleUpdate :: T.Text -> Maybe Update -> TelegramClient ()
-_handleUpdate helper (Just Update {message = Just m}) 
-  | hlpAsk == False  = _pushTelegramMsg helper c
+_handleUpdate helper (Just Update {message = Just m})
+  | not hlpAsk  = _pushTelegramMsg helper c
   | otherwise        = _pushTelegramMsg hlpMsg c
   where
       c = ChatId (chat_id (chat m))

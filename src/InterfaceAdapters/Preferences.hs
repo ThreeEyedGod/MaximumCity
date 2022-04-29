@@ -1,6 +1,4 @@
-{-# LANGUAGE TemplateHaskell #-}
-{-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE GADTs, TypeInType, ScopedTypeVariables, StandaloneDeriving #-}
+{-# LANGUAGE TypeInType, StandaloneDeriving #-}
 {-# LANGUAGE TemplateHaskell, LambdaCase, BlockArguments, GADTs
            , FlexibleContexts, TypeOperators, DataKinds, PolyKinds, ScopedTypeVariables #-}
 
@@ -40,8 +38,8 @@ runSetParm key val = do
 
 getPreferences :: IO Preferences
 getPreferences = do 
-  let p1 = "/AAA/BBB" :: ParameterName 
-  let v1 = "CCC" :: ParameterValue
+  let p1 = "Malcolm" :: ParameterName 
+  let v1 = "{\"userdata\":\"Weather\", \"usersize\": \"Mini\",\"usertimespan\":\"Nearforecast\"}" :: ParameterValue
   runSetParm p1 v1
   logMessage "runSetParm done "
   x <- runGetParm p1
@@ -51,6 +49,7 @@ getPreferences = do
 
 data MyPreferences m a where
   ReadPrefs :: String -> MyPreferences m Preferences
+  SetPrefs :: String -> String -> MyPreferences m ()
 
 makeSem ''MyPreferences
 

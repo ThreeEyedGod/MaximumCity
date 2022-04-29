@@ -60,7 +60,7 @@ colHeaderParser  = string "\nSR. SR.\nNO. NO.\nNO. OF NO. OF\nDAMS DAMS\nDESIGNE
 
 colNumbersParser :: Parser [ColumnNos]
 colNumbersParser = do 
-    x <- decimal `sepBy1` (char ' ')
+    x <- decimal `sepBy1` char ' '
     endOfLine
     return x
 

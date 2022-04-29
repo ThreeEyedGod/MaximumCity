@@ -1,5 +1,4 @@
 
-{-# LANGUAGE OverloadedStrings, DeriveGeneric #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 
 module InterfaceAdapters.Utils.JSONHelper where
@@ -77,10 +76,10 @@ tryS = case decode testJson :: Maybe [Person] of
 
 
 jsonURL :: String -> Text -> String
-jsonURL u q = u ++ (Data.ByteString.Char8.unpack q)
+jsonURL u q = u ++ Data.ByteString.Char8.unpack q
 
 exceptionHandler ::  SomeException -> IO B.ByteString
-exceptionHandler e = (putStrLn "Bad Error") >> (return B.empty)
+exceptionHandler e = putStrLn "Bad Error" >> return B.empty
 
 getJSON :: String -> Text -> IO B.ByteString
 getJSON url parm = simpleHttp (jsonURL url parm) `X.catch` exceptionHandler

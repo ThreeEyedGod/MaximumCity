@@ -1,5 +1,3 @@
-{-# LANGUAGE TemplateHaskell #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GADTs, TypeInType, ScopedTypeVariables, StandaloneDeriving #-}
 {-# LANGUAGE TemplateHaskell, LambdaCase, BlockArguments, GADTs
            , FlexibleContexts, TypeOperators, DataKinds, PolyKinds, ScopedTypeVariables #-}

@@ -1,4 +1,3 @@
-{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
@@ -29,7 +28,7 @@ maybeHead []    = Nothing
 maybeHead (x:_) = Just x
 
 isPeriodorCommaorDigit :: Char -> Bool
-isPeriodorCommaorDigit c = (c == '.') || (c == ',') || (isDigit c)
+isPeriodorCommaorDigit c = (c == '.') || (c == ',') || isDigit c
 
 removeNonNumbers :: String -> String
 removeNonNumbers = Prelude.filter isPeriodorCommaorDigit
@@ -59,14 +58,14 @@ data EnvError
 badEnv :: String -> IOException -> IO (Either EnvError KeyString)
 badEnv env ex
       | Prelude.null env = return $ Left $ EmptyKeyError "Environment key not given "
-      | isDoesNotExistError ex = return $ Left $ (MissingEnvError env)
+      | isDoesNotExistError ex = return $ Left (MissingEnvError env)
       | otherwise = return $ Left $ SomeIOError ex
 
 -- handle is basically a guard  - a shorter catch ! https://hackage.haskell.org/package/base-4.15.0.0/docs/Control-Exception.html#v:handle
 -- note: badEnv has 2 arguments; 2nd one is the exception
 -- reminder: <$> is fmap https://stackoverflow.com/questions/37286376/what-does-mean-in-haskell/37286470
 getKey :: String -> IO (Either EnvError String)
-getKey env = handle (badEnv env) $ Right <$> (getEnv env)
+getKey env = handle (badEnv env) $ Right <$> getEnv env
 
 orDieonNothing :: Maybe a -> String -> Either String a
 Just a  `orDieonNothing` _      = return a
