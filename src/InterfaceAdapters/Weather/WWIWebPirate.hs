@@ -1,12 +1,7 @@
-{-# LANGUAGE TemplateHaskell #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GADTs, TypeInType, ScopedTypeVariables, StandaloneDeriving #-}
 {-# LANGUAGE TemplateHaskell, LambdaCase, BlockArguments, GADTs
            , FlexibleContexts, TypeOperators, DataKinds, PolyKinds, ScopedTypeVariables #-}
-{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE TypeFamilies        #-}
-{-# LANGUAGE DeriveDataTypeable  #-}
 module InterfaceAdapters.Weather.WWIWebPirate
   ( 
     runWWIWebPirate

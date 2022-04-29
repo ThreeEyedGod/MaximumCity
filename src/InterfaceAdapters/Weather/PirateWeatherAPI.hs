@@ -1,4 +1,3 @@
-{-# LANGUAGE OverloadedStrings, DeriveGeneric #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 
 module InterfaceAdapters.Weather.PirateWeatherAPI where
@@ -27,8 +26,8 @@ getPirateWeatherSettings :: IO (Either String String)
 getPirateWeatherSettings = do
   tk <- getKey "PIRATE_WEATHER_TOKEN"
   case tk of
-    Left msg -> pure $ Left $ "Pirate Weather Token error"
-    Right token -> return $ Right $ token
+    Left msg -> pure $ Left "Pirate Weather Token error"
+    Right token -> return $ Right token
 
 jsonPirateWeatherURL :: String
 jsonPirateWeatherURL = "https://api.pirateweather.net/forecast/"
@@ -51,7 +50,7 @@ getDarkSkyjson (ll , kee)
         x <- (eitherDecode <$> (getJSON (theURL (fromRight defaultKey kee)) t)) :: IO (Either String DarkSky) -- | Http Call to PIrate Net !
         case x of 
           Left e -> return $ Left $ unpack $ _returnStdFail "getDarkSkyjson" "Missing DarkSky json"
-          Right stuff -> return $ Right $ stuff 
+          Right stuff -> return $ Right stuff 
 
 {- currentweatherAlertsForecast :: Either String DarkSky -> Text
 currentweatherAlertsForecast dS  = (fromMaybe "Missing DarkSky " $ weatherCurrent dS) <> (fromMaybe "No Alerts issued " $ weatherAlerts dS) <> (fromMaybe "No Forecast available " $ weatherForecast dS)
@@ -70,7 +69,7 @@ currentweatherForecastMini dS  = (fromMaybe "Missing DarkSky " $ weatherCurrentM
 currentAlertsForecast dS  = (fromMaybe "No Alerts issued " $ weatherAlerts dS) <> (fromMaybe "No Forecast available " $ weatherForecast dS)
  -}
 currentWeather :: Either String DarkSky -> Text
-currentWeather dS  = (fromMaybe "Missing DarkSky " $ weatherCurrent dS) 
+currentWeather dS  = fromMaybe "Missing DarkSky " $ weatherCurrent dS 
 
 onlyWeatherCurrent :: String -> IO Text
 onlyWeatherCurrent town  = townDarkSky town >>= (\x -> pure $ currentWeather x)
@@ -104,7 +103,7 @@ weatherCurrent dS
 
 weatherForecast:: Either String DarkSky -> Maybe Text
 weatherForecast dS 
-  | (isRight dS) && (isJust . maybeHead $ (dly_data (daily d))) = Just $ Data.ByteString.Char8.pack $ getAllDaysForecast (dly_data (daily d))
+  | isRight dS && (isJust . maybeHead $ (dly_data (daily d))) = Just $ Data.ByteString.Char8.pack $ getAllDaysForecast (dly_data (daily d))
   | otherwise = Nothing
   where 
     Right d  = dS 

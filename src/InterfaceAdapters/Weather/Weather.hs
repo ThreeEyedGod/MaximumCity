@@ -1,9 +1,5 @@
-{-# LANGUAGE DeriveAnyClass #-}
-{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
-{-# LANGUAGE StandaloneDeriving #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
 
 module InterfaceAdapters.Weather.Weather 
@@ -39,18 +35,18 @@ type WeatherText = T.Text
 
 _getTownNameWeatherFromIp :: PlaceName -> IO TheWeatherThere
 _getTownNameWeatherFromIp town
-  | "Fail" `T.isPrefixOf` town = return $ "Fail:getTownNameWeatherFromIp | town"
+  | "Fail" `T.isPrefixOf` town = return "Fail:getTownNameWeatherFromIp | town"
   | otherwise = _getTownNameWeatherFromTown town
 
 -- | water levels of lakes in a region as percent of same time last year or full capacity
 -- | from Water modules 
 _helperLivePercent :: (Maybe Region, Maybe PercentLiveStorage) -> IO String
-_helperLivePercent ( Nothing , _ ) = pure $ " % livelake level Not Available "
-_helperLivePercent ( _ , Nothing ) = pure $ " % livelake level Not Available "
-_helperLivePercent (Just a, Just b) = pure $ " % livelake level at " ++ (BSU.toString a) ++ " is " ++ (BSU.toString $ (percent_Today b))
+_helperLivePercent ( Nothing , _ ) = pure " % livelake level Not Available "
+_helperLivePercent ( _ , Nothing ) = pure " % livelake level Not Available "
+_helperLivePercent (Just a, Just b) = pure $ " % livelake level at " ++ BSU.toString a ++ " is " ++ (BSU.toString $ percent_Today b)
 
 _mkWeatherThere :: PlaceName -> WeatherText -> WaterLevel -> IO TheWeatherThere
-_mkWeatherThere twn wt wl = pure $ Data.ByteString.Char8.pack $ (Data.ByteString.Char8.unpack twn ++ " is " ++ Data.ByteString.Char8.unpack wt ++ wl )
+_mkWeatherThere twn wt wl = pure $ Data.ByteString.Char8.pack  (Data.ByteString.Char8.unpack twn ++ " is " ++ Data.ByteString.Char8.unpack wt ++ wl )
 
 _handlePirateResponse :: WeatherText -> PlaceName -> WaterLevel -> IO TheWeatherThere
 _handlePirateResponse weather1 town wll 
