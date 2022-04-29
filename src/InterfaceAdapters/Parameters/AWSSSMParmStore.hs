@@ -53,4 +53,4 @@ doPutParameter (ParameterName pn) (ParameterValue pv) = do
                 , AWS.envRegion = AWS.Mumbai
                 }
     AWS.runResourceT $ do
-        void (AWS.send env $ newPutParameter pn pv & (putParameter_dataType  .~ (Just "text")) & (putParameter_overwrite .~ Just True))
+        void (AWS.send env $ newPutParameter pn pv & (putParameter_dataType  .~ (Just "String")) & (putParameter_overwrite .~ Just True))
