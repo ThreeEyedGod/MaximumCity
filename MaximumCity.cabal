@@ -34,8 +34,8 @@ library
       InterfaceAdapters.Parameters.AWSSSMParmStore
       InterfaceAdapters.Parameters.KVS
       InterfaceAdapters.Parameters.KVSAWSSSMParmStore
-      InterfaceAdapters.Parameters.KVSInMemory
       InterfaceAdapters.Parameters.SSMImports
+      InterfaceAdapters.Parameters.Types
       InterfaceAdapters.Preferences
       InterfaceAdapters.Telegram.Telegram
       InterfaceAdapters.Utils.EnvPolHelper

@@ -14,13 +14,16 @@ module InterfaceAdapters.Parameters.KVS
 where
 
 import Polysemy
+import InterfaceAdapters.Parameters.Types
+import Data.Text (Text)
+
 
 -- | a key value store specified as A GADT type
 data KVS k v m a where
-  ListAllKvs :: KVS k v m [(k, v)]
-  GetKvs     :: k -> KVS k v m (Maybe v)
-  InsertKvs  :: k -> v -> KVS k v m ()
-  DeleteKvs  :: k -> KVS k v m ()
+  ListAllKvs :: KVS ParameterName ParameterValue m [(ParameterName, ParameterValue)]
+  GetKvs     :: ParameterName -> KVS ParameterName ParameterValue m Text
+  InsertKvs  :: ParameterName -> ParameterValue -> KVS ParameterName ParameterValue m ()
+  DeleteKvs  :: ParameterName -> KVS ParameterName ParameterValue m ()
 
 -- | makeSem uses TemplateHaskell to generate effect functions (or smart Constructors) from the GADT definition:
 -- listAllKvs :: Member (KVS k v) r => Sem r [(k, v)]

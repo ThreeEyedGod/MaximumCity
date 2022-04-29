@@ -10,7 +10,6 @@ Portability : portable
 
 module InterfaceAdapters.Parameters.SSMImports
     ( 
---        ParameterType(..)
       GetParameter (..)
     , GetParameterResponse (..)
     , GetParameters (..)

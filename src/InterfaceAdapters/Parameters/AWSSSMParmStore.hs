@@ -5,25 +5,12 @@
 
 module InterfaceAdapters.Parameters.AWSSSMParmStore
     ( 
---        ParameterType(..)
---    , getParameters
-{-     , grsParameters
-    , pValue
-    , pVersion
-    , ppOverwrite -}
---    , putParameter
---    , ssm
       doGetParameter
-   -- , doGetParameterArr
     , doPutParameter
     , ParameterName (..)
     , ParameterValue (..)
---    , SSMSession
---    , ssmService
     ) where
 
-
--- import Network.AWS
 import Amazonka
 import qualified Amazonka as AWS
 import qualified System.IO as IO
@@ -43,30 +30,9 @@ import           System.Directory (getHomeDirectory)
 import           System.FilePath ((</>))
 
 import GHC.Generics
--- import Text.JSON.Generic
+import InterfaceAdapters.Parameters.Types
 
-import Polysemy
-import Polysemy.State
-
--- wrapAWSService 'ssm "SSMService" "SSMSession"
-
-newtype ParameterName = ParameterName Text
-newtype ParameterValue = ParameterValue Text deriving (FromJSON)
-
-{- doGetParameter :: ParameterName -> SSMSession -> IO (Text, Integer)
-doGetParameter (ParameterName pn) = withAWS $ do
-    result <- send $ getParameters (NonEmpty.fromList [pn])
-    let param = head $ result ^. grsParameters
-    let pVal = fromJust (param ^. pValue)
-    return $ (pVal, fromJust (param ^. pVersion))
-
-doPutParameter :: ParameterName -> ParameterValue -> SSMSession -> IO ()
-doPutParameter (ParameterName pn) (ParameterValue pv) = withAWS $
-    void (send $ putParameter pn pv String & ppOverwrite .~ Just True)
- -}
-
-
-doGetParameter :: ParameterName -> IO (Text, Integer)
+doGetParameter :: ParameterName -> IO Text 
 doGetParameter (ParameterName pn) = do 
     logger <- AWS.newLogger AWS.Debug IO.stdout
     discoveredEnv <- AWS.newEnv AWS.discover
@@ -79,7 +45,8 @@ doGetParameter (ParameterName pn) = do
         result <- AWS.send env $ newGetParameters (NonEmpty.fromList [pn])
         let param = head $ result ^. getParametersResponse_parameters
         let pVal = param ^. parameter_value
-        return $ (pVal, param ^. parameter_version)
+        -- return $ (pVal, param ^. parameter_version)
+        return pVal
 
 doPutParameter :: ParameterName -> ParameterValue -> IO ()
 doPutParameter (ParameterName pn) (ParameterValue pv) = do
@@ -91,11 +58,4 @@ doPutParameter (ParameterName pn) (ParameterValue pv) = do
                 , AWS.envRegion = AWS.Mumbai
                 }
     AWS.runResourceT $ do
-        void (AWS.send env $ newPutParameter pn pv & putParameter_overwrite .~ Just True) 
-
-{- doGetParameterArr :: ParameterName -> SSMSession -> IO [Text]
-doGetParameterArr (ParameterName pn) = withAWS $ do
-  result <- send $ getParameters (NonEmpty.fromList [pn])
-  let paramArr = result ^. grsParameters
-  return $ map (\x -> fromJust (x ^. pValue)) paramArr
- -}
+        void (AWS.send env $ newPutParameter pn pv & (putParameter_overwrite .~ Just True)) 

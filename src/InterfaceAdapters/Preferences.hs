@@ -12,6 +12,9 @@ import Data.Function             ((&))
 import InterfaceAdapters.Parameters.KVS
 import InterfaceAdapters.Parameters.KVSAWSSSMParmStore
 import InterfaceAdapters.Utils.Helper
+import Data.Text (Text)
+import InterfaceAdapters.Parameters.Types
+import Amazonka.SSM (ParameterTier(ParameterTier_Advanced))
 
 data Preferences = Preferences {
   userdata :: Agdata
@@ -23,13 +26,13 @@ data Agdata = Weather | WaterLevels | WeatherWaterLevels | Monsoon | All derivin
 data Datasize = Mini | Standard | Detailed deriving (Show, Eq)
 data Timespan = RightNow | Alerts | NearForecast | LongRange deriving (Show, Eq)
 
-runGetParm :: String -> IO (Maybe String)
+runGetParm :: ParameterName -> IO Text
 runGetParm key = do 
   getKvs key
   & runKvsAsAWSSSMParmStore
   & runM
 
-runSetParm :: String -> String -> IO ()
+runSetParm :: ParameterName -> ParameterValue -> IO ()
 runSetParm key val = do 
   insertKvs key val 
   & runKvsAsAWSSSMParmStore
@@ -37,11 +40,14 @@ runSetParm key val = do
 
 getPreferences :: IO Preferences
 getPreferences = do 
-  runSetParm "/AAA/BBB" "CCC"
+  let p1 = "/AAA/BBB" :: ParameterName 
+  let v1 = "CCC" :: ParameterValue
+  runSetParm p1 v1
   logMessage "runSetParm done "
-  x <- runGetParm "/AAA/BBB"
+  x <- runGetParm p1
   logMessage "After runGetParm "
-  logMessage (fromMaybe "Nothing" x)
+  logMessage (show x)
+  --logMessage (fromMaybe "Nothing" x)
   return Preferences {userdata = Weather, usersize = Mini, usertimespan = NearForecast}
 
 data MyPreferences m a where
