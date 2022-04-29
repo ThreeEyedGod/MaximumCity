@@ -26,9 +26,10 @@ module InterfaceAdapters.Parameters.SSMImports
     , Parameter (..)
     , newParameter
     , parameter_value
-    , parameter_version 
+    , parameter_version
+    , putParameter_dataType
     ) where
 
 import Amazonka.SSM
-import Amazonka.SSM.Lens (getParameter_name, putParameter_overwrite, getParameters_names, getParameterResponse_parameter, getParametersResponse_parameters)
-import Amazonka.SSM.Types.Parameter (Parameter (..), newParameter, parameter_value, parameter_version )
+import Amazonka.SSM.Lens (getParameterResponse_parameter, getParameter_name, getParametersResponse_parameters, getParameters_names, putParameter_dataType, putParameter_overwrite)
+import Amazonka.SSM.Types.Parameter (Parameter (..), newParameter, parameter_value, parameter_version)

@@ -25,6 +25,7 @@ import           System.FilePath ((</>))
 import GHC.Generics
 import InterfaceAdapters.Parameters.Types
 import InterfaceAdapters.Parameters.SSMImports
+import Data.Aeson.Encoding (text)
 
 doGetParameter :: ParameterName -> IO Text 
 doGetParameter (ParameterName pn) = do 
@@ -52,4 +53,4 @@ doPutParameter (ParameterName pn) (ParameterValue pv) = do
                 , AWS.envRegion = AWS.Mumbai
                 }
     AWS.runResourceT $ do
-        void (AWS.send env $ newPutParameter pn pv & (putParameter_overwrite .~ Just True)) 
+        void (AWS.send env $ newPutParameter pn pv & (putParameter_dataType  .~ (Just "text")) & (putParameter_overwrite .~ Just True))
