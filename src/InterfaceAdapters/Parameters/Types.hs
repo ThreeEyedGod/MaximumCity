@@ -5,6 +5,5 @@ import Data.ByteString                  (ByteString)
 import Data.String                      (IsString)
 import Data.Text (Text)
 
-
 newtype ParameterName = ParameterName Text deriving (IsString, Eq, Ord, Show)
 newtype ParameterValue = ParameterValue Text deriving (IsString, Eq, Ord, Show)

@@ -37,9 +37,11 @@ import           GHC.Generics
 import InterfaceAdapters.Parameters.AWSSSMParmStore (ParameterName (..), ParameterValue (..), doGetParameter, doPutParameter)
 import InterfaceAdapters.Parameters.Types
 import InterfaceAdapters.Utils.Helper
+import Amazonka.S3.Types (DeleteMarkerEntry(key))
+
 runKvsAsAWSSSMParmStore :: (Member (Embed IO) r) => Sem (KVS ParameterName ParameterValue : r) a -> Sem r a
 runKvsAsAWSSSMParmStore = interpret $ \case
   --ListAllKvs        -> embed retrieveAll
-  GetKvs key        -> embed $ doGetParameter (ParameterName "/AAA/BBB")
-  InsertKvs key val -> embed $ doPutParameter (ParameterName "/AAA/BBB") val
+  GetKvs key        -> embed $ doGetParameter key 
+  InsertKvs key val -> embed $ doPutParameter key val
   --DeleteKvs key     -> embed (removeFile (show key))
