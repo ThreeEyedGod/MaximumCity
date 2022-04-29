@@ -1,6 +1,4 @@
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE TypeFamilies #-}
 
 module InterfaceAdapters.Parameters.AWSSSMParmStore
@@ -15,22 +13,18 @@ import Amazonka
 import qualified Amazonka as AWS
 import qualified System.IO as IO
 
-import Data.Aeson.Types (FromJSON, ToJSON)
-import Data.Aeson.Types( Value(..) )
---import           InterfaceAdapters.Parameters.AWSViaHaskell
 import           Control.Monad (void)
 import           Control.Lens
 import qualified Data.List.NonEmpty as NonEmpty (fromList)
-import           Data.Maybe (fromJust)
 import           Data.Monoid ((<>))
 import           Data.Text (Text)
 import qualified Data.Text.IO as Text (putStrLn)
-import           InterfaceAdapters.Parameters.SSMImports
 import           System.Directory (getHomeDirectory)
 import           System.FilePath ((</>))
 
 import GHC.Generics
 import InterfaceAdapters.Parameters.Types
+import InterfaceAdapters.Parameters.SSMImports
 
 doGetParameter :: ParameterName -> IO Text 
 doGetParameter (ParameterName pn) = do 

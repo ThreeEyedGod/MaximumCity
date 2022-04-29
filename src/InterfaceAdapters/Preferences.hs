@@ -47,7 +47,6 @@ getPreferences = do
   x <- runGetParm p1
   logMessage "After runGetParm "
   logMessage (show x)
-  --logMessage (fromMaybe "Nothing" x)
   return Preferences {userdata = Weather, usersize = Mini, usertimespan = NearForecast}
 
 data MyPreferences m a where
@@ -56,7 +55,7 @@ data MyPreferences m a where
 makeSem ''MyPreferences
 
 runprefsToIO :: Member (Embed IO) r => Sem (MyPreferences ': r) a -> Sem r a
-runprefsToIO = interpret (\(ReadPrefs userId) -> embed $ getPreferences)
+runprefsToIO = interpret (\(ReadPrefs userId) -> embed getPreferences)
 
 runGetPrefs :: String -> IO Preferences
 runGetPrefs userid = do 

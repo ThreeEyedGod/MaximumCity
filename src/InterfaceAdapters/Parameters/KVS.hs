@@ -14,9 +14,8 @@ module InterfaceAdapters.Parameters.KVS
 where
 
 import Polysemy
-import InterfaceAdapters.Parameters.Types
 import Data.Text (Text)
-
+import InterfaceAdapters.Parameters.Types
 
 -- | a key value store specified as A GADT type
 data KVS k v m a where
