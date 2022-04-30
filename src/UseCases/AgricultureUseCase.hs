@@ -22,8 +22,8 @@ class UserInput x where
 
 instance UserInput TelegramMessage where
   getInfo updt = do 
-      let name = getUserName $ getTelegramUser updt
-      thisuserprefs <- embed (getPreferences name)
+      let uuid = getUserId $ getTelegramUser updt
+      thisuserprefs <- embed (getPreferences uuid)
       responseBody <- getWeatherTown $ UserAsk {placeName = gettheTelegram updt, prefs = thisuserprefs} 
       let msg = (responseBody, Just updt) :: UserMsg
       sendBackMsg msg

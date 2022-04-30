@@ -14,13 +14,13 @@ import Data.Text (Text)
 import Data.Text as T
 import InterfaceAdapters.Parameters.Types
 import Amazonka.SSM (ParameterTier(ParameterTier_Advanced))
+import Data.Data (cast)
 
 data Preferences = Preferences {
   userdata :: Agdata
 , usersize :: Datasize
 , usertimespan :: Timespan
 }
-
 data Agdata = Weather | WaterLevels | WeatherWaterLevels | Monsoon | All deriving (Show, Eq)
 data Datasize = Mini | Standard | Detailed deriving (Show, Eq)
 data Timespan = RightNow | Alerts | NearForecast | LongRange deriving (Show, Eq)
@@ -37,14 +37,18 @@ runSetParm key val = do
   & runKvsAsAWSSSMParmStore
   & runM
 
+textToParameterType :: Text -> Maybe ParameterName
+textToParameterType t  = cast t :: Maybe ParameterName
+
 getPreferences :: Text -> IO Preferences
-getPreferences user_name = do 
-  logMessage $ T.unpack user_name 
-  let p1 = "Malcolm1" :: ParameterName 
-  let v1 = "{\"userdata\":\"Weather\", \"usersize\": \"Mini\",\"usertimespan\":\"NearForecast\"}" :: ParameterValue
-  runSetParm p1 v1
+getPreferences user_id = do 
+  logMessage $ T.unpack user_id 
+  --let p =  "malcolm1" :: ParameterName 
+  let Just p  = textToParameterType user_id
+  let v = "{\"userdata\":\"Weather\", \"usersize\": \"Mini\",\"usertimespan\":\"NearForecast\"}" :: ParameterValue
+  runSetParm p v
   logMessage "runSetParm done "
-  x <- runGetParm p1
+  x <- runGetParm p
   logMessage "After runGetParm "
   logMessage (show x)
   return Preferences {userdata = Weather, usersize = Mini, usertimespan = NearForecast}

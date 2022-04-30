@@ -11,6 +11,7 @@ module InterfaceAdapters.Telegram.Telegram (
   , getTelegram
   , getTelegramUser
   , getUserName
+  , getUserId
   , _callTelegramClient
   , TelegramMessage
 ) where
@@ -105,6 +106,10 @@ getTelegramUser _  = Nothing
 getUserName :: Maybe User -> T.Text 
 getUserName (Just u) = user_first_name u 
 getUserName Nothing  = ""
+
+getUserId :: Maybe User -> T.Text
+getUserId (Just u) = T.pack . show $ user_id u
+getUserId Nothing = ""
 
 -- | Maybe version of the getthetelegram
 gettheTelegramMaybe :: Maybe Update -> Maybe T.Text
