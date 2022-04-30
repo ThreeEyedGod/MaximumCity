@@ -39,7 +39,7 @@ runSetParm key val = do
 getPreferences :: IO Preferences
 getPreferences = do 
   let p1 = "Malcolm" :: ParameterName 
-  let v1 = "{\"userdata\":\"Weather\", \"usersize\": \"Mini\",\"usertimespan\":\"Nearforecast\"}" :: ParameterValue
+  let v1 = "{\"userdata\":\"Weather\", \"usersize\": \"Mini\",\"usertimespan\":\"NearForecast\"}" :: ParameterValue
   runSetParm p1 v1
   logMessage "runSetParm done "
   x <- runGetParm p1

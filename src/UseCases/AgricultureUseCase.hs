@@ -3,7 +3,7 @@
 
 module UseCases.AgricultureUseCase
 ( 
-            getInfo
+      getInfo
 )
 where
 

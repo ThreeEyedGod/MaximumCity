@@ -1,7 +1,5 @@
 {-# LANGUAGE TemplateHaskell, LambdaCase, BlockArguments, GADTs
            , FlexibleContexts, TypeOperators, DataKinds, PolyKinds, ScopedTypeVariables, TypeApplications #-}
-{-# LANGUAGE OverloadedStrings, DeriveGeneric #-}
-{-# LANGUAGE QuasiQuotes #-}
 
 module InterfaceAdapters.Parameters.KVSAWSSSMParmStore
   ( runKvsAsAWSSSMParmStore

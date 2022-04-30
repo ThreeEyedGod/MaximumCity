@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DuplicateRecordFields #-}
-{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
@@ -70,7 +69,7 @@ extractXForwardedForHeader :: LB.ByteString -> IO T.Text
 extractXForwardedForHeader headers = do
   let f = eitherDecode headers :: Either String Headers
   case f of
-    Left _ -> trace ("f = " ++ show f) $ return $ "Fail:extractXForwardedForHeader | eitherDecode header"
+    Left _ -> trace ("f = " ++ show f) $ return "Fail:extractXForwardedForHeader | eitherDecode header"
     Right allHeaders -> getInfoFromIpAddr (T.unpack (xForwardedFor allHeaders))
     --Right allHeaders -> getInfoFromIpAddr (Data.ByteString.Char8.unpack (xForwardedFor allHeaders))
 
@@ -82,4 +81,4 @@ getPath p  = do
   let f = eitherDecode p :: Either String Path
   case f of 
     Left _ -> "Fail:getPath | No path"
-    Right aPath -> (ipath aPath)
+    Right aPath -> ipath aPath

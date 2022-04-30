@@ -1,7 +1,6 @@
 
 {-# LANGUAGE OverloadedStrings, DeriveGeneric, DeriveAnyClass #-}
 {-# LANGUAGE DuplicateRecordFields #-}
-{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 
 module InterfaceAdapters.IP.GeoCodeOpenCage (getOpenCageForwardGeoCodefor, OpenCageForwardGeoData (..), OpenCageResultData(..), OpenCageLocdata (..)) where
@@ -114,7 +113,7 @@ data OpenCageLocdata = OpenCageLocdata
   } deriving (Show, Generic, FromJSON)
 
 statusExceptionHandler ::  SomeException -> IO B.ByteString
-statusExceptionHandler e = (putStrLn "Bad Error") >> (return B.empty)
+statusExceptionHandler e = putStrLn "Bad Error" >> return B.empty
 jsonOpenCageURL = "https://api.opencagedata.com/geocode/v1/json?key=" 
 
 getOpenCageSettings :: IO (Either ErrLeftString KeyString)
