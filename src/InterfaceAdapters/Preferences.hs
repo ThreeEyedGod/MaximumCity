@@ -42,15 +42,17 @@ textToParameterType t  = cast t :: Maybe ParameterName
 
 getPreferences :: Text -> IO Preferences
 getPreferences user_id = do 
-  logMessage $ T.unpack user_id 
-  --let p =  "malcolm1" :: ParameterName 
-  let Just p  = textToParameterType user_id
   let v = "{\"userdata\":\"Weather\", \"usersize\": \"Mini\",\"usertimespan\":\"NearForecast\"}" :: ParameterValue
-  runSetParm p v
-  logMessage "runSetParm done "
-  x <- runGetParm p
-  logMessage "After runGetParm "
-  logMessage (show x)
+  logMessage $ T.unpack user_id  
+  let puser_id  = textToParameterType user_id
+  case puser_id of
+    Nothing -> error "no user_id in incoming telegram"
+    Just p  -> do 
+      runSetParm p v
+      logMessage "runSetParm done "
+      x <- runGetParm p
+      logMessage "After runGetParm "
+      logMessage (show x)
   return Preferences {userdata = Weather, usersize = Mini, usertimespan = NearForecast}
 
 data MyPreferences m a where
