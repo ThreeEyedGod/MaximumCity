@@ -11,6 +11,7 @@ import InterfaceAdapters.Parameters.KVS
 import InterfaceAdapters.Parameters.KVSAWSSSMParmStore
 import InterfaceAdapters.Utils.Helper
 import Data.Text (Text)
+import Data.Text as T
 import InterfaceAdapters.Parameters.Types
 import Amazonka.SSM (ParameterTier(ParameterTier_Advanced))
 
@@ -36,9 +37,10 @@ runSetParm key val = do
   & runKvsAsAWSSSMParmStore
   & runM
 
-getPreferences :: IO Preferences
-getPreferences = do 
-  let p1 = "Malcolm" :: ParameterName 
+getPreferences :: Text -> IO Preferences
+getPreferences user_name = do 
+  logMessage $ T.unpack user_name 
+  let p1 = "Malcolm1" :: ParameterName 
   let v1 = "{\"userdata\":\"Weather\", \"usersize\": \"Mini\",\"usertimespan\":\"NearForecast\"}" :: ParameterValue
   runSetParm p1 v1
   logMessage "runSetParm done "
@@ -54,7 +56,7 @@ data MyPreferences m a where
 makeSem ''MyPreferences
 
 runprefsToIO :: Member (Embed IO) r => Sem (MyPreferences ': r) a -> Sem r a
-runprefsToIO = interpret (\(ReadPrefs userId) -> embed getPreferences)
+runprefsToIO = interpret (\(ReadPrefs userId) -> embed (getPreferences $ T.pack userId))
 
 runGetPrefs :: String -> IO Preferences
 runGetPrefs userid = do 

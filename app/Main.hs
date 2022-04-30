@@ -10,14 +10,12 @@ module Main where
 
 import Control.Exception
 import Prelude
+import AWSLambda.Events.APIGateway
 
 import ExternalInterfaces.ApplicationAssembly (createApp, servApp)
-import InterfaceAdapters.Config
 import ExternalInterfaces.ServantShim (makeHandler)
-{- import Network.Wai
-  ( Application
-  ) -}
-import AWSLambda.Events.APIGateway
+
+import InterfaceAdapters.Config
 
 main :: IO ()
 main = handle catchAllHandler $ redirectmain

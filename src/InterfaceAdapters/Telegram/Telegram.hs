@@ -9,6 +9,8 @@ module InterfaceAdapters.Telegram.Telegram (
   , gettheTelegram
   , gettheTelegramMaybe
   , getTelegram
+  , getTelegramUser
+  , getUserName
   , _callTelegramClient
   , TelegramMessage
 ) where
@@ -26,6 +28,16 @@ import InterfaceAdapters.Utils.Helper
 import InterfaceAdapters.Utils.HttpHeadersPathDefinitions as H
 
 import Web.Telegram.API.Bot
+    ( Update(Update, message),
+      Token(..),
+      TelegramClient,
+      ChatId(ChatId),
+      runTelegramClient,
+      sendMessageM,
+      sendMessageRequest,
+      Chat(chat_id),
+      Message(from, chat, text),
+      User (user_id, user_first_name , user_last_name, user_username, user_language_code))
 import Network.HTTP.Client (Manager, newManager)
 import Network.HTTP.Client.TLS (tlsManagerSettings)
 import Control.Monad(void)
@@ -33,14 +45,26 @@ import qualified Data.ByteString as Data.ByteString.Char8
 import Data.Aeson
     ( eitherDecode,
       encode,
+      decode, 
       KeyValue((.=)),
       object,
+      FromJSON,
+      parseJSON,
       Value (Object)
        )
 
 type TC = (Token, Manager)
 type AllInputs  = (H.ResponseBody, Maybe Update)
 type TelegramMessage = Update
+
+{- data TelegramUser = TelegramUser {
+            id :: Int ,
+            is_bot :: Bool,
+            first_name :: T.Text,
+            last_name :: T.Text,
+            language_code :: T.Text
+        } deriving (Generic, Show, Eq)
+instance FromJSON TelegramUser -}
 
 runTC :: Maybe TC -> TelegramClient () -> IO ()
 runTC Nothing _ = pure () -- | really nothing can be done vis-a-vis telegram!
@@ -72,6 +96,15 @@ preProcessBodytoGetTelegram rawbody = do
 --}
 gettheTelegram :: Update -> T.Text
 gettheTelegram Update {message = Just m} = T.dropWhileEnd (==' ') (fromMaybe "" (text m))
+gettheTelegram _ = ""
+
+getTelegramUser :: Update -> Maybe User
+getTelegramUser Update {message = Just m} = from m
+getTelegramUser _  = Nothing
+
+getUserName :: Maybe User -> T.Text 
+getUserName (Just u) = user_first_name u 
+getUserName Nothing  = ""
 
 -- | Maybe version of the getthetelegram
 gettheTelegramMaybe :: Maybe Update -> Maybe T.Text
