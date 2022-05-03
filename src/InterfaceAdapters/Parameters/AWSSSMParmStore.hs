@@ -39,13 +39,7 @@ awsEnvIdentity =   do
 
 doGetParameter :: ParameterName -> IO Text
 doGetParameter pn = do 
-  logger <- AWS.newLogger AWS.Debug IO.stdout
-  discoveredEnv <- AWS.newEnv AWS.discover
-  let env =
-        discoveredEnv
-          { AWS.envLogger = logger,
-            AWS.envRegion = AWS.Mumbai
-          }
+  env <- awsEnvIdentity
   AWS.runResourceT $ do
     result <- AWS.send env $ newGetParameters (NonEmpty.fromList [pn])
     let param = head $ result ^. getParametersResponse_parameters
