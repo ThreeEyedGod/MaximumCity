@@ -125,12 +125,15 @@ _pushTelegramMsg msg cid  = void (sendMessageM $ sendMessageRequest cid msg)
 
 _handleUpdate :: T.Text -> Maybe Update -> TelegramClient ()
 _handleUpdate helper (Just Update {message = Just m})
-  | not hlpAsk  = _pushTelegramMsg helper c
-  | otherwise        = _pushTelegramMsg hlpMsg c
+  | hlpAsk  = _pushTelegramMsg hlpMsg c
+  | setPrefs = _pushTelegramMsg prefsMsg c
+  | otherwise        = _pushTelegramMsg helper c
   where
       c = ChatId (chat_id (chat m))
       whatUserTyped = T.dropWhileEnd (==' ') (fromMaybe "" (text m))
       hlpAsk = ("/start" `T.isPrefixOf` whatUserTyped) || ("?" `T.isPrefixOf` whatUserTyped) || ("/Help" `T.isPrefixOf` whatUserTyped) || ("Help" `T.isPrefixOf` whatUserTyped) :: Bool
+      setPrefs = "/prefs" `T.isPrefixOf` whatUserTyped
       hlpMsg = "Hi! I am @MaximumCityBot \nEnter your place name \nEnter For ex: \nMumbai, \nPune \nMaharashtra\n Bhivandi\n " :: T.Text
+      prefsMsg = "Weather or WeatherWaterLevels" :: T.Text
 
 _handleUpdate _ u  = liftIO $ putStrLn $ "Unhandled message: " ++ show u

@@ -49,12 +49,7 @@ doGetParameter pn = do
 
 doPutParameter :: ParameterName -> ParameterValue -> IO ()
 doPutParameter pn pv = do
-  logger <- AWS.newLogger AWS.Debug IO.stdout
-  discoveredEnv <- AWS.newEnv AWS.discover
-  let env =
-        discoveredEnv
-          { AWS.envLogger = logger,
-            AWS.envRegion = AWS.Mumbai
-          }
+  env <- awsEnvIdentity
   AWS.runResourceT $ do
     void (AWS.send env $ newPutParameter pn pv & (putParameter_type .~ Just ParameterType_String) & (putParameter_dataType .~ (Just "text")) & (putParameter_overwrite .~ Just True))
+

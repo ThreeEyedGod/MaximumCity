@@ -16,6 +16,7 @@ import           UseCases.WWI             (WWI, PlaceName, TheWeatherThere, getW
 import           InterfaceAdapters.Preferences
 import           InterfaceAdapters.Telegram.Telegram
 import           InterfaceAdapters.Utils.Helper
+import AWSLambda (responseBody)
 
 class UserInput x where 
       getInfo :: (Member (Embed IO) r, Member WWI r) => x -> Sem r TheWeatherThere
