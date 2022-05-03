@@ -30,4 +30,9 @@ instance UserInput TelegramMessage where
       pure (fst msg)
 
 instance UserInput PlaceName where 
-      getInfo plName = getWeatherTown $ UserAsk {placeName = plName}
+{-       getInfo plName =  do 
+            let uuid = "" 
+            thisuserprefs <- embed (getPreferences uuid)
+            getWeatherTown $ UserAsk {placeName = plName, prefs = thisuserprefs}
+ -}
+       getInfo plName = embed (getPreferences modalUser) >>=  (\thisuserprefs -> getWeatherTown $ UserAsk {placeName = plName, prefs = thisuserprefs})

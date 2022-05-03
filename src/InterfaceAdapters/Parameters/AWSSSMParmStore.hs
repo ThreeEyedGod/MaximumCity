@@ -26,8 +26,18 @@ import System.FilePath ((</>))
 import qualified System.IO as IO
 import Amazonka.SSM.Types.ParameterType
 
+awsEnvIdentity :: IO (Env' Identity) 
+awsEnvIdentity =   do 
+  logger <- AWS.newLogger AWS.Debug IO.stdout
+  discoveredEnv <- AWS.newEnv AWS.discover
+  let env =
+        discoveredEnv
+          { AWS.envLogger = logger,
+            AWS.envRegion = AWS.Mumbai
+          }
+  return env
+
 doGetParameter :: ParameterName -> IO Text
---doGetParameter (ParameterName pn) = do
 doGetParameter pn = do 
   logger <- AWS.newLogger AWS.Debug IO.stdout
   discoveredEnv <- AWS.newEnv AWS.discover
@@ -44,7 +54,6 @@ doGetParameter pn = do
     return pVal
 
 doPutParameter :: ParameterName -> ParameterValue -> IO ()
---doPutParameter (ParameterName pn) (ParameterValue pv) = do
 doPutParameter pn pv = do
   logger <- AWS.newLogger AWS.Debug IO.stdout
   discoveredEnv <- AWS.newEnv AWS.discover

@@ -36,6 +36,8 @@ data Agdata = Weather | WaterLevels | WeatherWaterLevels | Monsoon | All derivin
 data Datasize = Mini | Standard | Detailed deriving (Show, Eq, Generic, FromJSON, ToJSON)
 data Timespan = RightNow | Alerts | NearForecast | LongRange deriving (Show, Eq, Generic, FromJSON, ToJSON)
 
+modalUser :: Text 
+modalUser = ""
 
 runGetParm :: ParameterName -> IO Text
 runGetParm key = do
@@ -49,9 +51,6 @@ runSetParm key val = do
   & runKvsAsAWSSSMParmStore
   & runM
 
-textToParameterType :: Text -> Maybe ParameterName
-textToParameterType t  = cast t :: Maybe ParameterName
-
 setPreferences :: Text -> Text -> IO ()
 setPreferences = runSetParm
 
@@ -61,7 +60,7 @@ getPreferences user_id = do
   let y = eitherDecodeStrict $ T.encodeUtf8 x :: Either String Preferences
   case y of
     Left err -> do
-        logMessage "No Preferences for user id"
+        logMessage "No Preferences for user id. Getting one for modaluser"
         return Preferences {userdata = Weather, usersize = Mini, usertimespan = NearForecast}
     Right prefs -> return prefs
 
