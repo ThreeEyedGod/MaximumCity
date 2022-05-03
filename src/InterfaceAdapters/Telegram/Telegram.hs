@@ -134,6 +134,7 @@ _handleUpdate helper (Just Update {message = Just m})
       hlpAsk = ("/start" `T.isPrefixOf` whatUserTyped) || ("?" `T.isPrefixOf` whatUserTyped) || ("/Help" `T.isPrefixOf` whatUserTyped) || ("Help" `T.isPrefixOf` whatUserTyped) :: Bool
       setPrefs = ("/prefs" `T.isPrefixOf` whatUserTyped) :: Bool
       hlpMsg = "Hi! I am @MaximumCityBot \nEnter your place name \nEnter For ex: \nMumbai, \nPune \nMaharashtra\n Bhivandi\n " :: T.Text
-      prefsMsg = "Weather or WeatherWaterLevels" :: T.Text
+      --prefsMsg = "Weather or WeatherWaterLevels \n" :: T.Text
+      prefsMsg = hlpMsg
 
 _handleUpdate _ u  = liftIO $ putStrLn $ "Unhandled message: " ++ show u
