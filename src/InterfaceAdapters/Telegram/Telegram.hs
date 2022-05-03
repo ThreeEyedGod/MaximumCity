@@ -132,7 +132,7 @@ _handleUpdate helper (Just Update {message = Just m})
       c = ChatId (chat_id (chat m))
       whatUserTyped = T.dropWhileEnd (==' ') (fromMaybe "" (text m))
       hlpAsk = ("/start" `T.isPrefixOf` whatUserTyped) || ("?" `T.isPrefixOf` whatUserTyped) || ("/Help" `T.isPrefixOf` whatUserTyped) || ("Help" `T.isPrefixOf` whatUserTyped) :: Bool
-      setPrefs = "/prefs" `T.isPrefixOf` whatUserTyped :: Bool
+      setPrefs = ("/prefs" `T.isPrefixOf` whatUserTyped) :: Bool
       hlpMsg = "Hi! I am @MaximumCityBot \nEnter your place name \nEnter For ex: \nMumbai, \nPune \nMaharashtra\n Bhivandi\n " :: T.Text
       prefsMsg = "Weather or WeatherWaterLevels" :: T.Text
 
