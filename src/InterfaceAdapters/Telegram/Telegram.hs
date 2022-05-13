@@ -14,6 +14,7 @@ module InterfaceAdapters.Telegram.Telegram (
   , getUserId
   , _callTelegramClient
   , TelegramMessage
+  , parseGetResponse
 ) where
 import GHC.Generics (Generic)
 import qualified Data.ByteString as BS
@@ -38,7 +39,8 @@ import Web.Telegram.API.Bot
       sendMessageRequest,
       Chat(chat_id),
       Message(from, chat, text),
-      User (user_id, user_first_name , user_last_name, user_username, user_language_code))
+      User (user_id, user_first_name , user_last_name, user_username, user_language_code), SetWebhookRequest (webhook_allowed_updates))
+
 import Network.HTTP.Client (Manager, newManager)
 import Network.HTTP.Client.TLS (tlsManagerSettings)
 import Control.Monad(void)
@@ -53,6 +55,7 @@ import Data.Aeson
       parseJSON,
       Value (Object, Bool)
        )
+import qualified Data.Text.Lazy.Lens as T
 
 type TC = (Token, Manager)
 type AllInputs  = (H.ResponseBody, Maybe Update)
@@ -132,9 +135,16 @@ _handleUpdate helper (Just Update {message = Just m})
       c = ChatId (chat_id (chat m))
       whatUserTyped = T.dropWhileEnd (==' ') (fromMaybe "" (text m))
       hlpAsk = ("/start" `T.isPrefixOf` whatUserTyped) || ("?" `T.isPrefixOf` whatUserTyped) || ("/Help" `T.isPrefixOf` whatUserTyped) || ("Help" `T.isPrefixOf` whatUserTyped) :: Bool
-      setPrefs = ("/prefs" `T.isPrefixOf` whatUserTyped) :: Bool
-      hlpMsg = "Hi! I am @MaximumCityBot \nEnter your place name \nEnter For ex: \nMumbai, \nPune \nMaharashtra\n Bhivandi\n " :: T.Text
-      --prefsMsg = "Weather or WeatherWaterLevels \n" :: T.Text
-      prefsMsg = hlpMsg
-
+      setPrefs = ("/prefs" `T.isPrefixOf` whatUserTyped) || ("/settings" `T.isPrefixOf` whatUserTyped) :: Bool
+      hlpMsg = "Hi! I am @MaximumCityBot \nEnter your place name, For ex: \nMumbai, \nPune \nMaharashtra \nBhivandi\n " :: T.Text
+      prefsMsg = hlpMsg :: T.Text
 _handleUpdate _ u  = liftIO $ putStrLn $ "Unhandled message: " ++ show u
+
+parseGetResponse :: T.Text -> T.Text
+parseGetResponse whatUserTyped
+  | ("/start" `T.isPrefixOf` whatUserTyped) || ("?" `T.isPrefixOf` whatUserTyped) || ("/Help" `T.isPrefixOf` whatUserTyped) || ("Help" `T.isPrefixOf` whatUserTyped) = hlpMessage
+  | "/prefs" `T.isPrefixOf` whatUserTyped = prfsMessage
+  | otherwise = whatUserTyped
+  where
+    hlpMessage = "Hi! I am @MaximumCityBot \nEnter your place name \nEnter For ex: \nMumbai, \nPune \nMaharashtra\n Bhivandi\n " :: T.Text
+    prfsMessage = "Preferences set" :: T.Text
