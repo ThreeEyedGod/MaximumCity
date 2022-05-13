@@ -40,7 +40,8 @@ import Web.Telegram.API.Bot
       sendMessageRequest,
       Chat(chat_id),
       Message(from, chat, text),
-      User (user_id, user_first_name , user_last_name, user_username, user_language_code), SetWebhookRequest (webhook_allowed_updates))
+      User (user_id, user_first_name , user_last_name, user_username, user_language_code), 
+      SetWebhookRequest (webhook_allowed_updates))
 
 import Network.HTTP.Client (Manager, newManager)
 import Network.HTTP.Client.TLS (tlsManagerSettings)
