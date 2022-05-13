@@ -126,7 +126,7 @@ getTelegram tape = rightToMaybe $ eitherDecode (LB.fromStrict (T.encodeUtf8 (fro
 _pushTelegramMsg :: T.Text -> ChatId -> TelegramClient ()
 _pushTelegramMsg msg cid  = void (sendMessageM $ sendMessageRequest cid msg)
 
-_handleUpdate :: T.Text -> Maybe Update -> TelegramClient ()
+{- _handleUpdate :: T.Text -> Maybe Update -> TelegramClient ()
 _handleUpdate helper (Just Update {message = Just m})
   | hlpAsk  = _pushTelegramMsg hlpMsg c
   | setPrefs = _pushTelegramMsg prefsMsg c
@@ -139,12 +139,36 @@ _handleUpdate helper (Just Update {message = Just m})
       hlpMsg = "Hi! I am @MaximumCityBot \nEnter your place name, For ex: \nMumbai, \nPune \nMaharashtra \nBhivandi\n " :: T.Text
       prefsMsg = hlpMsg :: T.Text
 _handleUpdate _ u  = liftIO $ putStrLn $ "Unhandled message: " ++ show u
+ -}
 
-parseGetResponse :: T.Text -> T.Text
-parseGetResponse whatUserTyped
+_handleUpdate :: T.Text -> Maybe Update -> TelegramClient ()
+_handleUpdate helper (Just Update {message = Just m})
+  | msgBack == whatUserTyped = _pushTelegramMsg helper c
+  | msgBack /= whatUserTyped = _pushTelegramMsg msgBack c
+  | otherwise = _pushTelegramMsg "Sorry! Something went wrong" c
+  where
+    uuid = getUserId (from m)
+    c = ChatId (chat_id (chat m))
+    whatUserTyped = T.dropWhileEnd (== ' ') (fromMaybe "" (text m))
+    msgBack = parseGetResponse whatUserTyped uuid
+_handleUpdate _ u = liftIO $ putStrLn $ "Unhandled message: " ++ show u
+
+parseGetResponse :: T.Text -> T.Text -> T.Text
+parseGetResponse whatUserTyped uuid
   | ("/start" `T.isPrefixOf` whatUserTyped) || ("?" `T.isPrefixOf` whatUserTyped) || ("/Help" `T.isPrefixOf` whatUserTyped) || ("Help" `T.isPrefixOf` whatUserTyped) = hlpMessage
   | "/prefs" `T.isPrefixOf` whatUserTyped = prfsMessage
   | otherwise = whatUserTyped
   where
     hlpMessage = "Hi! I am @MaximumCityBot \nEnter your place name \nEnter For ex: \nMumbai, \nPune \nMaharashtra\n Bhivandi\n " :: T.Text
-    prfsMessage = "Preferences set" :: T.Text
+    prfsMessage = parsePrefs uuid (T.strip $ T.drop 6 whatUserTyped)
+
+parsePrefs :: T.Text -> T.Text -> T.Text
+parsePrefs uuid prefsText = do 
+  let listPrefs = T.words $ T.toLower prefsText
+  let allPossiblePrefs = T.toLower "Weather | WaterLevels | WeatherWaterLevels | Monsoon | All ||| Mini | Standard | Detailed ||| RightNow | Alerts | NearForecast | LongRange" :: T.Text 
+  let allPrefsvalid = map (\u -> T.isInfixOf u allPossiblePrefs ) listPrefs 
+  if (and allPrefsvalid) then 
+     "Preferences Set" :: T.Text
+  else 
+     allPossiblePrefs 
+
