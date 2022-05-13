@@ -163,15 +163,19 @@ parseGetResponse whatUserTyped uuid
     hlpMessage = "Hi! I am @MaximumCityBot \nEnter your place name \nEnter For ex: \nMumbai, \nPune \nMaharashtra \nBhivandi\n " :: T.Text
     prfsMessage = parsePrefs uuid (T.strip $ T.drop 6 whatUserTyped)
 
+-- {"userdata":"Weather", "usersize": "Mini","usertimespan":"NearForecast"}
 parsePrefs :: T.Text -> T.Text -> T.Text
-parsePrefs uuid prefsText = do 
-  let listPrefs = T.words $ T.toLower prefsText
-  let allPossiblePrefs = T.toLower "Weather | WaterLevels | WeatherWaterLevels | Monsoon | All ||| Mini | Standard | Detailed ||| RightNow | Alerts | NearForecast | LongRange" :: T.Text 
-  let allPrefsvalid = map (\u -> T.isInfixOf u allPossiblePrefs ) listPrefs 
-  let allPrefsOK = and allPrefsvalid
-  let somePrefs = not $ T.null prefsText
-  if  somePrefs && allPrefsOK then 
-     "Preferences Set" :: T.Text
-  else 
-     allPossiblePrefs 
+parsePrefs uuid prefsText
+  | somePrefs = do 
+        let allPrefsvalid = map (\u -> T.isInfixOf u allPossiblePrefs ) listPrefs 
+        let allPrefsOK = and allPrefsvalid
+        if  allPrefsOK then 
+           "Preferences Set" :: T.Text
+        else
+           allPossiblePrefs
+  | otherwise = allPossiblePrefs
+  where 
+    somePrefs = not $ T.null prefsText
+    listPrefs = T.words $ T.toLower prefsText
+    allPossiblePrefs = T.toLower "Weather | WaterLevels | WeatherWaterLevels | Monsoon | All ||| Mini | Standard | Detailed ||| RightNow | Alerts | NearForecast | LongRange" :: T.Text   
 
