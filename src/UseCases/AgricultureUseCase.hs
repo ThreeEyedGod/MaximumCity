@@ -18,7 +18,7 @@ import InterfaceAdapters.Telegram.Telegram
     ( TelegramMessage, gettheTelegram, getMeta )
 import           InterfaceAdapters.Utils.Helper
 import AWSLambda (responseBody)
-
+import qualified Data.Text as T
 class UserInput x where
       getInfo :: (Member (Embed IO) r, Member WWI r) => x -> Sem r TheWeatherThere
 
@@ -30,8 +30,12 @@ instance UserInput TelegramMessage where
                   let msg = (responseBody, Just updt) :: UserMsg
                   sendBackMsg msg
                   pure (fst msg)
-      | otherwise  = do
+      | "{" `T.isInfixOf` resp  = do -- if preferences are valid and a JSON format ....
                   x <- embed (setPreferences uuid resp)
+                  let msg = (resp, Just updt) :: UserMsg
+                  sendBackMsg msg
+                  pure (fst msg)
+      | otherwise  = do
                   let msg = (resp, Just updt) :: UserMsg
                   sendBackMsg msg
                   pure (fst msg)
