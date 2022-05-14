@@ -1,8 +1,8 @@
 {-# LANGUAGE TypeInType, StandaloneDeriving #-}
-{-# LANGUAGE TemplateHaskell, LambdaCase, BlockArguments, GADTs 
-           , FlexibleContexts, TypeOperators, DataKinds, PolyKinds, ScopedTypeVariables #-}
+{-# LANGUAGE TemplateHaskell, LambdaCase, BlockArguments, GADTs, FlexibleContexts, TypeOperators, ScopedTypeVariables #-}
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE DeriveGeneric #-}
+
 
 module InterfaceAdapters.Preferences where
 
@@ -36,7 +36,7 @@ data Agdata = Weather | WaterLevels | WeatherWaterLevels | Monsoon | All derivin
 data Datasize = Mini | Standard | Detailed deriving (Show, Eq, Generic, FromJSON, ToJSON)
 data Timespan = RightNow | Alerts | NearForecast | LongRange deriving (Show, Eq, Generic, FromJSON, ToJSON)
 
-modalUser :: Text 
+modalUser :: Text
 modalUser = ""
 
 runGetParm :: ParameterName -> IO Text
@@ -79,3 +79,31 @@ runGetPrefs userid = do
   & runprefsToIO
   & runM
 
+parsePrefs :: T.Text -> T.Text -> T.Text
+parsePrefs uuid prefsText
+  | somePrefs = do
+    let allPrefsvalid = Prelude.map (`T.isInfixOf` allPossiblePrefs) listPrefs
+    let allPrefsOK = and allPrefsvalid
+    if allPrefsOK
+      then do
+        createPrefsJSON prefsText
+      else allPossiblePrefs
+  | otherwise = allPossiblePrefs
+  where
+    somePrefs = not $ T.null prefsText
+    listPrefs = T.words $ T.toLower prefsText
+    allPossiblePrefs = T.toLower "Weather | WaterLevels | WeatherWaterLevels | Monsoon | All ||| Mini | Standard | Detailed ||| RightNow | Alerts | NearForecast | LongRange" :: T.Text
+    textPrefsJSON = createPrefsJSON prefsText
+
+-- {"userdata":"Weather", "usersize": "Mini","usertimespan":"NearForecast"}
+createPrefsJSON :: T.Text -> T.Text
+createPrefsJSON plainText = do
+  let udata = "{\"userdata\":\"" :: T.Text
+  let usize = "usersize\":\"" :: T.Text
+  let utimespan = "usertimespan\":\"" :: T.Text
+  -- have to insert real parse of plaintext below
+  let udataPref = "\"Weather\"" :: T.Text
+  let usizePref = "\"Mini\"" :: T.Text
+  let utimespanPref = "\"RightNow\"" :: T.Text
+  let totalPref = udata <> udataPref <> "," <> usize <> usizePref <> "," <> utimespan <> utimespanPref <> "}"
+  totalPref

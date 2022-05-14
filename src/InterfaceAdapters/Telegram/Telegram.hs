@@ -14,7 +14,6 @@ module InterfaceAdapters.Telegram.Telegram (
   , TelegramMessage
   , parseGetResponse
   , parsePrefs
-  , createPrefsJSON
   , getMeta
 ) where
 import GHC.Generics (Generic)
@@ -30,7 +29,7 @@ import Control.Monad.IO.Class
 import InterfaceAdapters.Utils.Helper
 import InterfaceAdapters.Utils.HttpHeadersPathDefinitions as H
 import           Data.Monoid ((<>))
-import InterfaceAdapters.Preferences
+import InterfaceAdapters.Preferences (parsePrefs, )
 
 import Web.Telegram.API.Bot
     ( Update(Update, message),
@@ -133,33 +132,4 @@ parseGetResponse whatUserTyped uuid
   | otherwise = whatUserTyped
   where
     hlpMessage = "Hi! I am @MaximumCityBot \nEnter a place name For ex: \nMumbai, \nPune \nMaharashtra \nBhivandi\n " :: T.Text
-    prfsMessage = parsePrefs uuid (T.strip $ T.drop 6 whatUserTyped)
-
-parsePrefs :: T.Text -> T.Text -> T.Text
-parsePrefs uuid prefsText
-  | somePrefs = do 
-        let allPrefsvalid = map (`T.isInfixOf` allPossiblePrefs ) listPrefs 
-        let allPrefsOK = and allPrefsvalid
-        if  allPrefsOK then do 
-          createPrefsJSON prefsText
-        else
-           allPossiblePrefs
-  | otherwise = allPossiblePrefs
-  where 
-    somePrefs = not $ T.null prefsText
-    listPrefs = T.words $ T.toLower prefsText
-    allPossiblePrefs = T.toLower "Weather | WaterLevels | WeatherWaterLevels | Monsoon | All ||| Mini | Standard | Detailed ||| RightNow | Alerts | NearForecast | LongRange" :: T.Text   
-    textPrefsJSON = createPrefsJSON prefsText
-
-
--- {"userdata":"Weather", "usersize": "Mini","usertimespan":"NearForecast"}
-createPrefsJSON :: T.Text -> T.Text 
-createPrefsJSON plainText = do 
-   let udata = "{\"userdata\":" :: T.Text
-   let usize = "usersize\":" :: T.Text 
-   let utimespan = "usertimespan\":" :: T.Text 
-   let udataPref = "Weather" :: T.Text
-   let usizePref = "Mini" :: T.Text 
-   let utimespanPref = "RightNow" :: T.Text 
-   let totalPref = udata <> udataPref <> "," <> usize <> usizePref <> "," <> utimespan <> utimespanPref <> "}"
-   totalPref
+    prfsMessage = parsePrefs uuid (T.strip $ T.drop 6 whatUserTyped) -- over at @module Preferences
