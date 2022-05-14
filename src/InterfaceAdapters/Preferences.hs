@@ -60,7 +60,7 @@ getPreferences user_id = do
   let y = eitherDecodeStrict $ T.encodeUtf8 x :: Either String Preferences
   case y of
     Left err -> do
-        logMessage "No Preferences for user id. Getting one for modaluser"
+        logMessage "No Preferences for user id. Getting one for modal user"
         return Preferences {userdata = Weather, usersize = Mini, usertimespan = NearForecast}
     Right prefs -> return prefs
 

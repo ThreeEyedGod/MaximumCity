@@ -7,15 +7,15 @@ module InterfaceAdapters.Telegram.Telegram (
   , TC
   , runTC
   , gettheTelegram
-  , gettheTelegramMaybe
   , getTelegram
   , getTelegramUser
-  , getUserName
   , getUserId
   , _callTelegramClient
   , TelegramMessage
   , parseGetResponse
   , parsePrefs
+  , createPrefsJSON
+  , getMeta
 ) where
 import GHC.Generics (Generic)
 import qualified Data.ByteString as BS
@@ -29,6 +29,8 @@ import Data.Either.Combinators
 import Control.Monad.IO.Class
 import InterfaceAdapters.Utils.Helper
 import InterfaceAdapters.Utils.HttpHeadersPathDefinitions as H
+import           Data.Monoid ((<>))
+import InterfaceAdapters.Preferences
 
 import Web.Telegram.API.Bot
     ( Update(Update, message),
@@ -63,14 +65,6 @@ type TC = (Token, Manager)
 type AllInputs  = (H.ResponseBody, Maybe Update)
 type TelegramMessage = Update
 
-{- data TelegramUser = TelegramUser {
-            id :: Int ,
-            is_bot :: Bool,
-            first_name :: T.Text,
-            last_name :: T.Text,
-            language_code :: T.Text
-        } deriving (Generic, Show, Eq)
-instance FromJSON TelegramUser -}
 
 runTC :: Maybe TC -> TelegramClient () -> IO ()
 runTC Nothing _ = pure () -- | really nothing can be done vis-a-vis telegram!
@@ -89,13 +83,6 @@ getTelegramSettings = do
 _callTelegramClient :: Maybe TC -> AllInputs -> IO ()
 _callTelegramClient tc allin = runTC tc $ uncurry _handleUpdate allin
 
-preProcessBodytoGetTelegram :: T.Text -> LB.ByteString
-preProcessBodytoGetTelegram rawbody = do
-    let d = eitherDecode (LB.fromChunks . return . T.encodeUtf8 $ rawbody) :: Either String Update
-    case d of
-      Left _ -> "Fail:preProcessBodytoGetTelegram | Not Telegram"
-      Right theTelegram -> encode theTelegram
-
 {--
   To Do: got to refactor so that end is based on a long space so New York City can come in rightly
   Look into https :// hackage . haskell . org / package / text -1.2 . 4.1 / docs / Data - Text.html #g : 17
@@ -108,18 +95,9 @@ getTelegramUser :: Update -> Maybe User
 getTelegramUser Update {message = Just m} = from m
 getTelegramUser _  = Nothing
 
-getUserName :: Maybe User -> T.Text 
-getUserName (Just u) = user_first_name u 
-getUserName Nothing  = ""
-
 getUserId :: Maybe User -> T.Text
 getUserId (Just u) = T.pack . show $ user_id u
 getUserId Nothing = ""
-
--- | Maybe version of the getthetelegram
-gettheTelegramMaybe :: Maybe Update -> Maybe T.Text
-gettheTelegramMaybe Nothing = Nothing
-gettheTelegramMaybe (Just u) = Just (gettheTelegram u)
 
 getTelegram :: Maybe T.Text -> Maybe T.Text
 getTelegram tape = rightToMaybe $ eitherDecode (LB.fromStrict (T.encodeUtf8 (fromMaybe "" tape)))
@@ -127,21 +105,6 @@ getTelegram tape = rightToMaybe $ eitherDecode (LB.fromStrict (T.encodeUtf8 (fro
 -- | pushes a message to Telegram Chatid
 _pushTelegramMsg :: T.Text -> ChatId -> TelegramClient ()
 _pushTelegramMsg msg cid  = void (sendMessageM $ sendMessageRequest cid msg)
-
-{- _handleUpdate :: T.Text -> Maybe Update -> TelegramClient ()
-_handleUpdate helper (Just Update {message = Just m})
-  | hlpAsk  = _pushTelegramMsg hlpMsg c
-  | setPrefs = _pushTelegramMsg prefsMsg c
-  | otherwise        = _pushTelegramMsg helper c
-  where
-      c = ChatId (chat_id (chat m))
-      whatUserTyped = T.dropWhileEnd (==' ') (fromMaybe "" (text m))
-      hlpAsk = ("/start" `T.isPrefixOf` whatUserTyped) || ("?" `T.isPrefixOf` whatUserTyped) || ("/Help" `T.isPrefixOf` whatUserTyped) || ("Help" `T.isPrefixOf` whatUserTyped) :: Bool
-      setPrefs = ("/prefs" `T.isPrefixOf` whatUserTyped) || ("/settings" `T.isPrefixOf` whatUserTyped) :: Bool
-      hlpMsg = "Hi! I am @MaximumCityBot \nEnter your place name, For ex: \nMumbai, \nPune \nMaharashtra \nBhivandi\n " :: T.Text
-      prefsMsg = hlpMsg :: T.Text
-_handleUpdate _ u  = liftIO $ putStrLn $ "Unhandled message: " ++ show u
- -}
 
 _handleUpdate :: T.Text -> Maybe Update -> TelegramClient ()
 _handleUpdate helper (Just Update {message = Just m})
@@ -155,23 +118,30 @@ _handleUpdate helper (Just Update {message = Just m})
     msgBack = parseGetResponse whatUserTyped uuid
 _handleUpdate _ u = liftIO $ putStrLn $ "Unhandled message: " ++ show u
 
+getMeta :: Maybe Update -> (T.Text, (T.Text, T.Text))
+getMeta (Just Update {message = Just m}) = (uuid, (whatUserTyped, parseResponse))
+  where
+    uuid = getUserId (from m)
+    whatUserTyped = T.dropWhileEnd (== ' ') (fromMaybe "" (text m))
+    parseResponse = parseGetResponse whatUserTyped uuid
+
 parseGetResponse :: T.Text -> T.Text -> T.Text
 parseGetResponse whatUserTyped uuid
   | ("/start" `T.isPrefixOf` whatUserTyped) || ("?" `T.isPrefixOf` whatUserTyped) || ("/Help" `T.isPrefixOf` whatUserTyped) || ("Help" `T.isPrefixOf` whatUserTyped) = hlpMessage
   | "/prefs" `T.isPrefixOf` whatUserTyped = prfsMessage
+  | ("/" `T.isInfixOf` whatUserTyped) || ("*" `T.isInfixOf` whatUserTyped) || ("-" `T.isInfixOf` whatUserTyped) = "\nPlace Name seems odd\n"
   | otherwise = whatUserTyped
   where
-    hlpMessage = "Hi! I am @MaximumCityBot \nEnter your place name \nEnter For ex: \nMumbai, \nPune \nMaharashtra \nBhivandi\n " :: T.Text
+    hlpMessage = "Hi! I am @MaximumCityBot \nEnter a place name For ex: \nMumbai, \nPune \nMaharashtra \nBhivandi\n " :: T.Text
     prfsMessage = parsePrefs uuid (T.strip $ T.drop 6 whatUserTyped)
 
--- {"userdata":"Weather", "usersize": "Mini","usertimespan":"NearForecast"}
 parsePrefs :: T.Text -> T.Text -> T.Text
 parsePrefs uuid prefsText
   | somePrefs = do 
-        let allPrefsvalid = map (\u -> T.isInfixOf u allPossiblePrefs ) listPrefs 
+        let allPrefsvalid = map (`T.isInfixOf` allPossiblePrefs ) listPrefs 
         let allPrefsOK = and allPrefsvalid
-        if  allPrefsOK then 
-           "Preferences Set" :: T.Text
+        if  allPrefsOK then do 
+          createPrefsJSON prefsText
         else
            allPossiblePrefs
   | otherwise = allPossiblePrefs
@@ -179,4 +149,17 @@ parsePrefs uuid prefsText
     somePrefs = not $ T.null prefsText
     listPrefs = T.words $ T.toLower prefsText
     allPossiblePrefs = T.toLower "Weather | WaterLevels | WeatherWaterLevels | Monsoon | All ||| Mini | Standard | Detailed ||| RightNow | Alerts | NearForecast | LongRange" :: T.Text   
+    textPrefsJSON = createPrefsJSON prefsText
 
+
+-- {"userdata":"Weather", "usersize": "Mini","usertimespan":"NearForecast"}
+createPrefsJSON :: T.Text -> T.Text 
+createPrefsJSON plainText = do 
+   let udata = "{\"userdata\":" :: T.Text
+   let usize = "usersize\":" :: T.Text 
+   let utimespan = "usertimespan\":" :: T.Text 
+   let udataPref = "Weather" :: T.Text
+   let usizePref = "Mini" :: T.Text 
+   let utimespanPref = "RightNow" :: T.Text 
+   let totalPref = udata <> udataPref <> "," <> usize <> usizePref <> "," <> utimespan <> utimespanPref <> "}"
+   totalPref

@@ -63,7 +63,8 @@ getWeather (Just p) Nothing = extractXForwardedForHeader p >>= _getTownNameWeath
 getWeather _ (Just pl) = _getTownNameWeatherFromTown pl 
 
 getAgInfo ::  UserAsk -> IO TheWeatherThere
-getAgInfo UserAsk {placeName = "/prefs", prefs = _ } = return $ Data.ByteString.Char8.pack "/Help asked for "
+getAgInfo UserAsk {placeName = "/prefs", prefs = _ } = return $ Data.ByteString.Char8.pack "/Preferences related  "
+getAgInfo UserAsk {placeName = "/start", prefs = _ } = return $ Data.ByteString.Char8.pack "/Start related  "
 getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = WeatherWaterLevels, usersize = Detailed, usertimespan = NearForecast}} = _getTownNameWeatherFromTown pl 
 getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = WeatherWaterLevels, usersize = Mini, usertimespan = RightNow}} = _getTownNameWeatherFromTown pl 
 getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = WaterLevels, usersize = Mini, usertimespan = RightNow}} = (getWaterLakeLevelForPlace_LiveToday_wrtStorage pl >>=  _helperLivePercent) >>= (\wll -> _mkWeatherThere pl "" wll)
