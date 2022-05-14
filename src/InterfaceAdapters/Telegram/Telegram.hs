@@ -21,13 +21,14 @@ import qualified Data.ByteString as BS
 import qualified Data.ByteString.Lazy.Char8 as LB
 import qualified Data.Text as T
 import qualified Data.Text.Encoding as T
-import Text.Printf
+import Text.Printf ()
 import Debug.Trace (trace)
-import Data.Maybe
-import Data.Either.Combinators
-import Control.Monad.IO.Class
-import InterfaceAdapters.Utils.Helper
+import Data.Maybe ( fromMaybe )
+import Data.Either.Combinators ( rightToMaybe )
+import Control.Monad.IO.Class ( MonadIO(liftIO) )
+import InterfaceAdapters.Utils.Helper ( getKey )
 import InterfaceAdapters.Utils.HttpHeadersPathDefinitions as H
+    ( ResponseBody )
 import           Data.Monoid ((<>))
 import InterfaceAdapters.Preferences (parsePrefs, )
 
@@ -105,7 +106,7 @@ getTelegram tape = rightToMaybe $ eitherDecode (LB.fromStrict (T.encodeUtf8 (fro
 _pushTelegramMsg :: T.Text -> ChatId -> TelegramClient ()
 _pushTelegramMsg msg cid  = void (sendMessageM $ sendMessageRequest cid msg)
 
-_handleUpdate :: T.Text -> Maybe Update -> TelegramClient ()
+{- _handleUpdate :: T.Text -> Maybe Update -> TelegramClient ()
 _handleUpdate helper (Just Update {message = Just m})
   | msgBack == whatUserTyped = _pushTelegramMsg helper c
   | msgBack /= whatUserTyped = _pushTelegramMsg msgBack c
@@ -115,6 +116,9 @@ _handleUpdate helper (Just Update {message = Just m})
     c = ChatId (chat_id (chat m))
     whatUserTyped = T.dropWhileEnd (== ' ') (fromMaybe "" (text m))
     msgBack = parseGetResponse whatUserTyped uuid
+ -}
+_handleUpdate :: T.Text -> Maybe Update -> TelegramClient ()
+_handleUpdate helper (Just Update {message = Just m}) = _pushTelegramMsg helper $ ChatId (chat_id (chat m))
 _handleUpdate _ u = liftIO $ putStrLn $ "Unhandled message: " ++ show u
 
 getMeta :: Maybe Update -> (T.Text, (T.Text, T.Text))
@@ -123,6 +127,8 @@ getMeta (Just Update {message = Just m}) = (uuid, (whatUserTyped, parseResponse)
     uuid = getUserId (from m)
     whatUserTyped = T.dropWhileEnd (== ' ') (fromMaybe "" (text m))
     parseResponse = parseGetResponse whatUserTyped uuid
+getMeta Nothing = ("getMeta no data", ("usertyped missing","so no response"))
+getMeta _ = ("getMeta unkwown error", ("usertyped bad", "so no response"))
 
 parseGetResponse :: T.Text -> T.Text -> T.Text
 parseGetResponse whatUserTyped uuid

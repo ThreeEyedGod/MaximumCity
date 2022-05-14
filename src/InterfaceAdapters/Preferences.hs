@@ -8,14 +8,18 @@ module InterfaceAdapters.Preferences where
 
 import Data.Maybe
 import Polysemy
+    ( Sem, Member, Embed, embed, runM, interpret, makeSem )
 import Data.Function             ((&))
-import InterfaceAdapters.Parameters.KVS
+import InterfaceAdapters.Parameters.KVS ( getKvs, insertKvs )
 import InterfaceAdapters.Parameters.KVSAWSSSMParmStore
+    ( runKvsAsAWSSSMParmStore )
 import InterfaceAdapters.Utils.Helper
 import Data.Text (Text)
 import Data.Text as T
+    ( Text, pack, words, isInfixOf, null, toLower )
 import Data.Text.Encoding as T (encodeUtf8)
 import InterfaceAdapters.Parameters.Types
+    ( ParameterName, ParameterValue )
 import Amazonka.SSM (ParameterTier(ParameterTier_Advanced))
 import Data.Data (cast)
 import Amazonka (FromJSON, ToJSON, eitherDecode)
@@ -98,9 +102,9 @@ parsePrefs uuid prefsText
 -- {"userdata":"Weather", "usersize": "Mini","usertimespan":"NearForecast"}
 createPrefsJSON :: T.Text -> T.Text
 createPrefsJSON plainText = do
-  let udata = "{\"userdata\":\"" :: T.Text
-  let usize = "usersize\":\"" :: T.Text
-  let utimespan = "usertimespan\":\"" :: T.Text
+  let udata = "{\"userdata\": " :: T.Text
+  let usize = "\"usersize\": " :: T.Text
+  let utimespan = "\"usertimespan\": " :: T.Text
   -- have to insert real parse of plaintext below
   let udataPref = "\"Weather\"" :: T.Text
   let usizePref = "\"Mini\"" :: T.Text

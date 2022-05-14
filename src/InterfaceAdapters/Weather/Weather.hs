@@ -61,6 +61,7 @@ _getTownNameWeatherFromTown town =  (getWaterLakeLevelForPlace_LiveToday_wrtStor
 getWeather :: Maybe PreprocessedHeaders -> Maybe PlaceName -> IO TheWeatherThere
 getWeather (Just p) Nothing = extractXForwardedForHeader p >>= _getTownNameWeatherFromIp 
 getWeather _ (Just pl) = _getTownNameWeatherFromTown pl 
+getWeather Nothing Nothing  = pure ("Hmmm... Something Deeply Wrong" :: TheWeatherThere) 
 
 getAgInfo ::  UserAsk -> IO TheWeatherThere
 getAgInfo UserAsk {placeName = "/prefs", prefs = _ } = return $ Data.ByteString.Char8.pack "/Preferences related  "
