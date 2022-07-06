@@ -106,17 +106,6 @@ getTelegram tape = rightToMaybe $ eitherDecode (LB.fromStrict (T.encodeUtf8 (fro
 _pushTelegramMsg :: T.Text -> ChatId -> TelegramClient ()
 _pushTelegramMsg msg cid  = void (sendMessageM $ sendMessageRequest cid msg)
 
-{- _handleUpdate :: T.Text -> Maybe Update -> TelegramClient ()
-_handleUpdate helper (Just Update {message = Just m})
-  | msgBack == whatUserTyped = _pushTelegramMsg helper c
-  | msgBack /= whatUserTyped = _pushTelegramMsg msgBack c
-  | otherwise = _pushTelegramMsg "Sorry! Something went wrong" c
-  where
-    uuid = getUserId (from m)
-    c = ChatId (chat_id (chat m))
-    whatUserTyped = T.dropWhileEnd (== ' ') (fromMaybe "" (text m))
-    msgBack = parseGetResponse whatUserTyped uuid
- -}
 _handleUpdate :: T.Text -> Maybe Update -> TelegramClient ()
 _handleUpdate helper (Just Update {message = Just m}) = _pushTelegramMsg helper $ ChatId (chat_id (chat m))
 _handleUpdate _ u = liftIO $ putStrLn $ "Unhandled message: " ++ show u

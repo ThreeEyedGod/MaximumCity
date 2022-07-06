@@ -27,6 +27,7 @@ library
       ExternalInterfaces.ServantShim
       InterfaceAdapters.AgricultureRestService
       InterfaceAdapters.Config
+      InterfaceAdapters.CPS
       InterfaceAdapters.IP.GeoCodeOpenCage
       InterfaceAdapters.IP.GeoIpAPI
       InterfaceAdapters.IP.GeoLatLong

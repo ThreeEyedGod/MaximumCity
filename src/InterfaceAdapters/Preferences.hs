@@ -13,7 +13,7 @@ import Data.Function             ((&))
 import InterfaceAdapters.Parameters.KVS ( getKvs, insertKvs )
 import InterfaceAdapters.Parameters.KVSAWSSSMParmStore
     ( runKvsAsAWSSSMParmStore )
-import InterfaceAdapters.Utils.Helper
+import InterfaceAdapters.Utils.Helper ( logMessage )
 import Data.Text (Text)
 import Data.Text as T
     ( Text, pack, words, isInfixOf, null, toLower )
@@ -111,3 +111,9 @@ createPrefsJSON plainText = do
   let utimespanPref = "\"RightNow\"" :: T.Text
   let totalPref = udata <> udataPref <> "," <> usize <> usizePref <> "," <> utimespan <> utimespanPref <> "}"
   totalPref
+{-  
+composePrefs :: [T.Text] -> (T.Text, T.Text, T.Text)
+composePrefs (x:xs) 
+  | toLower x == "weather" = "Weather" cons composePrefs xs
+  | toLower x == "mini" == "Mini"
+ -}
