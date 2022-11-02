@@ -54,9 +54,11 @@ getWaterLakeLevelParsed :: ByteString -> Either String Page8Page9
 getWaterLakeLevelParsed = parseOnly page8PageParser
 
 -- | for now only pages 8-9 is being extracted 
+-- | this changed to page 12-13 - need to make the software intelligent enough to track those changes ! 
+-- | externalize this to AWS environment ?
 getWLL :: IO (Either String Page8Page9)
 getWLL = do
-    x <- getWaterLakeLevelBS 7
+    x <- getWaterLakeLevelBS 12
     pure $ getWaterLakeLevelParsed x
 
 getSpecificProjectSizeDataCategoryProjects :: String -> Page8Page9 -> Maybe CategoryProjects
