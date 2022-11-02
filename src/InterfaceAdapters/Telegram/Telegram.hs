@@ -114,14 +114,14 @@ getMeta :: Maybe Update -> (T.Text, (T.Text, T.Text))
 getMeta (Just Update {message = Just m}) = (uuid, (whatUserTyped, parseResponse))
   where
     uuid = getUserId (from m)
-    whatUserTyped = T.dropWhileEnd (== ' ') (fromMaybe "" (text m))
+    whatUserTyped = T.toLower $ T.dropWhileEnd (== ' ') (fromMaybe "" (text m))
     parseResponse = parseGetResponse whatUserTyped uuid
 getMeta Nothing = ("getMeta no data", ("usertyped missing","so no response"))
 getMeta _ = ("getMeta unkwown error", ("usertyped bad", "so no response"))
 
 parseGetResponse :: T.Text -> T.Text -> T.Text
 parseGetResponse whatUserTyped uuid
-  | ("/start" `T.isPrefixOf` whatUserTyped) || ("?" `T.isPrefixOf` whatUserTyped) || ("/Help" `T.isPrefixOf` whatUserTyped) || ("Help" `T.isPrefixOf` whatUserTyped) = hlpMessage
+  | ("/start" `T.isPrefixOf` whatUserTyped) || ("?" `T.isPrefixOf` whatUserTyped) || ("/help" `T.isPrefixOf` whatUserTyped) || ("help" `T.isPrefixOf` whatUserTyped) = hlpMessage
   | "/prefs" `T.isPrefixOf` whatUserTyped = prfsMessage
   | ("/" `T.isInfixOf` whatUserTyped) || ("*" `T.isInfixOf` whatUserTyped) || ("-" `T.isInfixOf` whatUserTyped) = "\nPlace Name seems odd\n"
   | otherwise = whatUserTyped

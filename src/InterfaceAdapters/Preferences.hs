@@ -29,6 +29,7 @@ import Amazonka (FromJSON, ToJSON, eitherDecode)
 import Amazonka.Prelude (Generic)
 import qualified Data.ByteString.Lazy as TL
 import Data.Aeson (eitherDecodeStrict)
+import qualified GHC.IO.Encoding as T
 
 data Preferences = Preferences {
   userdata :: Agdata
@@ -98,7 +99,6 @@ parsePrefs uuid prefsText
   | otherwise = allPossiblePrefs
   where
     somePrefs = not $ T.null prefsText
-    --listPrefs = T.words $ T.toLower prefsText
     listPrefs = DTM.splitWords $ T.toLower prefsText
     allPossiblePrefs = T.toLower "Weather | WaterLevels | WeatherWaterLevels | Monsoon | All ||| Mini | Standard | Detailed ||| RightNow | Alerts | NearForecast | LongRange" :: T.Text
     textPrefsJSON = createPrefsJSON prefsText
@@ -109,7 +109,6 @@ createPrefsJSON plainText = do
   let udata = "{\"userdata\": " :: T.Text
   let usize = "\"usersize\": " :: T.Text
   let utimespan = "\"usertimespan\": " :: T.Text
-  -- have to insert real parse of plaintext below
   let listPrefs = DTM.splitWords $ T.toLower plainText
   let sortedList = prefsSort listPrefs
   let udataPref =  head sortedList
@@ -130,4 +129,23 @@ sortByPrefs x y
   | otherwise = EQ
 
 prefsSort :: [T.Text] -> [T.Text]
-prefsSort xs = map DTM.toPascal $ DS.sortBy sortByPrefs xs
+prefsSort xs = map replaceBy $ DS.sortBy sortByPrefs xs
+
+replaceBy :: T.Text -> T.Text 
+replaceBy x
+  | x == "weather" = "Weather" :: T.Text
+  | x == "waterlevels" = "WaterLevels" :: T.Text
+  | x == "weatherwaterlevels" = "WeatherWaterLevels" :: T.Text
+  | x == "monsoon" = "Monsoon" :: T.Text
+  | x == "all" = "All" :: T.Text
+  | x == "mini" = "Mini" :: T.Text
+  | x == "standard" = "Standard" :: T.Text
+  | x == "detailede" = "Detailed" :: T.Text
+  | x == "rightnow" = "RightNow" :: T.Text
+  | x == "alerts" = "Alerts" :: T.Text
+  | x == "nearforecast" = "NearForecast" :: T.Text
+  | x == "longrange" = "LongRange" :: T.Text
+  | otherwise = "Hmm"
+ where
+    allPossiblePrefs = "Weather | WaterLevels | WeatherWaterLevels | Monsoon | All ||| Mini | Standard | Detailed ||| RightNow | Alerts | NearForecast | LongRange" :: T.Text
+ 
