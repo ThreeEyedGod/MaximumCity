@@ -98,10 +98,12 @@ library
     , servant
     , servant-server
     , serverless-haskell >=0.12.6
+    , sort >=1.0.0.0
     , string-interpolate >=0.3.1.1
     , telegram-api >=0.7.3.0
     , template-haskell >=2.17.0.0
     , text
+    , text-manipulate >=0.3.0.0
     , time >=1.9.3
     , utf8-string
     , wai >=3.2.1.2
@@ -156,10 +158,12 @@ executable bootstrap
     , servant
     , servant-server
     , serverless-haskell >=0.12.6
+    , sort >=1.0.0.0
     , string-interpolate >=0.3.1.1
     , telegram-api >=0.7.3.0
     , template-haskell >=2.17.0.0
     , text
+    , text-manipulate >=0.3.0.0
     , time >=1.9.3
     , utf8-string
     , wai >=3.2.1.2
@@ -222,12 +226,14 @@ test-suite MaximumCity-test
     , servant
     , servant-server
     , serverless-haskell >=0.12.6
+    , sort >=1.0.0.0
     , string-interpolate >=0.3.1.1
     , telegram-api >=0.7.3.0
     , template-haskell
     , test-framework
     , test-framework-quickcheck2
     , text
+    , text-manipulate >=0.3.0.0
     , time >=1.9.3
     , utf8-string
     , wai >=3.2.1.2
@@ -277,10 +283,12 @@ benchmark MaximumCity-benchmark
     , servant
     , servant-server
     , serverless-haskell >=0.12.6
+    , sort >=1.0.0.0
     , string-interpolate >=0.3.1.1
     , telegram-api >=0.7.3.0
     , template-haskell >=2.17.0.0
     , text
+    , text-manipulate >=0.3.0.0
     , time >=1.9.3
     , utf8-string
     , wai >=3.2.1.2

@@ -18,6 +18,9 @@ import Data.Text (Text)
 import Data.Text as T
     ( Text, pack, words, isInfixOf, null, toLower )
 import Data.Text.Encoding as T (encodeUtf8)
+import Data.Text.Manipulate as DTM
+import Data.Sort as DS
+import Data.Ord as O
 import InterfaceAdapters.Parameters.Types
     ( ParameterName, ParameterValue )
 import Amazonka.SSM (ParameterTier(ParameterTier_Advanced))
@@ -95,7 +98,8 @@ parsePrefs uuid prefsText
   | otherwise = allPossiblePrefs
   where
     somePrefs = not $ T.null prefsText
-    listPrefs = T.words $ T.toLower prefsText
+    --listPrefs = T.words $ T.toLower prefsText
+    listPrefs = DTM.splitWords $ T.toLower prefsText
     allPossiblePrefs = T.toLower "Weather | WaterLevels | WeatherWaterLevels | Monsoon | All ||| Mini | Standard | Detailed ||| RightNow | Alerts | NearForecast | LongRange" :: T.Text
     textPrefsJSON = createPrefsJSON prefsText
 
@@ -106,14 +110,24 @@ createPrefsJSON plainText = do
   let usize = "\"usersize\": " :: T.Text
   let utimespan = "\"usertimespan\": " :: T.Text
   -- have to insert real parse of plaintext below
-  let udataPref = "\"Weather\"" :: T.Text
-  let usizePref = "\"Mini\"" :: T.Text
-  let utimespanPref = "\"RightNow\"" :: T.Text
-  let totalPref = udata <> udataPref <> "," <> usize <> usizePref <> "," <> utimespan <> utimespanPref <> "}"
+  let listPrefs = DTM.splitWords $ T.toLower plainText
+  let sortedList = prefsSort listPrefs
+  let udataPref =  head sortedList
+  let usizePref = head $ tail sortedList
+  let utimespanPref = last sortedList
+  --let udataPref = "\"Weather\"" :: T.Text
+  --let usizePref = "\"Mini\"" :: T.Text
+  --let utimespanPref = "\"RightNow\"" :: T.Text
+  let totalPref = udata <> "\"" <> udataPref <> "\"" <>  "," <> usize <> "\"" <> usizePref <> "\"" <>  "," <> utimespan <> "\"" <> utimespanPref <> "\"" <>  "}"
   totalPref
-{-  
-composePrefs :: [T.Text] -> (T.Text, T.Text, T.Text)
-composePrefs (x:xs) 
-  | toLower x == "weather" = "Weather" cons composePrefs xs
-  | toLower x == "mini" == "Mini"
- -}
+
+sortByPrefs :: T.Text -> T.Text -> Ordering
+sortByPrefs x y
+  | x `T.isInfixOf` T.toLower "Weather | WaterLevels | WeatherWaterLevels | Monsoon | All" && y `T.isInfixOf` T.toLower "Mini | Standard | Detailed"  = LT
+  | x `T.isInfixOf` T.toLower "Mini | Standard | Detailed" && y `T.isInfixOf` T.toLower "RightNow | Alerts | NearForecast | LongRange"= LT
+  | x `T.isInfixOf` T.toLower "Mini | Standard | Detailed" && y `T.isInfixOf` T.toLower "Weather | WaterLevels | WeatherWaterLevels | Monsoon | All" = GT
+  | x `T.isInfixOf` T.toLower "RightNow | Alerts | NearForecast | LongRange" = GT
+  | otherwise = EQ
+
+prefsSort :: [T.Text] -> [T.Text]
+prefsSort xs = map DTM.toPascal $ DS.sortBy sortByPrefs xs
