@@ -67,7 +67,7 @@ getSpecificProjectSizeDataCategoryProjects s p8p9
     | (s == "Major") = Just (majorMaharashtraStateProjects p8p9)
     | (s == "Medium") = Just (mediumMaharashtraStateProjects p8p9)
     | (s == "Minor") = Just (minorMaharashtraStateProjects p8p9)
-    -- | (s == "All") = Just (allDamsMaharashtraStateProjects p8p9)
+    | (s == "All") = Just (allDamsMaharashtraStateProjects p8p9)
     | otherwise = Nothing
 
 getSpecificProjectSizeDataCategoryProjectsLineData :: Maybe CategoryProjects -> Maybe [RegionEntry]

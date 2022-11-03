@@ -87,9 +87,8 @@ page8PageParser = do
     endOfLine
     minPjs <- categoryProjectsParser
     endOfLine
-    return $ Page8Page9 pageHeaders mjrPjs medPjs minPjs
-    -- allPjs <- categoryProjectsParser 
-    -- return $ Page8Page9 pageHeaders mjrPjs medPjs minPjs allPjs
+    allPjs <- categoryProjectsParser 
+    return $ Page8Page9 pageHeaders mjrPjs medPjs minPjs allPjs
 
 categoryHeaderParser :: Parser ProjectHeader
 categoryHeaderParser = textTillCRNL

@@ -29,7 +29,7 @@ data Page8Page9 = Page8Page9 {
    ,majorMaharashtraStateProjects :: CategoryProjects
    ,mediumMaharashtraStateProjects :: CategoryProjects
    ,minorMaharashtraStateProjects :: CategoryProjects
-    --allDamsMaharashtraStateProjects :: CategoryProjects
+   ,allDamsMaharashtraStateProjects :: CategoryProjects
 } deriving Show
 
 data JustSectionHeaders = JustSectionHeaders {
