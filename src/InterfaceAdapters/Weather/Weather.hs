@@ -41,8 +41,8 @@ _getTownNameWeatherFromIp town
 -- | water levels of lakes in a region as percent of same time last year or full capacity
 -- | from Water modules 
 _helperLivePercent :: (Maybe Region, Maybe PercentLiveStorage) -> IO String
-_helperLivePercent ( Nothing , _ ) = pure " % livelake level Not Available "
-_helperLivePercent ( _ , Nothing ) = pure " % livelake level Not Available "
+_helperLivePercent ( Nothing , _ ) = pure " No Region % livelake level Not Available "
+_helperLivePercent ( _ , Nothing ) = pure " No Data % livelake level Not Available "
 _helperLivePercent (Just a, Just b) = pure $ " % livelake level at " ++ BSU.toString a ++ " is " ++ (BSU.toString $ percent_Today b)
 
 _mkWeatherThere :: PlaceName -> WeatherText -> WaterLevel -> IO TheWeatherThere
