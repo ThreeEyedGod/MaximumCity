@@ -25,11 +25,11 @@ type ColumnNos = Int
 type ProjectHeader = DB.ByteString
 
 data Page8Page9 = Page8Page9 {
-    pageHeaders :: SectionHeaders,
-    majorMaharashtraStateProjects :: CategoryProjects,
-    mediumMaharashtraStateProjects :: CategoryProjects,
-    minorMaharashtraStateProjects :: CategoryProjects,
-    allDamsMaharashtraStateProjects :: CategoryProjects
+    pageHeaders :: SectionHeaders
+   ,majorMaharashtraStateProjects :: CategoryProjects
+   ,mediumMaharashtraStateProjects :: CategoryProjects
+   ,minorMaharashtraStateProjects :: CategoryProjects
+    --allDamsMaharashtraStateProjects :: CategoryProjects
 } deriving Show
 
 data JustSectionHeaders = JustSectionHeaders {
