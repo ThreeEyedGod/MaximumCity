@@ -58,7 +58,7 @@ getWaterLakeLevelParsed = parseOnly page8PageParser
 -- | externalize this to AWS environment ?
 getWLL :: IO (Either String Page8Page9)
 getWLL = do
-    x <- getWaterLakeLevelBS 12
+    x <- getWaterLakeLevelBS 11
     pure $ getWaterLakeLevelParsed x
 
 getSpecificProjectSizeDataCategoryProjects :: String -> Page8Page9 -> Maybe CategoryProjects
