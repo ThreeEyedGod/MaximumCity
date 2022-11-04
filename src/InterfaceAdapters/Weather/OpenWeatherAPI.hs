@@ -10,7 +10,6 @@ import qualified Data.ByteString.Lazy as B
 import Network.HTTP.Conduit (simpleHttp)
 import Control.Exception as X
 import GHC.Generics
-import Control.Monad (mapM_)
 import Prelude
 import qualified Data.Text as Data.ByteString.Char8
 import InterfaceAdapters.Utils.JSONHelper
@@ -47,7 +46,7 @@ getJSON town = simpleHttp (InterfaceAdapters.Weather.OpenWeatherAPI.jsonURL town
 
 getWeatherForTown :: String -> IO Text
 getWeatherForTown town = do
-  d <- (eitherDecode <$> (InterfaceAdapters.Weather.OpenWeatherAPI.getJSON town)) :: IO (Either String Temperatures)
+  d <- (eitherDecode <$> InterfaceAdapters.Weather.OpenWeatherAPI.getJSON town) :: IO (Either String Temperatures)
   case d of
-    Left e ->  return $ "Fail:getWeatherForTown | eitherDecode town " <> pack e 
-    Right stuff -> return $ Data.ByteString.Char8.pack (show (temp (test stuff)) ++ " Celsius and " ++ (description (Prelude.head (weather stuff))))
+    Left e ->  return $ "Fail:getWeatherForTown | eitherDecode town " <> pack e
+    Right stuff -> return $ Data.ByteString.Char8.pack (show (temp (test stuff)) ++ " Celsius and " ++ description (Prelude.head (weather stuff)))

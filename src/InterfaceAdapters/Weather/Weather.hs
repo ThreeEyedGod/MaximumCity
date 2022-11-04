@@ -43,7 +43,7 @@ _getTownNameWeatherFromIp town
 _helperLivePercent :: (Maybe Region, Maybe PercentLiveStorage) -> IO String
 _helperLivePercent ( Nothing , _ ) = pure " No Region % livelake level Not Available "
 _helperLivePercent ( _ , Nothing ) = pure " No Data % livelake level Not Available "
-_helperLivePercent (Just a, Just b) = pure $ " % livelake level at " ++ BSU.toString a ++ " is " ++ (BSU.toString $ percent_Today b)
+_helperLivePercent (Just a, Just b) = pure $ " % livelake level at " ++ BSU.toString a ++ " is " ++ BSU.toString (percent_Today b)
 
 _mkWeatherThere :: PlaceName -> WeatherText -> WaterLevel -> IO TheWeatherThere
 _mkWeatherThere twn wt wl = pure $ Data.ByteString.Char8.pack  (Data.ByteString.Char8.unpack twn ++ " is " ++ Data.ByteString.Char8.unpack wt ++ wl )
@@ -68,7 +68,7 @@ getAgInfo UserAsk {placeName = "/prefs", prefs = _ } = return $ Data.ByteString.
 getAgInfo UserAsk {placeName = "/start", prefs = _ } = return $ Data.ByteString.Char8.pack "/Start related  "
 getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = WeatherWaterLevels, usersize = Detailed, usertimespan = NearForecast}} = _getTownNameWeatherFromTown pl
 getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = WeatherWaterLevels, usersize = Mini, usertimespan = RightNow}} = _getTownNameWeatherFromTown pl
-getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = WaterLevels, usersize = Mini, usertimespan = RightNow}} = (getWaterLakeLevelForPlace_LiveToday_wrtStorage pl >>=  _helperLivePercent) >>= (\wll -> _mkWeatherThere pl "" wll)
+getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = WaterLevels, usersize = Mini, usertimespan = RightNow}} = (getWaterLakeLevelForPlace_LiveToday_wrtStorage pl >>=  _helperLivePercent) >>= _mkWeatherThere pl ""
 getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = Weather, usersize = Mini, usertimespan = NearForecast}} = weatherCurrentForecastMini $ Data.ByteString.Char8.unpack pl
 getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = Weather, usersize = Mini, usertimespan = RightNow}} = weatherCurrentForecastMini $ Data.ByteString.Char8.unpack pl
 getAgInfo _ = return $ Data.ByteString.Char8.pack "Malformed UserAsk "

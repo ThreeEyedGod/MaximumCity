@@ -1,11 +1,11 @@
-{-# LANGUAGE GADTs, TypeInType, ScopedTypeVariables, StandaloneDeriving #-}
-{-# LANGUAGE TemplateHaskell, LambdaCase, BlockArguments, GADTs
-           , FlexibleContexts, TypeOperators, DataKinds, PolyKinds, ScopedTypeVariables #-}
+{-# LANGUAGE GADTs, TypeInType, ScopedTypeVariables, StandaloneDeriving, TemplateHaskell, LambdaCase, BlockArguments, FlexibleContexts, TypeOperators, DataKinds, PolyKinds #-}
+
 {-# LANGUAGE TypeFamilies        #-}
+
 module InterfaceAdapters.Weather.WWIWebPirate
-  ( 
+  (
     runWWIWebPirate
-  ) 
+  )
 where
 
 import Polysemy
@@ -17,10 +17,8 @@ import qualified Data.Text as T
 import GHC.Integer.Logarithms ()
 import Data.Text.Encoding as TSE
 import Data.Text.Lazy.Encoding as TLE
-import Data.ByteString.UTF8 as BSU 
+import Data.ByteString.UTF8 as BSU
 import qualified Data.Aeson as TLO (decode)
-
-import qualified Data.Text as T
 import qualified Data.Text.Encoding as T
 
 import Data.Maybe
