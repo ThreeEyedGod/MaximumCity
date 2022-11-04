@@ -15,6 +15,7 @@ import Data.Attoparsec.ByteString as Att
 import qualified Data.List as DL
 import Data.Attoparsec.ByteString.Char8 (skipSpace, isDigit_w8, manyTill, isHorizontalSpace, endOfLine, char, decimal, space, double, letter_ascii)
 import InterfaceAdapters.IP.GeoLatLong (getLatLongforThis)
+import Data.ByteString.Search as DBS
 
 import Naqsha.Geometry
 import Naqsha.Geometry.Spherical
@@ -48,7 +49,11 @@ getWaterLakeLevelPDFData pageNum = do
 getWaterLakeLevelBS :: Int -> IO ByteString
 getWaterLakeLevelBS pageN = do 
     x <- getWaterLakeLevelPDFData pageN
-    return $ x 
+    let repwithBS = "" :: ByteString
+    let toBeExcisedBS = "\nREVENUE REVENUE REGION REGION\nSR. SR.\nNO. NO.\nNO. OF NO. OF\nDAMS DAMS\nDESIGNED STORAGE DESIGNED STORAGE (Mcum) (Mcum)\nTODAY'S LIVE TODAY'S LIVE\nSTORAGE STORAGE (Mcum) (Mcum)\nPERCENTAGE OF PERCENTAGE OF\nLIVE STORAGE LIVE STORAGE\nW.R.T. W.R.T. DESIGNED DESIGNED\nLIVE STORAGE LIVE STORAGE\nDEAD DEAD LIVE LIVE GROSS GROSS LIVE LIVE GROSS GROSS\nFOR FOR\nTODAY TODAY\nSAME SAME\nDATE DATE\nOF LAST OF LAST\nYEAR YEAR\n1 1 2 2 3 3 4 4 5 5 6 6 7 7 8 8 9 9 10 10" :: ByteString
+    let x1 = DBS.replace toBeExcisedBS repwithBS x
+    --return $ x 
+    pure $ DB.concat . B.toChunks $ x1
 
 getWaterLakeLevelParsed :: ByteString -> Either String Page8Page9
 getWaterLakeLevelParsed = parseOnly page8PageParser
@@ -56,10 +61,10 @@ getWaterLakeLevelParsed = parseOnly page8PageParser
 -- | for now only pages 8-9 is being extracted 
 -- | this changed to page 12-13 - need to make the software intelligent enough to track those changes ! 
 -- | externalize this to AWS environment ?
--- | moved to 10 !
+-- | moved to 10 ! Back to 11
 getWLL :: IO (Either String Page8Page9)
 getWLL = do
-    x <- getWaterLakeLevelBS 10
+    x <- getWaterLakeLevelBS 11
     pure $ getWaterLakeLevelParsed x
 
 getSpecificProjectSizeDataCategoryProjects :: String -> Page8Page9 -> Maybe CategoryProjects

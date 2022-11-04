@@ -65,6 +65,7 @@ dependencies:
 - string-interpolate >= 0.3.1.1
 - text-manipulate >= 0.3.0.0
 - sort >= 1.0.0.0
+- stringsearch >= 0.3.6.6
 
 library:
   source-dirs: src
