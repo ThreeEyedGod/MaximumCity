@@ -184,14 +184,13 @@ readfloatrow row startpos = runGet getFloatle (BS.drop (fromIntegral startpos) r
 readstr :: BS.ByteString -> Int -> String
 readstr contents startpos = do
     let len = runGet getWord8 (BS.drop (fromIntegral startpos) contents)
-    str <- BS8.unpack (BS.take (fromIntegral len) (BS.drop (fromIntegral startpos + 1) contents))
-    return str
+    BS8.unpack (BS.take (fromIntegral len) (BS.drop (fromIntegral startpos + 1) contents))
 
 readcolcountry :: BS.ByteString -> Int -> Int -> [Int] -> (String, String)
 readcolcountry contents dbtype rowoffset col = do
     let x = "This parameter is unavailable for selected data file. Please upgrade the data file."
     let [colpos] = take 1 (drop dbtype col)
-    
+
     if colpos == 0
         then do
             (x, x)
@@ -206,7 +205,7 @@ readcolcountryrow :: BS.ByteString -> BS.ByteString -> Int -> [Int] -> (String, 
 readcolcountryrow contents row dbtype col = do
     let x = "This parameter is unavailable for selected data file. Please upgrade the data file."
     let [colpos] = take 1 (drop dbtype col)
-    
+
     if colpos == 0
         then do
             (x, x)
@@ -220,7 +219,7 @@ readcolcountryrow contents row dbtype col = do
 readcolstring :: BS.ByteString -> Int -> Int -> [Int] -> String
 readcolstring contents dbtype rowoffset col = do
     let [colpos] = take 1 (drop dbtype col)
-    
+
     if colpos == 0
         then do
             "This parameter is unavailable for selected data file. Please upgrade the data file."
@@ -231,7 +230,7 @@ readcolstring contents dbtype rowoffset col = do
 readcolstringrow :: BS.ByteString -> BS.ByteString -> Int -> [Int] -> String
 readcolstringrow contents row dbtype col = do
     let [colpos] = take 1 (drop dbtype col)
-    
+
     if colpos == 0
         then do
             "This parameter is unavailable for selected data file. Please upgrade the data file."
@@ -242,7 +241,7 @@ readcolstringrow contents row dbtype col = do
 readcolfloat :: BS.ByteString -> Int -> Int -> [Int] -> Float
 readcolfloat contents dbtype rowoffset col = do
     let [colpos] = take 1 (drop dbtype col)
-    
+
     if colpos == 0
         then do
             0.0
@@ -253,7 +252,7 @@ readcolfloat contents dbtype rowoffset col = do
 readcolfloatrow :: BS.ByteString -> Int -> [Int] -> Float
 readcolfloatrow row dbtype col = do
     let [colpos] = take 1 (drop dbtype col)
-    
+
     if colpos == 0
         then do
             0.0
@@ -264,7 +263,7 @@ readcolfloatrow row dbtype col = do
 readcolfloatstring :: BS.ByteString -> Int -> Int -> [Int] -> Float
 readcolfloatstring contents dbtype rowoffset col = do
     let [colpos] = take 1 (drop dbtype col)
-    
+
     if colpos == 0
         then do
             0.0
@@ -276,7 +275,7 @@ readcolfloatstring contents dbtype rowoffset col = do
 readcolfloatstringrow :: BS.ByteString -> BS.ByteString -> Int -> [Int] -> Float
 readcolfloatstringrow contents row dbtype col = do
     let [colpos] = take 1 (drop dbtype col)
-    
+
     if colpos == 0
         then do
             0.0
@@ -286,7 +285,7 @@ readcolfloatstringrow contents row dbtype col = do
             read n :: Float
 
 countif :: (a -> Bool) -> [a] -> Int
-countif f = length . filter f 
+countif f = length . filter f
 
 readrecord :: BS.ByteString -> Int -> Int -> IP2LocationRecord
 readrecord contents dbtype rowoffset = do
@@ -309,11 +308,11 @@ readrecord contents dbtype rowoffset = do
     let mobilebrand_position = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11,18, 0, 18, 11, 18]
     let elevation_position = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 19, 0, 19]
     let usagetype_position = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 20]
-    
+
     let allcols = (take 1 (drop dbtype country_position)) ++ (take 1 (drop dbtype region_position)) ++ (take 1 (drop dbtype city_position)) ++ (take 1 (drop dbtype isp_position)) ++ (take 1 (drop dbtype latitude_position)) ++ (take 1 (drop dbtype longitude_position)) ++ (take 1 (drop dbtype domain_position)) ++ (take 1 (drop dbtype zipcode_position)) ++ (take 1 (drop dbtype timezone_position)) ++ (take 1 (drop dbtype netspeed_position)) ++ (take 1 (drop dbtype iddcode_position)) ++ (take 1 (drop dbtype areacode_position)) ++ (take 1 (drop dbtype weatherstationcode_position)) ++ (take 1 (drop dbtype weatherstationname_position)) ++ (take 1 (drop dbtype mcc_position)) ++ (take 1 (drop dbtype mnc_position)) ++ (take 1 (drop dbtype mobilebrand_position)) ++ (take 1 (drop dbtype elevation_position)) ++ (take 1 (drop dbtype usagetype_position))
     let cols = (countif (>0) allcols) `shiftL` 2
     let row = BS.take (fromIntegral cols) (BS.drop (fromIntegral rowoffset - 1) contents)
-    
+
     -- let (country_short, country_long) = readcolcountry contents dbtype rowoffset country_position
     -- let region = readcolstring contents dbtype rowoffset region_position
     -- let city = readcolstring contents dbtype rowoffset city_position
@@ -333,7 +332,7 @@ readrecord contents dbtype rowoffset = do
     -- let mobilebrand = readcolstring contents dbtype rowoffset mobilebrand_position
     -- let elevation = readcolfloatstring contents dbtype rowoffset elevation_position
     -- let usagetype = readcolstring contents dbtype rowoffset usagetype_position
-    
+
     let (country_short, country_long) = readcolcountryrow contents row dbtype country_position
     let region = readcolstringrow contents row dbtype region_position
     let city = readcolstringrow contents row dbtype city_position
@@ -353,25 +352,25 @@ readrecord contents dbtype rowoffset = do
     let mobilebrand = readcolstringrow contents row dbtype mobilebrand_position
     let elevation = readcolfloatstringrow contents row dbtype elevation_position
     let usagetype = readcolstringrow contents row dbtype usagetype_position
-    
-    IP2LocationRecord country_short country_long region city isp latitude longitude domain zipcode timezone netspeed iddcode areacode weatherstationcode weatherstationname mcc mnc mobilebrand elevation usagetype 
+
+    IP2LocationRecord country_short country_long region city isp latitude longitude domain zipcode timezone netspeed iddcode areacode weatherstationcode weatherstationname mcc mnc mobilebrand elevation usagetype
 
 searchtree :: BS.ByteString -> Integer -> Int -> Int -> Int -> Int -> Int -> Int -> IP2LocationRecord
 searchtree contents ipnum dbtype low high baseaddr colsize iptype = do
     if low <= high
         then do
-            let mid = ((low + high) `shiftR` 1)
+            let mid = (low + high) `shiftR` 1
             let rowoffset = baseaddr + (mid * colsize)
             let rowoffset2 = rowoffset + colsize
-            
-            let ipfrom = if (iptype == 4)
+
+            let ipfrom = if iptype == 4
                 then toInteger $ readuint32 contents rowoffset
                 else readuint128 contents rowoffset
-            
-            let ipto = if (iptype == 4)
+
+            let ipto = if iptype == 4
                 then toInteger $ readuint32 contents rowoffset2
                 else readuint128 contents rowoffset2
-            
+
             if ipnum >= ipfrom && ipnum < ipto
                 then do
                     if iptype == 4
@@ -388,13 +387,13 @@ searchtree contents ipnum dbtype low high baseaddr colsize iptype = do
                         searchtree contents ipnum dbtype (mid + 1) high baseaddr colsize iptype
         else do
             let x = "IP address not found."
-            IP2LocationRecord x x x x x 0.0 0.0 x x x x x x x x x x x 0.0 x 
-        
+            IP2LocationRecord x x x x x 0.0 0.0 x x x x x x x x x x x 0.0 x
+
 search4 :: BS.ByteString -> Integer -> Int -> Int -> Int -> Int -> Int -> Int -> IP2LocationRecord
 search4 contents ipnum dbtype low high baseaddr indexbaseaddr colsize = do
     if indexbaseaddr > 0
         then do
-            let indexpos = fromIntegral (((ipnum `rotateR` 16) `rotateL` 3) + (toInteger indexbaseaddr))
+            let indexpos = fromIntegral (((ipnum `rotateR` 16) `rotateL` 3) + toInteger indexbaseaddr)
             let low2 = readuint32 contents indexpos
             let high2 = readuint32 contents (indexpos + 4)
             searchtree contents ipnum dbtype low2 high2 baseaddr colsize 4
@@ -405,7 +404,7 @@ search6 :: BS.ByteString -> Integer -> Int -> Int -> Int -> Int -> Int -> Int ->
 search6 contents ipnum dbtype low high baseaddr indexbaseaddr colsize = do
     if indexbaseaddr > 0
         then do
-            let indexpos = fromIntegral (((ipnum `rotateR` 112) `rotateL` 3) + (toInteger indexbaseaddr))
+            let indexpos = fromIntegral (((ipnum `rotateR` 112) `rotateL` 3) + toInteger indexbaseaddr)
             let low2 = readuint32 contents indexpos
             let high2 = readuint32 contents (indexpos + 4)
             searchtree contents ipnum dbtype low2 high2 baseaddr colsize 6
@@ -434,7 +433,7 @@ doQuery myfile meta myip = do
     let fromTeredo = 42540488161975842760550356425300246528
     let toTeredo = 42540488241204005274814694018844196863
     let last32Bits = 4294967295
-    
+
     ipnum <- tryfirst myip
     if ipnum == -1
         then do

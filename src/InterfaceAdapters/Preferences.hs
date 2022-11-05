@@ -146,6 +146,4 @@ replaceBy x
   | x == "nearforecast" = "NearForecast" :: T.Text
   | x == "longrange" = "LongRange" :: T.Text
   | otherwise = "Hmm"
- where
-    allPossiblePrefs = "Weather | WaterLevels | WeatherWaterLevels | Monsoon | All ||| Mini | Standard | Detailed ||| RightNow | Alerts | NearForecast | LongRange" :: T.Text
  

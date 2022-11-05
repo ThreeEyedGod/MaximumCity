@@ -28,10 +28,10 @@ getLatLongforThis town = do
         -- f <- (eitherDecode <$> getGeoIpforThis) :: IO (Either String GeoIp)
         f <- (eitherDecode <$> getOpenCageForwardGeoCodefor town) :: IO (Either String OpenCageForwardGeoData)
         case f of
-          Left err -> return $ "Fail:getLatLongforThis | eitherDecode getOpenCageForwardGeoCodefor" 
+          Left err -> return "Fail:getLatLongforThis | eitherDecode getOpenCageForwardGeoCodefor" 
           -- Right geoipstuff_backup -> return $ Data.ByteString.Char8.pack (show (latitude (geoipstuff_backup :: GeoIp)) ++ "," ++ show (longitude (geoipstuff_backup :: GeoIp)))
           Right geo_backup -> return $ Data.ByteString.Char8.pack (show (lat (geometry (Prelude.head (results (geo_backup :: OpenCageForwardGeoData))))) ++ "," ++ show (lng (geometry (Prelude.head (results (geo_backup :: OpenCageForwardGeoData))))))
       Right geoipstuff ->
         return $
-          Data.ByteString.Char8.pack $ removeNonNumbers $
+          Data.ByteString.Char8.pack $ removeNonNumbers
             (show (Prelude.head (_data (geoipstuff :: ForwardGeoData))))

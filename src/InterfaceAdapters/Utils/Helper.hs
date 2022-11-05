@@ -76,7 +76,7 @@ key k = do
   tk <- getKey k
   case tk of
     Left _ -> pure $ Left $ "Fail " ++ k ++ " | Token error"
-    Right token -> pure $ Right $ token
+    Right token -> pure $ Right token
 
 
 -- composeMaybe

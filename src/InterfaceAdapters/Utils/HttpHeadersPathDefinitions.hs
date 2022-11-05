@@ -6,7 +6,7 @@
 {-# LANGUAGE RankNTypes #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
 
-module InterfaceAdapters.Utils.HttpHeadersPathDefinitions 
+module InterfaceAdapters.Utils.HttpHeadersPathDefinitions
 where
 import Data.Aeson
   ( FromJSON (parseJSON),
@@ -28,7 +28,7 @@ import Data.ByteString.Char8
 import Debug.Trace
 import InterfaceAdapters.IP.IP2Location
 
-data Path = Path 
+data Path = Path
   {
     ipath :: T.Text
   } deriving (Generic)
@@ -38,7 +38,7 @@ instance ToJSON Path
 type ResponseBody = T.Text
 
 data Headers = Headers
-  { 
+  {
     xForwardedFor :: T.Text
   } deriving (Show, Generic)
 
@@ -59,7 +59,7 @@ data Response = Response
   } deriving (Generic, ToJSON)
 
 data Event = Event
-  { 
+  {
     path :: Value,
     headers :: Value,
     body :: Maybe T.Text
@@ -74,11 +74,11 @@ extractXForwardedForHeader headers = do
     --Right allHeaders -> getInfoFromIpAddr (Data.ByteString.Char8.unpack (xForwardedFor allHeaders))
 
 preProcessPath :: Value -> LB.ByteString
-preProcessPath path  = encode path 
+preProcessPath = encode
 
 getPath :: LB.ByteString -> T.Text
 getPath p  = do
   let f = eitherDecode p :: Either String Path
-  case f of 
+  case f of
     Left _ -> "Fail:getPath | No path"
     Right aPath -> ipath aPath
