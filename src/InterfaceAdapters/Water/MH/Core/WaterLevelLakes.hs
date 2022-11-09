@@ -6,6 +6,7 @@ module InterfaceAdapters.Water.MH.Core.WaterLevelLakes where
 
 import InterfaceAdapters.Water.MH.Core.WaterLevelHeaders
 import InterfaceAdapters.Utils.PdfHelper
+import InterfaceAdapters.Utils.Helper
 import Data.Attoparsec.ByteString as Att
 import qualified Data.List as DL
 import Data.Attoparsec.ByteString.Char8 (skipSpace, isDigit_w8, manyTill, isHorizontalSpace, endOfLine, char, decimal, space, double, letter_ascii)
@@ -36,9 +37,29 @@ import Data.Text.Encoding as TSE
 wlURL :: String
 wlURL = "https://d3suziiw6thyiv.cloudfront.net/reports/storage-comparison/standard/pdf/view?MenuID=1317"
 
+
+getMHWaterURL :: IO (Either String String)
+getMHWaterURL = do
+  url <- getKey "MH_WATER_DATA"
+  case url of
+    Left msg -> pure $ Left "Error : In URL in environment for MH water data"
+    Right pagelink -> return $ Right pagelink
+
+getMHWaterPageLinkPage :: IO (Either String String)
+getMHWaterPageLinkPage = do
+  url <- getKey "MH_WATER_DATA_PAGE"
+  case url of
+    Left msg -> pure $ Left "Error : In environment for MH water data url page number"
+    Right pagenum -> return $ Right pagenum
+
 getWaterLakeLevelPDFData :: Int -> IO ByteString
 getWaterLakeLevelPDFData pageNum = do
-    x <- getPagesofPDFfromTo wlURL pageNum (pageNum + 1)
+    y <- getKey "MH_WATER_DATA"
+    x <- getKey "MH_WATER_DATA_PAGE"
+    let pagelink = read $ getKeyEither y :: String 
+    let pagenum2 = read $ getKeyEither x :: Int 
+    -- x <- getPagesofPDFfromTo wlURL pageNum (pageNum + 1)
+    x <- getPagesofPDFfromTo pagelink pagenum2 (pagenum2 + 1)
     pure $ TSE.encodeUtf8 x
 
 getWaterLakeLevelBS :: Int -> IO ByteString

@@ -1,6 +1,8 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TypeApplications #-}
+
 
 module InterfaceAdapters.Utils.Helper where
 import Control.Applicative
@@ -13,10 +15,11 @@ import Prelude
 import Data.Bifunctor (first)
 import qualified Data.ByteString.Lazy as B
 import System.IO (stdout, hFlush)
-import System.IO.Error (isDoesNotExistError, tryIOError)
+import System.IO.Error (isDoesNotExistError, tryIOError, ioeGetErrorString)
 import System.Environment (getEnv)
 import Numeric
 import Data.Char (isDigit)
+import GHC.Stack
 
 type InFunction = String
 type CalleeFunction = String
@@ -52,20 +55,40 @@ fahrenheitToCelsius f = (5 / 9) * (f - 32)
 data EnvError
   = MissingEnvError String
   | EmptyKeyError String
-  | SomeIOError IOError
+  -- | SomeIOError IOError
+  | SomeIOError String
   deriving (Eq, Show)
 
-badEnv :: String -> IOException -> IO (Either EnvError KeyString)
-badEnv env ex
-      | Prelude.null env = return $ Left $ EmptyKeyError "Environment key not given "
-      | isDoesNotExistError ex = return $ Left (MissingEnvError env)
-      | otherwise = return $ Left $ SomeIOError ex
+
+-- interesting ! see properties of Either at https://hackage.haskell.org/package/base-4.17.0.0/docs/Data-Either.html
+-- either is foldable in Data.foldable and has a method of foldr
+stanEitherFoldr :: Either Int Int -> Int
+stanEitherFoldr = Prelude.foldr (+) 0
+
+getKeyEither :: Either EnvError String -> String
+getKeyEither (Left _) = "getKey Error"
+getKeyEither (Right str) = str
+
+badEnv :: String -> String -> IOException -> IO (Either EnvError KeyString)
+badEnv cs env ex
+      | Prelude.null env =  do 
+          let err = "Environment key not set: " ++ env ++ "; " ++ cs
+          logMessage err
+          return $ Left $ EmptyKeyError err
+      | isDoesNotExistError ex = do 
+          let err = "Environment key value not set: " ++ env ++ "; " ++ cs
+          logMessage err          
+          return $ Left $ MissingEnvError err 
+      | otherwise = do 
+          let err = ioeGetErrorString ex ++ " " ++ env ++ "; " ++ cs
+          logMessage err
+          return $ Left $ SomeIOError $ err
 
 -- handle is basically a guard  - a shorter catch ! https://hackage.haskell.org/package/base-4.15.0.0/docs/Control-Exception.html#v:handle
 -- note: badEnv has 2 arguments; 2nd one is the exception
 -- reminder: <$> is fmap https://stackoverflow.com/questions/37286376/what-does-mean-in-haskell/37286470
-getKey :: String -> IO (Either EnvError String)
-getKey env = handle (badEnv env) $ Right <$> getEnv env
+getKey :: HasCallStack => String -> IO (Either EnvError String)
+getKey env = handle (badEnv (prettyCallStack callStack) env) $ Right <$> getEnv env
 
 orDieonNothing :: Maybe a -> String -> Either String a
 Just a  `orDieonNothing` _      = return a
@@ -91,3 +114,4 @@ _returnStdFail withinFunction calledFunction = pack $ "Fail:" ++ withinFunction 
 
 logMessage :: String -> IO ()
 logMessage s = putStrLn s >> hFlush stdout
+
