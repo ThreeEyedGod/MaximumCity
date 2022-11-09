@@ -56,8 +56,9 @@ getWaterLakeLevelPDFData :: Int -> IO ByteString
 getWaterLakeLevelPDFData pageNum = do
     y <- getKey "MH_WATER_DATA"
     x <- getKey "MH_WATER_DATA_PAGE"
-    let pagelink = read $ getKeyEither y :: String 
+    let pagelink = getKeyEither y
     let pagenum2 = read $ getKeyEither x :: Int 
+    logMessage pagelink
     -- x <- getPagesofPDFfromTo wlURL pageNum (pageNum + 1)
     x <- getPagesofPDFfromTo pagelink pagenum2 (pagenum2 + 1)
     pure $ TSE.encodeUtf8 x
