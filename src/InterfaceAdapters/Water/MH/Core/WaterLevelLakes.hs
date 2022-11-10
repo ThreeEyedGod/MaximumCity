@@ -58,10 +58,8 @@ getWaterLakeLevelPDFData pageNum = do
     x <- getKey "MH_WATER_DATA_PAGE"
     let pagelink = getKeyEither y
     let pagenum2 = read $ getKeyEither x :: Int 
-    logMessage pagelink
-    x <- getPagesofPDFfromTo wlURL pageNum (pageNum + 1)
+    --x <- getPagesofPDFfromTo wlURL pageNum (pageNum + 1)
     z <- getPagesofPDFfromTo pagelink pagenum2 (pagenum2 + 1)
-    logMessage $ T.unpack z
     pure $ TSE.encodeUtf8 z
 
 getWaterLakeLevelBS :: Int -> IO ByteString
@@ -82,6 +80,7 @@ getWaterLakeLevelParsed = parseOnly page8PageParser
 getWLL :: IO (Either String Page8Page9)
 getWLL = do
     x <- getWaterLakeLevelBS 9
+    logMessage $ "AftergetWaterLakeLevelBS " ++ BSU.toString x
     pure $ getWaterLakeLevelParsed x
 
 getSpecificProjectSizeDataCategoryProjects :: String -> Page8Page9 -> Maybe CategoryProjects
@@ -161,6 +160,7 @@ findNearestRegionToPlace pl = do
 getWaterLakeLevelForPlace_LiveToday_wrtStorage :: T.Text -> IO (Maybe Region, Maybe PercentLiveStorage)
 getWaterLakeLevelForPlace_LiveToday_wrtStorage pl = do
     nrstRegion <- findNearestRegionToPlace (T.unpack pl)
+    logMessage nrstRegion
     maybe_allDivData <- getAllDivData "All"
     x <- extractDivisionData (BSU.fromString nrstRegion) maybe_allDivData
     case x of
