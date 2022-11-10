@@ -61,7 +61,7 @@ getWaterLakeLevelPDFData pageNum = do
     logMessage pagelink
     x <- getPagesofPDFfromTo wlURL pageNum (pageNum + 1)
     z <- getPagesofPDFfromTo pagelink pagenum2 (pagenum2 + 1)
-    pure $ TSE.encodeUtf8 x
+    pure $ TSE.encodeUtf8 z
 
 getWaterLakeLevelBS :: Int -> IO ByteString
 getWaterLakeLevelBS pageN = do
@@ -77,10 +77,10 @@ getWaterLakeLevelParsed = parseOnly page8PageParser
 -- | for now only pages 8-9 is being extracted 
 -- | this changed to page 12-13 - need to make the software intelligent enough to track those changes ! 
 -- | externalize this to AWS environment ?
--- | moved to 10 ! Back to 11
+-- | moved to 10 ! Back to 11 back o 9-10
 getWLL :: IO (Either String Page8Page9)
 getWLL = do
-    x <- getWaterLakeLevelBS 11
+    x <- getWaterLakeLevelBS 9
     pure $ getWaterLakeLevelParsed x
 
 getSpecificProjectSizeDataCategoryProjects :: String -> Page8Page9 -> Maybe CategoryProjects
