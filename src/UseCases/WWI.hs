@@ -1,8 +1,6 @@
-{-# LANGUAGE GADTs, TypeInType, ScopedTypeVariables, StandaloneDeriving #-}
-{-# LANGUAGE TemplateHaskell, LambdaCase, BlockArguments, GADTs
-           , FlexibleContexts, TypeOperators, DataKinds, PolyKinds, ScopedTypeVariables #-}
+{-# LANGUAGE GADTs, TypeInType, ScopedTypeVariables, StandaloneDeriving, TemplateHaskell, LambdaCase, BlockArguments, FlexibleContexts, TypeOperators #-}
 
-module UseCases.WWI 
+module UseCases.WWI
   ( WWI (..)
   , PlaceName
   , TheWeatherThere
@@ -20,7 +18,7 @@ import qualified Data.Text as T
 import InterfaceAdapters.Preferences
 import InterfaceAdapters.Telegram.Telegram
 
-type PlaceName = T.Text 
+type PlaceName = T.Text
 type TheWeatherThere = T.Text
 data UserAsk = UserAsk {
     placeName :: PlaceName

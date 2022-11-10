@@ -31,7 +31,6 @@ import Data.Time
 import InterfaceAdapters.Utils.Helper
 
 import Control.Applicative
-import Data.Text.Encoding as TSE
 
 -- | Begin Maharashtra  ********
 
@@ -40,13 +39,13 @@ getWaterLakeLevelPDFData = do
     y <- getKey "MH_WATER_DATA"
     x <- getKey "MH_WATER_DATA_PAGE"
     let pagelink = getKeyEither y
-    let pagenum = read $ getKeyEither x :: Int 
+    let pagenum = read $ getKeyEither x :: Int
     z <- getPagesofPDFfromTo pagelink pagenum (pagenum + 1)
     pure $ TSE.encodeUtf8 z
 
 getWaterLakeLevelBS :: IO ByteString
 getWaterLakeLevelBS = do
-    x <- getWaterLakeLevelPDFData 
+    x <- getWaterLakeLevelPDFData
     let repwithBS = "" :: ByteString
     let toBeExcisedBS1 = "\nREVENUE REVENUE REGION REGION\nSR. SR.\nNO. NO.\nNO. OF NO. OF\nDAMS DAMS\nDESIGNED STORAGE DESIGNED STORAGE (Mcum) (Mcum)\nTODAY'S LIVE TODAY'S LIVE\nSTORAGE STORAGE (Mcum) (Mcum)\nPERCENTAGE OF PERCENTAGE OF\nLIVE STORAGE LIVE STORAGE\nW.R.T. W.R.T. DESIGNED DESIGNED\nLIVE STORAGE LIVE STORAGE\nDEAD DEAD LIVE LIVE GROSS GROSS LIVE LIVE GROSS GROSS\nFOR FOR\nTODAY TODAY\nSAME SAME\nDATE DATE\nOF LAST OF LAST\nYEAR YEAR\n1 1 2 2 3 3 4 4 5 5 6 6 7 7 8 8 9 9 10 10" :: ByteString
     let toBeExcisedBS2 = "\nREVENUE REVENUE REGION REGION\nSR. SR.\nNO. NO.\nNO. OF NO. OF\nDAMS DAMS\nDESIGNED STORAGE DESIGNED STORAGE (Mcum) (Mcum)\nTODAY'S LIVE TODAY'S LIVE\nSTORAGE STORAGE (Mcum) (Mcum)\nPERCENTAGE OF PERCENTAGE OF\nLIVE STORAGE LIVE STORAGE\nW.R.T. W.R.T. DESIGNED DESIGNED\nLIVE STORAGE LIVE STORAGE\nDEAD DEAD LIVE LIVE GROSS GROSS LIVE LIVE GROSS GROSS\nFOR FOR\nTODAY TODAY\nSAME SAME\nDATE OF DATE OF\nLAST LAST\nYEAR YEAR\n1 1 2 2 3 3 4 4 5 5 6 6 7 7 8 8 9 9 10 10" :: ByteString
@@ -97,17 +96,14 @@ toTuple :: [RegionEntry] -> [(DB.ByteString, RegionWaterData)]
 toTuple = map (\ x -> (revenueRegion x, waterData x))
 
 extractDivisionData :: DB.ByteString -> Maybe [RegionEntry] -> IO (Maybe RegionWaterData)
-extractDivisionData _ Nothing = return Nothing
-{- extractDivisionData division (Just xs) = do
-    let w = xs
-    return $ lookup division (toTuple w)
- -}
+extractDivisionData _ Nothing          = return Nothing
 extractDivisionData division (Just xs) = return $ lookup division (toTuple xs)
 
 
 getPercentLiveToday :: RegionWaterData -> PercentLiveStorage
-getPercentLiveToday rwd = PercentLiveStorage { percent_Today = percent_LiveStorage_WRT_liveDesignedStorage rwd,
-            percent_LastYear = percent_LiveStorage_WRT_sameDateLastYear rwd
+getPercentLiveToday rwd = PercentLiveStorage {
+      percent_Today = percent_LiveStorage_WRT_liveDesignedStorage rwd
+    , percent_LastYear = percent_LiveStorage_WRT_sameDateLastYear rwd
 }
 
 isComma :: Char -> Bool

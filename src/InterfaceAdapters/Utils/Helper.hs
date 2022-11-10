@@ -1,7 +1,7 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE TypeApplications #-}
+
 
 
 module InterfaceAdapters.Utils.Helper where
@@ -38,7 +38,7 @@ removeNonNumbers = Prelude.filter isPeriodorCommaorDigit
 
 -- concatenate strings to make a string
 catSS :: String -> String -> String
-catSS r s  = r ++ s 
+catSS r s  = r ++ s
 
 -- concatenate string and a float to make a string with float precision 2
 catSF :: String -> Float -> String
@@ -71,15 +71,15 @@ getKeyEither (Right str) = str
 
 badEnv :: String -> String -> IOException -> IO (Either EnvError KeyString)
 badEnv cs env ex
-      | Prelude.null env =  do 
+      | Prelude.null env =  do
           let err = "Environment key not set: " ++ env ++ "; " ++ cs
           logMessage err
           return $ Left $ EmptyKeyError err
-      | isDoesNotExistError ex = do 
+      | isDoesNotExistError ex = do
           let err = "Environment key value not set: " ++ env ++ "; " ++ cs
-          logMessage err          
-          return $ Left $ MissingEnvError err 
-      | otherwise = do 
+          logMessage err
+          return $ Left $ MissingEnvError err
+      | otherwise = do
           let err = ioeGetErrorString ex ++ " " ++ env ++ "; " ++ cs
           logMessage err
           return $ Left $ SomeIOError $ err
@@ -109,7 +109,7 @@ f <..> g = \x ->
     Nothing -> Nothing
     Just x' -> g x'
 
-_returnStdFail :: InFunction -> CalleeFunction -> Text 
+_returnStdFail :: InFunction -> CalleeFunction -> Text
 _returnStdFail withinFunction calledFunction = pack $ "Fail:" ++ withinFunction ++ " | " ++ calledFunction
 
 logMessage :: String -> IO ()

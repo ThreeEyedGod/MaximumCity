@@ -1,8 +1,8 @@
-{-# LANGUAGE GADTs, TypeInType, ScopedTypeVariables, StandaloneDeriving #-}
-{-# LANGUAGE TemplateHaskell, LambdaCase, BlockArguments, GADTs
-           , FlexibleContexts, TypeOperators, DataKinds, PolyKinds, ScopedTypeVariables #-}
+{-# LANGUAGE GADTs, TypeInType, ScopedTypeVariables, StandaloneDeriving, TemplateHaskell, LambdaCase, BlockArguments, FlexibleContexts, TypeOperators #-}
+
 
 -- | Effectful implmentation of Environment getting functions. Not yet used
+
 module InterfaceAdapters.Utils.EnvPolHelper where
 
 import Polysemy
@@ -18,7 +18,7 @@ runconfToIO :: Member (Embed IO) r => Sem (Configuration ': r) a -> Sem r a
 runconfToIO = interpret (\(ReadConf envVarName) -> embed $ lookupEnv envVarName)
 
 runGetKey :: String -> IO (Maybe String)
-runGetKey env = do 
+runGetKey env = do
   readConf env
   & runconfToIO
   & runM

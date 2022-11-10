@@ -1,13 +1,11 @@
-{-# LANGUAGE GADTs, TypeInType, ScopedTypeVariables, StandaloneDeriving #-}
-{-# LANGUAGE TemplateHaskell, LambdaCase, BlockArguments, GADTs
-           , FlexibleContexts, TypeOperators, DataKinds, PolyKinds, ScopedTypeVariables #-}
+{-# LANGUAGE GADTs, TypeInType, ScopedTypeVariables, StandaloneDeriving, TemplateHaskell, LambdaCase, BlockArguments, FlexibleContexts, TypeOperators #-}
 
-module InterfaceAdapters.Parameters.KVS 
+module InterfaceAdapters.Parameters.KVS
   ( KVS (..)
-  , listAllKvs
+  --, listAllKvs
   , getKvs
   , insertKvs
-  , deleteKvs
+  --, deleteKvs
   )
 where
 
@@ -17,10 +15,10 @@ import InterfaceAdapters.Parameters.Types
 
 -- | a key value store specified as A GADT type
 data KVS k v m a where
-  ListAllKvs :: KVS ParameterName ParameterValue m [(ParameterName, ParameterValue)]
+  --ListAllKvs :: KVS ParameterName ParameterValue m [(ParameterName, ParameterValue)]
   GetKvs     :: ParameterName -> KVS ParameterName ParameterValue m Text
   InsertKvs  :: ParameterName -> ParameterValue -> KVS ParameterName ParameterValue m ()
-  DeleteKvs  :: ParameterName -> KVS ParameterName ParameterValue m ()
+  --DeleteKvs  :: ParameterName -> KVS ParameterName ParameterValue m ()
 
 -- | makeSem uses TemplateHaskell to generate effect functions (or smart Constructors) from the GADT definition:
 -- listAllKvs :: Member (KVS k v) r => Sem r [(k, v)]

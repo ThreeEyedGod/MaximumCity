@@ -13,7 +13,7 @@ import qualified Data.ByteString.Lazy as B
 import Network.HTTP.Conduit (simpleHttp)
 import Control.Exception as X
 import GHC.Generics
-import GHC.Float as SF 
+import GHC.Float as SF
 import Prelude
 import qualified Data.Text as Data.ByteString.Char8
 import InterfaceAdapters.Utils.Helper
@@ -57,7 +57,8 @@ instance FromJSON GeoIp
 instance ToJSON GeoIp
 
 statusExceptionHandler ::  SomeException -> IO B.ByteString
-statusExceptionHandler e = (putStrLn "Bad Error") >> (return B.empty)
+statusExceptionHandler e = putStrLn "Bad Error" >> return B.empty
+
 -- Gets LatLong for an IP 
 jsonGeoIpURL :: String
 jsonGeoIpURL = "https://freegeoip.app/json/"

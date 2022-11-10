@@ -112,8 +112,9 @@ data OpenCageLocdata = OpenCageLocdata
   , lng :: Float
   } deriving (Show, Generic, FromJSON)
 
-statusExceptionHandler ::  SomeException -> IO B.ByteString
+{- statusExceptionHandler ::  SomeException -> IO B.ByteString
 statusExceptionHandler e = putStrLn "Bad Error" >> return B.empty
+ -}
 jsonOpenCageURL = "https://api.opencagedata.com/geocode/v1/json?key=" 
 
 getOpenCageSettings :: IO (Either ErrLeftString KeyString)

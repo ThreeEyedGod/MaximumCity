@@ -67,7 +67,7 @@ type TelegramMessage = Update
 
 
 runTC :: Maybe TC -> TelegramClient () -> IO ()
-runTC Nothing _ = pure () -- |really nothing can be done vis-a-vis telegram!
+runTC Nothing _ = pure () -- really nothing can be done vis-a-vis telegram in this case !
 runTC (Just (token, manager)) act = void $ runTelegramClient token manager act
 
 getTelegramSettings :: IO (Either String TC)
@@ -93,11 +93,11 @@ gettheTelegram _ = ""
 
 getTelegramUser :: Update -> Maybe User
 getTelegramUser Update {message = Just m} = from m
-getTelegramUser _  = Nothing
+getTelegramUser _                         = Nothing
 
 getUserId :: Maybe User -> T.Text
 getUserId (Just u) = T.pack . show $ user_id u
-getUserId Nothing = ""
+getUserId Nothing  = ""
 
 getTelegram :: Maybe T.Text -> Maybe T.Text
 getTelegram tape = rightToMaybe $ eitherDecode (LB.fromStrict (T.encodeUtf8 (fromMaybe "" tape)))
@@ -108,7 +108,7 @@ _pushTelegramMsg msg cid  = void (sendMessageM $ sendMessageRequest cid msg)
 
 _handleUpdate :: T.Text -> Maybe Update -> TelegramClient ()
 _handleUpdate helper (Just Update {message = Just m}) = _pushTelegramMsg helper $ ChatId (chat_id (chat m))
-_handleUpdate _ u = liftIO $ putStrLn $ "Unhandled message: " ++ show u
+_handleUpdate _ u                                     = liftIO $ putStrLn $ "Unhandled message: " ++ show u
 
 getMeta :: Maybe Update -> (T.Text, (T.Text, T.Text))
 getMeta (Just Update {message = Just m}) = (uuid, (whatUserTyped, parseResponse))
@@ -116,8 +116,8 @@ getMeta (Just Update {message = Just m}) = (uuid, (whatUserTyped, parseResponse)
     uuid = getUserId (from m)
     whatUserTyped = T.toLower $ T.dropWhileEnd (== ' ') (fromMaybe "" (text m))
     parseResponse = parseGetResponse whatUserTyped uuid
-getMeta Nothing = ("getMeta no data", ("usertyped missing","so no response"))
-getMeta _ = ("getMeta unkwown error", ("usertyped bad", "so no response"))
+getMeta Nothing                          = ("getMeta no data", ("usertyped missing","so no response"))
+getMeta _                                = ("getMeta unkwown error", ("usertyped bad", "so no response"))
 
 parseGetResponse :: T.Text -> T.Text -> T.Text
 parseGetResponse whatUserTyped uuid
