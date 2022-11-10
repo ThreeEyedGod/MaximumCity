@@ -79,7 +79,7 @@ jsonURL :: String -> Text -> String
 jsonURL u q = u ++ Data.ByteString.Char8.unpack q
 
 exceptionHandler ::  SomeException -> IO B.ByteString
-exceptionHandler e = putStrLn "Bad Error" >> return B.empty
+exceptionHandler e = putStrLn "Caught an exception " >> return B.empty
 
 getJSON :: String -> Text -> IO B.ByteString
 getJSON url parm = simpleHttp (jsonURL url parm) `X.catch` exceptionHandler

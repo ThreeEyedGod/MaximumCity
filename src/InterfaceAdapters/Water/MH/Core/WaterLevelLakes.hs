@@ -34,37 +34,19 @@ import Control.Applicative
 import Data.Text.Encoding as TSE
 
 -- | Begin Maharashtra  ********
-wlURL :: String
-wlURL = "https://d3suziiw6thyiv.cloudfront.net/reports/storage-comparison/standard/pdf/view?MenuID=1317"
 
-
-getMHWaterURL :: IO (Either String String)
-getMHWaterURL = do
-  url <- getKey "MH_WATER_DATA"
-  case url of
-    Left msg -> pure $ Left "Error : In URL in environment for MH water data"
-    Right pagelink -> return $ Right pagelink
-
-getMHWaterPageLinkPage :: IO (Either String String)
-getMHWaterPageLinkPage = do
-  url <- getKey "MH_WATER_DATA_PAGE"
-  case url of
-    Left msg -> pure $ Left "Error : In environment for MH water data url page number"
-    Right pagenum -> return $ Right pagenum
-
-getWaterLakeLevelPDFData :: Int -> IO ByteString
-getWaterLakeLevelPDFData pageNum = do
+getWaterLakeLevelPDFData :: IO ByteString
+getWaterLakeLevelPDFData = do
     y <- getKey "MH_WATER_DATA"
     x <- getKey "MH_WATER_DATA_PAGE"
     let pagelink = getKeyEither y
-    let pagenum2 = read $ getKeyEither x :: Int 
-    --x <- getPagesofPDFfromTo wlURL pageNum (pageNum + 1)
-    z <- getPagesofPDFfromTo pagelink pagenum2 (pagenum2 + 1)
+    let pagenum = read $ getKeyEither x :: Int 
+    z <- getPagesofPDFfromTo pagelink pagenum (pagenum + 1)
     pure $ TSE.encodeUtf8 z
 
-getWaterLakeLevelBS :: Int -> IO ByteString
-getWaterLakeLevelBS pageN = do
-    x <- getWaterLakeLevelPDFData pageN
+getWaterLakeLevelBS :: IO ByteString
+getWaterLakeLevelBS = do
+    x <- getWaterLakeLevelPDFData 
     let repwithBS = "" :: ByteString
     let toBeExcisedBS1 = "\nREVENUE REVENUE REGION REGION\nSR. SR.\nNO. NO.\nNO. OF NO. OF\nDAMS DAMS\nDESIGNED STORAGE DESIGNED STORAGE (Mcum) (Mcum)\nTODAY'S LIVE TODAY'S LIVE\nSTORAGE STORAGE (Mcum) (Mcum)\nPERCENTAGE OF PERCENTAGE OF\nLIVE STORAGE LIVE STORAGE\nW.R.T. W.R.T. DESIGNED DESIGNED\nLIVE STORAGE LIVE STORAGE\nDEAD DEAD LIVE LIVE GROSS GROSS LIVE LIVE GROSS GROSS\nFOR FOR\nTODAY TODAY\nSAME SAME\nDATE DATE\nOF LAST OF LAST\nYEAR YEAR\n1 1 2 2 3 3 4 4 5 5 6 6 7 7 8 8 9 9 10 10" :: ByteString
     let toBeExcisedBS2 = "\nREVENUE REVENUE REGION REGION\nSR. SR.\nNO. NO.\nNO. OF NO. OF\nDAMS DAMS\nDESIGNED STORAGE DESIGNED STORAGE (Mcum) (Mcum)\nTODAY'S LIVE TODAY'S LIVE\nSTORAGE STORAGE (Mcum) (Mcum)\nPERCENTAGE OF PERCENTAGE OF\nLIVE STORAGE LIVE STORAGE\nW.R.T. W.R.T. DESIGNED DESIGNED\nLIVE STORAGE LIVE STORAGE\nDEAD DEAD LIVE LIVE GROSS GROSS LIVE LIVE GROSS GROSS\nFOR FOR\nTODAY TODAY\nSAME SAME\nDATE OF DATE OF\nLAST LAST\nYEAR YEAR\n1 1 2 2 3 3 4 4 5 5 6 6 7 7 8 8 9 9 10 10" :: ByteString
@@ -79,22 +61,19 @@ getWaterLakeLevelParsed :: ByteString -> Either String Page8Page9
 getWaterLakeLevelParsed = parseOnly page8PageParser
 
 -- | for now only pages 8-9 is being extracted 
--- | this changed to page 12-13 - need to make the software intelligent enough to track those changes ! 
--- | externalize this to AWS environment ?
--- | moved to 10 ! Back to 11 back o 9-10
 getWLL :: IO (Either String Page8Page9)
 getWLL = do
-    x <- getWaterLakeLevelBS 9
+    x <- getWaterLakeLevelBS
     logMessage $ "AftergetWaterLakeLevelBS " ++ BSU.toString x
     pure $ getWaterLakeLevelParsed x
 
 getSpecificProjectSizeDataCategoryProjects :: String -> Page8Page9 -> Maybe CategoryProjects
 getSpecificProjectSizeDataCategoryProjects s p8p9
-    | s == "Major" = Just (majorMaharashtraStateProjects p8p9)
+    | s == "Major"  = Just (majorMaharashtraStateProjects p8p9)
     | s == "Medium" = Just (mediumMaharashtraStateProjects p8p9)
-    | s == "Minor" = Just (minorMaharashtraStateProjects p8p9)
-    | s == "All" = Just (allDamsMaharashtraStateProjects p8p9)
-    | otherwise = Nothing
+    | s == "Minor"  = Just (minorMaharashtraStateProjects p8p9)
+    | s == "All"    = Just (allDamsMaharashtraStateProjects p8p9)
+    | otherwise     = Nothing
 
 getSpecificProjectSizeDataCategoryProjectsLineData :: Maybe CategoryProjects -> Maybe [RegionEntry]
 getSpecificProjectSizeDataCategoryProjectsLineData Nothing = Nothing
@@ -119,9 +98,12 @@ toTuple = map (\ x -> (revenueRegion x, waterData x))
 
 extractDivisionData :: DB.ByteString -> Maybe [RegionEntry] -> IO (Maybe RegionWaterData)
 extractDivisionData _ Nothing = return Nothing
-extractDivisionData division (Just xs) = do
+{- extractDivisionData division (Just xs) = do
     let w = xs
     return $ lookup division (toTuple w)
+ -}
+extractDivisionData division (Just xs) = return $ lookup division (toTuple xs)
+
 
 getPercentLiveToday :: RegionWaterData -> PercentLiveStorage
 getPercentLiveToday rwd = PercentLiveStorage { percent_Today = percent_LiveStorage_WRT_liveDesignedStorage rwd,

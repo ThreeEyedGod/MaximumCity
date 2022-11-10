@@ -66,7 +66,7 @@ stanEitherFoldr :: Either Int Int -> Int
 stanEitherFoldr = Prelude.foldr (+) 0
 
 getKeyEither :: Either EnvError String -> String
-getKeyEither (Left _) = "getKey Error"
+getKeyEither (Left _) = "getKey Error "
 getKeyEither (Right str) = str
 
 badEnv :: String -> String -> IOException -> IO (Either EnvError KeyString)
