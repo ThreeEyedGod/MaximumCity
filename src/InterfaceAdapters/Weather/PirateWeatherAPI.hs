@@ -60,10 +60,14 @@ currentweatherAlerts :: Either String DarkSky -> Text
 currentweatherAlerts dS  = (fromMaybe "Missing DarkSky " $ weatherCurrent dS) <> (fromMaybe "No Alerts issued " $ weatherAlerts dS)
  -}
 currentweatherForecast :: Either String DarkSky -> Text
-currentweatherForecast dS  = fromMaybe "Missing DarkSky " (weatherCurrent dS) <> fromMaybe "No Forecast available " (weatherForecast dS)
+-- currentweatherForecast dS  = fromMaybe "Missing DarkSky " (weatherCurrent dS) <> fromMaybe "No Forecast available " (weatherForecast dS)
+currentweatherForecast (Left _)     = "Missing DarkSky"
+currentweatherForecast dS@(Right d) = fromMaybe "Missing DarkSky " (weatherCurrent dS) <> fromMaybe "No Forecast available " (weatherForecastN (dly_data (daily d)))
 
 currentweatherForecastMini :: Either String DarkSky -> Text
-currentweatherForecastMini dS  = fromMaybe "Missing DarkSky " (weatherCurrentMini dS) <> fromMaybe "No Forecast available " (weatherForecastMini dS)
+--currentweatherForecastMini dS  = fromMaybe "Missing DarkSky " (weatherCurrentMini dS) <> fromMaybe "No Forecast available " (weatherForecastMini dS)
+currentweatherForecastMini (Left _)      = "Missing DarkSky"
+currentweatherForecastMini dS@(Right d)  = fromMaybe "Missing DarkSky " (weatherCurrentMini dS) <> fromMaybe "No Forecast available " (weatherForecastMiniN (dly_data (daily d)))
 
 
 {- currentAlertsForecast :: Either String DarkSky -> Text
@@ -97,11 +101,6 @@ _extractWeatherN dS  = fromMaybe "Missing DarkSky " (weatherCurrent dS) <> fromM
 
 -- | Process an error string or Darksky to extract either weather, alerts or forecast 
 weatherCurrent:: Either String DarkSky -> Maybe Text
-{- weatherCurrent dS
-  | isLeft dS =  Nothing -- _returnStdFail "weatherCurrent" "Missing DarkSky"
-  | isRight dS = Just $ Data.ByteString.Char8.pack $ parseNowWeather (currently d)
-  where Right d = dS -}
-
 weatherCurrent (Right d) = Just $ Data.ByteString.Char8.pack $ parseNowWeather (currently d)
 weatherCurrent (Left _) = Nothing
 
@@ -112,14 +111,13 @@ weatherForecast dS
   where
     Right d  = dS
 
+weatherForecastN :: [DarkSkyDataPointDailyDetails]  -> Maybe Text
+weatherForecastN [] = Nothing 
+weatherForecastN d  = Just $ Data.ByteString.Char8.pack $ getAllDaysForecast d
+
 weatherCurrentMini :: Either String DarkSky -> Maybe Text
-{- weatherCurrentMini dS
-  | isLeft dS =  Nothing -- | _returnStdFail "weatherCurrent" "Missing DarkSky"
-  | isRight dS = Just $ Data.ByteString.Char8.pack $ parseNowWeatherMini (currently d)
-  where Right d = dS
- -}
 weatherCurrentMini (Right d) = Just $ Data.ByteString.Char8.pack $ parseNowWeatherMini (currently d)
-weatherCurrentMini (Left _) = Nothing
+weatherCurrentMini (Left _)  = Nothing
 
 weatherForecastMini :: Either String DarkSky -> Maybe Text
 weatherForecastMini dS
@@ -127,6 +125,10 @@ weatherForecastMini dS
   | otherwise = Nothing
   where
     Right d  = dS
+
+weatherForecastMiniN :: [DarkSkyDataPointDailyDetails] -> Maybe Text
+weatherForecastMiniN [] = Nothing 
+weatherForecastMiniN d  = Just $ Data.ByteString.Char8.pack $ getAllDaysForecastMini d 
 
 
 {- weatherAlerts :: Either String DarkSky -> Maybe Text
