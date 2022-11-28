@@ -83,7 +83,7 @@ onlyWeatherCurrent town  = townDarkSky town Data.Functor.<&> currentWeather
 weatherCurrentAlerts town  = townDarkSky town >>= (\x -> pure $ currentweatherAlerts x)
  -}
 weatherCurrentForecast :: String -> IO Text
-weatherCurrentForecast town  = townDarkSky town Data.Functor.<&> currentweatherForecastMini
+weatherCurrentForecast town  = townDarkSky town Data.Functor.<&> currentweatherForecast
 
 weatherCurrentForecastMini :: String -> IO Text
 weatherCurrentForecastMini town  = townDarkSky town Data.Functor.<&> currentweatherForecastMini
