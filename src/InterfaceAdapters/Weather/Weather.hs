@@ -10,23 +10,34 @@ module InterfaceAdapters.Weather.Weather
   , PreprocessedHeaders
   , getAgInfo
 ) where
-import Control.Monad.IO.Class
+import Control.Monad.IO.Class ()
 import qualified Data.ByteString.Lazy.Char8 as LB
 import qualified Data.Text as Data.ByteString.Char8
 import qualified Data.Text as T
 import GHC.Integer.Logarithms ()
-import Data.Text.Encoding as TSE
-import Data.Text.Lazy.Encoding as TLE
-import Data.ByteString.UTF8 as BSU
-import Data.Maybe
+import Data.Text.Encoding as TSE ()
+import Data.Text.Lazy.Encoding as TLE ()
+import Data.ByteString.UTF8 as BSU ( toString )
+import Data.Maybe ()
 
 import InterfaceAdapters.Weather.OpenWeatherAPI
+    ( getWeatherForTown )
 import InterfaceAdapters.Weather.PirateWeatherAPI
-import InterfaceAdapters.IP.IP2Location
+    ( weatherCurrentForecastMini,
+      _getWeatherForTown,
+      weatherCurrentForecast )
+import InterfaceAdapters.IP.IP2Location ()
 import InterfaceAdapters.Water.MH.Core.WaterLevelLakes
+    ( getWaterLakeLevelForPlace_LiveToday_wrtStorage )
 import InterfaceAdapters.Water.MH.Core.WaterLevelHeaders
+    ( PercentLiveStorage(percent_Today), Region )
 import InterfaceAdapters.Utils.HttpHeadersPathDefinitions
+    ( extractXForwardedForHeader )
 import InterfaceAdapters.Preferences
+    ( Timespan(RightNow, NearForecast),
+      Datasize(Mini, Detailed),
+      Agdata(WaterLevels, WeatherWaterLevels, Weather),
+      Preferences(Preferences, userdata, usersize, usertimespan) )
 import UseCases.WWI (UserAsk (..), PlaceName, TheWeatherThere )
 
 type PreprocessedHeaders = LB.ByteString
