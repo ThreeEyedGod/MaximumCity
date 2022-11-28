@@ -2,7 +2,8 @@
 
 
 module InterfaceAdapters.Parameters.KVSAWSSSMParmStore
-  ( runKvsAsAWSSSMParmStore
+  ( 
+    runKvsAsAWSSSMParmStore
   )
 where
 

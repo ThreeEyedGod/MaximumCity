@@ -48,7 +48,7 @@ getDarkSkyjson (ll , kee)
   | isLeft kee = return $ Left $ unpack $ _returnStdFail "getDarkSkyjson" "Missing Pirate Key"
   | otherwise  =  do
         let t = pack (unpack ll ++ "?exclude=minutely,hourly,alerts")
-        x <- (eitherDecode <$> getJSON (theURL (fromRight defaultKey kee)) t) :: IO (Either String DarkSky) -- | Http Call to PIrate Net !
+        x <- (eitherDecode <$> getJSON (theURL (fromRight defaultKey kee)) t) :: IO (Either String DarkSky) -- Http Call to PIrate Net !
         case x of
           Left e -> return $ Left $ unpack $ _returnStdFail "getDarkSkyjson" "Missing DarkSky json"
           Right stuff -> return $ Right stuff
@@ -97,10 +97,13 @@ _extractWeatherN dS  = fromMaybe "Missing DarkSky " (weatherCurrent dS) <> fromM
 
 -- | Process an error string or Darksky to extract either weather, alerts or forecast 
 weatherCurrent:: Either String DarkSky -> Maybe Text
-weatherCurrent dS
-  | isLeft dS =  Nothing -- | _returnStdFail "weatherCurrent" "Missing DarkSky"
+{- weatherCurrent dS
+  | isLeft dS =  Nothing -- _returnStdFail "weatherCurrent" "Missing DarkSky"
   | isRight dS = Just $ Data.ByteString.Char8.pack $ parseNowWeather (currently d)
-  where Right d = dS
+  where Right d = dS -}
+
+weatherCurrent (Right d) = Just $ Data.ByteString.Char8.pack $ parseNowWeather (currently d)
+weatherCurrent (Left _) = Nothing
 
 weatherForecast:: Either String DarkSky -> Maybe Text
 weatherForecast dS
@@ -110,10 +113,13 @@ weatherForecast dS
     Right d  = dS
 
 weatherCurrentMini :: Either String DarkSky -> Maybe Text
-weatherCurrentMini dS
+{- weatherCurrentMini dS
   | isLeft dS =  Nothing -- | _returnStdFail "weatherCurrent" "Missing DarkSky"
   | isRight dS = Just $ Data.ByteString.Char8.pack $ parseNowWeatherMini (currently d)
   where Right d = dS
+ -}
+weatherCurrentMini (Right d) = Just $ Data.ByteString.Char8.pack $ parseNowWeatherMini (currently d)
+weatherCurrentMini (Left _) = Nothing
 
 weatherForecastMini :: Either String DarkSky -> Maybe Text
 weatherForecastMini dS

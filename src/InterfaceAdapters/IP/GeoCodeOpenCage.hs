@@ -108,7 +108,8 @@ data OpenCageForwardGeoData = OpenCageForwardGeoData {
 } deriving (Show, Generic, FromJSON)
 
 data OpenCageLocdata = OpenCageLocdata
-  { lat :: Float
+  { 
+    lat :: Float
   , lng :: Float
   } deriving (Show, Generic, FromJSON)
 

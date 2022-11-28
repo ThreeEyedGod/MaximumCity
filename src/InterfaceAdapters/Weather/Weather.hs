@@ -51,7 +51,7 @@ _mkWeatherThere twn wt wl = pure $ Data.ByteString.Char8.pack  (Data.ByteString.
 
 _handlePirateResponse :: WeatherText -> PlaceName -> WaterLevel -> IO TheWeatherThere
 _handlePirateResponse weather1 town wll
-   | "Fail:" `T.isPrefixOf` weather1 = (InterfaceAdapters.Weather.OpenWeatherAPI.getWeatherForTown $ Data.ByteString.Char8.unpack $ town) >>= (\weather2 -> _mkWeatherThere town weather2 wll)
+   | "Fail:" `T.isPrefixOf` weather1 = InterfaceAdapters.Weather.OpenWeatherAPI.getWeatherForTown (Data.ByteString.Char8.unpack town) >>= (\weather2 -> _mkWeatherThere town weather2 wll)
    | otherwise =  _mkWeatherThere town weather1 wll
 
 _getTownNameWeatherFromTown :: PlaceName -> IO TheWeatherThere
@@ -61,7 +61,7 @@ _getTownNameWeatherFromTown town =  (getWaterLakeLevelForPlace_LiveToday_wrtStor
 
 getWeather :: Maybe PreprocessedHeaders -> Maybe PlaceName -> IO TheWeatherThere
 getWeather (Just p) Nothing = extractXForwardedForHeader p >>= _getTownNameWeatherFromIp
-getWeather _ (Just pl) = _getTownNameWeatherFromTown pl
+getWeather _ (Just pl)      = _getTownNameWeatherFromTown pl
 getWeather Nothing Nothing  = pure ("Hmmm... Something Deeply Wrong" :: TheWeatherThere)
 
 getAgInfo ::  UserAsk -> IO TheWeatherThere
@@ -70,7 +70,8 @@ getAgInfo UserAsk {placeName = "/start", prefs = _ } = return $ Data.ByteString.
 getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = WeatherWaterLevels, usersize = Detailed, usertimespan = NearForecast}} = _getTownNameWeatherFromTown pl
 getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = WeatherWaterLevels, usersize = Mini, usertimespan = RightNow}} = _getTownNameWeatherFromTown pl
 getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = WaterLevels, usersize = Mini, usertimespan = RightNow}} = (getWaterLakeLevelForPlace_LiveToday_wrtStorage pl >>=  _helperLivePercent) >>= _mkWeatherThere pl ""
+getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = WaterLevels, usersize = Mini, usertimespan = NearForecast }} = (getWaterLakeLevelForPlace_LiveToday_wrtStorage pl >>= _helperLivePercent) >>= _mkWeatherThere pl ""
 getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = Weather, usersize = Mini, usertimespan = NearForecast}} = weatherCurrentForecastMini $ Data.ByteString.Char8.unpack pl
 getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = Weather, usersize = Mini, usertimespan = RightNow}} = weatherCurrentForecastMini $ Data.ByteString.Char8.unpack pl
-getAgInfo _ = return $ Data.ByteString.Char8.pack "Malformed UserAsk "
+getAgInfo _ = return $ Data.ByteString.Char8.pack "Are your preferences set right? Use /prefs <Weather or WaterLevels or WeatherWaterLevels or Monsoon or All> <Mini or Standard or Detailed> <RightNow or Alerts or NearForecast or LongRange> For ex: /prefs weather mini rightnow " 
 -- getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = Weather, usersize = Mini, usertimespan = Alerts}} = weatherCurrentAlerts $ Data.ByteString.Char8.unpack pl 

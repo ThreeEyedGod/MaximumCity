@@ -67,7 +67,7 @@ type TelegramMessage = Update
 
 
 runTC :: Maybe TC -> TelegramClient () -> IO ()
-runTC Nothing _ = pure () -- really nothing can be done vis-a-vis telegram in this case !
+runTC Nothing _                   = pure () -- really nothing can be done vis-a-vis telegram in this case !
 runTC (Just (token, manager)) act = void $ runTelegramClient token manager act
 
 getTelegramSettings :: IO (Either String TC)
