@@ -6,9 +6,18 @@
 {-# LANGUAGE UndecidableInstances #-}
 
 module InterfaceAdapters.AgricultureRestService where
-import           Polysemy
-import           Polysemy.Error
-import           Servant
+import Polysemy ( Sem, Member, Embed )
+import Polysemy.Error ()
+import Servant
+    ( Proxy(..),
+      type (:>),
+      Post,
+      JSON,
+      type (:<|>)(..),
+      ReqBody,
+      PlainText,
+      Summary,
+      HasServer(ServerT) )
 import           qualified UseCases.AgricultureUseCase as UC (getInfo)
 import           UseCases.WWI
 import           InterfaceAdapters.Telegram.Telegram

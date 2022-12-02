@@ -4,6 +4,10 @@
 
 module InterfaceAdapters.Weather.PirateWeatherHeaders where
 import Data.Aeson as Q
+    ( genericParseJSON,
+      defaultOptions,
+      FromJSON(parseJSON),
+      Options(fieldLabelModifier) )
 import GHC.Generics
 import Prelude
 

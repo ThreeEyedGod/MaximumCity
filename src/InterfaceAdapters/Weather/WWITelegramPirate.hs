@@ -11,17 +11,17 @@ module InterfaceAdapters.Weather.WWITelegramPirate
   )
 where
 
-import Polysemy
-import Polysemy.Error
+import Polysemy ( Sem, Member, Embed, embed, interpret )
+import Polysemy.Error ()
 
 import qualified Control.Exception as CE
-import Control.Monad.IO.Class
+import Control.Monad.IO.Class ()
 import qualified Data.ByteString.Lazy.Char8 as LB
 import qualified Data.Text as T
 import GHC.Integer.Logarithms ()
-import Data.Text.Encoding as TSE
-import Data.Text.Lazy.Encoding as TLE
-import Data.ByteString.UTF8 as BSU
+import Data.Text.Encoding as TSE ()
+import Data.Text.Lazy.Encoding as TLE ()
+import Data.ByteString.UTF8 as BSU ()
 import qualified Data.Aeson as TLO (decode, encode)
 import qualified Data.Text.Encoding as T
 
@@ -37,13 +37,14 @@ import Data.Aeson
       Value (Object)
        )
 
-import InterfaceAdapters.Utils.HttpHeadersPathDefinitions as H
-import InterfaceAdapters.Weather.PirateWeatherAPI
-import UseCases.WWI
-import UseCases.AgricultureUseCase
+import InterfaceAdapters.Utils.HttpHeadersPathDefinitions as H ()
+import InterfaceAdapters.Weather.PirateWeatherAPI ()
+import UseCases.WWI ( TheWeatherThere, UserAsk, UserMsg, WWI(..) )
+import UseCases.AgricultureUseCase ()
 import InterfaceAdapters.Telegram.Telegram
+    ( _callTelegramClient, getTelegramSettings )
 import qualified InterfaceAdapters.Weather.Weather as IWW
-import InterfaceAdapters.Preferences
+import InterfaceAdapters.Preferences ()
 
 runWWITelegramPirate :: (Member (Embed IO) r) => Sem (WWI ': r) a -> Sem r a
 runWWITelegramPirate = interpret $ \case

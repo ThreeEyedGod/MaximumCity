@@ -12,11 +12,11 @@ module UseCases.WWI
  )
 where
 
-import Polysemy
+import Polysemy ( makeSem )
 import Data.Function             ((&))
 import qualified Data.Text as T
-import InterfaceAdapters.Preferences
-import InterfaceAdapters.Telegram.Telegram
+import InterfaceAdapters.Preferences ( Preferences )
+import InterfaceAdapters.Telegram.Telegram ( TelegramMessage )
 
 type PlaceName = T.Text
 type TheWeatherThere = T.Text

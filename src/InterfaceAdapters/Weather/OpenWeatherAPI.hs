@@ -3,16 +3,23 @@
 
 module InterfaceAdapters.Weather.OpenWeatherAPI where
 import Data.Aeson as Q
-import Data.Text
-import Control.Applicative
-import Control.Monad
+    ( eitherDecode,
+      (.:),
+      withObject,
+      object,
+      FromJSON(parseJSON),
+      KeyValue((.=)),
+      ToJSON(toJSON) )
+import Data.Text ( Text, pack )
+import Control.Applicative ( Applicative((<*>)), (<$>) )
+import Control.Monad ( Monad(return) )
 import qualified Data.ByteString.Lazy as B
 import Network.HTTP.Conduit (simpleHttp)
-import Control.Exception as X
-import GHC.Generics
+import Control.Exception as X ( catch )
+import GHC.Generics ( Generic )
 import Prelude
 import qualified Data.Text as Data.ByteString.Char8
-import InterfaceAdapters.Utils.JSONHelper
+import InterfaceAdapters.Utils.JSONHelper ( exceptionHandler )
 
 data DataPoint = DataPoint { description :: String
                            } deriving (Show, Generic)

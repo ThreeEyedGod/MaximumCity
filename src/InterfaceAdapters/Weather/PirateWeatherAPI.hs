@@ -1,5 +1,6 @@
 {-# LANGUAGE DuplicateRecordFields #-}
 
+
 module InterfaceAdapters.Weather.PirateWeatherAPI where
 import Data.Aeson (eitherDecode)
 import Data.Text ( unpack, pack, isPrefixOf, Text )
@@ -34,11 +35,14 @@ import InterfaceAdapters.Weather.PirateWeatherHeaders
                                    dd_precipIntensityMax, dd_temperatureHigh, dd_temperatureLow) )
 import InterfaceAdapters.Preferences ()
 import InterfaceAdapters.IP.GeoLatLong (getLatLongforThis)
+
+
 type LatLong = Text
 type Key = String
 defaultKey :: Key
 defaultKey = "NoKey" :: Key
 
+-- Settings and Keys, Lat Long
 getPirateWeatherSettings :: IO (Either String String)
 getPirateWeatherSettings = do
   tk <- getKey "PIRATE_WEATHER_TOKEN"
@@ -55,6 +59,7 @@ theURL q = jsonPirateWeatherURL ++ q ++ "/"
 getLatLongPirateKey:: String -> IO (LatLong , Either String Key)
 getLatLongPirateKey town = getLatLongforThis town >>= (\a ->  getPirateWeatherSettings >>=  (\b -> pure ( a:: LatLong , b)))
 
+-- Hitting Pirate and getting data
 townDarkSky :: String -> IO (Either String DarkSky)
 townDarkSky town = getLatLongPirateKey town >>= getDarkSkyjson
 
@@ -71,15 +76,16 @@ getDarkSkyjson (ll , kee)
 
 -- Entry functions
 _getWeatherForTown :: String -> IO Text
-_getWeatherForTown town = getLatLongPirateKey town >>= getDarkSkyjson >>= (pure . _extractWeatherN)
+-- _getWeatherForTown town = getLatLongPirateKey town >>= getDarkSkyjson >>= (pure . _extractWeatherN)
+_getWeatherForTown town = townDarkSky town >>= (pure . _extractWeatherN)
 
 weatherCurrentForecast :: String -> IO Text
 weatherCurrentForecast town = townDarkSky town Data.Functor.<&> currentweatherForecast
 
 weatherCurrentForecastMini :: String -> IO Text
 weatherCurrentForecastMini town = townDarkSky town Data.Functor.<&> currentweatherForecastMini
--- Finish Entry Functions
 
+-- Switching Sub-Functions
 currentweatherForecast :: Either String DarkSky -> Text
 currentweatherForecast (Left _)     = "Missing DarkSky"
 currentweatherForecast dS@(Right d) = fromMaybe "Missing DarkSky " (weatherCurrent dS) <> fromMaybe "No Forecast available " (weatherForecastN (dly_data (daily d)))
@@ -95,9 +101,10 @@ onlyWeatherCurrent :: String -> IO Text
 onlyWeatherCurrent town  = townDarkSky town Data.Functor.<&> currentWeather
 
 _extractWeatherN :: Either String DarkSky -> Text
-_extractWeatherN (Left _) = "Missing DarkSky"
+_extractWeatherN = currentweatherForecast
+{- _extractWeatherN (Left _) = "Missing DarkSky"
 _extractWeatherN dS@(Right d) = fromMaybe "Missing DarkSky " (weatherCurrent dS) <> fromMaybe "Missing Forecast " (weatherForecastN (dly_data (daily d)))
-
+ -}
 -- Process an error string or Darksky to extract either weather, alerts or forecast 
 weatherCurrent:: Either String DarkSky -> Maybe Text
 weatherCurrent (Right d) = Just $ Data.ByteString.Char8.pack $ parseNowWeather (currently d)
@@ -140,7 +147,7 @@ parseNowWeather dsdp = Prelude.unlines [ --unlines sticks in newline after each 
 getAllDaysForecast :: [DarkSkyDataPointDailyDetails] -> String
 getAllDaysForecast [] = []
 getAllDaysForecast (x : xs) =
-          Prelude.unlines [   catSI "Forecasts available for days: " (Prelude.length xs + 1),
+          Prelude.unlines [   catSI "Forecast for day : " (Prelude.length xs + 1),
                               catSS "Day Summary : " $ dd_summary x,
                               catSF "Max Rain mm " $ dd_precipIntensityMax x,
                               catSF "Max Temp Celsius " $ fahrenheitToCelsius (dd_temperatureHigh x),

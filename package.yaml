@@ -67,6 +67,7 @@ dependencies:
 - sort >= 1.0.0.0
 - stringsearch >= 0.3.6.6
 
+
 library:
   source-dirs: src
   ghc-options: -O2 -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin

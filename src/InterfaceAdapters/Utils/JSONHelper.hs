@@ -2,14 +2,14 @@
 {-# LANGUAGE DuplicateRecordFields #-}
 
 module InterfaceAdapters.Utils.JSONHelper where
-import Data.Aeson as Q
-import Data.Text
-import Control.Applicative
-import Control.Monad
+import Data.Aeson as Q ()
+import Data.Text ( Text )
+import Control.Applicative ()
+import Control.Monad ( Monad((>>), return) )
 import qualified Data.ByteString.Lazy as B
 import Network.HTTP.Conduit (simpleHttp)
-import Control.Exception as X
-import GHC.Generics
+import Control.Exception as X ( SomeException, catch )
+import GHC.Generics ()
 import Prelude
 import qualified Data.Text as Data.ByteString.Char8
 
