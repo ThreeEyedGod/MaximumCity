@@ -33,7 +33,12 @@ import InterfaceAdapters.Weather.PirateWeatherHeaders
       DarkSkyDataPointDaily(dly_data),
       DarkSkyDataPointDailyDetails(dd_uvIndex, dd_summary,
                                    dd_precipIntensityMax, dd_temperatureHigh, dd_temperatureLow) )
-import InterfaceAdapters.Preferences ()
+import InterfaceAdapters.Preferences
+  ( Agdata (WaterLevels, Weather, WeatherWaterLevels),
+    Datasize (Detailed, Mini),
+    Preferences (Preferences, userdata, usersize, usertimespan),
+    Timespan (NearForecast, RightNow),
+  )
 import InterfaceAdapters.IP.GeoLatLong (getLatLongforThis)
 
 
@@ -77,10 +82,12 @@ getDarkSkyjson (ll , kee)
 -- Entry functions
 _getWeatherForTown :: String -> IO Text
 -- _getWeatherForTown town = getLatLongPirateKey town >>= getDarkSkyjson >>= (pure . _extractWeatherN)
-_getWeatherForTown town = townDarkSky town >>= (pure . _extractWeatherN)
+_getWeatherForTown town = townDarkSky town >>= (pure . currentweatherForecast)
 
-weatherCurrentForecast :: String -> IO Text
-weatherCurrentForecast town = townDarkSky town Data.Functor.<&> currentweatherForecast
+weatherCurrentForecast :: Preferences -> String -> IO Text
+weatherCurrentForecast Preferences {userdata = _, usersize = Mini, usertimespan = RightNow} town = townDarkSky town Data.Functor.<&> currentweatherForecast
+weatherCurrentForecast Preferences {userdata = _, usersize = Mini, usertimespan = NearForecast} town = townDarkSky town Data.Functor.<&> currentweatherForecastMini
+weatherCurrentForecast Preferences {userdata = _, usersize = _, usertimespan = _} town = townDarkSky town Data.Functor.<&> currentweatherForecast
 
 weatherCurrentForecastMini :: String -> IO Text
 weatherCurrentForecastMini town = townDarkSky town Data.Functor.<&> currentweatherForecastMini
