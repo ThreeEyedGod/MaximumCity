@@ -8,20 +8,19 @@ module InterfaceAdapters.Weather.WWIWebPirate
   )
 where
 
-import Polysemy
-import Polysemy.Error
-import Control.Monad.IO.Class
+import Polysemy ( Sem, Member, Embed, embed, interpret )
+import Polysemy.Error ()
+import Control.Monad.IO.Class ()
 import qualified Data.ByteString.Lazy.Char8 as LB
 import qualified Data.Text as Data.ByteString.Char8
 import qualified Data.Text as T
 import GHC.Integer.Logarithms ()
-import Data.Text.Encoding as TSE
-import Data.Text.Lazy.Encoding as TLE
-import Data.ByteString.UTF8 as BSU
+import Data.Text.Encoding as TSE ()
+import Data.Text.Lazy.Encoding as TLE ()
+import Data.ByteString.UTF8 as BSU ()
 import qualified Data.Aeson as TLO (decode)
 import qualified Data.Text.Encoding as T
-
-import Data.Maybe
+import Data.Maybe ()
 import Data.Aeson
     ( decode,
       FromJSON,
@@ -33,12 +32,13 @@ import Data.Aeson
       Value (Object)
        )
 
-import InterfaceAdapters.Utils.HttpHeadersPathDefinitions as H
-import InterfaceAdapters.Weather.PirateWeatherAPI
+import InterfaceAdapters.Utils.HttpHeadersPathDefinitions as H ()
+import InterfaceAdapters.Weather.PirateWeatherAPI ()
 import UseCases.WWI
-import UseCases.AgricultureUseCase
+    ( TheWeatherThere, UserAsk(..), WWI(GetWeatherTown) )
+import UseCases.AgricultureUseCase ()
 import qualified InterfaceAdapters.Weather.Weather as IWW
-import InterfaceAdapters.Preferences
+import InterfaceAdapters.Preferences ()
 
 runWWIWebPirate :: (Member (Embed IO) r) => Sem (WWI : r) a -> Sem r a
 runWWIWebPirate = interpret (\(GetWeatherTown req) -> embed (interfaceWebPirate req))
