@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<title>app/Main.hs</title>
+</head>
+<head>
+<link type='text/css' rel='stylesheet' href='liquid.css' />
+</head>
+
+<body>
+<hr>
+Put mouse over identifiers to see inferred types
+<pre><span class=hs-linenum> 1: </span><a class=annot href="#"><span class=annottext>GHC.Types.Module</span><span class='hs-comment'>{-# LANGUAGE ScopedTypeVariables #-}</span></a>
+<span class=hs-linenum> 2: </span><span class='hs-comment'>{-# LANGUAGE DuplicateRecordFields #-}</span>
+<span class=hs-linenum> 3: </span><span class='hs-comment'>{-# LANGUAGE NamedFieldPuns #-}</span>
+<span class=hs-linenum> 4: </span><span class='hs-comment'>-- the following two directives are absolutely needed for runLambda </span>
+<span class=hs-linenum> 5: </span><span class='hs-comment'>-- to compile and work </span>
+<span class=hs-linenum> 6: </span><span class='hs-comment'>{-# LANGUAGE DataKinds #-}</span>
+<span class=hs-linenum> 7: </span><span class='hs-comment'>{-# LANGUAGE KindSignatures #-}</span>
+<span class=hs-linenum> 8: </span>
+<span class=hs-linenum> 9: </span><span class='hs-keyword'>module</span> <span class='hs-conid'>Main</span> <span class='hs-keyword'>where</span>
+<span class=hs-linenum>10: </span>
+<span class=hs-linenum>11: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Control.Exception</span>
+<span class=hs-linenum>12: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Prelude</span>
+<span class=hs-linenum>13: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>AWSLambda.Events.APIGateway</span>
+<span class=hs-linenum>14: </span>
+<span class=hs-linenum>15: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>ExternalInterfaces.ApplicationAssembly</span> <span class='hs-layout'>(</span><span class='hs-varid'>createApp</span><span class='hs-layout'>,</span> <span class='hs-varid'>servApp</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>16: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>ExternalInterfaces.ServantShim</span> <span class='hs-layout'>(</span><span class='hs-varid'>makeHandler</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>17: </span>
+<span class=hs-linenum>18: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>InterfaceAdapters.Config</span>
+<span class=hs-linenum>19: </span>
+<span class=hs-linenum>20: </span><span class='hs-definition'>main</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>IO</span> <span class='hs-conid'>()</span>
+<span class=hs-linenum>21: </span><a class=annot href="#"><span class=annottext>(GHC.Types.IO ())</span><span class='hs-definition'>main</span></a> <span class='hs-keyglyph'>=</span> <a class=annot href="#"><span class=annottext>(GHC.Types.IO ()) -&gt; (GHC.Types.IO ())</span><span class='hs-varid'>handle</span></a> <a class=annot href="#"><span class=annottext>GHC.Exception.Type.SomeException -&gt; (GHC.Types.IO ())</span><span class='hs-varid'>catchAllHandler</span></a> <span class='hs-varop'>$</span> <a class=annot href="#"><span class=annottext>{v : (GHC.Types.IO ()) | v == redirectmain}</span><span class='hs-varid'>redirectmain</span></a>
+<span class=hs-linenum>22: </span>
+<span class=hs-linenum>23: </span><a class=annot href="#"><span class=annottext>GHC.Exception.Type.SomeException -&gt; (GHC.Types.IO ())</span><span class='hs-definition'>catchAllHandler</span></a> <span class='hs-layout'>(</span><span class='hs-conid'>SomeException</span> <span class='hs-varid'>e</span><span class='hs-layout'>)</span> <span class='hs-keyglyph'>=</span>
+<span class=hs-linenum>24: </span>  <a class=annot href="#"><span class=annottext>[GHC.Types.Char] -&gt; (GHC.Types.IO ())</span><span class='hs-varid'>putStrLn</span></a> <span class='hs-varop'>$</span> <a class=annot href="#"><span class=annottext>[GHC.Types.Char]</span><span class='hs-str'>"[caught] "</span></a> <span class='hs-varop'>&lt;&gt;</span> <a class=annot href="#"><span class=annottext>[GHC.Types.Char]</span><span class='hs-varid'>show</span></a> <a class=annot href="#"><span class=annottext>a</span><span class='hs-varid'>e</span></a>
+<span class=hs-linenum>25: </span>
+<span class=hs-linenum>26: </span><span class='hs-definition'>redirectmain</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>IO</span> <span class='hs-conid'>()</span>
+<span class=hs-linenum>27: </span><a class=annot href="#"><span class=annottext>(GHC.Types.IO ())</span><span class='hs-definition'>redirectmain</span></a> <span class='hs-keyglyph'>=</span> <a class=annot href="#"><span class=annottext>(GHC.Types.IO ()) -&gt; (GHC.Types.IO ())</span><span class='hs-varid'>handle</span></a> <a class=annot href="#"><span class=annottext>GHC.Exception.Type.SomeException -&gt; (GHC.Types.IO ())</span><span class='hs-varid'>catchAllHandler</span></a> <span class='hs-varop'>$</span> <span class='hs-keyword'>do</span>
+<span class=hs-linenum>28: </span>      <a class=annot href="#"><span class=annottext>Network.Wai.Internal.Request -&gt; (Network.Wai.Internal.Response -&gt; (GHC.Types.IO Network.Wai.Internal.ResponseReceived)) -&gt; (GHC.Types.IO Network.Wai.Internal.ResponseReceived)</span><span class='hs-varid'>app</span></a> <span class='hs-keyglyph'>&lt;-</span> <a class=annot href="#"><span class=annottext>{v : (GHC.Types.IO Network.Wai.Internal.Request -&gt; (Network.Wai.Internal.Response -&gt; (GHC.Types.IO Network.Wai.Internal.ResponseReceived)) -&gt; (GHC.Types.IO Network.Wai.Internal.ResponseReceived)) | v == servApp}</span><span class='hs-varid'>servApp</span></a> <span class='hs-comment'>-- | in ApplicationAssembly </span>
+<span class=hs-linenum>29: </span>      <a class=annot href="#"><span class=annottext>((AWSLambda.Events.APIGateway.APIGatewayProxyRequest (Data.Aeson.Embedded.Embedded Data.Aeson.Types.Internal.Value)) -&gt; (GHC.Types.IO (AWSLambda.Events.APIGateway.APIGatewayProxyResponse (Data.Aeson.Embedded.Embedded Data.Aeson.Types.Internal.Value)))) -&gt; (GHC.Types.IO ())</span><span class='hs-varid'>apiGatewayMain</span></a> <span class='hs-varop'>$</span> <a class=annot href="#"><span class=annottext>(AWSLambda.Events.APIGateway.APIGatewayProxyRequest (Data.Aeson.Embedded.Embedded Data.Aeson.Types.Internal.Value)) -&gt; (GHC.Types.IO (AWSLambda.Events.APIGateway.APIGatewayProxyResponse (Data.Aeson.Embedded.Embedded Data.Aeson.Types.Internal.Value)))</span><span class='hs-varid'>makeHandler</span></a> <a class=annot href="#"><span class=annottext>Network.Wai.Internal.Request -&gt; (Network.Wai.Internal.Response -&gt; (GHC.Types.IO Network.Wai.Internal.ResponseReceived)) -&gt; (GHC.Types.IO Network.Wai.Internal.ResponseReceived)</span><span class='hs-varid'>app</span></a> <span class='hs-comment'>-- | makeHandler is in ServantShim</span>
+</pre>
+</body>
+</html>

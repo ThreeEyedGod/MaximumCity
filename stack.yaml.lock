@@ -5,212 +5,285 @@
 
 packages:
 - completed:
-    size: 27774022
-    subdir: lib/amazonka
-    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
     name: amazonka
-    version: '2.0'
-    sha256: ebf6af6f47642073347ec2d95308074b97a114fe8cada9d61adf54fac61eb8d3
     pantry-tree:
-      size: 1257
       sha256: e17ad8cda04779c4b6801d54e4cbf20a19bf57811e036aa8e8ecfebe76b25db9
+      size: 1257
+    sha256: ebf6af6f47642073347ec2d95308074b97a114fe8cada9d61adf54fac61eb8d3
+    size: 27774022
+    subdir: lib/amazonka
+    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
+    version: '2.0'
   original:
     subdir: lib/amazonka
     url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
 - completed:
-    size: 27774022
-    subdir: lib/amazonka-core
-    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
     name: amazonka-core
-    version: '2.0'
-    sha256: ebf6af6f47642073347ec2d95308074b97a114fe8cada9d61adf54fac61eb8d3
     pantry-tree:
-      size: 3117
       sha256: 2eadbad33f65f20781409c4de9faee04e7e4baa92906db696b78689f53de0a83
+      size: 3117
+    sha256: ebf6af6f47642073347ec2d95308074b97a114fe8cada9d61adf54fac61eb8d3
+    size: 27774022
+    subdir: lib/amazonka-core
+    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
+    version: '2.0'
   original:
     subdir: lib/amazonka-core
     url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
 - completed:
-    size: 27774022
-    subdir: lib/services/amazonka-sts
-    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
     name: amazonka-sts
-    version: '2.0'
-    sha256: ebf6af6f47642073347ec2d95308074b97a114fe8cada9d61adf54fac61eb8d3
     pantry-tree:
-      size: 2932
       sha256: 64ed22eaaea868b32cf56f162d1bd7332b048d8f2ea073c4e9827ed08e71cc70
+      size: 2932
+    sha256: ebf6af6f47642073347ec2d95308074b97a114fe8cada9d61adf54fac61eb8d3
+    size: 27774022
+    subdir: lib/services/amazonka-sts
+    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
+    version: '2.0'
   original:
     subdir: lib/services/amazonka-sts
     url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
 - completed:
-    size: 27774022
-    subdir: lib/services/amazonka-ssm
-    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
     name: amazonka-ssm
-    version: '2.0'
-    sha256: ebf6af6f47642073347ec2d95308074b97a114fe8cada9d61adf54fac61eb8d3
     pantry-tree:
-      size: 53634
       sha256: 110e5cf1189657baa2a374408eb35c937d45e279baa51d28f1f8ee25a5e76d07
+      size: 53634
+    sha256: ebf6af6f47642073347ec2d95308074b97a114fe8cada9d61adf54fac61eb8d3
+    size: 27774022
+    subdir: lib/services/amazonka-ssm
+    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
+    version: '2.0'
   original:
     subdir: lib/services/amazonka-ssm
     url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
 - completed:
-    size: 27774022
-    subdir: lib/services/amazonka-dynamodb
-    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
     name: amazonka-dynamodb
-    version: '2.0'
-    sha256: ebf6af6f47642073347ec2d95308074b97a114fe8cada9d61adf54fac61eb8d3
     pantry-tree:
-      size: 24222
       sha256: 35c575ca698414ba74f43ab3825c9bc386e30b4ee052acfe86d187ee92bfd16e
+      size: 24222
+    sha256: ebf6af6f47642073347ec2d95308074b97a114fe8cada9d61adf54fac61eb8d3
+    size: 27774022
+    subdir: lib/services/amazonka-dynamodb
+    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
+    version: '2.0'
   original:
     subdir: lib/services/amazonka-dynamodb
     url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
 - completed:
-    size: 27774022
-    subdir: lib/services/amazonka-kinesis
-    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
     name: amazonka-kinesis
-    version: '2.0'
-    sha256: ebf6af6f47642073347ec2d95308074b97a114fe8cada9d61adf54fac61eb8d3
     pantry-tree:
-      size: 9301
       sha256: 08200168cddec61ec2bc29ba60a4e216c6f5cddef33a510c5632b1c1a8511883
+      size: 9301
+    sha256: ebf6af6f47642073347ec2d95308074b97a114fe8cada9d61adf54fac61eb8d3
+    size: 27774022
+    subdir: lib/services/amazonka-kinesis
+    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
+    version: '2.0'
   original:
     subdir: lib/services/amazonka-kinesis
     url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
 - completed:
-    size: 27774022
-    subdir: lib/services/amazonka-s3
-    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
     name: amazonka-s3
-    version: '2.0'
-    sha256: ebf6af6f47642073347ec2d95308074b97a114fe8cada9d61adf54fac61eb8d3
     pantry-tree:
-      size: 37929
       sha256: 57bc3c2aa426230e1f339fee5710eb43ace36d05c91113bd035b4de5aac26329
+      size: 37929
+    sha256: ebf6af6f47642073347ec2d95308074b97a114fe8cada9d61adf54fac61eb8d3
+    size: 27774022
+    subdir: lib/services/amazonka-s3
+    url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
+    version: '2.0'
   original:
     subdir: lib/services/amazonka-s3
     url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
 - completed:
+    name: amazonka-sso
+    pantry-tree:
+      sha256: f11babeeaf0481ae68134ced86e9d1d9396d1beb7bd70e0a1e6b77bc4148a192
+      size: 1869
+    sha256: ebf6af6f47642073347ec2d95308074b97a114fe8cada9d61adf54fac61eb8d3
     size: 27774022
     subdir: lib/services/amazonka-sso
     url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
-    name: amazonka-sso
     version: '2.0'
-    sha256: ebf6af6f47642073347ec2d95308074b97a114fe8cada9d61adf54fac61eb8d3
-    pantry-tree:
-      size: 1869
-      sha256: f11babeeaf0481ae68134ced86e9d1d9396d1beb7bd70e0a1e6b77bc4148a192
   original:
     subdir: lib/services/amazonka-sso
     url: https://github.com/brendanhay/amazonka/archive/b7d98d3ce163371b41cea38614c5637a3ee7d300.tar.gz
 - completed:
+    commit: f432f76e7eeea126444c943d6928e81267b28323
+    git: https://github.com/ThreeEyedGod/aws-lambda-haskell-runtime.git
     name: aws-lambda-haskell-runtime
-    version: 4.1.1
-    git: https://github.com/ThreeEyedGod/aws-lambda-haskell-runtime.git
     pantry-tree:
-      size: 3424
       sha256: 99652c8b2d056a2e2ec282d46e9dea1f483d947c09548580c72bd11118930a2d
-    commit: f432f76e7eeea126444c943d6928e81267b28323
+      size: 3424
+    version: 4.1.1
   original:
+    commit: f432f76e7eeea126444c943d6928e81267b28323
     git: https://github.com/ThreeEyedGod/aws-lambda-haskell-runtime.git
-    commit: f432f76e7eeea126444c943d6928e81267b28323
 - completed:
     hackage: hjpath-3.0.1@sha256:3e53da08892308b1ff0622ca7ac9fc0084346ecd891e10b78df7fda20da10f9e,527
     pantry-tree:
-      size: 208
       sha256: 8dbe34a0810318cf4a81018d3c291d13ed254579170111b72ff377d15fe9586b
+      size: 208
   original:
     hackage: hjpath-3.0.1@sha256:3e53da08892308b1ff0622ca7ac9fc0084346ecd891e10b78df7fda20da10f9e,527
 - completed:
     hackage: random-strings-0.1.1.0@sha256:935a7a23dab45411960df77636a29b44ce42b89eeb15f2b1e809d771491fa677,2517
     pantry-tree:
-      size: 663
       sha256: 5a382966fdd8d5220b5791f3bff6db00d2ea29235e2716dadd52461b8a8beb97
+      size: 663
   original:
     hackage: random-strings-0.1.1.0@sha256:935a7a23dab45411960df77636a29b44ce42b89eeb15f2b1e809d771491fa677,2517
 - completed:
     hackage: hjson-1.3.2@sha256:3f8d4a582efbbd4265ab6035a71efa13aa3fc85e71e556c5613e5c9da0e8e325,456
     pantry-tree:
-      size: 263
       sha256: c3770f03b0e996351d00de8b5ec156fd0809aae0708374cb2564dbf36d556da4
+      size: 263
   original:
     hackage: hjson-1.3.2@sha256:3f8d4a582efbbd4265ab6035a71efa13aa3fc85e71e556c5613e5c9da0e8e325,456
 - completed:
+    commit: 2a0baf07d85935a42ca23df4b3b0cad52f8f5fb6
+    git: https://github.com/ThreeEyedGod/haskell-telegram-api.git
     name: telegram-api
-    version: 0.7.3.0
-    git: https://github.com/ThreeEyedGod/haskell-telegram-api.git
     pantry-tree:
-      size: 2905
       sha256: 1882ddb012122f5bcebc2c695efd015eafab93a8898967289076fe549b63a5bf
-    commit: 2a0baf07d85935a42ca23df4b3b0cad52f8f5fb6
+      size: 2905
+    version: 0.7.3.0
   original:
+    commit: 2a0baf07d85935a42ca23df4b3b0cad52f8f5fb6
     git: https://github.com/ThreeEyedGod/haskell-telegram-api.git
-    commit: 2a0baf07d85935a42ca23df4b3b0cad52f8f5fb6
 - completed:
-    subdir: content
+    commit: ad92304f5bf591513c47d432f3dc256dcdab000c
+    git: https://github.com/ThreeEyedGod/pdf-toolbox.git
     name: pdf-toolbox-content
-    version: 0.1.1
-    git: https://github.com/ThreeEyedGod/pdf-toolbox.git
     pantry-tree:
-      size: 1518
       sha256: 6114ca9e731bde2601e8767b7a002037224880de10d575051b70c4c68ab0a57c
-    commit: ad92304f5bf591513c47d432f3dc256dcdab000c
-  original:
+      size: 1518
     subdir: content
-    git: https://github.com/ThreeEyedGod/pdf-toolbox.git
-    commit: ad92304f5bf591513c47d432f3dc256dcdab000c
-- completed:
-    subdir: document
-    name: pdf-toolbox-document
-    version: 0.1.2
-    git: https://github.com/ThreeEyedGod/pdf-toolbox.git
-    pantry-tree:
-      size: 1406
-      sha256: 72d6b19b2cae905ad6e4cc788376ffbfbe554e5a835460a36df6f6ee5fa2cfb4
-    commit: ad92304f5bf591513c47d432f3dc256dcdab000c
-  original:
-    subdir: document
-    git: https://github.com/ThreeEyedGod/pdf-toolbox.git
-    commit: ad92304f5bf591513c47d432f3dc256dcdab000c
-- completed:
-    subdir: core
-    name: pdf-toolbox-core
     version: 0.1.1
+  original:
+    commit: ad92304f5bf591513c47d432f3dc256dcdab000c
     git: https://github.com/ThreeEyedGod/pdf-toolbox.git
+    subdir: content
+- completed:
+    commit: ad92304f5bf591513c47d432f3dc256dcdab000c
+    git: https://github.com/ThreeEyedGod/pdf-toolbox.git
+    name: pdf-toolbox-document
     pantry-tree:
-      size: 2165
+      sha256: 72d6b19b2cae905ad6e4cc788376ffbfbe554e5a835460a36df6f6ee5fa2cfb4
+      size: 1406
+    subdir: document
+    version: 0.1.2
+  original:
+    commit: ad92304f5bf591513c47d432f3dc256dcdab000c
+    git: https://github.com/ThreeEyedGod/pdf-toolbox.git
+    subdir: document
+- completed:
+    commit: ad92304f5bf591513c47d432f3dc256dcdab000c
+    git: https://github.com/ThreeEyedGod/pdf-toolbox.git
+    name: pdf-toolbox-core
+    pantry-tree:
       sha256: 5ae0724e8b3a916837690aa16cb10d875a759b91b278f6f49cfb063b2be3a402
-    commit: ad92304f5bf591513c47d432f3dc256dcdab000c
-  original:
+      size: 2165
     subdir: core
-    git: https://github.com/ThreeEyedGod/pdf-toolbox.git
+    version: 0.1.1
+  original:
     commit: ad92304f5bf591513c47d432f3dc256dcdab000c
+    git: https://github.com/ThreeEyedGod/pdf-toolbox.git
+    subdir: core
 - completed:
     hackage: naqsha-0.3.0.1@sha256:1d13ac58a2604341641d001ab82020326823ab028d679839e0417bbad9dfab2b,2566
     pantry-tree:
-      size: 1213
       sha256: 69a27c066eaab5b389bdbeb205e256b223b5631b6f9855462e9e988eb5936a85
+      size: 1213
   original:
     hackage: naqsha-0.3.0.1@sha256:1d13ac58a2604341641d001ab82020326823ab028d679839e0417bbad9dfab2b,2566
 - completed:
+    commit: 3e249724fd0ead27370c8c297b1ecd38f92cbd5b
+    git: https://github.com/protolude/protolude.git
     name: protolude
-    version: 0.3.1
-    git: https://github.com/protolude/protolude.git
     pantry-tree:
-      size: 3146
       sha256: 685ed0191298da9540e772ffa746eb078d4f4a77ed8012a9933d3c79644b1054
-    commit: 3e249724fd0ead27370c8c297b1ecd38f92cbd5b
+      size: 3146
+    version: 0.3.1
   original:
-    git: https://github.com/protolude/protolude.git
     commit: 3e249724fd0ead27370c8c297b1ecd38f92cbd5b
+    git: https://github.com/protolude/protolude.git
+- completed:
+    hackage: liquid-ghc-prim-0.7.0@sha256:8d99d771235d388ed54393faa2712c880e60b659fa574877fc5f383d4d49f4ed,1763
+    pantry-tree:
+      sha256: 2e85095d397912b2d5b65054cd613e93dd7aa31ed4a4ff4fd265be207ece35e0
+      size: 912
+  original:
+    hackage: liquid-ghc-prim-0.7.0@sha256:8d99d771235d388ed54393faa2712c880e60b659fa574877fc5f383d4d49f4ed,1763
+- completed:
+    hackage: liquid-prelude-0.8.10.2@sha256:b2a3650092e3eecfff5e5b15052700c2d6ba5eecbf20d91eae552da23783b03e,1604
+    pantry-tree:
+      sha256: 17fffd9d59ef7d3e7fa04b89174250bab84af77822d3f5de0124d608aa6827c6
+      size: 1029
+  original:
+    hackage: liquid-prelude-0.8.10.2@sha256:b2a3650092e3eecfff5e5b15052700c2d6ba5eecbf20d91eae552da23783b03e,1604
+- completed:
+    hackage: rest-rewrite-0.3.0@sha256:398f937a5faf6bd3329650ee9aed31bbfe7ed1c23252710908ad7295e3252c94,3890
+    pantry-tree:
+      sha256: 6e42cf85257cbc2abf50a9c8f3bac8777920f1b970e6f2cae9358690e1186e99
+      size: 3943
+  original:
+    hackage: rest-rewrite-0.3.0
+- completed:
+    commit: b86fb5b461a70d07fb7e97ccdbdd0ee330bf3396
+    git: https://github.com/ucsd-progsys/liquidhaskell
+    name: liquidhaskell
+    pantry-tree:
+      sha256: 700e83cf6eb423426e4271fe0d9d410a06ebbe023e6c71e01c5326226e2aa5b4
+      size: 321195
+    subdir: .
+    version: 0.8.10.7.1
+  original:
+    commit: b86fb5b461a70d07fb7e97ccdbdd0ee330bf3396
+    git: https://github.com/ucsd-progsys/liquidhaskell
+    subdir: .
+- completed:
+    commit: b86fb5b461a70d07fb7e97ccdbdd0ee330bf3396
+    git: https://github.com/ucsd-progsys/liquidhaskell
+    name: liquid-fixpoint
+    pantry-tree:
+      sha256: eb86f67f0cec00cee544860484878e7dd728c12922b33eed6e1d052e14bb05c7
+      size: 22580
+    subdir: liquid-fixpoint
+    version: 0.8.10.7.1
+  original:
+    commit: b86fb5b461a70d07fb7e97ccdbdd0ee330bf3396
+    git: https://github.com/ucsd-progsys/liquidhaskell
+    subdir: liquid-fixpoint
+- completed:
+    commit: b86fb5b461a70d07fb7e97ccdbdd0ee330bf3396
+    git: https://github.com/ucsd-progsys/liquidhaskell
+    name: liquid-base
+    pantry-tree:
+      sha256: bc16a74d46b76935cfeafdf0d6bf423382c0fda5aa905ad98c60c45ab74e31f9
+      size: 15114
+    subdir: liquid-base
+    version: 4.14.3.0
+  original:
+    commit: b86fb5b461a70d07fb7e97ccdbdd0ee330bf3396
+    git: https://github.com/ucsd-progsys/liquidhaskell
+    subdir: liquid-base
+- completed:
+    commit: b86fb5b461a70d07fb7e97ccdbdd0ee330bf3396
+    git: https://github.com/ucsd-progsys/liquidhaskell
+    name: liquid-containers
+    pantry-tree:
+      sha256: 69ab7d9ccde93b16e14c0f27ac8f2d8bac81e7047c3ccad98e7926c8cadd21b5
+      size: 2143
+    subdir: liquid-containers
+    version: 0.6.2.1
+  original:
+    commit: b86fb5b461a70d07fb7e97ccdbdd0ee330bf3396
+    git: https://github.com/ucsd-progsys/liquidhaskell
+    subdir: liquid-containers
 snapshots:
 - completed:
-    size: 617368
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/19/3.yaml
-    sha256: a209d3455279ee76eb45f01f73bbb960ceaaa8dfad8891435384689df4dcb653
-  original: lts-19.3
+    sha256: 6d1532d40621957a25bad5195bfca7938e8a06d923c91bc52aa0f3c41181f2d4
+    size: 619204
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/19/33.yaml
+  original: lts-19.33

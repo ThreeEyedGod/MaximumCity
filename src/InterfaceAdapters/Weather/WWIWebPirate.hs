@@ -14,7 +14,7 @@ import Control.Monad.IO.Class ()
 import qualified Data.ByteString.Lazy.Char8 as LB
 import qualified Data.Text as Data.ByteString.Char8
 import qualified Data.Text as T
-import GHC.Integer.Logarithms ()
+--import GHC.Integer.Logarithms ()
 import Data.Text.Encoding as TSE ()
 import Data.Text.Lazy.Encoding as TLE ()
 import Data.ByteString.UTF8 as BSU ()

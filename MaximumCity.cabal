@@ -1,6 +1,6 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.34.4.
+-- This file has been generated from package.yaml by hpack version 0.35.0.
 --
 -- see: https://github.com/sol/hpack
 
@@ -75,13 +75,13 @@ library
     , amazonka-ssm
     , attoparsec >=0.14.4
     , aws-lambda-haskell-runtime
-    , base >=4.12 && <5
     , binary >=0.8.8.0
     , bytestring >=0.10.12.1
     , containers >=0.6.4.1
     , directory >=1.3.6.2
     , either >=5.0.1.1
     , filepath >=1.4.2.1
+    , hashable ==1.3.4.0
     , http-client >=0.7.11
     , http-client-tls >=0.3.6.1
     , http-conduit >=2.3.8
@@ -89,6 +89,9 @@ library
     , integer-gmp
     , iproute >=1.7.12
     , lens >=5.0.1
+    , liquid-base >=4.14.0 && <4.14.2
+    , liquid-containers >=0.6.2.1 && <0.6.3
+    , liquidhaskell >=0.8.10 && <0.8.12
     , mtl >=2.2.2
     , naqsha >=0.3.0.1
     , pdf-toolbox-document
@@ -101,7 +104,7 @@ library
     , sort >=1.0.0.0
     , string-interpolate >=0.3.1.1
     , stringsearch >=0.3.6.6
-    , telegram-api >=0.7.3.0
+    , telegram-api
     , template-haskell >=2.17.0.0
     , text
     , text-manipulate >=0.3.0.0
@@ -124,7 +127,7 @@ executable bootstrap
       DeriveGeneric
       UndecidableSuperClasses
       ScopedTypeVariables
-  ghc-options: -threaded -rtsopts -O2 -static -with-rtsopts=-N -XUndecidableSuperClasses -XScopedTypeVariables -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin
+  ghc-options: -threaded -rtsopts -O2 -static -with-rtsopts=-N -XUndecidableSuperClasses -XScopedTypeVariables -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin -fplugin=LiquidHaskell -fplugin-opt=LiquidHaskell:--no-positivity-check
   cc-options: -static
   ld-options: -static -pthread
   build-depends:
@@ -136,13 +139,13 @@ executable bootstrap
     , amazonka-ssm
     , attoparsec >=0.14.4
     , aws-lambda-haskell-runtime
-    , base >=4.12 && <5
     , binary >=0.8.8.0
     , bytestring >=0.10.12.1
     , containers >=0.6.4.1
     , directory >=1.3.6.2
     , either >=5.0.1.1
     , filepath >=1.4.2.1
+    , hashable ==1.3.4.0
     , http-client >=0.7.11
     , http-client-tls >=0.3.6.1
     , http-conduit >=2.3.8
@@ -150,6 +153,9 @@ executable bootstrap
     , integer-gmp
     , iproute >=1.7.12
     , lens >=5.0.1
+    , liquid-base >=4.14.0 && <4.14.2
+    , liquid-containers >=0.6.2.1 && <0.6.3
+    , liquidhaskell >=0.8.10 && <0.8.12
     , mtl >=2.2.2
     , naqsha >=0.3.0.1
     , pdf-toolbox-document
@@ -162,7 +168,7 @@ executable bootstrap
     , sort >=1.0.0.0
     , string-interpolate >=0.3.1.1
     , stringsearch >=0.3.6.6
-    , telegram-api >=0.7.3.0
+    , telegram-api
     , template-haskell >=2.17.0.0
     , text
     , text-manipulate >=0.3.0.0
@@ -207,6 +213,7 @@ test-suite MaximumCity-test
     , directory >=1.3.6.2
     , either >=5.0.1.1
     , filepath >=1.4.2.1
+    , hashable ==1.3.4.0
     , hspec >=2.7.4 && <2.8
     , hspec-core >=2.7.4
     , hspec-expectations >=0.8.2
@@ -217,6 +224,9 @@ test-suite MaximumCity-test
     , integer-gmp
     , iproute >=1.7.12
     , lens >=5.0.1
+    , liquid-base >=4.14.0 && <4.14.2
+    , liquid-containers >=0.6.2.1 && <0.6.3
+    , liquidhaskell >=0.8.10 && <0.8.12
     , mtl >=2.2.2
     , naqsha >=0.3.0.1
     , pdf-toolbox-document
@@ -231,7 +241,7 @@ test-suite MaximumCity-test
     , sort >=1.0.0.0
     , string-interpolate >=0.3.1.1
     , stringsearch >=0.3.6.6
-    , telegram-api >=0.7.3.0
+    , telegram-api
     , template-haskell
     , test-framework
     , test-framework-quickcheck2
@@ -263,13 +273,13 @@ benchmark MaximumCity-benchmark
     , amazonka-ssm
     , attoparsec >=0.14.4
     , aws-lambda-haskell-runtime
-    , base >=4.12 && <5
     , binary >=0.8.8.0
     , bytestring >=0.10.12.1
     , containers >=0.6.4.1
     , directory >=1.3.6.2
     , either >=5.0.1.1
     , filepath >=1.4.2.1
+    , hashable ==1.3.4.0
     , http-client >=0.7.11
     , http-client-tls >=0.3.6.1
     , http-conduit >=2.3.8
@@ -277,6 +287,9 @@ benchmark MaximumCity-benchmark
     , integer-gmp
     , iproute >=1.7.12
     , lens >=5.0.1
+    , liquid-base >=4.14.0 && <4.14.2
+    , liquid-containers >=0.6.2.1 && <0.6.3
+    , liquidhaskell >=0.8.10 && <0.8.12
     , mtl >=2.2.2
     , naqsha >=0.3.0.1
     , pdf-toolbox-document
@@ -289,7 +302,7 @@ benchmark MaximumCity-benchmark
     , sort >=1.0.0.0
     , string-interpolate >=0.3.1.1
     , stringsearch >=0.3.6.6
-    , telegram-api >=0.7.3.0
+    , telegram-api
     , template-haskell >=2.17.0.0
     , text
     , text-manipulate >=0.3.0.0
