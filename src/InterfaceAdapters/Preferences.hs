@@ -2,6 +2,7 @@
 {-# LANGUAGE TemplateHaskell, LambdaCase, BlockArguments, GADTs, FlexibleContexts, TypeOperators, ScopedTypeVariables #-}
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-@ LIQUID "--skip-module" @-}
 
 
 module InterfaceAdapters.Preferences where

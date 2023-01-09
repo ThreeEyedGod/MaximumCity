@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<title>src/InterfaceAdapters/IP/GeoIpAPI.hs</title>
+</head>
+<head>
+<link type='text/css' rel='stylesheet' href='liquid.css' />
+</head>
+
+<body>
+<hr>
+Put mouse over identifiers to see inferred types
+<pre><span class=hs-linenum> 1: </span>
+<span class=hs-linenum> 2: </span><span class='hs-comment'>{-# LANGUAGE OverloadedStrings, DeriveGeneric, DeriveAnyClass #-}</span>
+<span class=hs-linenum> 3: </span><span class='hs-comment'>{-# LANGUAGE DuplicateRecordFields #-}</span>
+<span class=hs-linenum> 4: </span><span class='hs-comment'>{-# LANGUAGE DeriveGeneric #-}</span>
+<span class=hs-linenum> 5: </span><span class='hs-comment'>{-# LANGUAGE DerivingStrategies #-}</span>
+<span class=hs-linenum> 6: </span>
+<span class=hs-linenum> 7: </span><span class='hs-keyword'>module</span> <span class='hs-conid'>InterfaceAdapters.IP.GeoIpAPI</span> <span class='hs-layout'>(</span><span class='hs-varid'>getPositionStackForwardGeoCodefor</span><span class='hs-layout'>,</span> <span class='hs-conid'>ForwardGeoData</span> <span class='hs-layout'>(</span><span class='hs-keyglyph'>..</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-keyword'>where</span>
+<span class=hs-linenum> 8: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Data.Aeson</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>Q</span>
+<span class=hs-linenum> 9: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Data.Text</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>T</span>
+<span class=hs-linenum>10: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Control.Applicative</span>
+<span class=hs-linenum>11: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Control.Monad</span>
+<span class=hs-linenum>12: </span><span class='hs-keyword'>import</span> <span class='hs-keyword'>qualified</span> <span class='hs-conid'>Data.ByteString.Lazy</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>B</span>
+<span class=hs-linenum>13: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Network.HTTP.Conduit</span> <span class='hs-layout'>(</span><span class='hs-varid'>simpleHttp</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>14: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Control.Exception</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>X</span>
+<span class=hs-linenum>15: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>GHC.Generics</span>
+<span class=hs-linenum>16: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>GHC.Float</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>SF</span>
+<span class=hs-linenum>17: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Prelude</span>
+<span class=hs-linenum>18: </span><span class='hs-keyword'>import</span> <span class='hs-keyword'>qualified</span> <span class='hs-conid'>Data.Text</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>Data.ByteString.Char8</span>
+<span class=hs-linenum>19: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>InterfaceAdapters.Utils.Helper</span>
+<span class=hs-linenum>20: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Data.Text.Lazy</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>TL</span>
+<span class=hs-linenum>21: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Data.Text.Lazy.Encoding</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>TLE</span>
+<span class=hs-linenum>22: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Data.Char</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>DC</span>
+<span class=hs-linenum>23: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>InterfaceAdapters.IP.GeoCodeOpenCage</span> <span class='hs-layout'>(</span><span class='hs-varid'>getOpenCageForwardGeoCodefor</span><span class='hs-layout'>,</span> <span class='hs-conid'>OpenCageForwardGeoData</span> <span class='hs-layout'>(</span><span class='hs-keyglyph'>..</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span> <span class='hs-conid'>OpenCageResultData</span><span class='hs-layout'>(</span><span class='hs-keyglyph'>..</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span> <span class='hs-conid'>OpenCageLocdata</span><span class='hs-layout'>(</span><span class='hs-keyglyph'>..</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>24: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>InterfaceAdapters.Utils.JSONHelper</span>
+<span class=hs-linenum>25: </span>
+<span class=hs-linenum>26: </span><span class='hs-keyword'>data</span> <span class='hs-conid'>Locdata</span> <span class='hs-keyglyph'>=</span> <span class='hs-conid'>Locdata</span>
+<span class=hs-linenum>27: </span>  <span class='hs-layout'>{</span> <span class='hs-varid'>latitude</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>Float</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>28: </span>    <span class='hs-varid'>longitude</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>Float</span>
+<span class=hs-linenum>29: </span>  <span class='hs-layout'>}</span> <span class='hs-keyword'>deriving</span> <span class='hs-layout'>(</span><span class='hs-conid'>Show</span><span class='hs-layout'>,</span> <span class='hs-conid'>Generic</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>30: </span>
+<span class=hs-linenum>31: </span><span class='hs-keyword'>instance</span> <span class='hs-conid'>FromJSON</span> <span class='hs-conid'>Locdata</span>
+<span class=hs-linenum>32: </span><span class='hs-keyword'>instance</span> <span class='hs-conid'>ToJSON</span> <span class='hs-conid'>Locdata</span>
+<span class=hs-linenum>33: </span><span class='hs-keyword'>data</span> <span class='hs-conid'>ForwardGeoData</span> <span class='hs-keyglyph'>=</span> <span class='hs-conid'>ForwardGeoData</span> <span class='hs-layout'>{</span>
+<span class=hs-linenum>34: </span>  <span class='hs-sel'>_data</span> <span class='hs-keyglyph'>::</span> <span class='hs-keyglyph'>[</span><span class='hs-conid'>Locdata</span><span class='hs-keyglyph'>]</span>
+<span class=hs-linenum>35: </span><span class='hs-layout'>}</span> <span class='hs-keyword'>deriving</span> <span class='hs-layout'>(</span><span class='hs-conid'>Show</span><span class='hs-layout'>,</span> <span class='hs-conid'>Generic</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>36: </span>
+<span class=hs-linenum>37: </span><span class='hs-definition'>keywordFieldLabelModifier</span> <span class='hs-str'>"_data"</span> <span class='hs-keyglyph'>=</span> <span class='hs-str'>"data"</span>
+<span class=hs-linenum>38: </span><span class='hs-definition'>keywordFieldLabelModifier</span> <span class='hs-varid'>id</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>id</span>
+<span class=hs-linenum>39: </span><span class='hs-keyword'>instance</span> <span class='hs-conid'>FromJSON</span> <span class='hs-conid'>ForwardGeoData</span> <span class='hs-keyword'>where</span>
+<span class=hs-linenum>40: </span>  <span class='hs-varid'>parseJSON</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>genericParseJSON</span> <span class='hs-varid'>defaultOptions</span> <span class='hs-layout'>{</span>
+<span class=hs-linenum>41: </span>    <span class='hs-varid'>fieldLabelModifier</span> <span class='hs-keyglyph'>=</span> <span class='hs-conid'>Prelude.drop</span> <span class='hs-num'>1</span>
+<span class=hs-linenum>42: </span>  <span class='hs-layout'>}</span>
+<span class=hs-linenum>43: </span><span class='hs-keyword'>instance</span> <span class='hs-conid'>ToJSON</span> <span class='hs-conid'>ForwardGeoData</span>
+<span class=hs-linenum>44: </span><span class='hs-keyword'>data</span> <span class='hs-conid'>GeoIp</span> <span class='hs-keyglyph'>=</span> <span class='hs-conid'>GeoIp</span> <span class='hs-layout'>{</span><span class='hs-varid'>ip</span><span class='hs-keyglyph'>::</span><span class='hs-conid'>String</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>45: </span>                    <span class='hs-varid'>country_code</span><span class='hs-keyglyph'>::</span><span class='hs-conid'>String</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>46: </span>                    <span class='hs-varid'>country_name</span><span class='hs-keyglyph'>::</span><span class='hs-conid'>String</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>47: </span>                    <span class='hs-varid'>region_code</span><span class='hs-keyglyph'>::</span><span class='hs-conid'>String</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>48: </span>                    <span class='hs-varid'>region_name</span><span class='hs-keyglyph'>::</span><span class='hs-conid'>String</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>49: </span>                    <span class='hs-varid'>city</span><span class='hs-keyglyph'>::</span><span class='hs-conid'>String</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>50: </span>                    <span class='hs-varid'>zip_code</span><span class='hs-keyglyph'>::</span><span class='hs-conid'>String</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>51: </span>                    <span class='hs-varid'>time_zone</span><span class='hs-keyglyph'>::</span><span class='hs-conid'>String</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>52: </span>                    <span class='hs-varid'>latitude</span><span class='hs-keyglyph'>::</span><span class='hs-conid'>Float</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>53: </span>                    <span class='hs-varid'>longitude</span><span class='hs-keyglyph'>::</span><span class='hs-conid'>Float</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>54: </span>                    <span class='hs-varid'>metro_code</span><span class='hs-keyglyph'>::</span><span class='hs-conid'>Int</span><span class='hs-layout'>}</span> <span class='hs-keyword'>deriving</span> <span class='hs-layout'>(</span><span class='hs-conid'>Show</span><span class='hs-layout'>,</span> <span class='hs-conid'>Generic</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>55: </span>
+<span class=hs-linenum>56: </span><span class='hs-keyword'>instance</span> <span class='hs-conid'>FromJSON</span> <span class='hs-conid'>GeoIp</span>
+<span class=hs-linenum>57: </span><span class='hs-keyword'>instance</span> <span class='hs-conid'>ToJSON</span> <span class='hs-conid'>GeoIp</span>
+<span class=hs-linenum>58: </span>
+<span class=hs-linenum>59: </span><span class='hs-definition'>statusExceptionHandler</span> <span class='hs-keyglyph'>::</span>  <span class='hs-conid'>SomeException</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>IO</span> <span class='hs-conid'>B.ByteString</span>
+<span class=hs-linenum>60: </span><span class='hs-definition'>statusExceptionHandler</span> <span class='hs-varid'>e</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>putStrLn</span> <span class='hs-str'>"Bad Error"</span> <span class='hs-varop'>&gt;&gt;</span> <span class='hs-varid'>return</span> <span class='hs-conid'>B.empty</span>
+<span class=hs-linenum>61: </span>
+<span class=hs-linenum>62: </span><span class='hs-comment'>-- Gets LatLong for an IP </span>
+<span class=hs-linenum>63: </span><span class='hs-definition'>jsonGeoIpURL</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>String</span>
+<span class=hs-linenum>64: </span><span class='hs-definition'>jsonGeoIpURL</span> <span class='hs-keyglyph'>=</span> <span class='hs-str'>"https://freegeoip.app/json/"</span>
+<span class=hs-linenum>65: </span><span class='hs-definition'>getGeoIpforThis</span> <span class='hs-keyglyph'>::</span>  <span class='hs-conid'>IO</span> <span class='hs-conid'>B.ByteString</span>
+<span class=hs-linenum>66: </span><span class='hs-definition'>getGeoIpforThis</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>simpleHttp</span> <span class='hs-varid'>jsonGeoIpURL</span> <span class='hs-varop'>`X.catch`</span> <span class='hs-varid'>statusExceptionHandler</span>
+<span class=hs-linenum>67: </span><span class='hs-definition'>jsonPositionStackURL</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>String</span>
+<span class=hs-linenum>68: </span><span class='hs-definition'>jsonPositionStackURL</span> <span class='hs-keyglyph'>=</span> <span class='hs-str'>"http://api.positionstack.com/v1/forward?access_key="</span>
+<span class=hs-linenum>69: </span>
+<span class=hs-linenum>70: </span><span class='hs-definition'>getPositionStackSettings</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>IO</span> <span class='hs-layout'>(</span><span class='hs-conid'>Either</span> <span class='hs-conid'>ErrLeftString</span> <span class='hs-conid'>KeyString</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>71: </span><span class='hs-definition'>getPositionStackSettings</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>key</span> <span class='hs-str'>"API_POSITIONSTACK_KEY"</span>
+<span class=hs-linenum>72: </span>
+<span class=hs-linenum>73: </span><span class='hs-comment'>-- Gets LatLong only for places only in INDIA (IN)</span>
+<span class=hs-linenum>74: </span><span class='hs-definition'>getPositionStackForwardGeoCodefor</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>String</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>IO</span> <span class='hs-conid'>B.ByteString</span>
+<span class=hs-linenum>75: </span><span class='hs-definition'>getPositionStackForwardGeoCodefor</span> <span class='hs-varid'>town</span> <span class='hs-keyglyph'>=</span> <span class='hs-keyword'>do</span>
+<span class=hs-linenum>76: </span>  <span class='hs-varid'>k</span> <span class='hs-keyglyph'>&lt;-</span> <span class='hs-varid'>getPositionStackSettings</span>
+<span class=hs-linenum>77: </span>  <span class='hs-keyword'>case</span> <span class='hs-varid'>k</span> <span class='hs-keyword'>of</span> <span class='hs-comment'>-- set this in AWS Env. Variables</span>
+<span class=hs-linenum>78: </span>     <span class='hs-conid'>Left</span> <span class='hs-varid'>errMsgString</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-varid'>return</span> <span class='hs-varop'>$</span> <span class='hs-conid'>TLE.encodeUtf8</span> <span class='hs-varop'>$</span> <span class='hs-conid'>TL.pack</span> <span class='hs-varid'>errMsgString</span> <span class='hs-comment'>-- make String ByteString</span>
+<span class=hs-linenum>79: </span>     <span class='hs-conid'>Right</span> <span class='hs-varid'>key</span>         <span class='hs-keyglyph'>-&gt;</span> <span class='hs-varid'>getJSON</span> <span class='hs-layout'>(</span><span class='hs-varid'>jsonPositionStackURL</span> <span class='hs-varop'>++</span> <span class='hs-varid'>key</span> <span class='hs-varop'>++</span> <span class='hs-str'>"&amp;limit=1&amp;fields=results.latitude,results.longitude&amp;country=IN&amp;query="</span><span class='hs-layout'>)</span> <span class='hs-layout'>(</span><span class='hs-conid'>T.pack</span> <span class='hs-varid'>town</span><span class='hs-layout'>)</span>
+</pre>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<title>src/InterfaceAdapters/Utils/EnvPolHelper.hs</title>
+</head>
+<head>
+<link type='text/css' rel='stylesheet' href='liquid.css' />
+</head>
+
+<body>
+<hr>
+Put mouse over identifiers to see inferred types
+<pre><span class=hs-linenum> 1: </span><span class='hs-comment'>{-# LANGUAGE GADTs, TypeInType, ScopedTypeVariables, StandaloneDeriving, TemplateHaskell, LambdaCase, BlockArguments, FlexibleContexts, TypeOperators #-}</span>
+<span class=hs-linenum> 2: </span>
+<span class=hs-linenum> 3: </span>
+<span class=hs-linenum> 4: </span><span class='hs-comment'>-- | Effectful implmentation of Environment getting functions. Not yet used</span>
+<span class=hs-linenum> 5: </span>
+<span class=hs-linenum> 6: </span><span class='hs-keyword'>module</span> <span class='hs-conid'>InterfaceAdapters.Utils.EnvPolHelper</span> <span class='hs-keyword'>where</span>
+<span class=hs-linenum> 7: </span>
+<span class=hs-linenum> 8: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Polysemy</span>
+<span class=hs-linenum> 9: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>System.Environment</span>
+<span class=hs-linenum>10: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Data.Function</span>             <span class='hs-layout'>(</span><span class='hs-layout'>(</span><span class='hs-varop'>&amp;</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>11: </span>
+<span class=hs-linenum>12: </span><span class='hs-keyword'>data</span> <span class='hs-conid'>Configuration</span> <span class='hs-varid'>m</span> <span class='hs-varid'>a</span> <span class='hs-keyword'>where</span>
+<span class=hs-linenum>13: </span>  <span class='hs-conid'>ReadConf</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>String</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>Configuration</span> <span class='hs-varid'>m</span> <span class='hs-layout'>(</span><span class='hs-conid'>Maybe</span> <span class='hs-conid'>String</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>14: </span>
+<span class=hs-linenum>15: </span><span class='hs-definition'>makeSem</span> <span class='hs-chr'>'</span><span class='hs-chr'>'</span><span class='hs-conid'>Configuration</span>
+<span class=hs-linenum>16: </span>
+<span class=hs-linenum>17: </span><span class='hs-definition'>runconfToIO</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>Member</span> <span class='hs-layout'>(</span><span class='hs-conid'>Embed</span> <span class='hs-conid'>IO</span><span class='hs-layout'>)</span> <span class='hs-varid'>r</span> <span class='hs-keyglyph'>=&gt;</span> <span class='hs-conid'>Sem</span> <span class='hs-layout'>(</span><span class='hs-conid'>Configuration</span> <span class='hs-chr'>'</span><span class='hs-conop'>:</span> <span class='hs-varid'>r</span><span class='hs-layout'>)</span> <span class='hs-varid'>a</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>Sem</span> <span class='hs-varid'>r</span> <span class='hs-varid'>a</span>
+<span class=hs-linenum>18: </span><span class='hs-definition'>runconfToIO</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>interpret</span> <span class='hs-layout'>(</span><span class='hs-keyglyph'>\</span><span class='hs-layout'>(</span><span class='hs-conid'>ReadConf</span> <span class='hs-varid'>envVarName</span><span class='hs-layout'>)</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-varid'>embed</span> <span class='hs-varop'>$</span> <span class='hs-varid'>lookupEnv</span> <span class='hs-varid'>envVarName</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>19: </span>
+<span class=hs-linenum>20: </span><span class='hs-definition'>runGetKey</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>String</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>IO</span> <span class='hs-layout'>(</span><span class='hs-conid'>Maybe</span> <span class='hs-conid'>String</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>21: </span><span class='hs-definition'>runGetKey</span> <span class='hs-varid'>env</span> <span class='hs-keyglyph'>=</span> <span class='hs-keyword'>do</span>
+<span class=hs-linenum>22: </span>  <span class='hs-varid'>readConf</span> <span class='hs-varid'>env</span>
+<span class=hs-linenum>23: </span>  <span class='hs-varop'>&amp;</span> <span class='hs-varid'>runconfToIO</span>
+<span class=hs-linenum>24: </span>  <span class='hs-varop'>&amp;</span> <span class='hs-varid'>runM</span>
+<span class=hs-linenum>25: </span>
+</pre>
+</body>
+</html>

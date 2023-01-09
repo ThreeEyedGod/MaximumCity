@@ -3,6 +3,7 @@
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-@ LIQUID "--skip-module" @-}
 
 module InterfaceAdapters.IP.GeoLatLong (getLatLongforThis) where
 import Data.Aeson as Q

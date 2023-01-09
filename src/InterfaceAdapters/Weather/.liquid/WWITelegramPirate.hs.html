@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<title>src/InterfaceAdapters/Weather/WWITelegramPirate.hs</title>
+</head>
+<head>
+<link type='text/css' rel='stylesheet' href='liquid.css' />
+</head>
+
+<body>
+<hr>
+Put mouse over identifiers to see inferred types
+<pre><span class=hs-linenum> 1: </span><a class=annot href="#"><span class=annottext>GHC.Types.Module</span><span class='hs-comment'>{-# LANGUAGE OverloadedStrings #-}</span></a>
+<span class=hs-linenum> 2: </span><span class='hs-comment'>{-# LANGUAGE GADTs, TypeInType, ScopedTypeVariables, StandaloneDeriving #-}</span>
+<span class=hs-linenum> 3: </span><span class='hs-comment'>{-# LANGUAGE TemplateHaskell, LambdaCase, BlockArguments, GADTs
+           , FlexibleContexts, TypeOperators, DataKinds, PolyKinds, ScopedTypeVariables #-}</span>
+<span class=hs-linenum> 5: </span><span class='hs-comment'>{-# LANGUAGE TypeFamilies        #-}</span>
+<span class=hs-linenum> 6: </span>
+<span class=hs-linenum> 7: </span>
+<span class=hs-linenum> 8: </span><span class='hs-keyword'>module</span> <span class='hs-conid'>InterfaceAdapters.Weather.WWITelegramPirate</span>
+<span class=hs-linenum> 9: </span>  <span class='hs-layout'>(</span>
+<span class=hs-linenum>10: </span>      <span class='hs-varid'>runWWITelegramPirate</span>
+<span class=hs-linenum>11: </span>  <span class='hs-layout'>)</span>
+<span class=hs-linenum>12: </span><span class='hs-keyword'>where</span>
+<span class=hs-linenum>13: </span>
+<span class=hs-linenum>14: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Polysemy</span> <span class='hs-layout'>(</span> <span class='hs-conid'>Sem</span><span class='hs-layout'>,</span> <span class='hs-conid'>Member</span><span class='hs-layout'>,</span> <span class='hs-conid'>Embed</span><span class='hs-layout'>,</span> <span class='hs-varid'>embed</span><span class='hs-layout'>,</span> <span class='hs-varid'>interpret</span> <span class='hs-layout'>)</span>
+<span class=hs-linenum>15: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Polysemy.Error</span> <span class='hs-conid'>()</span>
+<span class=hs-linenum>16: </span>
+<span class=hs-linenum>17: </span><span class='hs-keyword'>import</span> <span class='hs-keyword'>qualified</span> <span class='hs-conid'>Control.Exception</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>CE</span>
+<span class=hs-linenum>18: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Control.Monad.IO.Class</span> <span class='hs-conid'>()</span>
+<span class=hs-linenum>19: </span><span class='hs-keyword'>import</span> <span class='hs-keyword'>qualified</span> <span class='hs-conid'>Data.ByteString.Lazy.Char8</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>LB</span>
+<span class=hs-linenum>20: </span><span class='hs-keyword'>import</span> <span class='hs-keyword'>qualified</span> <span class='hs-conid'>Data.Text</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>T</span>
+<span class=hs-linenum>21: </span><span class='hs-comment'>--import GHC.Integer.Logarithms ()</span>
+<span class=hs-linenum>22: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Data.Text.Encoding</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>TSE</span> <span class='hs-conid'>()</span>
+<span class=hs-linenum>23: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Data.Text.Lazy.Encoding</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>TLE</span> <span class='hs-conid'>()</span>
+<span class=hs-linenum>24: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Data.ByteString.UTF8</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>BSU</span> <span class='hs-conid'>()</span>
+<span class=hs-linenum>25: </span><span class='hs-keyword'>import</span> <span class='hs-keyword'>qualified</span> <span class='hs-conid'>Data.Aeson</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>TLO</span> <span class='hs-layout'>(</span><span class='hs-varid'>decode</span><span class='hs-layout'>,</span> <span class='hs-varid'>encode</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>26: </span><span class='hs-keyword'>import</span> <span class='hs-keyword'>qualified</span> <span class='hs-conid'>Data.Text.Encoding</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>T</span>
+<span class=hs-linenum>27: </span>
+<span class=hs-linenum>28: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Data.Maybe</span>
+<span class=hs-linenum>29: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Data.Aeson</span>
+<span class=hs-linenum>30: </span>    <span class='hs-layout'>(</span> <span class='hs-varid'>decode</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>31: </span>      <span class='hs-conid'>FromJSON</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>32: </span>      <span class='hs-conid'>ToJSON</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>33: </span>      <span class='hs-varid'>eitherDecode</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>34: </span>      <span class='hs-varid'>encode</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>35: </span>      <span class='hs-conid'>KeyValue</span><span class='hs-layout'>(</span><span class='hs-layout'>(</span><span class='hs-varop'>.=</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>36: </span>      <span class='hs-varid'>object</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>37: </span>      <span class='hs-conid'>Value</span> <span class='hs-layout'>(</span><span class='hs-conid'>Object</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>38: </span>       <span class='hs-layout'>)</span>
+<span class=hs-linenum>39: </span>
+<span class=hs-linenum>40: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>InterfaceAdapters.Utils.HttpHeadersPathDefinitions</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>H</span> <span class='hs-conid'>()</span>
+<span class=hs-linenum>41: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>InterfaceAdapters.Weather.PirateWeatherAPI</span> <span class='hs-conid'>()</span>
+<span class=hs-linenum>42: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>UseCases.WWI</span> <span class='hs-layout'>(</span> <span class='hs-conid'>TheWeatherThere</span><span class='hs-layout'>,</span> <span class='hs-conid'>UserAsk</span><span class='hs-layout'>,</span> <span class='hs-conid'>UserMsg</span><span class='hs-layout'>,</span> <span class='hs-conid'>WWI</span><span class='hs-layout'>(</span><span class='hs-keyglyph'>..</span><span class='hs-layout'>)</span> <span class='hs-layout'>)</span>
+<span class=hs-linenum>43: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>UseCases.AgricultureUseCase</span> <span class='hs-conid'>()</span>
+<span class=hs-linenum>44: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>InterfaceAdapters.Telegram.Telegram</span>
+<span class=hs-linenum>45: </span>    <span class='hs-layout'>(</span> <span class='hs-sel'>_callTelegramClient</span><span class='hs-layout'>,</span> <span class='hs-varid'>getTelegramSettings</span> <span class='hs-layout'>)</span>
+<span class=hs-linenum>46: </span><span class='hs-keyword'>import</span> <span class='hs-keyword'>qualified</span> <span class='hs-conid'>InterfaceAdapters.Weather.Weather</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>IWW</span>
+<span class=hs-linenum>47: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>InterfaceAdapters.Preferences</span> <span class='hs-conid'>()</span>
+<span class=hs-linenum>48: </span>
+<span class=hs-linenum>49: </span><span class='hs-definition'>runWWITelegramPirate</span> <span class='hs-keyglyph'>::</span> <span class='hs-layout'>(</span><span class='hs-conid'>Member</span> <span class='hs-layout'>(</span><span class='hs-conid'>Embed</span> <span class='hs-conid'>IO</span><span class='hs-layout'>)</span> <span class='hs-varid'>r</span><span class='hs-layout'>)</span> <span class='hs-keyglyph'>=&gt;</span> <span class='hs-conid'>Sem</span> <span class='hs-layout'>(</span><span class='hs-conid'>WWI</span> <span class='hs-chr'>'</span><span class='hs-conop'>:</span> <span class='hs-varid'>r</span><span class='hs-layout'>)</span> <span class='hs-varid'>a</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>Sem</span> <span class='hs-varid'>r</span> <span class='hs-varid'>a</span>
+<span class=hs-linenum>50: </span><a class=annot href="#"><span class=annottext>forall a b .
+(GHC.Classes.(%,%)&lt;[]&gt; (Polysemy.Internal.Union.Find ((TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep)) -&gt; (TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep) (Polysemy.Embed.Type.Embed GHC.Types.IO) a) (GHC.Types.~ () (Polysemy.Internal.Union.LocateEffect ((TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep)) -&gt; (TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep) (Polysemy.Embed.Type.Embed GHC.Types.IO) a) '())) =&gt;
+(Polysemy.Internal.Sem (': (((TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep)) -&gt; (TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep)) (UseCases.WWI.WWI ((TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep))) a) b) -&gt; (Polysemy.Internal.Sem a b)</span><span class='hs-definition'>runWWITelegramPirate</span></a> <span class='hs-keyglyph'>=</span> <a class=annot href="#"><span class=annottext>(forall rInitial x .
+ (UseCases.WWI.WWI ((TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep)) (Polysemy.Internal.Sem rInitial) x) -&gt; (Polysemy.Internal.Sem c x)) -&gt; (Polysemy.Internal.Sem (': (((TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep)) -&gt; (TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep)) (UseCases.WWI.WWI ((TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep))) c) d) -&gt; (Polysemy.Internal.Sem c d)</span><span class='hs-varid'>interpret</span></a> <span class='hs-varop'>$</span> <span class='hs-keyglyph'>\</span><span class='hs-keyword'>case</span>
+<span class=hs-linenum>51: </span>  <span class='hs-conid'>GetWeatherTown</span> <span class='hs-varid'>req</span> <span class='hs-keyglyph'>-&gt;</span> <a class=annot href="#"><span class=annottext>(Polysemy.Internal.Sem a Data.Text.Internal.Text)</span><span class='hs-varid'>embed</span></a> <a class=annot href="#"><span class=annottext>(GHC.Types.IO Data.Text.Internal.Text)</span><span class='hs-layout'>(</span></a><span class='hs-varid'>interfaceTelegramPirate</span> <a class=annot href="#"><span class=annottext>{v : UseCases.WWI.UserAsk | v == req}</span><span class='hs-varid'>req</span></a><span class='hs-layout'>)</span>
+<span class=hs-linenum>52: </span>  <span class='hs-conid'>SendBackMsg</span> <span class='hs-varid'>msg</span> <span class='hs-keyglyph'>-&gt;</span> <a class=annot href="#"><span class=annottext>(Polysemy.Internal.Sem a ())</span><span class='hs-varid'>embed</span></a> <a class=annot href="#"><span class=annottext>(GHC.Types.IO ())</span><span class='hs-layout'>(</span></a><span class='hs-varid'>sendBackTelegram</span> <a class=annot href="#"><span class=annottext>{v : (Data.Text.Internal.Text, (GHC.Maybe.Maybe Web.Telegram.API.Bot.Data.Update)) | v == msg}</span><span class='hs-varid'>msg</span></a><span class='hs-layout'>)</span>
+<span class=hs-linenum>53: </span>
+<span class=hs-linenum>54: </span><span class='hs-definition'>interfaceTelegramPirate</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>UserAsk</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>IO</span> <span class='hs-conid'>TheWeatherThere</span>
+<span class=hs-linenum>55: </span><span class='hs-comment'>--interfaceTelegramPirate forthis@UserAsk {placeName = pl, prefs = Preferences {userdata = WeatherWaterLevels, usersize = Mini, usertimespan = RightNow}}  = IWW.getAgInfo forthis</span>
+<span class=hs-linenum>56: </span><a class=annot href="#"><span class=annottext>UseCases.WWI.UserAsk -&gt; (GHC.Types.IO Data.Text.Internal.Text)</span><span class='hs-definition'>interfaceTelegramPirate</span></a> <span class='hs-keyglyph'>=</span> <span class='hs-conid'>IWW.getAgInfo</span>
+<span class=hs-linenum>57: </span>
+<span class=hs-linenum>58: </span><span class='hs-definition'>sendBackTelegram</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>UserMsg</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>IO</span> <span class='hs-conid'>()</span>
+<span class=hs-linenum>59: </span><a class=annot href="#"><span class=annottext>(Data.Text.Internal.Text, (GHC.Maybe.Maybe Web.Telegram.API.Bot.Data.Update)) -&gt; (GHC.Types.IO ())</span><span class='hs-definition'>sendBackTelegram</span></a> <a class=annot href="#"><span class=annottext>(Data.Text.Internal.Text, (GHC.Maybe.Maybe Web.Telegram.API.Bot.Data.Update))</span><span class='hs-varid'>backMsg</span></a> <span class='hs-keyglyph'>=</span> <span class='hs-keyword'>do</span>
+<span class=hs-linenum>60: </span>      <span class='hs-comment'>--res &lt;- embed getTelegramSettings</span>
+<span class=hs-linenum>61: </span>      <a class=annot href="#"><span class=annottext>(Data.Either.Either [GHC.Types.Char] (Web.Telegram.API.Bot.API.Core.Token, Network.HTTP.Client.Types.Manager))</span><span class='hs-varid'>res</span></a> <span class='hs-keyglyph'>&lt;-</span> <a class=annot href="#"><span class=annottext>{v : (GHC.Types.IO (Data.Either.Either [GHC.Types.Char] (Web.Telegram.API.Bot.API.Core.Token, Network.HTTP.Client.Types.Manager))) | v == getTelegramSettings}</span><span class='hs-varid'>getTelegramSettings</span></a>
+<span class=hs-linenum>62: </span>      <span class='hs-keyword'>case</span> <a class=annot href="#"><span class=annottext>{v : (Data.Either.Either [GHC.Types.Char] (Web.Telegram.API.Bot.API.Core.Token, Network.HTTP.Client.Types.Manager)) | v == res}</span><span class='hs-varid'>res</span></a> <span class='hs-keyword'>of</span>
+<span class=hs-linenum>63: </span>            <span class='hs-conid'>Left</span> <span class='hs-varid'>err</span> <span class='hs-keyglyph'>-&gt;</span> <a class=annot href="#"><span class=annottext>(GHC.Exception.Type.Exception InterfaceAdapters.Weather.WWITelegramPirate.WeatherTelegramException)</span><span class='hs-conid'>CE.throw</span></a> <a class=annot href="#"><span class=annottext>InterfaceAdapters.Weather.WWITelegramPirate.WeatherTelegramException</span><span class='hs-layout'>(</span></a><a class=annot href="#"><span class=annottext>InterfaceAdapters.Weather.WWITelegramPirate.WeatherTelegramException</span><span class='hs-conid'>InternalError</span></a> <span class='hs-varop'>$</span> <a class=annot href="#"><span class=annottext>[GHC.Types.Char]</span><span class='hs-str'>"Telegram "</span></a> <span class='hs-varop'>++</span> <a class=annot href="#"><span class=annottext>{v : [GHC.Types.Char] | v == err}</span><span class='hs-varid'>err</span></a><span class='hs-layout'>)</span>
+<span class=hs-linenum>64: </span>            <span class='hs-comment'>-- Right tk -&gt; embed (_callTelegramClient (Just tk) backMsg)</span>
+<span class=hs-linenum>65: </span>            <span class='hs-conid'>Right</span> <span class='hs-varid'>tk</span> <span class='hs-keyglyph'>-&gt;</span> <a class=annot href="#"><span class=annottext>(GHC.Maybe.Maybe (Web.Telegram.API.Bot.API.Core.Token, Network.HTTP.Client.Types.Manager)) -&gt; (Data.Text.Internal.Text, (GHC.Maybe.Maybe Web.Telegram.API.Bot.Data.Update)) -&gt; (GHC.Types.IO ())</span><span class='hs-sel'>_callTelegramClient</span></a> <a class=annot href="#"><span class=annottext>(GHC.Maybe.Maybe (Web.Telegram.API.Bot.API.Core.Token, Network.HTTP.Client.Types.Manager))</span><span class='hs-layout'>(</span></a><span class='hs-conid'>Just</span> <a class=annot href="#"><span class=annottext>{v : (Web.Telegram.API.Bot.API.Core.Token, Network.HTTP.Client.Types.Manager) | v == tk}</span><span class='hs-varid'>tk</span></a><span class='hs-layout'>)</span> <a class=annot href="#"><span class=annottext>{v : (Data.Text.Internal.Text, (GHC.Maybe.Maybe Web.Telegram.API.Bot.Data.Update)) | v == backMsg}</span><span class='hs-varid'>backMsg</span></a>
+<span class=hs-linenum>66: </span>      <a class=annot href="#"><span class=annottext>(GHC.Types.IO ())</span><span class='hs-varid'>pure</span></a> <a class=annot href="#"><span class=annottext>{v : () | v == ()}</span><span class='hs-conid'>()</span></a>
+<span class=hs-linenum>67: </span>
+<span class=hs-linenum>68: </span><span class='hs-comment'>-- | exceptions that may occur during Weather/Telegram operations</span>
+<span class=hs-linenum>69: </span><span class='hs-keyword'>data</span> <span class='hs-conid'>WeatherTelegramException</span> <span class='hs-keyglyph'>=</span> <span class='hs-conid'>EntityNotFound</span> <span class='hs-conid'>String</span>
+<span class=hs-linenum>70: </span>    <span class='hs-keyglyph'>|</span> <span class='hs-conid'>EntityAlreadyExists</span> <span class='hs-conid'>String</span>
+<span class=hs-linenum>71: </span>    <span class='hs-keyglyph'>|</span> <span class='hs-conid'>InternalError</span> <span class='hs-conid'>String</span>
+<span class=hs-linenum>72: </span>    <span class='hs-keyword'>deriving</span> <span class='hs-layout'>(</span><span class='hs-conid'>Show</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>73: </span>
+<span class=hs-linenum>74: </span><span class='hs-keyword'>instance</span> <a class=annot href="#"><span class=annottext>GHC.Exception.Type.SomeException -&gt; (GHC.Maybe.Maybe InterfaceAdapters.Weather.WWITelegramPirate.WeatherTelegramException)</span><span class='hs-conid'>CE.Exception</span></a> <span class='hs-conid'>WeatherTelegramException</span></pre>
+</body>
+</html>

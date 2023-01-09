@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<title>src/InterfaceAdapters/Parameters/KVS.hs</title>
+</head>
+<head>
+<link type='text/css' rel='stylesheet' href='liquid.css' />
+</head>
+
+<body>
+<hr>
+Put mouse over identifiers to see inferred types
+<pre><span class=hs-linenum> 1: </span><span class='hs-comment'>{-# LANGUAGE GADTs, TypeInType, ScopedTypeVariables, StandaloneDeriving, TemplateHaskell, LambdaCase, BlockArguments, FlexibleContexts, TypeOperators #-}</span>
+<span class=hs-linenum> 2: </span>
+<span class=hs-linenum> 3: </span><span class='hs-keyword'>module</span> <span class='hs-conid'>InterfaceAdapters.Parameters.KVS</span>
+<span class=hs-linenum> 4: </span>  <span class='hs-layout'>(</span> <span class='hs-conid'>KVS</span> <span class='hs-layout'>(</span><span class='hs-keyglyph'>..</span><span class='hs-layout'>)</span>
+<span class=hs-linenum> 5: </span>  <span class='hs-comment'>--, listAllKvs</span>
+<span class=hs-linenum> 6: </span>  <span class='hs-layout'>,</span> <span class='hs-varid'>getKvs</span>
+<span class=hs-linenum> 7: </span>  <span class='hs-layout'>,</span> <span class='hs-varid'>insertKvs</span>
+<span class=hs-linenum> 8: </span>  <span class='hs-comment'>--, deleteKvs</span>
+<span class=hs-linenum> 9: </span>  <span class='hs-layout'>)</span>
+<span class=hs-linenum>10: </span><span class='hs-keyword'>where</span>
+<span class=hs-linenum>11: </span>
+<span class=hs-linenum>12: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Polysemy</span>
+<span class=hs-linenum>13: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Data.Text</span> <span class='hs-layout'>(</span><span class='hs-conid'>Text</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>14: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>InterfaceAdapters.Parameters.Types</span>
+<span class=hs-linenum>15: </span>
+<span class=hs-linenum>16: </span><span class='hs-comment'>-- | a key value store specified as A GADT type</span>
+<span class=hs-linenum>17: </span><span class='hs-keyword'>data</span> <span class='hs-conid'>KVS</span> <span class='hs-varid'>k</span> <span class='hs-varid'>v</span> <span class='hs-varid'>m</span> <span class='hs-varid'>a</span> <span class='hs-keyword'>where</span>
+<span class=hs-linenum>18: </span>  <span class='hs-comment'>--ListAllKvs :: KVS ParameterName ParameterValue m [(ParameterName, ParameterValue)]</span>
+<span class=hs-linenum>19: </span>  <span class='hs-conid'>GetKvs</span>     <span class='hs-keyglyph'>::</span> <span class='hs-conid'>ParameterName</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>KVS</span> <span class='hs-conid'>ParameterName</span> <span class='hs-conid'>ParameterValue</span> <span class='hs-varid'>m</span> <span class='hs-conid'>Text</span>
+<span class=hs-linenum>20: </span>  <span class='hs-conid'>InsertKvs</span>  <span class='hs-keyglyph'>::</span> <span class='hs-conid'>ParameterName</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>ParameterValue</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>KVS</span> <span class='hs-conid'>ParameterName</span> <span class='hs-conid'>ParameterValue</span> <span class='hs-varid'>m</span> <span class='hs-conid'>()</span>
+<span class=hs-linenum>21: </span>  <span class='hs-comment'>--DeleteKvs  :: ParameterName -&gt; KVS ParameterName ParameterValue m ()</span>
+<span class=hs-linenum>22: </span>
+<span class=hs-linenum>23: </span><span class='hs-comment'>-- | makeSem uses TemplateHaskell to generate effect functions (or smart Constructors) from the GADT definition:</span>
+<span class=hs-linenum>24: </span><span class='hs-comment'>-- listAllKvs :: Member (KVS k v) r =&gt; Sem r [(k, v)]</span>
+<span class=hs-linenum>25: </span><span class='hs-comment'>-- getKvs     :: Member (KVS k v) r =&gt; k -&gt; Sem r (Maybe v)</span>
+<span class=hs-linenum>26: </span><span class='hs-comment'>-- insertKvs  :: Member (KVS k v) r =&gt; k -&gt; v -&gt; Sem r ()</span>
+<span class=hs-linenum>27: </span><span class='hs-comment'>-- deleteKvs  :: Member (KVS k v) r =&gt; k -&gt; Sem r ()</span>
+<span class=hs-linenum>28: </span><span class='hs-definition'>makeSem</span> <span class='hs-chr'>'</span><span class='hs-chr'>'</span><span class='hs-conid'>KVS</span>
+<span class=hs-linenum>29: </span>
+</pre>
+</body>
+</html>

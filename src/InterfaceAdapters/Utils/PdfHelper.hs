@@ -1,6 +1,7 @@
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
+{-@ LIQUID "--skip-module" @-}
 
 module InterfaceAdapters.Utils.PdfHelper where
 

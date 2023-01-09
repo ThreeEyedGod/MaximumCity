@@ -1,6 +1,8 @@
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
+{-@ LIQUID "--skip-module" @-}
+
 
 module InterfaceAdapters.Water.MH.Core.WaterLevelLakes where
 

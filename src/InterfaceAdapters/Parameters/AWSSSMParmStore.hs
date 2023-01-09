@@ -1,5 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TypeFamilies #-}
+{-@ LIQUID "--skip-module" @-}
 
 module InterfaceAdapters.Parameters.AWSSSMParmStore
   ( doGetParameter,

@@ -1,5 +1,5 @@
-
 {-# LANGUAGE OverloadedStrings, DeriveGeneric #-}
+{-@ LIQUID "--skip-module" @-}
 
 module InterfaceAdapters.Weather.OpenWeatherAPI where
 import Data.Aeson as Q

@@ -1,3 +1,4 @@
+{-@ LIQUID "--skip-module" @-}
 {-|
 Module      : IP2Location
 Description : IP2Location Haskell package

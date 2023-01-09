@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<title>src/InterfaceAdapters/Weather/WWIWebPirate.hs</title>
+</head>
+<head>
+<link type='text/css' rel='stylesheet' href='liquid.css' />
+</head>
+
+<body>
+<hr>
+Put mouse over identifiers to see inferred types
+<pre><span class=hs-linenum> 1: </span><a class=annot href="#"><span class=annottext>{VV##4459 : GHC.Types.Module | $k_##4460}</span><span class='hs-comment'>{-# LANGUAGE GADTs, TypeInType, ScopedTypeVariables, StandaloneDeriving, TemplateHaskell, LambdaCase, BlockArguments, FlexibleContexts, TypeOperators, DataKinds, PolyKinds #-}</span></a>
+<span class=hs-linenum> 2: </span>
+<span class=hs-linenum> 3: </span><span class='hs-comment'>{-# LANGUAGE TypeFamilies        #-}</span>
+<span class=hs-linenum> 4: </span>
+<span class=hs-linenum> 5: </span><span class='hs-keyword'>module</span> <span class='hs-conid'>InterfaceAdapters.Weather.WWIWebPirate</span>
+<span class=hs-linenum> 6: </span>  <span class='hs-layout'>(</span>
+<span class=hs-linenum> 7: </span>    <span class='hs-varid'>runWWIWebPirate</span>
+<span class=hs-linenum> 8: </span>  <span class='hs-layout'>)</span>
+<span class=hs-linenum> 9: </span><span class='hs-keyword'>where</span>
+<span class=hs-linenum>10: </span>
+<span class=hs-linenum>11: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Polysemy</span> <span class='hs-layout'>(</span> <span class='hs-conid'>Sem</span><span class='hs-layout'>,</span> <span class='hs-conid'>Member</span><span class='hs-layout'>,</span> <span class='hs-conid'>Embed</span><span class='hs-layout'>,</span> <span class='hs-varid'>embed</span><span class='hs-layout'>,</span> <span class='hs-varid'>interpret</span> <span class='hs-layout'>)</span>
+<span class=hs-linenum>12: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Polysemy.Error</span> <span class='hs-conid'>()</span>
+<span class=hs-linenum>13: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Control.Monad.IO.Class</span> <span class='hs-conid'>()</span>
+<span class=hs-linenum>14: </span><span class='hs-keyword'>import</span> <span class='hs-keyword'>qualified</span> <span class='hs-conid'>Data.ByteString.Lazy.Char8</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>LB</span>
+<span class=hs-linenum>15: </span><span class='hs-keyword'>import</span> <span class='hs-keyword'>qualified</span> <span class='hs-conid'>Data.Text</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>Data.ByteString.Char8</span>
+<span class=hs-linenum>16: </span><span class='hs-keyword'>import</span> <span class='hs-keyword'>qualified</span> <span class='hs-conid'>Data.Text</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>T</span>
+<span class=hs-linenum>17: </span><span class='hs-comment'>--import GHC.Integer.Logarithms ()</span>
+<span class=hs-linenum>18: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Data.Text.Encoding</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>TSE</span> <span class='hs-conid'>()</span>
+<span class=hs-linenum>19: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Data.Text.Lazy.Encoding</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>TLE</span> <span class='hs-conid'>()</span>
+<span class=hs-linenum>20: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Data.ByteString.UTF8</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>BSU</span> <span class='hs-conid'>()</span>
+<span class=hs-linenum>21: </span><span class='hs-keyword'>import</span> <span class='hs-keyword'>qualified</span> <span class='hs-conid'>Data.Aeson</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>TLO</span> <span class='hs-layout'>(</span><span class='hs-varid'>decode</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>22: </span><span class='hs-keyword'>import</span> <span class='hs-keyword'>qualified</span> <span class='hs-conid'>Data.Text.Encoding</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>T</span>
+<span class=hs-linenum>23: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Data.Maybe</span> <span class='hs-conid'>()</span>
+<span class=hs-linenum>24: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Data.Aeson</span>
+<span class=hs-linenum>25: </span>    <span class='hs-layout'>(</span> <span class='hs-varid'>decode</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>26: </span>      <span class='hs-conid'>FromJSON</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>27: </span>      <span class='hs-conid'>ToJSON</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>28: </span>      <span class='hs-varid'>eitherDecode</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>29: </span>      <span class='hs-varid'>encode</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>30: </span>      <span class='hs-conid'>KeyValue</span><span class='hs-layout'>(</span><span class='hs-layout'>(</span><span class='hs-varop'>.=</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>31: </span>      <span class='hs-varid'>object</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>32: </span>      <span class='hs-conid'>Value</span> <span class='hs-layout'>(</span><span class='hs-conid'>Object</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>33: </span>       <span class='hs-layout'>)</span>
+<span class=hs-linenum>34: </span>
+<span class=hs-linenum>35: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>InterfaceAdapters.Utils.HttpHeadersPathDefinitions</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>H</span> <span class='hs-conid'>()</span>
+<span class=hs-linenum>36: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>InterfaceAdapters.Weather.PirateWeatherAPI</span> <span class='hs-conid'>()</span>
+<span class=hs-linenum>37: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>UseCases.WWI</span>
+<span class=hs-linenum>38: </span>    <span class='hs-layout'>(</span> <span class='hs-conid'>TheWeatherThere</span><span class='hs-layout'>,</span> <span class='hs-conid'>UserAsk</span><span class='hs-layout'>(</span><span class='hs-keyglyph'>..</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span> <span class='hs-conid'>WWI</span><span class='hs-layout'>(</span><span class='hs-conid'>GetWeatherTown</span><span class='hs-layout'>)</span> <span class='hs-layout'>)</span>
+<span class=hs-linenum>39: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>UseCases.AgricultureUseCase</span> <span class='hs-conid'>()</span>
+<span class=hs-linenum>40: </span><span class='hs-keyword'>import</span> <span class='hs-keyword'>qualified</span> <span class='hs-conid'>InterfaceAdapters.Weather.Weather</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>IWW</span>
+<span class=hs-linenum>41: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>InterfaceAdapters.Preferences</span> <span class='hs-conid'>()</span>
+<span class=hs-linenum>42: </span>
+<span class=hs-linenum>43: </span><span class='hs-definition'>runWWIWebPirate</span> <span class='hs-keyglyph'>::</span> <span class='hs-layout'>(</span><span class='hs-conid'>Member</span> <span class='hs-layout'>(</span><span class='hs-conid'>Embed</span> <span class='hs-conid'>IO</span><span class='hs-layout'>)</span> <span class='hs-varid'>r</span><span class='hs-layout'>)</span> <span class='hs-keyglyph'>=&gt;</span> <span class='hs-conid'>Sem</span> <span class='hs-layout'>(</span><span class='hs-conid'>WWI</span> <span class='hs-conop'>:</span> <span class='hs-varid'>r</span><span class='hs-layout'>)</span> <span class='hs-varid'>a</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>Sem</span> <span class='hs-varid'>r</span> <span class='hs-varid'>a</span>
+<span class=hs-linenum>44: </span><a class=annot href="#"><span class=annottext>forall r a .
+(GHC.Classes.(%,%)&lt;[]&gt; (Polysemy.Internal.Union.Find lq_tmp$x##1661:(lq_tmp$x##1662:(TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep)) -&gt; lq_tmp$x##1663:(TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep) (Polysemy.Embed.Type.Embed GHC.Types.IO) r) (GHC.Types.~ () (Polysemy.Internal.Union.LocateEffect lq_tmp$x##1664:(lq_tmp$x##1665:(TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep)) -&gt; lq_tmp$x##1666:(TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep) (Polysemy.Embed.Type.Embed GHC.Types.IO) r) '())) =&gt;
+lq_tmp$x##3486:(Polysemy.Internal.Sem (': (lq_tmp$x##1668:(lq_tmp$x##1669:(TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep)) -&gt; lq_tmp$x##1670:(TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep)) (UseCases.WWI.WWI (lq_tmp$x##1671:(TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep))) r) a) -&gt; (Polysemy.Internal.Sem r a)</span><span class='hs-definition'>runWWIWebPirate</span></a> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>interpret</span> <a class=annot href="#"><span class=annottext>{lq_tmp$x##4277 : GHC.Prim.Addr# | lq_tmp$x##4277 == "src/InterfaceAdapters/Weather/WWIWebPirate.hs:44:30-84|lambda"}</span><span class='hs-layout'>(</span></a><span class='hs-keyglyph'>\</span><span class='hs-layout'>(</span><span class='hs-conid'>GetWeatherTown</span> <span class='hs-varid'>req</span><span class='hs-layout'>)</span> <span class='hs-keyglyph'>-&gt;</span> <a class=annot href="#"><span class=annottext>(Polysemy.Internal.Sem r {lq_tmp$x##4179 : Data.Text.Internal.Text | $k_##4178[VV##4177:=lq_tmp$x##4179][lq_tmp$x##4173:=fix$36$$36$d$40$$37$$44$$37$$41$_a59Ed][lq_tmp$x##4174:=lq_anf$##7205759403794022470##d59Gu]})</span><span class='hs-varid'>embed</span></a> <a class=annot href="#"><span class=annottext>{lq_tmp$x##4126 : (GHC.Types.IO {lq_tmp$x##4125 : Data.Text.Internal.Text | $k_##3432[VV##3431:=lq_tmp$x##4125][VV##3433:=lq_tmp$x##4126][ds_d59EQ:=req##a59Dv][lq_tmp$x##4128:=req##a59Dv]}) | $k_##3434[VV##3433:=lq_tmp$x##4126][ds_d59EQ:=req##a59Dv][lq_tmp$x##4128:=req##a59Dv]}</span><span class='hs-layout'>(</span></a><span class='hs-varid'>interfaceWebPirate</span> <a class=annot href="#"><span class=annottext>{lq_tmp$x##4129 : UseCases.WWI.UserAsk | lq_tmp$x##4129 == req##a59Dv}</span><span class='hs-varid'>req</span></a><span class='hs-layout'>)</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>45: </span>
+<span class=hs-linenum>46: </span><span class='hs-definition'>interfaceWebPirate</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>UserAsk</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>IO</span> <span class='hs-conid'>TheWeatherThere</span>
+<span class=hs-linenum>47: </span><a class=annot href="#"><span class=annottext>ds_d59EQ:{VV##3428 : UseCases.WWI.UserAsk | $k_##3429} -&gt; {VV##3433 : (GHC.Types.IO {VV##3431 : Data.Text.Internal.Text | $k_##3432}) | $k_##3434}</span><span class='hs-definition'>interfaceWebPirate</span></a> <span class='hs-conid'>UserAsk</span> <span class='hs-layout'>{</span><span class='hs-varid'>placeName</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>pl</span><span class='hs-layout'>,</span> <span class='hs-varid'>prefs</span> <span class='hs-keyglyph'>=</span> <span class='hs-keyword'>_</span> <span class='hs-layout'>}</span> <span class='hs-keyglyph'>=</span> <a class=annot href="#"><span class=annottext>(GHC.Maybe.Maybe {lq_tmp$x##3458 : Data.ByteString.Lazy.Internal.ByteString | $k_##3457[VV##3456:=lq_tmp$x##3458]})</span><span class='hs-conid'>IWW.getWeather</span></a> <a class=annot href="#"><span class=annottext>{VV : forall a . (GHC.Maybe.Maybe a) | VV == GHC.Maybe.Nothing}</span><span class='hs-conid'>Nothing</span></a> <a class=annot href="#"><span class=annottext>(GHC.Maybe.Maybe {lq_tmp$x##3467 : Data.Text.Internal.Text | $k_##3466[VV##3465:=lq_tmp$x##3467][lq_tmp$x##3464:=ds_d59EV]})</span><span class='hs-layout'>(</span></a><span class='hs-conid'>Just</span> <a class=annot href="#"><span class=annottext>{lq_tmp$x##3468 : Data.Text.Internal.Text | lq_tmp$x##3468 == ds_d59EV}</span><span class='hs-varid'>pl</span></a><span class='hs-layout'>)</span></pre>
+</body>
+</html>
