@@ -1,0 +1,14 @@
+{-@ LIQUID "--higherorder" @-}
+{-@ LIQUID "--save" @-}
+{-@ LIQUID "--prune-unsorted" @-}
+{-@ LIQUID "--typed-holes" @-}
+{-@ LIQUID "--reflection" @-}
+{-@ LIQUID "--ple"            @-}
+{-@ LIQUID "--compilespec" @-}
+{-@ LIQUID "--no-class-check" @-}
+module InterfaceAdapters.Weather.Tutorial where
+
+{-@ embed Int * as Int @-}
+{-@ one :: {v:Int | v = 1 } @-}
+one :: Int
+one = 1

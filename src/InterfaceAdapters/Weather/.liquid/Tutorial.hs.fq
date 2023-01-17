@@ -1,0 +1,274 @@
+// Config {srcFile = "src/InterfaceAdapters/Weather/Tutorial.hs", cores = Nothing, minPartSize = 500, maxPartSize = 700, solver = z3, linear = False, stringTheory = False, defunction = False, allowHO = True, allowHOqs = False, eliminate = some, elimBound = Nothing, smtTimeout = Nothing, elimStats = False, solverStats = False, metadata = False, stats = False, parts = False, save = True, minimize = False, minimizeQs = False, minimizeKs = False, minimalSol = False, etaElim = False, gradual = False, ginteractive = False, autoKuts = False, nonLinCuts = False, noslice = False, rewriteAxioms = True, pleWithUndecidedGuards = False, interpreter = False, oldPLE = False, noIncrPle = False, noEnvironmentReduction = True, inlineANFBindings = False, checkCstr = [], extensionality = False, rwTerminationCheck = False, stdin = False, json = False, noLazyPLE = False, fuel = Nothing, restOrdering = "rpo"}
+
+
+
+
+define GHC.Base.. (lq1 : func(0 , [b##a76t;
+                                   c##a76u]),  lq2 : func(0 , [a##a76v;
+                                                               b##a76t]),  lq3 : a##a76v) : c##a76u = {((lq1 (lq2 lq3)))}
+match charX GHC.Types.C# lq_tmp$x##40  =  (lq_tmp$x##40)
+match head GHC.Types.$58$ lq_tmp$x##36 lq_tmp$x##37  =  (lq_tmp$x##36)
+match is$36$GHC.Tuple.$40$$44$$41$ GHC.Tuple.$40$$44$$41$ lq_tmp$x##32 lq_tmp$x##33  =  (true)
+match is$36$GHC.Tuple.$40$$44$$44$$41$ GHC.Tuple.$40$$44$$44$$41$ lq_tmp$x##26 lq_tmp$x##27 lq_tmp$x##28  =  (true)
+match is$36$GHC.Types.$58$ GHC.Types.$58$ lq_tmp$x##36 lq_tmp$x##37  =  (true)
+match is$36$GHC.Types.$58$ GHC.Types.$91$$93$  =  (false)
+match is$GHC.Types.C# GHC.Types.C# lq_tmp$x##40  =  (true)
+match is$36$GHC.Types.$91$$93$ GHC.Types.$58$ lq_tmp$x##36 lq_tmp$x##37  =  (false)
+match is$36$GHC.Types.$91$$93$ GHC.Types.$91$$93$  =  (true)
+match lqdc$35$$35$$36$select$35$$35$GHC.Tuple.$40$$44$$41$$35$$35$1 GHC.Tuple.$40$$44$$41$ lq_tmp$x##32 lq_tmp$x##33  =  (lq_tmp$x##32)
+match lqdc$35$$35$$36$select$35$$35$GHC.Tuple.$40$$44$$41$$35$$35$2 GHC.Tuple.$40$$44$$41$ lq_tmp$x##32 lq_tmp$x##33  =  (lq_tmp$x##33)
+match lqdc$35$$35$$36$select$35$$35$GHC.Tuple.$40$$44$$44$$41$$35$$35$1 GHC.Tuple.$40$$44$$44$$41$ lq_tmp$x##26 lq_tmp$x##27 lq_tmp$x##28  =  (lq_tmp$x##26)
+match lqdc$35$$35$$36$select$35$$35$GHC.Tuple.$40$$44$$44$$41$$35$$35$2 GHC.Tuple.$40$$44$$44$$41$ lq_tmp$x##26 lq_tmp$x##27 lq_tmp$x##28  =  (lq_tmp$x##27)
+match lqdc$35$$35$$36$select$35$$35$GHC.Tuple.$40$$44$$44$$41$$35$$35$3 GHC.Tuple.$40$$44$$44$$41$ lq_tmp$x##26 lq_tmp$x##27 lq_tmp$x##28  =  (lq_tmp$x##28)
+match lqdc$35$$35$$36$select$35$$35$GHC.Types.$58$$35$$35$1 GHC.Types.$58$ lq_tmp$x##36 lq_tmp$x##37  =  (lq_tmp$x##36)
+match lqdc$35$$35$$36$select$35$$35$GHC.Types.$58$$35$$35$2 GHC.Types.$58$ lq_tmp$x##36 lq_tmp$x##37  =  (lq_tmp$x##37)
+match lqdc##$select##GHC.Types.C###1 GHC.Types.C# lq_tmp$x##40  =  (lq_tmp$x##40)
+match tail GHC.Types.$58$ lq_tmp$x##36 lq_tmp$x##37  =  (lq_tmp$x##37)
+match x_Tuple21 GHC.Tuple.$40$$44$$41$ lq_tmp$x##32 lq_tmp$x##33  =  (lq_tmp$x##32)
+match x_Tuple22 GHC.Tuple.$40$$44$$41$ lq_tmp$x##32 lq_tmp$x##33  =  (lq_tmp$x##33)
+match x_Tuple31 GHC.Tuple.$40$$44$$44$$41$ lq_tmp$x##26 lq_tmp$x##27 lq_tmp$x##28  =  (lq_tmp$x##26)
+match x_Tuple32 GHC.Tuple.$40$$44$$44$$41$ lq_tmp$x##26 lq_tmp$x##27 lq_tmp$x##28  =  (lq_tmp$x##27)
+match x_Tuple33 GHC.Tuple.$40$$44$$44$$41$ lq_tmp$x##26 lq_tmp$x##27 lq_tmp$x##28  =  (lq_tmp$x##28)
+expand [1 : True; 2 : True]
+
+
+
+
+cut $k_##62
+
+
+constant Data.Either.Left : (func(2 , [@(0);
+                                       (Data.Either.Either @(0) @(1))]))
+constant Data.Either.Right : (func(2 , [@(1);
+                                        (Data.Either.Either @(0) @(1))]))
+constant GHC.Base.. : (func(3 , [func(0 , [@(0); @(1)]);
+                                 func(0 , [@(2); @(0)]);
+                                 @(2);
+                                 @(1)]))
+constant GHC.Classes.C$58$IP : (func(2 , [@(1); @(1)]))
+constant GHC.Enum.C$58$Bounded : (func(1 , [@(0);
+                                            @(0);
+                                            (GHC.Enum.Bounded @(0))]))
+constant GHC.IO.Exception.IOError : (func(0 , [(GHC.Maybe.Maybe GHC.IO.Handle.Types.Handle);
+                                               GHC.IO.Exception.IOErrorType;
+                                               [GHC.Types.Char];
+                                               [GHC.Types.Char];
+                                               (GHC.Maybe.Maybe GHC.Int.Int32);
+                                               (GHC.Maybe.Maybe [GHC.Types.Char]);
+                                               GHC.IO.Exception.IOException]))
+constant GHC.Maybe.Just : (func(1 , [@(0);
+                                     (GHC.Maybe.Maybe @(0))]))
+constant GHC.Maybe.Nothing : (func(1 , [(GHC.Maybe.Maybe @(0))]))
+constant GHC.Num.Integer.IN : (func(0 , [GHC.Prim.ByteArray#;
+                                         GHC.Num.Integer.Integer]))
+constant GHC.Num.Integer.IP : (func(0 , [GHC.Prim.ByteArray#;
+                                         GHC.Num.Integer.Integer]))
+constant GHC.Num.Integer.IS : (func(0 , [GHC.Prim.Int#;
+                                         GHC.Num.Integer.Integer]))
+constant GHC.Real.$36$W$58$$37$ : (func(1 , [@(0);
+                                             @(0);
+                                             (GHC.Real.Ratio @(0))]))
+constant GHC.Real.$58$$37$ : (func(1 , [@(0);
+                                        @(0);
+                                        (GHC.Real.Ratio @(0))]))
+constant GHC.Stack.Types.EmptyCallStack : (GHC.Stack.Types.CallStack)
+constant GHC.Stack.Types.FreezeCallStack : (func(0 , [GHC.Stack.Types.CallStack;
+                                                      GHC.Stack.Types.CallStack]))
+constant GHC.Stack.Types.PushCallStack : (func(0 , [[GHC.Types.Char];
+                                                    GHC.Stack.Types.SrcLoc;
+                                                    GHC.Stack.Types.CallStack;
+                                                    GHC.Stack.Types.CallStack]))
+constant GHC.Tuple.$40$$41$ : (Tuple)
+constant GHC.Tuple.$40$$44$$41$ : (func(2 , [@(0);
+                                             @(1);
+                                             (Tuple @(0) @(1))]))
+constant GHC.Tuple.$40$$44$$44$$41$ : (func(3 , [@(0);
+                                                 @(1);
+                                                 @(2);
+                                                 (Tuple @(0) @(1) @(2))]))
+constant GHC.Types.$58$ : (func(1 , [@(0); [@(0)]; [@(0)]]))
+constant GHC.Types.C# : (func(0 , [GHC.Prim.Char#;
+                                   GHC.Types.Char]))
+constant GHC.Types.EQ : (GHC.Types.Ordering)
+constant GHC.Types.False : (GHC.Types.Bool)
+constant GHC.Types.GT : (GHC.Types.Ordering)
+constant GHC.Types.I# : (func(0 , [GHC.Prim.Int#; int]))
+constant GHC.Types.LT : (GHC.Types.Ordering)
+constant GHC.Types.Module : (func(0 , [GHC.Types.TrName;
+                                       GHC.Types.TrName;
+                                       GHC.Types.Module]))
+constant GHC.Types.TrNameD : (func(0 , [[GHC.Types.Char];
+                                        GHC.Types.TrName]))
+constant GHC.Types.TrNameS : (func(0 , [GHC.Prim.Addr#;
+                                        GHC.Types.TrName]))
+constant GHC.Types.True : (GHC.Types.Bool)
+constant GHC.Types.$91$$93$ : (func(1 , [[@(0)]]))
+constant charX : (func(0 , [GHC.Types.Char; GHC.Prim.Char#]))
+constant head : (func(1 , [[@(0)]; @(0)]))
+constant is$36$GHC.Tuple.$40$$44$$41$ : (func(2 , [(Tuple @(0) @(1));
+                                                   GHC.Types.Bool]))
+constant is$36$GHC.Tuple.$40$$44$$44$$41$ : (func(3 , [(Tuple @(0) @(1) @(2));
+                                                       GHC.Types.Bool]))
+constant is$36$GHC.Types.$58$ : (func(1 , [[@(0)];
+                                           GHC.Types.Bool]))
+constant is$GHC.Types.C# : (func(0 , [GHC.Types.Char;
+                                      GHC.Types.Bool]))
+constant is$36$GHC.Types.$91$$93$ : (func(1 , [[@(0)];
+                                               GHC.Types.Bool]))
+constant liquid_internal_this : (func(1 , [@(0)]))
+constant lit$InterfaceAdapters.Weather.Tutorial : (Str)
+constant lit$36$MaximumCity$45$0.9.9$45$ApX6NCZBzRnIqwAlWasrpl : (Str)
+constant lqdc$35$$35$$36$select$35$$35$GHC.Tuple.$40$$44$$41$$35$$35$1 : (func(2 , [(Tuple @(0) @(1));
+                                                                                    @(0)]))
+constant lqdc$35$$35$$36$select$35$$35$GHC.Tuple.$40$$44$$41$$35$$35$2 : (func(2 , [(Tuple @(0) @(1));
+                                                                                    @(1)]))
+constant lqdc$35$$35$$36$select$35$$35$GHC.Tuple.$40$$44$$44$$41$$35$$35$1 : (func(3 , [(Tuple @(0) @(1) @(2));
+                                                                                        @(0)]))
+constant lqdc$35$$35$$36$select$35$$35$GHC.Tuple.$40$$44$$44$$41$$35$$35$2 : (func(3 , [(Tuple @(0) @(1) @(2));
+                                                                                        @(1)]))
+constant lqdc$35$$35$$36$select$35$$35$GHC.Tuple.$40$$44$$44$$41$$35$$35$3 : (func(3 , [(Tuple @(0) @(1) @(2));
+                                                                                        @(2)]))
+constant lqdc$35$$35$$36$select$35$$35$GHC.Types.$58$$35$$35$1 : (func(1 , [[@(0)];
+                                                                            @(0)]))
+constant lqdc$35$$35$$36$select$35$$35$GHC.Types.$58$$35$$35$2 : (func(1 , [[@(0)];
+                                                                            [@(0)]]))
+constant lqdc##$select##GHC.Types.C###1 : (func(0 , [GHC.Types.Char;
+                                                     GHC.Prim.Char#]))
+constant papp1 : (func(2 , [(Pred @(0)); @(1); bool]))
+constant papp2 : (func(4 , [(Pred @(0) @(1)); @(2); @(3); bool]))
+constant papp3 : (func(6 , [(Pred @(0) @(1) @(2));
+                            @(3);
+                            @(4);
+                            @(5);
+                            bool]))
+constant papp4 : (func(8 , [(Pred @(0) @(1) @(2) @(3));
+                            @(4);
+                            @(5);
+                            @(6);
+                            @(7);
+                            bool]))
+constant papp5 : (func(10 , [(Pred @(0) @(1) @(2) @(3) @(4));
+                             @(5);
+                             @(6);
+                             @(7);
+                             @(8);
+                             @(9);
+                             bool]))
+constant papp6 : (func(12 , [(Pred @(0) @(1) @(2) @(3) @(4) @(5));
+                             @(6);
+                             @(7);
+                             @(8);
+                             @(9);
+                             @(10);
+                             @(11);
+                             bool]))
+constant papp7 : (func(14 , [(Pred @(0) @(1) @(2) @(3) @(4) @(5) @(6));
+                             @(7);
+                             @(8);
+                             @(9);
+                             @(10);
+                             @(11);
+                             @(12);
+                             @(13);
+                             bool]))
+constant tail : (func(1 , [[@(0)]; [@(0)]]))
+constant x_Tuple21 : (func(2 , [(Tuple @(0) @(1)); @(0)]))
+constant x_Tuple22 : (func(2 , [(Tuple @(0) @(1)); @(1)]))
+constant x_Tuple31 : (func(3 , [(Tuple @(0) @(1) @(2)); @(0)]))
+constant x_Tuple32 : (func(3 , [(Tuple @(0) @(1) @(2)); @(1)]))
+constant x_Tuple33 : (func(3 , [(Tuple @(0) @(1) @(2)); @(2)]))
+
+
+distinct GHC.Stack.Types.EmptyCallStack : (GHC.Stack.Types.CallStack)
+distinct GHC.Tuple.$40$$41$ : (Tuple)
+distinct GHC.Types.EQ : (GHC.Types.Ordering)
+distinct GHC.Types.False : (GHC.Types.Bool)
+distinct GHC.Types.GT : (GHC.Types.Ordering)
+distinct GHC.Types.I# : (func(0 , [GHC.Prim.Int#; int]))
+distinct GHC.Types.LT : (GHC.Types.Ordering)
+distinct GHC.Types.Module : (func(0 , [GHC.Types.TrName;
+                                       GHC.Types.TrName;
+                                       GHC.Types.Module]))
+distinct GHC.Types.TrNameS : (func(0 , [GHC.Prim.Addr#;
+                                        GHC.Types.TrName]))
+distinct GHC.Types.True : (GHC.Types.Bool)
+distinct lit$InterfaceAdapters.Weather.Tutorial : (Str)
+distinct lit$36$MaximumCity$45$0.9.9$45$ApX6NCZBzRnIqwAlWasrpl : (Str)
+
+
+bind 0 GHC.Types.I# : {VV : func(0 , [GHC.Prim.Int#; int]) | []}
+bind 1 GHC.Types.Module : {VV : func(0 , [GHC.Types.TrName;
+                                          GHC.Types.TrName;
+                                          GHC.Types.Module]) | []}
+bind 2 GHC.Types.TrNameS : {VV : func(0 , [GHC.Prim.Addr#;
+                                           GHC.Types.TrName]) | []}
+bind 3 GHC.Types.Module : {VV : func(0 , [GHC.Types.TrName;
+                                          GHC.Types.TrName;
+                                          GHC.Types.Module]) | []}
+bind 4 GHC.Types.I# : {VV : func(0 , [GHC.Prim.Int#; int]) | []}
+bind 5 GHC.Types.TrNameS : {VV : func(0 , [GHC.Prim.Addr#;
+                                           GHC.Types.TrName]) | []}
+bind 6 GHC.Base.. : {VV : func(3 , [func(0 , [@(0); @(1)]);
+                                    func(0 , [@(2); @(0)]);
+                                    @(2);
+                                    @(1)]) | []}
+bind 7 GHC.Types.C# : {VV : func(0 , [GHC.Prim.Char#;
+                                      GHC.Types.Char]) | []}
+bind 8 GHC.Types.$58$ : {VV : func(1 , [@(0);
+                                        [@(0)];
+                                        [@(0)]]) | []}
+bind 9 GHC.Types.$91$$93$ : {VV : func(1 , [[@(0)]]) | []}
+bind 10 GHC.Tuple.$40$$44$$41$ : {VV : func(2 , [@(0);
+                                                 @(1);
+                                                 (Tuple @(0) @(1))]) | []}
+bind 11 GHC.Tuple.$40$$44$$44$$41$ : {VV : func(3 , [@(0);
+                                                     @(1);
+                                                     @(2);
+                                                     (Tuple @(0) @(1) @(2))]) | []}
+bind 12 lq_anf$##7205759403793980221##d4YH3 : {lq_tmp$x##53 : GHC.Prim.Int# | []}
+bind 13 InterfaceAdapters.Weather.Tutorial.one : {v : int | [(v =
+                                                                1)]}
+bind 14 lq_anf$##7205759403793980222##d4YH4 : {lq_tmp$x##63 : GHC.Prim.Addr# | []}
+bind 15 lq_anf$##7205759403793980223##d4YH5 : {lq_tmp$x##66 : GHC.Types.TrName | [(lq_tmp$x##66 =
+                                                                                     (GHC.Types.TrNameS lq_anf$##7205759403793980222##d4YH4))]}
+bind 16 lq_anf$##7205759403793980224##d4YH6 : {lq_tmp$x##71 : GHC.Prim.Addr# | []}
+bind 17 lq_anf$##7205759403793980225##d4YH7 : {lq_tmp$x##74 : GHC.Types.TrName | [(lq_tmp$x##74 =
+                                                                                     (GHC.Types.TrNameS lq_anf$##7205759403793980224##d4YH6))]}
+bind 18 InterfaceAdapters.Weather.Tutorial.$trModule : {VV##61 : GHC.Types.Module | [$k_##62]}
+
+
+
+
+
+
+constraint:
+  env [0; 1; 2; 3; 4; 5; 6; 7; 8; 9; 10; 11; 13; 14; 15; 16; 17]
+  lhs {VV##F##1 : GHC.Types.Module | [(VV##F##1 =
+                                         (GHC.Types.Module lq_anf$##7205759403793980223##d4YH5 lq_anf$##7205759403793980225##d4YH7))]}
+  rhs {VV##F##1 : GHC.Types.Module | [$k_##62[VV##61:=VV##F##1][VV##89:=VV##F##1][VV##F:=VV##F##1]]}
+  id 1 tag [1]
+  // META constraint id 1 : src/InterfaceAdapters/Weather/Tutorial.hs:1:1
+
+
+constraint:
+  env [0; 1; 2; 3; 4; 5; 6; 7; 8; 9; 10; 11; 12]
+  lhs {VV##F##2 : int | [(VV##F##2 =
+                            (GHC.Types.I# lq_anf$##7205759403793980221##d4YH3))]}
+  rhs {VV##F##2 : int | [(VV##F##2 = 1)]}
+  id 2 tag [2]
+  // META constraint id 2 : src/InterfaceAdapters/Weather/Tutorial.hs:14:1-7
+
+
+
+
+wf:
+  env [0; 1; 2; 3; 4; 5; 6; 7; 8; 9; 10; 11; 13]
+  reft {VV##61 : GHC.Types.Module | [$k_##62]}
+  // META wf : src/InterfaceAdapters/Weather/Tutorial.hs:1:1
+
+
+
+
+
+
+

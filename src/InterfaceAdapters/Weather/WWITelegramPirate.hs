@@ -3,6 +3,7 @@
 {-# LANGUAGE TemplateHaskell, LambdaCase, BlockArguments, GADTs
            , FlexibleContexts, TypeOperators, DataKinds, PolyKinds, ScopedTypeVariables #-}
 {-# LANGUAGE TypeFamilies        #-}
+{-@ LIQUID "--skip-module" @-}
 
 
 module InterfaceAdapters.Weather.WWITelegramPirate

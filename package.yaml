@@ -29,8 +29,9 @@ default-extensions:
   - ScopedTypeVariables
 
 dependencies:
-- base >= 4.14 && <5
+#- base >= 4.14 && <5
 - liquidhaskell
+- liquid-base
 - aeson >= 2.0.3.0
 - text
 - integer-gmp
@@ -72,11 +73,14 @@ dependencies:
 - text-manipulate >= 0.3.0.0
 - sort >= 1.0.0.0
 - stringsearch >= 0.3.6.6
+- type-natural >= 1.1.0.1
 
 library:
   source-dirs: src
+  ghc-options: -O2 -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin -fplugin=LiquidHaskell
+  #ghc-options: -O2 -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin -fplugin=LiquidHaskell -with-rtsopts="-K128m" -fplugin-opt=LiquidHaskell:--diff -fplugin-opt=LiquidHaskell:--no-positivity-check -fplugin-opt=LiquidHaskell:--higherorder -fplugin-opt=LiquidHaskell:--prune-unsorted
   #ghc-options: -O2 -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin 
-  ghc-options: -O2 -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin -fplugin=LiquidHaskell -with-rtsopts="-K128m" -fplugin-opt=LiquidHaskell:--diff -fplugin-opt=LiquidHaskell:--no-positivity-check
+
 
 executables:
   bootstrap:
@@ -88,8 +92,6 @@ executables:
     - -O2
     - -static
     - -with-rtsopts=-N
-    - -UndecidableSuperClasses
-    - -XScopedTypeVariables
     - -flate-specialise 
     - -fspecialise-aggressively
     - -fplugin=Polysemy.Plugin
@@ -98,7 +100,7 @@ executables:
     ld-options: -static -pthread
     dependencies:
     - MaximumCity
-    extensions: ScopedTypeVariables
+    #extensions: ScopedTypeVariables
     cpp-options: -UndecidableSuperClasses
 
 tests:

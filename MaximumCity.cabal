@@ -1,6 +1,6 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.35.0.
+-- This file has been generated from package.yaml by hpack version 0.35.1.
 --
 -- see: https://github.com/sol/hpack
 
@@ -49,6 +49,7 @@ library
       InterfaceAdapters.Weather.OpenWeatherAPI
       InterfaceAdapters.Weather.PirateWeatherAPI
       InterfaceAdapters.Weather.PirateWeatherHeaders
+      InterfaceAdapters.Weather.Tutorial
       InterfaceAdapters.Weather.Weather
       InterfaceAdapters.Weather.WWITelegramPirate
       InterfaceAdapters.Weather.WWIWebPirate
@@ -76,7 +77,7 @@ library
       DeriveGeneric
       UndecidableSuperClasses
       ScopedTypeVariables
-  ghc-options: -O2 -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin -fplugin=LiquidHaskell -with-rtsopts="-K128m" -fplugin-opt=LiquidHaskell:--diff -fplugin-opt=LiquidHaskell:--no-positivity-check
+  ghc-options: -O2 -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin -fplugin=LiquidHaskell
   build-depends:
       aeson >=2.0.3.0
     , amazonka
@@ -85,7 +86,6 @@ library
     , amazonka-ssm
     , attoparsec >=0.14.4
     , aws-lambda-haskell-runtime
-    , base >=4.14 && <5
     , binary >=0.8.8.0
     , bytestring >=0.10.12.1
     , containers >=0.6.4.1
@@ -99,6 +99,7 @@ library
     , integer-gmp
     , iproute >=1.7.12
     , lens >=5.0.1
+    , liquid-base
     , liquidhaskell
     , mtl >=2.2.2
     , naqsha >=0.3.0.1
@@ -117,6 +118,7 @@ library
     , text
     , text-manipulate >=0.3.0.0
     , time >=1.9.3
+    , type-natural >=1.1.0.1
     , utf8-string
     , wai >=3.2.1.2
     , word8 >=0.1
@@ -146,7 +148,7 @@ executable bootstrap
       DeriveGeneric
       UndecidableSuperClasses
       ScopedTypeVariables
-  ghc-options: -threaded -rtsopts -O2 -static -with-rtsopts=-N -UndecidableSuperClasses -XScopedTypeVariables -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin
+  ghc-options: -threaded -rtsopts -O2 -static -with-rtsopts=-N -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin
   cpp-options: -UndecidableSuperClasses
   cc-options: -static
   ld-options: -static -pthread
@@ -159,7 +161,6 @@ executable bootstrap
     , amazonka-ssm
     , attoparsec >=0.14.4
     , aws-lambda-haskell-runtime
-    , base >=4.14 && <5
     , binary >=0.8.8.0
     , bytestring >=0.10.12.1
     , containers >=0.6.4.1
@@ -173,6 +174,7 @@ executable bootstrap
     , integer-gmp
     , iproute >=1.7.12
     , lens >=5.0.1
+    , liquid-base
     , liquidhaskell
     , mtl >=2.2.2
     , naqsha >=0.3.0.1
@@ -191,6 +193,7 @@ executable bootstrap
     , text
     , text-manipulate >=0.3.0.0
     , time >=1.9.3
+    , type-natural >=1.1.0.1
     , utf8-string
     , wai >=3.2.1.2
     , word8 >=0.1
@@ -252,6 +255,7 @@ test-suite MaximumCity-test
     , integer-gmp
     , iproute >=1.7.12
     , lens >=5.0.1
+    , liquid-base
     , liquidhaskell
     , mtl >=2.2.2
     , naqsha >=0.3.0.1
@@ -274,6 +278,7 @@ test-suite MaximumCity-test
     , text
     , text-manipulate >=0.3.0.0
     , time >=1.9.3
+    , type-natural >=1.1.0.1
     , utf8-string
     , wai >=3.2.1.2
     , word8 >=0.1
@@ -310,7 +315,6 @@ benchmark MaximumCity-benchmark
     , amazonka-ssm
     , attoparsec >=0.14.4
     , aws-lambda-haskell-runtime
-    , base >=4.14 && <5
     , binary >=0.8.8.0
     , bytestring >=0.10.12.1
     , containers >=0.6.4.1
@@ -324,6 +328,7 @@ benchmark MaximumCity-benchmark
     , integer-gmp
     , iproute >=1.7.12
     , lens >=5.0.1
+    , liquid-base
     , liquidhaskell
     , mtl >=2.2.2
     , naqsha >=0.3.0.1
@@ -342,6 +347,7 @@ benchmark MaximumCity-benchmark
     , text
     , text-manipulate >=0.3.0.0
     , time >=1.9.3
+    , type-natural >=1.1.0.1
     , utf8-string
     , wai >=3.2.1.2
     , word8 >=0.1

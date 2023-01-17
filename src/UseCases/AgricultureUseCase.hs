@@ -1,4 +1,5 @@
 {-# LANGUAGE BlockArguments, GADTs, FlexibleContexts, FlexibleInstances, DataKinds, PolyKinds, ScopedTypeVariables #-}
+{-@ LIQUID "--skip-module" @-}
 
 module UseCases.AgricultureUseCase
 (

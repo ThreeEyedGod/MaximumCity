@@ -1,5 +1,5 @@
 {-# LANGUAGE DuplicateRecordFields #-}
-
+{-@ LIQUID "--higherorder" @-}
 
 module InterfaceAdapters.Weather.PirateWeatherAPI where
 import Data.Aeson (eitherDecode)

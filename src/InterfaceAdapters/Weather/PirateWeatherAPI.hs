@@ -1,4 +1,6 @@
 {-# LANGUAGE DuplicateRecordFields #-}
+{-@ LIQUID "--higherorder" @-}
+{-@ LIQUID "--skip-module" @-}
 
 
 module InterfaceAdapters.Weather.PirateWeatherAPI where

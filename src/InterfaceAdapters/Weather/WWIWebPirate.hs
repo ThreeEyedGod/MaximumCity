@@ -1,6 +1,7 @@
 {-# LANGUAGE GADTs, TypeInType, ScopedTypeVariables, StandaloneDeriving, TemplateHaskell, LambdaCase, BlockArguments, FlexibleContexts, TypeOperators, DataKinds, PolyKinds #-}
 
 {-# LANGUAGE TypeFamilies        #-}
+{-@ LIQUID "--skip-module" @-}
 
 module InterfaceAdapters.Weather.WWIWebPirate
   (

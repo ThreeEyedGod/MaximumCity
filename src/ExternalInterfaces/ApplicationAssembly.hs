@@ -3,6 +3,7 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GADTs #-}
 {-# LANGUAGE TypeApplications #-}
+{-@ LIQUID "--skip-module" @-}
 
 module ExternalInterfaces.ApplicationAssembly where
 

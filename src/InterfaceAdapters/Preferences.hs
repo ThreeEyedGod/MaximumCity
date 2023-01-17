@@ -141,7 +141,7 @@ replaceBy x
   | x == "all" = "All" :: T.Text
   | x == "mini" = "Mini" :: T.Text
   | x == "standard" = "Standard" :: T.Text
-  | x == "detailede" = "Detailed" :: T.Text
+  | x == "detailed" = "Detailed" :: T.Text
   | x == "rightnow" = "RightNow" :: T.Text
   | x == "alerts" = "Alerts" :: T.Text
   | x == "nearforecast" = "NearForecast" :: T.Text

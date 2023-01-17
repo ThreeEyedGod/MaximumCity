@@ -5,27 +5,6 @@
 
 packages:
 - completed:
-    hackage: ihaskell-blaze-0.3.0.1@sha256:57f0e79758d084da3a662d0909ba2b01e469200029fed495fc208ba5f59024fd,2161
-    pantry-tree:
-      sha256: 69fee7554a6410e45011c89d9e9547d18e2798e4f01ebd0426573b05e0e21696
-      size: 223
-  original:
-    hackage: ihaskell-blaze-0.3.0.1
-- completed:
-    hackage: liquid-ghc-prim-0.7.0@sha256:8d99d771235d388ed54393faa2712c880e60b659fa574877fc5f383d4d49f4ed,1763
-    pantry-tree:
-      sha256: 2e85095d397912b2d5b65054cd613e93dd7aa31ed4a4ff4fd265be207ece35e0
-      size: 912
-  original:
-    hackage: liquid-ghc-prim-0.7.0@sha256:8d99d771235d388ed54393faa2712c880e60b659fa574877fc5f383d4d49f4ed,1763
-- completed:
-    hackage: liquid-prelude-0.8.10.2@sha256:b2a3650092e3eecfff5e5b15052700c2d6ba5eecbf20d91eae552da23783b03e,1604
-    pantry-tree:
-      sha256: 17fffd9d59ef7d3e7fa04b89174250bab84af77822d3f5de0124d608aa6827c6
-      size: 1029
-  original:
-    hackage: liquid-prelude-0.8.10.2@sha256:b2a3650092e3eecfff5e5b15052700c2d6ba5eecbf20d91eae552da23783b03e,1604
-- completed:
     hackage: rest-rewrite-0.3.0@sha256:398f937a5faf6bd3329650ee9aed31bbfe7ed1c23252710908ad7295e3252c94,3890
     pantry-tree:
       sha256: 6e42cf85257cbc2abf50a9c8f3bac8777920f1b970e6f2cae9358690e1186e99
@@ -33,57 +12,96 @@ packages:
   original:
     hackage: rest-rewrite-0.3.0
 - completed:
-    commit: b86fb5b461a70d07fb7e97ccdbdd0ee330bf3396
+    commit: 306d17de61daa9e266de08d28b9aa45c30ecf5bc
     git: https://github.com/ucsd-progsys/liquidhaskell
     name: liquidhaskell
     pantry-tree:
-      sha256: 700e83cf6eb423426e4271fe0d9d410a06ebbe023e6c71e01c5326226e2aa5b4
+      sha256: eb741c8e04785615f0f51e3539ef61c1c4339edd22bf1c0216eba66b058c3fa3
       size: 321195
     subdir: .
     version: 0.8.10.7.1
   original:
-    commit: b86fb5b461a70d07fb7e97ccdbdd0ee330bf3396
+    commit: 306d17de61daa9e266de08d28b9aa45c30ecf5bc
     git: https://github.com/ucsd-progsys/liquidhaskell
     subdir: .
 - completed:
-    commit: b86fb5b461a70d07fb7e97ccdbdd0ee330bf3396
+    commit: 306d17de61daa9e266de08d28b9aa45c30ecf5bc
     git: https://github.com/ucsd-progsys/liquidhaskell
-    name: liquid-fixpoint
+    name: liquid-bytestring
     pantry-tree:
-      sha256: eb86f67f0cec00cee544860484878e7dd728c12922b33eed6e1d052e14bb05c7
-      size: 22580
-    subdir: liquid-fixpoint
-    version: 0.8.10.7.1
+      sha256: e6548e2c9c108207eb9f24bccb2d67713a15625bdb7b4bfa4d2bf9c174f8dbfe
+      size: 1843
+    subdir: liquid-bytestring
+    version: 0.10.10.0
   original:
-    commit: b86fb5b461a70d07fb7e97ccdbdd0ee330bf3396
+    commit: 306d17de61daa9e266de08d28b9aa45c30ecf5bc
     git: https://github.com/ucsd-progsys/liquidhaskell
-    subdir: liquid-fixpoint
+    subdir: liquid-bytestring
 - completed:
-    commit: 16033ac4b90e11ad4fb2f6b866b905ff765dbac7
+    commit: 306d17de61daa9e266de08d28b9aa45c30ecf5bc
+    git: https://github.com/ucsd-progsys/liquidhaskell
+    name: liquid-prelude
+    pantry-tree:
+      sha256: 5fb206c776b87a0de48c5f429ac82b689a5942d215582a06ac752e1f118229f7
+      size: 1029
+    subdir: liquid-prelude
+    version: 0.8.10.2
+  original:
+    commit: 306d17de61daa9e266de08d28b9aa45c30ecf5bc
+    git: https://github.com/ucsd-progsys/liquidhaskell
+    subdir: liquid-prelude
+- completed:
+    commit: 306d17de61daa9e266de08d28b9aa45c30ecf5bc
+    git: https://github.com/ucsd-progsys/liquidhaskell
+    name: liquid-ghc-prim
+    pantry-tree:
+      sha256: e1dbd416d00871251794b17a96e25453469856a73cb943a3dc3d851a7a8f00a5
+      size: 912
+    subdir: liquid-ghc-prim
+    version: 0.6.1
+  original:
+    commit: 306d17de61daa9e266de08d28b9aa45c30ecf5bc
+    git: https://github.com/ucsd-progsys/liquidhaskell
+    subdir: liquid-ghc-prim
+- completed:
+    commit: 306d17de61daa9e266de08d28b9aa45c30ecf5bc
     git: https://github.com/ucsd-progsys/liquidhaskell
     name: liquid-base
     pantry-tree:
-      sha256: 93ac13aab5186b8c51eb68e7905b1c55ce942144196b9a0bfbffb3d980d1df6a
-      size: 15057
+      sha256: bc16a74d46b76935cfeafdf0d6bf423382c0fda5aa905ad98c60c45ab74e31f9
+      size: 15114
     subdir: liquid-base
     version: 4.14.3.0
   original:
-    commit: 16033ac4b90e11ad4fb2f6b866b905ff765dbac7
+    commit: 306d17de61daa9e266de08d28b9aa45c30ecf5bc
     git: https://github.com/ucsd-progsys/liquidhaskell
     subdir: liquid-base
 - completed:
-    commit: 16033ac4b90e11ad4fb2f6b866b905ff765dbac7
+    commit: 306d17de61daa9e266de08d28b9aa45c30ecf5bc
     git: https://github.com/ucsd-progsys/liquidhaskell
     name: liquid-containers
     pantry-tree:
-      sha256: e0813348d68667e035d96bcd225b9d545693bf7827f40d41d86c4535cf120cb8
+      sha256: 69ab7d9ccde93b16e14c0f27ac8f2d8bac81e7047c3ccad98e7926c8cadd21b5
       size: 2143
     subdir: liquid-containers
     version: 0.6.2.1
   original:
-    commit: 16033ac4b90e11ad4fb2f6b866b905ff765dbac7
+    commit: 306d17de61daa9e266de08d28b9aa45c30ecf5bc
     git: https://github.com/ucsd-progsys/liquidhaskell
     subdir: liquid-containers
+- completed:
+    commit: 5aed39ec3210b9093ed635693d01bf351e25392f
+    git: https://github.com/ucsd-progsys/liquid-fixpoint.git
+    name: liquid-fixpoint
+    pantry-tree:
+      sha256: e75d523a96db5c9786d7806b0bb61a2134a0ceb64c729e9e2ca4ccc8ec42ae16
+      size: 23098
+    subdir: .
+    version: 0.8.10.7.1
+  original:
+    commit: 5aed39ec3210b9093ed635693d01bf351e25392f
+    git: https://github.com/ucsd-progsys/liquid-fixpoint.git
+    subdir: .
 - completed:
     name: amazonka
     pantry-tree:
@@ -288,6 +306,13 @@ packages:
   original:
     commit: 3e249724fd0ead27370c8c297b1ecd38f92cbd5b
     git: https://github.com/protolude/protolude.git
+- completed:
+    hackage: megaparsec-8.0.0@sha256:362f85e243ecbcb550e1de6e5c74ba5a50c09edaa1208c99bc5b9fd242227fc6,3808
+    pantry-tree:
+      sha256: 955117c00a86970f2d0c215f33cf5293b16589c04678a0a790c03368ab6fd0aa
+      size: 1446
+  original:
+    hackage: megaparsec-8.0.0@sha256:362f85e243ecbcb550e1de6e5c74ba5a50c09edaa1208c99bc5b9fd242227fc6,3808
 snapshots:
 - completed:
     sha256: 6d1532d40621957a25bad5195bfca7938e8a06d923c91bc52aa0f3c41181f2d4
