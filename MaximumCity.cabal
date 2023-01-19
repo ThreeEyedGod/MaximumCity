@@ -77,7 +77,7 @@ library
       DeriveGeneric
       UndecidableSuperClasses
       ScopedTypeVariables
-  ghc-options: -O2 -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin -fplugin=LiquidHaskell
+  ghc-options: -O2 -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin -fplugin=LiquidHaskell -fplugin-opt=LiquidHaskell:--diff
   build-depends:
       aeson >=2.0.3.0
     , amazonka
@@ -100,6 +100,7 @@ library
     , iproute >=1.7.12
     , lens >=5.0.1
     , liquid-base
+    , liquid-ghc-prim
     , liquidhaskell
     , mtl >=2.2.2
     , naqsha >=0.3.0.1
@@ -148,7 +149,7 @@ executable bootstrap
       DeriveGeneric
       UndecidableSuperClasses
       ScopedTypeVariables
-  ghc-options: -threaded -rtsopts -O2 -static -with-rtsopts=-N -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin
+  ghc-options: -threaded -rtsopts -O2 -static -with-rtsopts=-N -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin -fplugin=LiquidHaskell -fplugin-opt=LiquidHaskell:--diff
   cpp-options: -UndecidableSuperClasses
   cc-options: -static
   ld-options: -static -pthread
@@ -175,6 +176,7 @@ executable bootstrap
     , iproute >=1.7.12
     , lens >=5.0.1
     , liquid-base
+    , liquid-ghc-prim
     , liquidhaskell
     , mtl >=2.2.2
     , naqsha >=0.3.0.1
@@ -256,6 +258,7 @@ test-suite MaximumCity-test
     , iproute >=1.7.12
     , lens >=5.0.1
     , liquid-base
+    , liquid-ghc-prim
     , liquidhaskell
     , mtl >=2.2.2
     , naqsha >=0.3.0.1
@@ -329,6 +332,7 @@ benchmark MaximumCity-benchmark
     , iproute >=1.7.12
     , lens >=5.0.1
     , liquid-base
+    , liquid-ghc-prim
     , liquidhaskell
     , mtl >=2.2.2
     , naqsha >=0.3.0.1

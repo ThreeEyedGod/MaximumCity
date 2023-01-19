@@ -10,7 +10,7 @@
 <body>
 <hr>
 Put mouse over identifiers to see inferred types
-<pre><span class=hs-linenum> 1: </span><a class=annot href="#"><span class=annottext>GHC.Types.Module</span><span class='hs-comment'>{-# LANGUAGE GADTs, TypeInType, ScopedTypeVariables, StandaloneDeriving, TemplateHaskell, LambdaCase, BlockArguments, FlexibleContexts, TypeOperators #-}</span></a>
+<pre><span class=hs-linenum> 1: </span><span class='hs-comment'>{-# LANGUAGE GADTs, TypeInType, ScopedTypeVariables, StandaloneDeriving, TemplateHaskell, LambdaCase, BlockArguments, FlexibleContexts, TypeOperators #-}</span>
 <span class=hs-linenum> 2: </span>
 <span class=hs-linenum> 3: </span><span class='hs-keyword'>module</span> <span class='hs-conid'>InterfaceAdapters.Parameters.KVS</span>
 <span class=hs-linenum> 4: </span>  <span class='hs-layout'>(</span> <span class='hs-conid'>KVS</span> <span class='hs-layout'>(</span><span class='hs-keyglyph'>..</span><span class='hs-layout'>)</span>
@@ -37,9 +37,7 @@ Put mouse over identifiers to see inferred types
 <span class=hs-linenum>25: </span><span class='hs-comment'>-- getKvs     :: Member (KVS k v) r =&gt; k -&gt; Sem r (Maybe v)</span>
 <span class=hs-linenum>26: </span><span class='hs-comment'>-- insertKvs  :: Member (KVS k v) r =&gt; k -&gt; v -&gt; Sem r ()</span>
 <span class=hs-linenum>27: </span><span class='hs-comment'>-- deleteKvs  :: Member (KVS k v) r =&gt; k -&gt; Sem r ()</span>
-<span class=hs-linenum>28: </span><a class=annot href="#"><span class=annottext>forall a .
-(GHC.Classes.(%,%)&lt;[]&gt; ((Polysemy.Internal.Union.Find ((TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep)) -&gt; (TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep) (InterfaceAdapters.Parameters.KVS.KVS (TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep) Data.Text.Internal.Text Data.Text.Internal.Text) a), (GHC.Types.~ () (Polysemy.Internal.Union.LocateEffect ((TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep)) -&gt; (TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep) (InterfaceAdapters.Parameters.KVS.KVS (TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep) Data.Text.Internal.Text Data.Text.Internal.Text) a) '())) (Polysemy.Internal.CustomErrors.Redefined.IfStuck () GHC.Types.Constraint (Polysemy.Internal.Union.LocateEffect ((TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep)) -&gt; (TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep) (InterfaceAdapters.Parameters.KVS.KVS (TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep) Data.Text.Internal.Text Data.Text.Internal.Text) a) (Polysemy.Internal.CustomErrors.Redefined.IfStuck [((TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep)) -&gt; (TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep)] GHC.Types.Constraint a (Polysemy.Internal.CustomErrors.AmbiguousSendError GHC.Types.Constraint 'Polysemy.Internal.CustomErrors.TyVarR a (InterfaceAdapters.Parameters.KVS.KVS (TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep) Data.Text.Internal.Text Data.Text.Internal.Text)) (Fcf.Combinators.Pure GHC.Types.Constraint (Polysemy.Internal.CustomErrors.AmbiguousSendError GHC.Types.Constraint (Polysemy.Internal.CustomErrors.UnstuckRState a) a (InterfaceAdapters.Parameters.KVS.KVS (TYPE 'GHC.Types.LiftedRep) -&gt; (TYPE 'GHC.Types.LiftedRep) Data.Text.Internal.Text Data.Text.Internal.Text)))) (Fcf.Combinators.Pure GHC.Types.Constraint ()))) =&gt;
-Data.Text.Internal.Text -&gt; Data.Text.Internal.Text -&gt; (Polysemy.Internal.Sem a ())</span><span class='hs-definition'>makeSem</span></a> <span class='hs-chr'>'</span><span class='hs-chr'>'</span><span class='hs-conid'>KVS</span>
+<span class=hs-linenum>28: </span><span class='hs-definition'>makeSem</span> <span class='hs-chr'>'</span><span class='hs-chr'>'</span><span class='hs-conid'>KVS</span>
 <span class=hs-linenum>29: </span>
 </pre>
 </body>

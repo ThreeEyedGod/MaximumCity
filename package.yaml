@@ -74,10 +74,11 @@ dependencies:
 - sort >= 1.0.0.0
 - stringsearch >= 0.3.6.6
 - type-natural >= 1.1.0.1
+- liquid-ghc-prim
 
 library:
   source-dirs: src
-  ghc-options: -O2 -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin -fplugin=LiquidHaskell
+  ghc-options: -O2 -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin -fplugin=LiquidHaskell -fplugin-opt=LiquidHaskell:--diff
   #ghc-options: -O2 -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin -fplugin=LiquidHaskell -with-rtsopts="-K128m" -fplugin-opt=LiquidHaskell:--diff -fplugin-opt=LiquidHaskell:--no-positivity-check -fplugin-opt=LiquidHaskell:--higherorder -fplugin-opt=LiquidHaskell:--prune-unsorted
   #ghc-options: -O2 -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin 
 
@@ -95,6 +96,8 @@ executables:
     - -flate-specialise 
     - -fspecialise-aggressively
     - -fplugin=Polysemy.Plugin
+    - -fplugin=LiquidHaskell 
+    - -fplugin-opt=LiquidHaskell:--diff
 
     cc-options: -static
     ld-options: -static -pthread

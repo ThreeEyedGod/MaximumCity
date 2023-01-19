@@ -1,1 +1,1 @@
-{"errors":[],"sptypes":[{"ann":"GHC.Types.Module","ident":"InterfaceAdapters.Parameters.SSMImports.$trModule","start":{"column":1,"line":1},"stop":{"column":1,"line":1}}],"status":"safe","types":{"1":{"1":{"ann":"GHC.Types.Module","col":1,"ident":"InterfaceAdapters.Parameters.SSMImports.$trModule","row":1}}}}
+{"errors":[],"sptypes":[],"status":"safe","types":{}}
