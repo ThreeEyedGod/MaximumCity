@@ -11,7 +11,10 @@
 {-@ LIQUID "--short-names" @-}
 module InterfaceAdapters.Weather.Tutorial where
 import GHC.Types
-import qualified Data.List.NonEmpty as LNE
+import Data.List.NonEmpty
+import System.Environment (getEnv)
+import Control.Exception (throwIO)
+import GHC.Utils.Misc (split)
 
 {-@ embed Int * as Int @-}
 {-@ one :: {v:Int | v == 1 } @-}
@@ -68,3 +71,10 @@ avgMany xs = divide total elems
     total  = sum  xs
     elems  = size xs
 
+getConfigurationDirectories :: IO (NonEmpty FilePath)
+getConfigurationDirectories = do
+  configDirsString <- getEnv "CONFIG_DIRS"
+  let configDirsList = split ',' configDirsString
+  case nonEmpty configDirsList of
+    Just nonEmptyConfigDirsList -> pure nonEmptyConfigDirsList
+    Nothing -> throwIO $ userError "CONFIG_DIRS cannot be empty"

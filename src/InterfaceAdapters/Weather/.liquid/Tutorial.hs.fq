@@ -10,42 +10,42 @@ data GHC.Maybe.Maybe 1 = [
 define GHC.Base.. (lq1 : func(0 , [b##a76r;
                                    c##a76s]),  lq2 : func(0 , [a##a76t;
                                                                b##a76r]),  lq3 : a##a76t) : c##a76s = {((lq1 (lq2 lq3)))}
-match charX GHC.Types.C# lq_tmp$x##466  =  (lq_tmp$x##466)
-match fromJust GHC.Maybe.Just lq_tmp$x##451  =  (lq_tmp$x##451)
-match fst GHC.Tuple.$40$$44$$41$ lq_tmp$x##458 lq_tmp$x##459  =  (lq_tmp$x##458)
-match head GHC.Types.$58$ lq_tmp$x##462 lq_tmp$x##463  =  (lq_tmp$x##462)
-match is$GHC.Maybe.Just GHC.Maybe.Just lq_tmp$x##451  =  (true)
+match charX GHC.Types.C# lq_tmp$x##511  =  (lq_tmp$x##511)
+match fromJust GHC.Maybe.Just lq_tmp$x##496  =  (lq_tmp$x##496)
+match fst GHC.Tuple.$40$$44$$41$ lq_tmp$x##503 lq_tmp$x##504  =  (lq_tmp$x##503)
+match head GHC.Types.$58$ lq_tmp$x##507 lq_tmp$x##508  =  (lq_tmp$x##507)
+match is$GHC.Maybe.Just GHC.Maybe.Just lq_tmp$x##496  =  (true)
 match is$GHC.Maybe.Just GHC.Maybe.Nothing  =  (false)
-match is$GHC.Maybe.Nothing GHC.Maybe.Just lq_tmp$x##451  =  (false)
+match is$GHC.Maybe.Nothing GHC.Maybe.Just lq_tmp$x##496  =  (false)
 match is$GHC.Maybe.Nothing GHC.Maybe.Nothing  =  (true)
-match is$36$GHC.Tuple.$40$$44$$41$ GHC.Tuple.$40$$44$$41$ lq_tmp$x##458 lq_tmp$x##459  =  (true)
-match is$36$GHC.Tuple.$40$$44$$44$$41$ GHC.Tuple.$40$$44$$44$$41$ lq_tmp$x##452 lq_tmp$x##453 lq_tmp$x##454  =  (true)
-match is$36$GHC.Types.$58$ GHC.Types.$58$ lq_tmp$x##462 lq_tmp$x##463  =  (true)
+match is$36$GHC.Tuple.$40$$44$$41$ GHC.Tuple.$40$$44$$41$ lq_tmp$x##503 lq_tmp$x##504  =  (true)
+match is$36$GHC.Tuple.$40$$44$$44$$41$ GHC.Tuple.$40$$44$$44$$41$ lq_tmp$x##497 lq_tmp$x##498 lq_tmp$x##499  =  (true)
+match is$36$GHC.Types.$58$ GHC.Types.$58$ lq_tmp$x##507 lq_tmp$x##508  =  (true)
 match is$36$GHC.Types.$58$ GHC.Types.$91$$93$  =  (false)
-match is$GHC.Types.C# GHC.Types.C# lq_tmp$x##466  =  (true)
-match is$36$GHC.Types.$91$$93$ GHC.Types.$58$ lq_tmp$x##462 lq_tmp$x##463  =  (false)
+match is$GHC.Types.C# GHC.Types.C# lq_tmp$x##511  =  (true)
+match is$36$GHC.Types.$91$$93$ GHC.Types.$58$ lq_tmp$x##507 lq_tmp$x##508  =  (false)
 match is$36$GHC.Types.$91$$93$ GHC.Types.$91$$93$  =  (true)
-match isJust GHC.Maybe.Just lq_tmp$x##451  =  (true)
+match isJust GHC.Maybe.Just lq_tmp$x##496  =  (true)
 match isJust GHC.Maybe.Nothing  =  (false)
-match len GHC.Types.$58$ lq_tmp$x##462 lq_tmp$x##463  =  ((1 +
-                                                             (len lq_tmp$x##463)))
+match len GHC.Types.$58$ lq_tmp$x##507 lq_tmp$x##508  =  ((1 +
+                                                             (len lq_tmp$x##508)))
 match len GHC.Types.$91$$93$  =  (0)
-match lqdc##$select##GHC.Maybe.Just##1 GHC.Maybe.Just lq_tmp$x##451  =  (lq_tmp$x##451)
-match lqdc$35$$35$$36$select$35$$35$GHC.Tuple.$40$$44$$41$$35$$35$1 GHC.Tuple.$40$$44$$41$ lq_tmp$x##458 lq_tmp$x##459  =  (lq_tmp$x##458)
-match lqdc$35$$35$$36$select$35$$35$GHC.Tuple.$40$$44$$41$$35$$35$2 GHC.Tuple.$40$$44$$41$ lq_tmp$x##458 lq_tmp$x##459  =  (lq_tmp$x##459)
-match lqdc$35$$35$$36$select$35$$35$GHC.Tuple.$40$$44$$44$$41$$35$$35$1 GHC.Tuple.$40$$44$$44$$41$ lq_tmp$x##452 lq_tmp$x##453 lq_tmp$x##454  =  (lq_tmp$x##452)
-match lqdc$35$$35$$36$select$35$$35$GHC.Tuple.$40$$44$$44$$41$$35$$35$2 GHC.Tuple.$40$$44$$44$$41$ lq_tmp$x##452 lq_tmp$x##453 lq_tmp$x##454  =  (lq_tmp$x##453)
-match lqdc$35$$35$$36$select$35$$35$GHC.Tuple.$40$$44$$44$$41$$35$$35$3 GHC.Tuple.$40$$44$$44$$41$ lq_tmp$x##452 lq_tmp$x##453 lq_tmp$x##454  =  (lq_tmp$x##454)
-match lqdc$35$$35$$36$select$35$$35$GHC.Types.$58$$35$$35$1 GHC.Types.$58$ lq_tmp$x##462 lq_tmp$x##463  =  (lq_tmp$x##462)
-match lqdc$35$$35$$36$select$35$$35$GHC.Types.$58$$35$$35$2 GHC.Types.$58$ lq_tmp$x##462 lq_tmp$x##463  =  (lq_tmp$x##463)
-match lqdc##$select##GHC.Types.C###1 GHC.Types.C# lq_tmp$x##466  =  (lq_tmp$x##466)
-match snd GHC.Tuple.$40$$44$$41$ lq_tmp$x##458 lq_tmp$x##459  =  (lq_tmp$x##459)
-match tail GHC.Types.$58$ lq_tmp$x##462 lq_tmp$x##463  =  (lq_tmp$x##463)
-match x_Tuple21 GHC.Tuple.$40$$44$$41$ lq_tmp$x##458 lq_tmp$x##459  =  (lq_tmp$x##458)
-match x_Tuple22 GHC.Tuple.$40$$44$$41$ lq_tmp$x##458 lq_tmp$x##459  =  (lq_tmp$x##459)
-match x_Tuple31 GHC.Tuple.$40$$44$$44$$41$ lq_tmp$x##452 lq_tmp$x##453 lq_tmp$x##454  =  (lq_tmp$x##452)
-match x_Tuple32 GHC.Tuple.$40$$44$$44$$41$ lq_tmp$x##452 lq_tmp$x##453 lq_tmp$x##454  =  (lq_tmp$x##453)
-match x_Tuple33 GHC.Tuple.$40$$44$$44$$41$ lq_tmp$x##452 lq_tmp$x##453 lq_tmp$x##454  =  (lq_tmp$x##454)
+match lqdc##$select##GHC.Maybe.Just##1 GHC.Maybe.Just lq_tmp$x##496  =  (lq_tmp$x##496)
+match lqdc$35$$35$$36$select$35$$35$GHC.Tuple.$40$$44$$41$$35$$35$1 GHC.Tuple.$40$$44$$41$ lq_tmp$x##503 lq_tmp$x##504  =  (lq_tmp$x##503)
+match lqdc$35$$35$$36$select$35$$35$GHC.Tuple.$40$$44$$41$$35$$35$2 GHC.Tuple.$40$$44$$41$ lq_tmp$x##503 lq_tmp$x##504  =  (lq_tmp$x##504)
+match lqdc$35$$35$$36$select$35$$35$GHC.Tuple.$40$$44$$44$$41$$35$$35$1 GHC.Tuple.$40$$44$$44$$41$ lq_tmp$x##497 lq_tmp$x##498 lq_tmp$x##499  =  (lq_tmp$x##497)
+match lqdc$35$$35$$36$select$35$$35$GHC.Tuple.$40$$44$$44$$41$$35$$35$2 GHC.Tuple.$40$$44$$44$$41$ lq_tmp$x##497 lq_tmp$x##498 lq_tmp$x##499  =  (lq_tmp$x##498)
+match lqdc$35$$35$$36$select$35$$35$GHC.Tuple.$40$$44$$44$$41$$35$$35$3 GHC.Tuple.$40$$44$$44$$41$ lq_tmp$x##497 lq_tmp$x##498 lq_tmp$x##499  =  (lq_tmp$x##499)
+match lqdc$35$$35$$36$select$35$$35$GHC.Types.$58$$35$$35$1 GHC.Types.$58$ lq_tmp$x##507 lq_tmp$x##508  =  (lq_tmp$x##507)
+match lqdc$35$$35$$36$select$35$$35$GHC.Types.$58$$35$$35$2 GHC.Types.$58$ lq_tmp$x##507 lq_tmp$x##508  =  (lq_tmp$x##508)
+match lqdc##$select##GHC.Types.C###1 GHC.Types.C# lq_tmp$x##511  =  (lq_tmp$x##511)
+match snd GHC.Tuple.$40$$44$$41$ lq_tmp$x##503 lq_tmp$x##504  =  (lq_tmp$x##504)
+match tail GHC.Types.$58$ lq_tmp$x##507 lq_tmp$x##508  =  (lq_tmp$x##508)
+match x_Tuple21 GHC.Tuple.$40$$44$$41$ lq_tmp$x##503 lq_tmp$x##504  =  (lq_tmp$x##503)
+match x_Tuple22 GHC.Tuple.$40$$44$$41$ lq_tmp$x##503 lq_tmp$x##504  =  (lq_tmp$x##504)
+match x_Tuple31 GHC.Tuple.$40$$44$$44$$41$ lq_tmp$x##497 lq_tmp$x##498 lq_tmp$x##499  =  (lq_tmp$x##497)
+match x_Tuple32 GHC.Tuple.$40$$44$$44$$41$ lq_tmp$x##497 lq_tmp$x##498 lq_tmp$x##499  =  (lq_tmp$x##498)
+match x_Tuple33 GHC.Tuple.$40$$44$$44$$41$ lq_tmp$x##497 lq_tmp$x##498 lq_tmp$x##499  =  (lq_tmp$x##499)
 
 
 
@@ -61,11 +61,17 @@ constant Data.Foldable.$36$fFoldable$91$$93$ : ((Data.Foldable.Foldable fix$36$$
 constant Data.Foldable.length : (func(2 , [(@(0) @(1)); int]))
 constant Data.Foldable.null : (func(2 , [(@(0) @(1)); bool]))
 constant Data.Foldable.sum : (func(2 , [(@(0) @(1)); @(1)]))
+constant Data.List.NonEmpty.nonEmpty : (func(1 , [[@(0)];
+                                                  (GHC.Maybe.Maybe (GHC.Base.NonEmpty @(0)))]))
 constant Data.Tuple.fst : (func(2 , [(Tuple @(0) @(1)); @(0)]))
 constant Data.Tuple.snd : (func(2 , [(Tuple @(0) @(1)); @(1)]))
 constant GHC.Base.$ : (func(3 , [func(0 , [@(1); @(2)]);
                                  @(1);
                                  @(2)]))
+constant GHC.Base.$fApplicativeIO : ((GHC.Base.Applicative func(0 , [(GHC.Prim.State# GHC.Prim.RealWorld);
+                                                                     (Tuple (GHC.Types.TupleRep (GHC.Types.$91$$93$ GHC.Types.RuntimeRep)) GHC.Types.LiftedRep (GHC.Prim.State# GHC.Prim.RealWorld) a##a6T8)])))
+constant GHC.Base.$fMonadIO : ((GHC.Base.Monad func(0 , [(GHC.Prim.State# GHC.Prim.RealWorld);
+                                                         (Tuple (GHC.Types.TupleRep (GHC.Types.$91$$93$ GHC.Types.RuntimeRep)) GHC.Types.LiftedRep (GHC.Prim.State# GHC.Prim.RealWorld) a##a6T8)])))
 constant GHC.Base.$43$$43$ : (func(1 , [[@(0)]; [@(0)]; [@(0)]]))
 constant GHC.Base.. : (func(3 , [func(0 , [@(0); @(1)]);
                                  func(0 , [@(2); @(0)]);
@@ -74,10 +80,14 @@ constant GHC.Base.. : (func(3 , [func(0 , [@(0); @(1)]);
 constant GHC.Base.$58$$124$ : (func(1 , [@(0);
                                          [@(0)];
                                          (GHC.Base.NonEmpty @(0))]))
+constant GHC.Base.$62$$62$$61$ : (func(3 , [(@(0) @(1));
+                                            func(0 , [@(1); (@(0) @(2))]);
+                                            (@(0) @(2))]))
 constant GHC.Base.id : (func(1 , [@(0); @(0)]))
 constant GHC.Base.map : (func(2 , [func(0 , [@(0); @(1)]);
                                    [@(0)];
                                    [@(1)]]))
+constant GHC.Base.pure : (func(2 , [@(1); (@(0) @(1))]))
 constant GHC.CString.unpackCString# : (func(0 , [Str; [Char]]))
 constant GHC.Classes.$38$$38$ : (func(0 , [bool; bool; bool]))
 constant GHC.Classes.$47$$61$ : (func(1 , [@(0); @(0); bool]))
@@ -101,6 +111,7 @@ constant GHC.Err.error : (func(2 , [[Char]; @(1)]))
 constant GHC.Exts.$36$fIsList$91$$93$ : (func(1 , [(GHC.Exts.IsList [@(0)])]))
 constant GHC.Exts.toList : (func(1 , [@(0);
                                       [(GHC.Exts.Item @(0))]]))
+constant GHC.IO.Exception.$fExceptionIOException : ((GHC.Exception.Type.Exception GHC.IO.Exception.IOException))
 constant GHC.IO.Exception.IOError : (func(0 , [(GHC.Maybe.Maybe GHC.IO.Handle.Types.Handle);
                                                GHC.IO.Exception.IOErrorType;
                                                [Char];
@@ -108,6 +119,11 @@ constant GHC.IO.Exception.IOError : (func(0 , [(GHC.Maybe.Maybe GHC.IO.Handle.Ty
                                                (GHC.Maybe.Maybe GHC.Int.Int32);
                                                (GHC.Maybe.Maybe [Char]);
                                                GHC.IO.Exception.IOException]))
+constant GHC.IO.Exception.userError : (func(0 , [[Char];
+                                                 GHC.IO.Exception.IOException]))
+constant GHC.IO.throwIO : (func(2 , [@(0);
+                                     (GHC.Prim.State# GHC.Prim.RealWorld);
+                                     (Tuple (GHC.Types.TupleRep (GHC.Types.$91$$93$ GHC.Types.RuntimeRep)) GHC.Types.LiftedRep (GHC.Prim.State# GHC.Prim.RealWorld) @(1))]))
 constant GHC.List.$33$$33$ : (func(1 , [[@(0)]; int; @(0)]))
 constant GHC.List.break : (func(1 , [func(0 , [@(0); bool]);
                                      [@(0)];
@@ -243,6 +259,9 @@ constant GHC.Types.TrNameS : (func(0 , [Str; GHC.Types.TrName]))
 constant GHC.Types.True : (bool)
 constant GHC.Types.$91$$93$ : (func(1 , [[@(0)]]))
 constant GHC.Types.isTrue# : (func(0 , [int; bool]))
+constant GHC.Utils.Misc.split : (func(0 , [Char;
+                                           [Char];
+                                           [[Char]]]))
 constant InterfaceAdapters.Weather.Tutorial.avgMany : (func(0 , [[int];
                                                                  int]))
 constant InterfaceAdapters.Weather.Tutorial.divide : (func(0 , [int;
@@ -254,6 +273,9 @@ constant InterfaceAdapters.Weather.Tutorial.notEven : (int)
 constant InterfaceAdapters.Weather.Tutorial.one : (int)
 constant InterfaceAdapters.Weather.Tutorial.size : (func(1 , [[@(0)];
                                                               int]))
+constant System.Environment.getEnv : (func(0 , [[Char];
+                                                (GHC.Prim.State# GHC.Prim.RealWorld);
+                                                (Tuple (GHC.Types.TupleRep (GHC.Types.$91$$93$ GHC.Types.RuntimeRep)) GHC.Types.LiftedRep (GHC.Prim.State# GHC.Prim.RealWorld) [Char])]))
 constant addrLen : (func(0 , [Str; int]))
 constant autolen : (func(1 , [@(0); int]))
 constant charX : (func(0 , [Char; Char]))
@@ -340,8 +362,16 @@ constant x_Tuple33 : (func(3 , [(Tuple @(0) @(1) @(2)); @(2)]))
 
 
 distinct Data.Foldable.$36$fFoldable$91$$93$ : ((Data.Foldable.Foldable fix$36$$91$$93$))
+distinct GHC.Base.$fApplicativeIO : ((GHC.Base.Applicative func(0 , [(GHC.Prim.State# GHC.Prim.RealWorld);
+                                                                     (Tuple (GHC.Types.TupleRep (GHC.Types.$91$$93$ GHC.Types.RuntimeRep)) GHC.Types.LiftedRep (GHC.Prim.State# GHC.Prim.RealWorld) a##a6T8)])))
+distinct GHC.Base.$fMonadIO : ((GHC.Base.Monad func(0 , [(GHC.Prim.State# GHC.Prim.RealWorld);
+                                                         (Tuple (GHC.Types.TupleRep (GHC.Types.$91$$93$ GHC.Types.RuntimeRep)) GHC.Types.LiftedRep (GHC.Prim.State# GHC.Prim.RealWorld) a##a6T8)])))
 distinct GHC.CString.unpackCString# : (func(0 , [Str; [Char]]))
 distinct GHC.Exts.$36$fIsList$91$$93$ : (func(1 , [(GHC.Exts.IsList [@(0)])]))
+distinct GHC.IO.Exception.$fExceptionIOException : ((GHC.Exception.Type.Exception GHC.IO.Exception.IOException))
+distinct GHC.Maybe.Just : (func(1 , [@(0);
+                                     (GHC.Maybe.Maybe @(0))]))
+distinct GHC.Maybe.Nothing : (func(1 , [(GHC.Maybe.Maybe @(0))]))
 distinct GHC.Num.$fNumInt : ((GHC.Num.Num int))
 distinct GHC.Real.$fIntegralInt : ((GHC.Real.Integral int))
 distinct GHC.Stack.Types.EmptyCallStack : (GHC.Stack.Types.CallStack)
@@ -358,6 +388,7 @@ distinct GHC.Tuple.$40$$44$$41$ : (func(2 , [@(0);
                                              @(1);
                                              (Tuple @(0) @(1))]))
 distinct GHC.Types.$58$ : (func(1 , [@(0); [@(0)]; [@(0)]]))
+distinct GHC.Types.C# : (func(0 , [Char; Char]))
 distinct GHC.Types.EQ : (GHC.Types.Ordering)
 distinct GHC.Types.False : (bool)
 distinct GHC.Types.GT : (GHC.Types.Ordering)
@@ -376,34 +407,48 @@ bind 0 Control.Exception.Base.patError : {VV : func(2 , [Str;
 bind 1 GHC.CString.unpackCString# : {VV : func(0 , [Str;
                                                     [Char]]) | []}
 bind 2 GHC.Num.$45$ : {VV : func(1 , [@(0); @(0); @(0)]) | []}
-bind 3 GHC.Exts.toList : {VV : func(1 , [@(0);
+bind 3 GHC.Base.$62$$62$$61$ : {VV : func(3 , [(@(0) @(1));
+                                               func(0 , [@(1); (@(0) @(2))]);
+                                               (@(0) @(2))]) | []}
+bind 4 GHC.Exts.toList : {VV : func(1 , [@(0);
                                          [(GHC.Exts.Item @(0))]]) | []}
-bind 4 GHC.Stack.Types.emptyCallStack : {VV##471 : GHC.Stack.Types.CallStack | []}
-bind 5 GHC.Stack.Types.pushCallStack : {VV : func(0 , [(Tuple [Char] GHC.Stack.Types.SrcLoc);
+bind 5 GHC.Stack.Types.emptyCallStack : {VV##517 : GHC.Stack.Types.CallStack | []}
+bind 6 GHC.Stack.Types.pushCallStack : {VV : func(0 , [(Tuple [Char] GHC.Stack.Types.SrcLoc);
                                                        GHC.Stack.Types.CallStack;
                                                        GHC.Stack.Types.CallStack]) | []}
-bind 6 GHC.Types.$58$ : {VV : func(1 , [@(0);
+bind 7 GHC.Base.pure : {VV : func(2 , [@(1); (@(0) @(1))]) | []}
+bind 8 GHC.Types.C# : {VV : func(0 , [Char; Char]) | []}
+bind 9 GHC.Types.$58$ : {VV : func(1 , [@(0);
                                         [@(0)];
                                         [@(0)]]) | []}
-bind 7 GHC.Types.False : {VV##474 : bool | []}
-bind 8 GHC.Types.I# : {VV : func(0 , [int; int]) | []}
-bind 9 GHC.Types.$91$$93$ : {VV : func(1 , [[@(0)]]) | []}
-bind 10 GHC.Types.True : {VV##477 : bool | []}
-bind 11 GHC.Tuple.$40$$44$$41$ : {VV : func(2 , [@(0);
+bind 10 GHC.Types.False : {VV##522 : bool | []}
+bind 11 GHC.Types.I# : {VV : func(0 , [int; int]) | []}
+bind 12 GHC.Maybe.Nothing : {VV : func(1 , [(GHC.Maybe.Maybe @(0))]) | []}
+bind 13 GHC.Maybe.Just : {VV : func(1 , [@(0);
+                                         (GHC.Maybe.Maybe @(0))]) | []}
+bind 14 GHC.Types.$91$$93$ : {VV : func(1 , [[@(0)]]) | []}
+bind 15 GHC.Types.True : {VV##527 : bool | []}
+bind 16 GHC.Tuple.$40$$44$$41$ : {VV : func(2 , [@(0);
                                                  @(1);
                                                  (Tuple @(0) @(1))]) | []}
-bind 12 GHC.Types.Module : {VV : func(0 , [GHC.Types.TrName;
+bind 17 GHC.Types.Module : {VV : func(0 , [GHC.Types.TrName;
                                            GHC.Types.TrName;
                                            GHC.Types.Module]) | []}
-bind 13 GHC.Types.TrNameS : {VV : func(0 , [Str;
+bind 18 GHC.Types.TrNameS : {VV : func(0 , [Str;
                                             GHC.Types.TrName]) | []}
-bind 14 GHC.Err.error : {VV : func(2 , [[Char]; @(1)]) | []}
-bind 15 GHC.Classes.not : {VV : func(0 , [bool; bool]) | []}
-bind 16 Data.Foldable.sum : {VV : func(2 , [(@(0) @(1));
+bind 19 GHC.Err.error : {VV : func(2 , [[Char]; @(1)]) | []}
+bind 20 GHC.IO.Exception.userError : {VV : func(0 , [[Char];
+                                                     GHC.IO.Exception.IOException]) | []}
+bind 21 GHC.Classes.not : {VV : func(0 , [bool; bool]) | []}
+bind 22 Data.Foldable.sum : {VV : func(2 , [(@(0) @(1));
                                             @(1)]) | []}
-bind 17 GHC.Num.$43$ : {VV : func(1 , [@(0); @(0); @(0)]) | []}
-bind 18 GHC.Real.div : {VV : func(1 , [@(0); @(0); @(0)]) | []}
-bind 19 GHC.Stack.Types.SrcLoc : {VV : func(0 , [[Char];
+bind 23 GHC.Num.$43$ : {VV : func(1 , [@(0); @(0); @(0)]) | []}
+bind 24 GHC.Real.div : {VV : func(1 , [@(0); @(0); @(0)]) | []}
+bind 25 Data.List.NonEmpty.nonEmpty : {VV : func(1 , [[@(0)];
+                                                      (GHC.Maybe.Maybe (GHC.Base.NonEmpty @(0)))]) | []}
+bind 26 GHC.Base.$fApplicativeIO : {VV##538 : (GHC.Base.Applicative func(0 , [(GHC.Prim.State# GHC.Prim.RealWorld);
+                                                                              (Tuple (GHC.Types.TupleRep (GHC.Types.$91$$93$ GHC.Types.RuntimeRep)) GHC.Types.LiftedRep (GHC.Prim.State# GHC.Prim.RealWorld) a##a6T8)])) | []}
+bind 27 GHC.Stack.Types.SrcLoc : {VV : func(0 , [[Char];
                                                  [Char];
                                                  [Char];
                                                  int;
@@ -411,31 +456,54 @@ bind 19 GHC.Stack.Types.SrcLoc : {VV : func(0 , [[Char];
                                                  int;
                                                  int;
                                                  GHC.Stack.Types.SrcLoc]) | []}
-bind 20 GHC.Real.$fIntegralInt : {VV##487 : (GHC.Real.Integral int) | []}
-bind 21 GHC.Num.$fNumInt : {VV##488 : (GHC.Num.Num int) | []}
-bind 22 GHC.Exts.$36$fIsList$91$$93$ : {VV : func(1 , [(GHC.Exts.IsList [@(0)])]) | []}
-bind 23 Data.Foldable.$36$fFoldable$91$$93$ : {VV##490 : (Data.Foldable.Foldable fix$36$$91$$93$) | []}
-bind 24 GHC.Types.$91$$93$ : {VV : func(1 , [[@(0)]]) | []}
-bind 25 GHC.Types.$58$ : {VV : func(1 , [@(0);
+bind 28 GHC.Real.$fIntegralInt : {VV##540 : (GHC.Real.Integral int) | []}
+bind 29 GHC.Num.$fNumInt : {VV##541 : (GHC.Num.Num int) | []}
+bind 30 GHC.Base.$fMonadIO : {VV##542 : (GHC.Base.Monad func(0 , [(GHC.Prim.State# GHC.Prim.RealWorld);
+                                                                  (Tuple (GHC.Types.TupleRep (GHC.Types.$91$$93$ GHC.Types.RuntimeRep)) GHC.Types.LiftedRep (GHC.Prim.State# GHC.Prim.RealWorld) a##a6T8)])) | []}
+bind 31 GHC.Exts.$36$fIsList$91$$93$ : {VV : func(1 , [(GHC.Exts.IsList [@(0)])]) | []}
+bind 32 Data.Foldable.$36$fFoldable$91$$93$ : {VV##544 : (Data.Foldable.Foldable fix$36$$91$$93$) | []}
+bind 33 GHC.IO.Exception.$fExceptionIOException : {VV##545 : (GHC.Exception.Type.Exception GHC.IO.Exception.IOException) | []}
+bind 34 GHC.IO.throwIO : {VV : func(2 , [@(0);
+                                         (GHC.Prim.State# GHC.Prim.RealWorld);
+                                         (Tuple (GHC.Types.TupleRep (GHC.Types.$91$$93$ GHC.Types.RuntimeRep)) GHC.Types.LiftedRep (GHC.Prim.State# GHC.Prim.RealWorld) @(1))]) | []}
+bind 35 System.Environment.getEnv : {VV : func(0 , [[Char];
+                                                    (GHC.Prim.State# GHC.Prim.RealWorld);
+                                                    (Tuple (GHC.Types.TupleRep (GHC.Types.$91$$93$ GHC.Types.RuntimeRep)) GHC.Types.LiftedRep (GHC.Prim.State# GHC.Prim.RealWorld) [Char])]) | []}
+bind 36 GHC.Utils.Misc.split : {VV : func(0 , [Char;
+                                               [Char];
+                                               [[Char]]]) | []}
+bind 37 GHC.Types.$91$$93$ : {VV : func(1 , [[@(0)]]) | []}
+bind 38 GHC.Types.C# : {VV : func(0 , [Char; Char]) | []}
+bind 39 GHC.Types.$58$ : {VV : func(1 , [@(0);
                                          [@(0)];
                                          [@(0)]]) | []}
-bind 26 GHC.Tuple.$40$$44$$41$ : {VV : func(2 , [@(0);
+bind 40 GHC.Tuple.$40$$44$$41$ : {VV : func(2 , [@(0);
                                                  @(1);
                                                  (Tuple @(0) @(1))]) | []}
-bind 27 GHC.Types.Module : {VV : func(0 , [GHC.Types.TrName;
+bind 41 GHC.Maybe.Just : {VV : func(1 , [@(0);
+                                         (GHC.Maybe.Maybe @(0))]) | []}
+bind 42 GHC.Types.Module : {VV : func(0 , [GHC.Types.TrName;
                                            GHC.Types.TrName;
                                            GHC.Types.Module]) | []}
-bind 28 GHC.Types.True : {VV##495 : bool | [(VV##495 =
+bind 43 GHC.IO.Exception.$fExceptionIOException : {VV##555 : (GHC.Exception.Type.Exception GHC.IO.Exception.IOException) | [(VV##555 =
+                                                                                                                               GHC.IO.Exception.$fExceptionIOException)]}
+bind 44 GHC.Types.True : {VV##556 : bool | [(VV##556 =
                                                GHC.Types.True)]}
-bind 29 GHC.CString.unpackCString# : {VV : func(0 , [Str;
+bind 45 GHC.CString.unpackCString# : {VV : func(0 , [Str;
                                                      [Char]]) | []}
-bind 30 GHC.Types.I# : {VV : func(0 , [int; int]) | []}
-bind 31 GHC.Num.$fNumInt : {VV##498 : (GHC.Num.Num int) | [(VV##498 =
+bind 46 GHC.Base.$fApplicativeIO : {VV##558 : (GHC.Base.Applicative func(0 , [(GHC.Prim.State# GHC.Prim.RealWorld);
+                                                                              (Tuple (GHC.Types.TupleRep (GHC.Types.$91$$93$ GHC.Types.RuntimeRep)) GHC.Types.LiftedRep (GHC.Prim.State# GHC.Prim.RealWorld) a##a6T8)])) | [(VV##558 =
+                                                                                                                                                                                                                               GHC.Base.$fApplicativeIO)]}
+bind 47 GHC.Base.$fMonadIO : {VV##559 : (GHC.Base.Monad func(0 , [(GHC.Prim.State# GHC.Prim.RealWorld);
+                                                                  (Tuple (GHC.Types.TupleRep (GHC.Types.$91$$93$ GHC.Types.RuntimeRep)) GHC.Types.LiftedRep (GHC.Prim.State# GHC.Prim.RealWorld) a##a6T8)])) | [(VV##559 =
+                                                                                                                                                                                                                   GHC.Base.$fMonadIO)]}
+bind 48 GHC.Types.I# : {VV : func(0 , [int; int]) | []}
+bind 49 GHC.Num.$fNumInt : {VV##561 : (GHC.Num.Num int) | [(VV##561 =
                                                               GHC.Num.$fNumInt)]}
-bind 32 Data.Foldable.$36$fFoldable$91$$93$ : {VV##499 : (Data.Foldable.Foldable fix$36$$91$$93$) | [(VV##499 =
+bind 50 Data.Foldable.$36$fFoldable$91$$93$ : {VV##562 : (Data.Foldable.Foldable fix$36$$91$$93$) | [(VV##562 =
                                                                                                         Data.Foldable.$36$fFoldable$91$$93$)]}
-bind 33 GHC.Exts.$36$fIsList$91$$93$ : {VV : func(1 , [(GHC.Exts.IsList [@(0)])]) | []}
-bind 34 GHC.Stack.Types.SrcLoc : {VV : func(0 , [[Char];
+bind 51 GHC.Exts.$36$fIsList$91$$93$ : {VV : func(1 , [(GHC.Exts.IsList [@(0)])]) | []}
+bind 52 GHC.Stack.Types.SrcLoc : {VV : func(0 , [[Char];
                                                  [Char];
                                                  [Char];
                                                  int;
@@ -443,203 +511,204 @@ bind 34 GHC.Stack.Types.SrcLoc : {VV : func(0 , [[Char];
                                                  int;
                                                  int;
                                                  GHC.Stack.Types.SrcLoc]) | []}
-bind 35 GHC.Types.TrNameS : {VV : func(0 , [Str;
+bind 53 GHC.Maybe.Nothing : {VV : func(1 , [(GHC.Maybe.Maybe @(0))]) | []}
+bind 54 GHC.Types.TrNameS : {VV : func(0 , [Str;
                                             GHC.Types.TrName]) | []}
-bind 36 GHC.Real.$fIntegralInt : {VV##503 : (GHC.Real.Integral int) | [(VV##503 =
+bind 55 GHC.Real.$fIntegralInt : {VV##567 : (GHC.Real.Integral int) | [(VV##567 =
                                                                           GHC.Real.$fIntegralInt)]}
-bind 37 GHC.Types.False : {VV##504 : bool | [(VV##504 =
+bind 56 GHC.Types.False : {VV##568 : bool | [(VV##568 =
                                                 GHC.Types.False)]}
-bind 38 GHC.List.iterate : {VV : func(1 , [func(0 , [@(0); @(0)]);
+bind 57 InterfaceAdapters.Weather.Tutorial.one : {v : int | [(v =
+                                                                1)]}
+bind 58 GHC.List.iterate : {VV : func(1 , [func(0 , [@(0); @(0)]);
                                            @(0);
                                            [@(0)]]) | []}
-bind 39 GHC.Types.$91$$93$ : {VV : func(1 , [[@(0)]]) | []}
-bind 40 GHC.List.init : {VV : func(1 , [[@(0)]; [@(0)]]) | []}
-bind 41 GHC.Real.fromIntegral : {VV : func(2 , [@(0); @(1)]) | []}
-bind 42 GHC.List.head : {VV : func(1 , [[@(0)]; @(0)]) | []}
-bind 43 GHC.List.dropWhile : {VV : func(1 , [func(0 , [@(0);
+bind 59 GHC.Types.$91$$93$ : {VV : func(1 , [[@(0)]]) | []}
+bind 60 GHC.List.init : {VV : func(1 , [[@(0)]; [@(0)]]) | []}
+bind 61 GHC.Real.fromIntegral : {VV : func(2 , [@(0); @(1)]) | []}
+bind 62 GHC.List.head : {VV : func(1 , [[@(0)]; @(0)]) | []}
+bind 63 GHC.List.dropWhile : {VV : func(1 , [func(0 , [@(0);
                                                        bool]);
                                              [@(0)];
                                              [@(0)]]) | []}
-bind 44 GHC.List.drop : {VV : func(1 , [int; [@(0)]; [@(0)]]) | []}
-bind 45 GHC.Base.$ : {VV : func(3 , [func(0 , [@(1); @(2)]);
+bind 64 GHC.List.drop : {VV : func(1 , [int; [@(0)]; [@(0)]]) | []}
+bind 65 GHC.Base.$ : {VV : func(3 , [func(0 , [@(1); @(2)]);
                                      @(1);
                                      @(2)]) | []}
-bind 46 Data.Foldable.null : {VV : func(2 , [(@(0) @(1));
+bind 66 Data.Foldable.null : {VV : func(2 , [(@(0) @(1));
                                              bool]) | []}
-bind 47 GHC.List.cycle : {VV : func(1 , [[@(0)]; [@(0)]]) | []}
-bind 48 GHC.List.break : {VV : func(1 , [func(0 , [@(0); bool]);
+bind 67 GHC.List.cycle : {VV : func(1 , [[@(0)]; [@(0)]]) | []}
+bind 68 GHC.List.break : {VV : func(1 , [func(0 , [@(0); bool]);
                                          [@(0)];
                                          (Tuple [@(0)] [@(0)])]) | []}
-bind 49 GHC.Base.map : {VV : func(2 , [func(0 , [@(0); @(1)]);
+bind 69 GHC.Base.map : {VV : func(2 , [func(0 , [@(0); @(1)]);
                                        [@(0)];
                                        [@(1)]]) | []}
-bind 50 GHC.Maybe.Just : {VV : func(1 , [@(0);
+bind 70 GHC.Maybe.Just : {VV : func(1 , [@(0);
                                          (GHC.Maybe.Maybe @(0))]) | []}
-bind 51 GHC.List.$33$$33$ : {VV : func(1 , [[@(0)];
+bind 71 GHC.List.$33$$33$ : {VV : func(1 , [[@(0)];
                                             int;
                                             @(0)]) | []}
-bind 52 Data.Foldable.length : {VV : func(2 , [(@(0) @(1));
+bind 72 Data.Foldable.length : {VV : func(2 , [(@(0) @(1));
                                                int]) | []}
-bind 53 GHC.Real.rem : {VV : func(1 , [@(0); @(0); @(0)]) | []}
-bind 54 GHC.Real.$94$ : {VV : func(2 , [@(0); @(1); @(0)]) | []}
-bind 55 GHC.Maybe.Nothing : {VV : func(1 , [(GHC.Maybe.Maybe @(0))]) | []}
-bind 56 GHC.Real.quotRem : {VV : func(1 , [@(0);
+bind 73 GHC.Real.rem : {VV : func(1 , [@(0); @(0); @(0)]) | []}
+bind 74 GHC.Real.$94$ : {VV : func(2 , [@(0); @(1); @(0)]) | []}
+bind 75 GHC.Maybe.Nothing : {VV : func(1 , [(GHC.Maybe.Maybe @(0))]) | []}
+bind 76 GHC.Real.quotRem : {VV : func(1 , [@(0);
                                            @(0);
                                            (Tuple @(0) @(0))]) | []}
-bind 57 GHC.Real.quot : {VV : func(1 , [@(0); @(0); @(0)]) | []}
-bind 58 GHC.CString.unpackCString# : {VV : func(0 , [Str;
+bind 77 GHC.Real.quot : {VV : func(1 , [@(0); @(0); @(0)]) | []}
+bind 78 GHC.CString.unpackCString# : {VV : func(0 , [Str;
                                                      [Char]]) | []}
-bind 59 GHC.Real.mod : {VV : func(1 , [@(0); @(0); @(0)]) | []}
-bind 60 GHC.Err.error : {VV : func(2 , [[Char]; @(1)]) | []}
-bind 61 GHC.Types.I# : {VV : func(0 , [int; int]) | []}
-bind 62 GHC.Real.divMod : {VV : func(1 , [@(0);
+bind 79 GHC.Real.mod : {VV : func(1 , [@(0); @(0); @(0)]) | []}
+bind 80 GHC.Err.error : {VV : func(2 , [[Char]; @(1)]) | []}
+bind 81 GHC.Types.I# : {VV : func(0 , [int; int]) | []}
+bind 82 GHC.Real.divMod : {VV : func(1 , [@(0);
                                           @(0);
                                           (Tuple @(0) @(0))]) | []}
-bind 63 GHC.Types.isTrue# : {VV : func(0 , [int; bool]) | []}
-bind 64 GHC.Real.div : {VV : func(1 , [@(0); @(0); @(0)]) | []}
-bind 65 GHC.List.zipWith : {VV : func(3 , [func(0 , [@(0);
+bind 83 GHC.Types.isTrue# : {VV : func(0 , [int; bool]) | []}
+bind 84 GHC.Real.div : {VV : func(1 , [@(0); @(0); @(0)]) | []}
+bind 85 GHC.List.zipWith : {VV : func(3 , [func(0 , [@(0);
                                                      @(1);
                                                      @(2)]);
                                            [@(0)];
                                            [@(1)];
                                            [@(2)]]) | []}
-bind 66 GHC.Real.recip : {VV : func(1 , [@(0); @(0)]) | []}
-bind 67 GHC.Classes.$124$$124$ : {VV : func(0 , [bool;
+bind 86 GHC.Real.recip : {VV : func(1 , [@(0); @(0)]) | []}
+bind 87 GHC.Classes.$124$$124$ : {VV : func(0 , [bool;
                                                  bool;
                                                  bool]) | []}
-bind 68 GHC.Real.$47$ : {VV : func(1 , [@(0); @(0); @(0)]) | []}
-bind 69 GHC.Classes.not : {VV : func(0 , [bool; bool]) | []}
-bind 70 InterfaceAdapters.Weather.Tutorial.avgMany : {VV : func(0 , [[int];
-                                                                     int]) | []}
-bind 71 GHC.Classes.$38$$38$ : {VV : func(0 , [bool;
+bind 88 GHC.Real.$47$ : {VV : func(1 , [@(0); @(0); @(0)]) | []}
+bind 89 GHC.Classes.not : {VV : func(0 , [bool; bool]) | []}
+bind 90 GHC.Classes.$38$$38$ : {VV : func(0 , [bool;
                                                bool;
                                                bool]) | []}
-bind 72 GHC.List.takeWhile : {VV : func(1 , [func(0 , [@(0);
+bind 91 GHC.List.takeWhile : {VV : func(1 , [func(0 , [@(0);
                                                        bool]);
                                              [@(0)];
                                              [@(0)]]) | []}
-bind 73 GHC.Base.. : {VV : func(3 , [func(0 , [@(0); @(1)]);
+bind 92 GHC.Base.. : {VV : func(3 , [func(0 , [@(0); @(1)]);
                                      func(0 , [@(2); @(0)]);
                                      @(2);
                                      @(1)]) | []}
-bind 74 GHC.Types.False : {v : bool | [(~ (v))]}
-bind 75 GHC.List.take : {VV : func(1 , [int; [@(0)]; [@(0)]]) | []}
-bind 76 InterfaceAdapters.Weather.Tutorial.size : {VV : func(1 , [[@(0)];
-                                                                  int]) | []}
-bind 77 GHC.List.tail : {VV : func(1 , [[@(0)]; [@(0)]]) | []}
-bind 78 GHC.Types.True : {v : bool | [v]}
-bind 79 GHC.Num.$43$ : {VV : func(1 , [@(0); @(0); @(0)]) | []}
-bind 80 GHC.List.splitAt : {VV : func(1 , [int;
+bind 93 GHC.Types.False : {v : bool | [(~ (v))]}
+bind 94 GHC.List.take : {VV : func(1 , [int; [@(0)]; [@(0)]]) | []}
+bind 95 GHC.List.tail : {VV : func(1 , [[@(0)]; [@(0)]]) | []}
+bind 96 GHC.Types.True : {v : bool | [v]}
+bind 97 GHC.Num.$43$ : {VV : func(1 , [@(0); @(0); @(0)]) | []}
+bind 98 GHC.List.splitAt : {VV : func(1 , [int;
                                            [@(0)];
                                            (Tuple [@(0)] [@(0)])]) | []}
-bind 81 InterfaceAdapters.Weather.Tutorial.divide : {VV : func(0 , [int;
-                                                                    int;
-                                                                    int]) | []}
-bind 82 GHC.Tuple.$40$$44$$44$$41$ : {VV : func(3 , [@(0);
+bind 99 GHC.Tuple.$40$$44$$44$$41$ : {VV : func(3 , [@(0);
                                                      @(1);
                                                      @(2);
                                                      (Tuple @(0) @(1) @(2))]) | []}
-bind 83 Data.Tuple.snd : {VV : func(2 , [(Tuple @(0) @(1));
-                                         @(1)]) | []}
-bind 84 GHC.Num.$42$ : {VV : func(1 , [@(0); @(0); @(0)]) | []}
-bind 85 GHC.List.span : {VV : func(1 , [func(0 , [@(0); bool]);
-                                        [@(0)];
-                                        (Tuple [@(0)] [@(0)])]) | []}
-bind 86 InterfaceAdapters.Weather.Tutorial.isEven : {VV : func(0 , [int;
-                                                                    bool]) | []}
-bind 87 GHC.Num.negate : {VV : func(1 , [@(0); @(0)]) | []}
-bind 88 Data.Tuple.fst : {VV : func(2 , [(Tuple @(0) @(1));
-                                         @(0)]) | []}
-bind 89 GHC.List.scanr1 : {VV : func(1 , [func(0 , [@(0);
-                                                    @(0);
-                                                    @(0)]);
+bind 100 Data.Tuple.snd : {VV : func(2 , [(Tuple @(0) @(1));
+                                          @(1)]) | []}
+bind 101 GHC.Num.$42$ : {VV : func(1 , [@(0); @(0); @(0)]) | []}
+bind 102 GHC.List.span : {VV : func(1 , [func(0 , [@(0); bool]);
+                                         [@(0)];
+                                         (Tuple [@(0)] [@(0)])]) | []}
+bind 103 GHC.Num.negate : {VV : func(1 , [@(0); @(0)]) | []}
+bind 104 Data.Tuple.fst : {VV : func(2 , [(Tuple @(0) @(1));
+                                          @(0)]) | []}
+bind 105 GHC.List.scanr1 : {VV : func(1 , [func(0 , [@(0);
+                                                     @(0);
+                                                     @(0)]);
+                                           [@(0)];
+                                           [@(0)]]) | []}
+bind 106 GHC.Classes.$62$$61$ : {VV : func(1 , [@(0);
+                                                @(0);
+                                                bool]) | []}
+bind 107 InterfaceAdapters.Weather.Tutorial.avgMany : {VV : func(0 , [[int];
+                                                                      int]) | []}
+bind 108 GHC.List.scanr : {VV : func(2 , [func(0 , [@(0);
+                                                    @(1);
+                                                    @(1)]);
+                                          @(1);
+                                          [@(0)];
+                                          [@(1)]]) | []}
+bind 109 GHC.Classes.$61$$61$ : {VV : func(1 , [@(0);
+                                                @(0);
+                                                bool]) | []}
+bind 110 GHC.Tuple.$40$$44$$41$ : {VV : func(2 , [@(0);
+                                                  @(1);
+                                                  (Tuple @(0) @(1))]) | []}
+bind 111 GHC.Types.$58$ : {VV : func(1 , [@(0);
                                           [@(0)];
                                           [@(0)]]) | []}
-bind 90 InterfaceAdapters.Weather.Tutorial.notEven : {VV##0 : int | [((VV##0 mod
-                                                                         2) =
-                                                                        0)]}
-bind 91 GHC.Classes.$62$$61$ : {VV : func(1 , [@(0);
-                                               @(0);
-                                               bool]) | []}
-bind 92 GHC.List.scanr : {VV : func(2 , [func(0 , [@(0);
-                                                   @(1);
-                                                   @(1)]);
-                                         @(1);
-                                         [@(0)];
-                                         [@(1)]]) | []}
-bind 93 InterfaceAdapters.Weather.Tutorial.one : {v : int | [(v =
-                                                                1)]}
-bind 94 GHC.Classes.$61$$61$ : {VV : func(1 , [@(0);
-                                               @(0);
-                                               bool]) | []}
-bind 95 GHC.Tuple.$40$$44$$41$ : {VV : func(2 , [@(0);
-                                                 @(1);
-                                                 (Tuple @(0) @(1))]) | []}
-bind 96 GHC.Types.$58$ : {VV : func(1 , [@(0);
-                                         [@(0)];
-                                         [@(0)]]) | []}
-bind 97 GHC.Classes.min : {VV : func(1 , [@(0); @(0); @(0)]) | []}
-bind 98 GHC.List.scanl1 : {VV : func(1 , [func(0 , [@(0);
-                                                    @(0);
-                                                    @(0)]);
-                                          [@(0)];
-                                          [@(0)]]) | []}
-bind 99 GHC.Base.id : {VV : func(1 , [@(0); @(0)]) | []}
-bind 100 GHC.Classes.max : {VV : func(1 , [@(0); @(0); @(0)]) | []}
-bind 101 GHC.List.scanl : {VV : func(2 , [func(0 , [@(0);
+bind 112 GHC.Classes.min : {VV : func(1 , [@(0); @(0); @(0)]) | []}
+bind 113 GHC.List.scanl1 : {VV : func(1 , [func(0 , [@(0);
+                                                     @(0);
+                                                     @(0)]);
+                                           [@(0)];
+                                           [@(0)]]) | []}
+bind 114 GHC.Base.id : {VV : func(1 , [@(0); @(0)]) | []}
+bind 115 GHC.Classes.max : {VV : func(1 , [@(0); @(0); @(0)]) | []}
+bind 116 GHC.List.scanl : {VV : func(2 , [func(0 , [@(0);
                                                     @(1);
                                                     @(0)]);
                                           @(0);
                                           [@(1)];
                                           [@(0)]]) | []}
-bind 102 GHC.Classes.compare : {VV : func(1 , [@(0);
+bind 117 GHC.Classes.compare : {VV : func(1 , [@(0);
                                                @(0);
                                                GHC.Types.Ordering]) | []}
-bind 103 GHC.List.reverse : {VV : func(1 , [[@(0)]; [@(0)]]) | []}
-bind 104 GHC.Types.C# : {VV : func(0 , [Char; Char]) | []}
-bind 105 GHC.Classes.$62$ : {VV : func(1 , [@(0);
+bind 118 InterfaceAdapters.Weather.Tutorial.size : {VV : func(1 , [[@(0)];
+                                                                   int]) | []}
+bind 119 GHC.List.reverse : {VV : func(1 , [[@(0)]; [@(0)]]) | []}
+bind 120 GHC.Types.C# : {VV : func(0 , [Char; Char]) | []}
+bind 121 GHC.Classes.$62$ : {VV : func(1 , [@(0);
                                             @(0);
                                             bool]) | []}
-bind 106 GHC.List.replicate : {VV : func(1 , [int;
+bind 122 GHC.List.replicate : {VV : func(1 , [int;
                                               @(0);
                                               [@(0)]]) | []}
-bind 107 GHC.Base.$43$$43$ : {VV : func(1 , [[@(0)];
+bind 123 GHC.Base.$43$$43$ : {VV : func(1 , [[@(0)];
                                              [@(0)];
                                              [@(0)]]) | []}
-bind 108 GHC.Classes.$60$$61$ : {VV : func(1 , [@(0);
+bind 124 GHC.Classes.$60$$61$ : {VV : func(1 , [@(0);
                                                 @(0);
                                                 bool]) | []}
-bind 109 GHC.List.repeat : {VV : func(1 , [@(0); [@(0)]]) | []}
-bind 110 GHC.Real.fromRational : {VV : func(1 , [(GHC.Real.Ratio int);
+bind 125 InterfaceAdapters.Weather.Tutorial.divide : {VV : func(0 , [int;
+                                                                     int;
+                                                                     int]) | []}
+bind 126 GHC.List.repeat : {VV : func(1 , [@(0); [@(0)]]) | []}
+bind 127 GHC.Real.fromRational : {VV : func(1 , [(GHC.Real.Ratio int);
                                                  @(0)]) | []}
-bind 111 GHC.Classes.$60$ : {VV : func(1 , [@(0);
+bind 128 GHC.Classes.$60$ : {VV : func(1 , [@(0);
                                             @(0);
                                             bool]) | []}
-bind 112 GHC.Num.$45$ : {VV : func(1 , [@(0); @(0); @(0)]) | []}
-bind 113 GHC.List.zip : {VV : func(2 , [[@(0)];
+bind 129 InterfaceAdapters.Weather.Tutorial.isEven : {VV : func(0 , [int;
+                                                                     bool]) | []}
+bind 130 GHC.Num.$45$ : {VV : func(1 , [@(0); @(0); @(0)]) | []}
+bind 131 GHC.List.zip : {VV : func(2 , [[@(0)];
                                         [@(1)];
                                         [(Tuple @(0) @(1))]]) | []}
-bind 114 GHC.Classes.$47$$61$ : {VV : func(1 , [@(0);
+bind 132 GHC.Classes.$47$$61$ : {VV : func(1 , [@(0);
                                                 @(0);
                                                 bool]) | []}
-bind 115 GHC.List.last : {VV : func(1 , [[@(0)]; @(0)]) | []}
-bind 116 GHC.Real.toInteger : {VV : func(1 , [@(0); int]) | []}
-bind 117 GHC.Num.fromInteger : {VV : func(1 , [int; @(0)]) | []}
-bind 118 GHC.List.filter : {VV : func(1 , [func(0 , [@(0); bool]);
+bind 133 InterfaceAdapters.Weather.Tutorial.notEven : {VV##0 : int | [((VV##0 mod
+                                                                          2) =
+                                                                         0)]}
+bind 134 GHC.List.last : {VV : func(1 , [[@(0)]; @(0)]) | []}
+bind 135 GHC.Real.toInteger : {VV : func(1 , [@(0); int]) | []}
+bind 136 GHC.Num.fromInteger : {VV : func(1 , [int; @(0)]) | []}
+bind 137 GHC.List.filter : {VV : func(1 , [func(0 , [@(0); bool]);
                                            [@(0)];
                                            [@(0)]]) | []}
-bind 119 GHC.Types.C# : {VV : func(0 , [Char; Char]) | []}
-bind 120 GHC.Types.$58$ : {VV : func(1 , [@(0);
+bind 138 GHC.Types.C# : {VV : func(0 , [Char; Char]) | []}
+bind 139 GHC.Types.$58$ : {VV : func(1 , [@(0);
                                           [@(0)];
                                           [@(0)]]) | []}
-bind 121 GHC.Maybe.Nothing : {VV : func(1 , [(GHC.Maybe.Maybe @(0))]) | []}
-bind 122 GHC.Maybe.Just : {VV : func(1 , [@(0);
+bind 140 GHC.Maybe.Nothing : {VV : func(1 , [(GHC.Maybe.Maybe @(0))]) | []}
+bind 141 GHC.Maybe.Just : {VV : func(1 , [@(0);
                                           (GHC.Maybe.Maybe @(0))]) | []}
-bind 123 GHC.Types.$91$$93$ : {VV : func(1 , [[@(0)]]) | []}
-bind 124 GHC.Tuple.$40$$44$$41$ : {VV : func(2 , [@(0);
+bind 142 GHC.Types.$91$$93$ : {VV : func(1 , [[@(0)]]) | []}
+bind 143 GHC.Tuple.$40$$44$$41$ : {VV : func(2 , [@(0);
                                                   @(1);
                                                   (Tuple @(0) @(1))]) | []}
-bind 125 GHC.Tuple.$40$$44$$44$$41$ : {VV : func(3 , [@(0);
+bind 144 GHC.Tuple.$40$$44$$44$$41$ : {VV : func(3 , [@(0);
                                                       @(1);
                                                       @(2);
                                                       (Tuple @(0) @(1) @(2))]) | []}

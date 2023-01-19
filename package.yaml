@@ -75,6 +75,7 @@ dependencies:
 - stringsearch >= 0.3.6.6
 - type-natural >= 1.1.0.1
 - liquid-ghc-prim
+- ghc >= 9.2.1
 
 library:
   source-dirs: src
