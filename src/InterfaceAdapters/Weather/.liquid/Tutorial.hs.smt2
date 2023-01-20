@@ -77,6 +77,7 @@
 (declare-fun GHC.Base.$58$$124$ () Int)
 (declare-fun fromJust () Int)
 (declare-fun Data.Foldable.length () Int)
+(declare-fun Data.List.NonEmpty.head () Int)
 (declare-fun Control.Exception.Base.patError () Int)
 (declare-fun GHC.Classes.not () Int)
 (declare-fun GHC.List.iterate () Int)

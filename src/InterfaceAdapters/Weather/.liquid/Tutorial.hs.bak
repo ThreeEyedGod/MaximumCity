@@ -78,3 +78,8 @@ getConfigurationDirectories = do
   case nonEmpty configDirsList of
     Just nonEmptyConfigDirsList -> pure nonEmptyConfigDirsList
     Nothing -> throwIO $ userError "CONFIG_DIRS cannot be empty"
+
+test :: IO FilePath
+test = do
+ configDirs <- getConfigurationDirectories
+ pure (Data.List.NonEmpty.head configDirs)

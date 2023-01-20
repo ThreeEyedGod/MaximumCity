@@ -89,6 +89,11 @@ Put mouse over identifiers to see inferred types
 <span class=hs-linenum>77: </span>  <span class='hs-keyword'>let</span> <span class='hs-varid'>configDirsList</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>split</span> <span class='hs-chr'>','</span> <span class='hs-varid'>configDirsString</span>
 <span class=hs-linenum>78: </span>  <span class='hs-keyword'>case</span> <span class='hs-varid'>nonEmpty</span> <span class='hs-varid'>configDirsList</span> <span class='hs-keyword'>of</span>
 <span class=hs-linenum>79: </span>    <span class='hs-conid'>Just</span> <span class='hs-varid'>nonEmptyConfigDirsList</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-varid'>pure</span> <span class='hs-varid'>nonEmptyConfigDirsList</span>
-<span class=hs-linenum>80: </span>    <span class='hs-conid'>Nothing</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-varid'>throwIO</span> <span class='hs-varop'>$</span> <span class='hs-varid'>userError</span> <span class='hs-str'>"CONFIG_DIRS cannot be empty"</span></pre>
+<span class=hs-linenum>80: </span>    <span class='hs-conid'>Nothing</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-varid'>throwIO</span> <span class='hs-varop'>$</span> <span class='hs-varid'>userError</span> <span class='hs-str'>"CONFIG_DIRS cannot be empty"</span>
+<span class=hs-linenum>81: </span>
+<span class=hs-linenum>82: </span><span class='hs-definition'>test</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>IO</span> <span class='hs-conid'>FilePath</span>
+<span class=hs-linenum>83: </span><span class='hs-definition'>test</span> <span class='hs-keyglyph'>=</span> <span class='hs-keyword'>do</span>
+<span class=hs-linenum>84: </span> <span class='hs-varid'>configDirs</span> <span class='hs-keyglyph'>&lt;-</span> <span class='hs-varid'>getConfigurationDirectories</span>
+<span class=hs-linenum>85: </span> <span class='hs-varid'>pure</span> <span class='hs-layout'>(</span><span class='hs-conid'>Data.List.NonEmpty.head</span> <span class='hs-varid'>configDirs</span><span class='hs-layout'>)</span></pre>
 </body>
 </html>
