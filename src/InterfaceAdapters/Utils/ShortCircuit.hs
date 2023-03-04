@@ -29,8 +29,6 @@ module InterfaceAdapters.Utils.ShortCircuit
 , andM
 , firstTrueOfM
 , lastFalseOfM
-, divide
-, divide1
 )
 where
   
@@ -126,10 +124,5 @@ instance Shortcircuit (Either a b) where
     isTrue (Left _)  = False
     isTrue (Right _) = True
 
-divide :: Maybe Int -> Maybe Int -> Either String (Either Int Float)
-divide (Just a) (Just 0) = Left "no can do"
-divide (Just a) (Just b) = Right $ Left (a `div` b)
-
-divide1 :: Maybe Float -> Maybe Float -> Either String (Either Int Float)
-divide1 (Just a) (Just 0) = Left "no can do1"
-divide1 (Just a) (Just b) = Right $ Right (a / b)
+validateList :: (a -> Either e a) -> [a] -> Either e [a]
+validateList = traverse

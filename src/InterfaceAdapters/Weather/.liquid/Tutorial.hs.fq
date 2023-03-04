@@ -548,104 +548,104 @@ bind 63 GHC.List.iterate : {VV : func(1 , [func(0 , [@(0); @(0)]);
                                            [@(0)]]) | []}
 bind 64 GHC.Types.$91$$93$ : {VV : func(1 , [[@(0)]]) | []}
 bind 65 GHC.List.init : {VV : func(1 , [[@(0)]; [@(0)]]) | []}
-bind 66 InterfaceAdapters.Weather.Tutorial.size : {VV : func(0 , [[int];
-                                                                  int]) | []}
-bind 67 GHC.Real.fromIntegral : {VV : func(2 , [@(0); @(1)]) | []}
-bind 68 GHC.List.head : {VV : func(1 , [[@(0)]; @(0)]) | []}
-bind 69 InterfaceAdapters.Weather.Tutorial.test1 : {VV : func(0 , [int;
-                                                                   (GHC.Prim.State# GHC.Prim.RealWorld);
-                                                                   (Tuple (GHC.Types.TupleRep (GHC.Types.$91$$93$ GHC.Types.RuntimeRep)) GHC.Types.LiftedRep (GHC.Prim.State# GHC.Prim.RealWorld) int)]) | []}
-bind 70 GHC.List.dropWhile : {VV : func(1 , [func(0 , [@(0);
+bind 66 GHC.Real.fromIntegral : {VV : func(2 , [@(0); @(1)]) | []}
+bind 67 GHC.List.head : {VV : func(1 , [[@(0)]; @(0)]) | []}
+bind 68 GHC.List.dropWhile : {VV : func(1 , [func(0 , [@(0);
                                                        bool]);
                                              [@(0)];
                                              [@(0)]]) | []}
-bind 71 GHC.List.drop : {VV : func(1 , [int; [@(0)]; [@(0)]]) | []}
-bind 72 GHC.Base.$ : {VV : func(3 , [func(0 , [@(1); @(2)]);
+bind 69 GHC.List.drop : {VV : func(1 , [int; [@(0)]; [@(0)]]) | []}
+bind 70 GHC.Base.$ : {VV : func(3 , [func(0 , [@(1); @(2)]);
                                      @(1);
                                      @(2)]) | []}
-bind 73 Data.Foldable.null : {VV : func(2 , [(@(0) @(1));
+bind 71 Data.Foldable.null : {VV : func(2 , [(@(0) @(1));
                                              bool]) | []}
-bind 74 GHC.List.cycle : {VV : func(1 , [[@(0)]; [@(0)]]) | []}
-bind 75 InterfaceAdapters.Weather.Tutorial.average : {VV : func(0 , [[int];
-                                                                     int]) | []}
-bind 76 GHC.List.break : {VV : func(1 , [func(0 , [@(0); bool]);
+bind 72 GHC.List.cycle : {VV : func(1 , [[@(0)]; [@(0)]]) | []}
+bind 73 GHC.List.break : {VV : func(1 , [func(0 , [@(0); bool]);
                                          [@(0)];
                                          (Tuple [@(0)] [@(0)])]) | []}
-bind 77 InterfaceAdapters.Weather.Tutorial.impossible : {VV : func(1 , [[Char];
-                                                                        @(0)]) | []}
-bind 78 GHC.Base.map : {VV : func(2 , [func(0 , [@(0); @(1)]);
+bind 74 GHC.Base.map : {VV : func(2 , [func(0 , [@(0); @(1)]);
                                        [@(0)];
                                        [@(1)]]) | []}
-bind 79 GHC.Maybe.Just : {VV : func(1 , [@(0);
+bind 75 GHC.Maybe.Just : {VV : func(1 , [@(0);
                                          (GHC.Maybe.Maybe @(0))]) | []}
-bind 80 GHC.List.$33$$33$ : {VV : func(1 , [[@(0)];
+bind 76 GHC.List.$33$$33$ : {VV : func(1 , [[@(0)];
                                             int;
                                             @(0)]) | []}
-bind 81 Data.Foldable.length : {VV : func(2 , [(@(0) @(1));
+bind 77 Data.Foldable.length : {VV : func(2 , [(@(0) @(1));
                                                int]) | []}
-bind 82 GHC.Real.rem : {VV : func(1 , [@(0); @(0); @(0)]) | []}
-bind 83 GHC.Real.$94$ : {VV : func(2 , [@(0); @(1); @(0)]) | []}
-bind 84 InterfaceAdapters.Weather.Tutorial.divide : {VV : func(0 , [int;
-                                                                    int;
-                                                                    int]) | []}
-bind 85 GHC.Maybe.Nothing : {VV : func(1 , [(GHC.Maybe.Maybe @(0))]) | []}
-bind 86 GHC.Real.quotRem : {VV : func(1 , [@(0);
+bind 78 GHC.Real.rem : {VV : func(1 , [@(0); @(0); @(0)]) | []}
+bind 79 GHC.Real.$94$ : {VV : func(2 , [@(0); @(1); @(0)]) | []}
+bind 80 GHC.Maybe.Nothing : {VV : func(1 , [(GHC.Maybe.Maybe @(0))]) | []}
+bind 81 GHC.Real.quotRem : {VV : func(1 , [@(0);
                                            @(0);
                                            (Tuple @(0) @(0))]) | []}
-bind 87 GHC.Real.quot : {VV : func(1 , [@(0); @(0); @(0)]) | []}
-bind 88 GHC.CString.unpackCString# : {VV : func(0 , [Str;
+bind 82 GHC.Real.quot : {VV : func(1 , [@(0); @(0); @(0)]) | []}
+bind 83 GHC.CString.unpackCString# : {VV : func(0 , [Str;
                                                      [Char]]) | []}
-bind 89 GHC.Real.mod : {VV : func(1 , [@(0); @(0); @(0)]) | []}
-bind 90 GHC.Err.error : {VV : func(2 , [[Char]; @(1)]) | []}
-bind 91 GHC.Types.I# : {VV : func(0 , [int; int]) | []}
-bind 92 GHC.Real.divMod : {VV : func(1 , [@(0);
+bind 84 GHC.Real.mod : {VV : func(1 , [@(0); @(0); @(0)]) | []}
+bind 85 GHC.Err.error : {VV : func(2 , [[Char]; @(1)]) | []}
+bind 86 GHC.Types.I# : {VV : func(0 , [int; int]) | []}
+bind 87 GHC.Real.divMod : {VV : func(1 , [@(0);
                                           @(0);
                                           (Tuple @(0) @(0))]) | []}
-bind 93 GHC.Types.isTrue# : {VV : func(0 , [int; bool]) | []}
-bind 94 GHC.Real.div : {VV : func(1 , [@(0); @(0); @(0)]) | []}
-bind 95 GHC.List.zipWith : {VV : func(3 , [func(0 , [@(0);
+bind 88 GHC.Types.isTrue# : {VV : func(0 , [int; bool]) | []}
+bind 89 GHC.Real.div : {VV : func(1 , [@(0); @(0); @(0)]) | []}
+bind 90 GHC.List.zipWith : {VV : func(3 , [func(0 , [@(0);
                                                      @(1);
                                                      @(2)]);
                                            [@(0)];
                                            [@(1)];
                                            [@(2)]]) | []}
-bind 96 GHC.Real.recip : {VV : func(1 , [@(0); @(0)]) | []}
-bind 97 GHC.Classes.$124$$124$ : {VV : func(0 , [bool;
+bind 91 InterfaceAdapters.Weather.Tutorial.size : {VV : func(0 , [[int];
+                                                                  int]) | []}
+bind 92 GHC.Real.recip : {VV : func(1 , [@(0); @(0)]) | []}
+bind 93 GHC.Classes.$124$$124$ : {VV : func(0 , [bool;
                                                  bool;
                                                  bool]) | []}
-bind 98 GHC.Real.$47$ : {VV : func(1 , [@(0); @(0); @(0)]) | []}
-bind 99 GHC.Classes.not : {VV : func(0 , [bool; bool]) | []}
-bind 100 GHC.Classes.$38$$38$ : {VV : func(0 , [bool;
-                                                bool;
-                                                bool]) | []}
-bind 101 GHC.List.takeWhile : {VV : func(1 , [func(0 , [@(0);
-                                                        bool]);
-                                              [@(0)];
-                                              [@(0)]]) | []}
-bind 102 GHC.Base.. : {VV : func(3 , [func(0 , [@(0); @(1)]);
-                                      func(0 , [@(2); @(0)]);
-                                      @(2);
-                                      @(1)]) | []}
-bind 103 GHC.Types.False : {v : bool | [(~ (v))]}
-bind 104 GHC.List.take : {VV : func(1 , [int;
+bind 94 InterfaceAdapters.Weather.Tutorial.test1 : {VV : func(0 , [int;
+                                                                   (GHC.Prim.State# GHC.Prim.RealWorld);
+                                                                   (Tuple (GHC.Types.TupleRep (GHC.Types.$91$$93$ GHC.Types.RuntimeRep)) GHC.Types.LiftedRep (GHC.Prim.State# GHC.Prim.RealWorld) int)]) | []}
+bind 95 GHC.Real.$47$ : {VV : func(1 , [@(0); @(0); @(0)]) | []}
+bind 96 GHC.Classes.not : {VV : func(0 , [bool; bool]) | []}
+bind 97 GHC.Classes.$38$$38$ : {VV : func(0 , [bool;
+                                               bool;
+                                               bool]) | []}
+bind 98 GHC.List.takeWhile : {VV : func(1 , [func(0 , [@(0);
+                                                       bool]);
+                                             [@(0)];
+                                             [@(0)]]) | []}
+bind 99 GHC.Base.. : {VV : func(3 , [func(0 , [@(0); @(1)]);
+                                     func(0 , [@(2); @(0)]);
+                                     @(2);
+                                     @(1)]) | []}
+bind 100 InterfaceAdapters.Weather.Tutorial.average : {VV : func(0 , [[int];
+                                                                      int]) | []}
+bind 101 GHC.Types.False : {v : bool | [(~ (v))]}
+bind 102 GHC.List.take : {VV : func(1 , [int;
                                          [@(0)];
                                          [@(0)]]) | []}
-bind 105 GHC.List.tail : {VV : func(1 , [[@(0)]; [@(0)]]) | []}
-bind 106 GHC.Types.True : {v : bool | [v]}
-bind 107 GHC.Num.$43$ : {VV : func(1 , [@(0); @(0); @(0)]) | []}
-bind 108 GHC.List.splitAt : {VV : func(1 , [int;
+bind 103 InterfaceAdapters.Weather.Tutorial.impossible : {VV : func(1 , [[Char];
+                                                                         @(0)]) | []}
+bind 104 GHC.List.tail : {VV : func(1 , [[@(0)]; [@(0)]]) | []}
+bind 105 GHC.Types.True : {v : bool | [v]}
+bind 106 GHC.Num.$43$ : {VV : func(1 , [@(0); @(0); @(0)]) | []}
+bind 107 GHC.List.splitAt : {VV : func(1 , [int;
                                             [@(0)];
                                             (Tuple [@(0)] [@(0)])]) | []}
-bind 109 GHC.Tuple.$40$$44$$44$$41$ : {VV : func(3 , [@(0);
+bind 108 GHC.Tuple.$40$$44$$44$$41$ : {VV : func(3 , [@(0);
                                                       @(1);
                                                       @(2);
                                                       (Tuple @(0) @(1) @(2))]) | []}
-bind 110 Data.Tuple.snd : {VV : func(2 , [(Tuple @(0) @(1));
+bind 109 Data.Tuple.snd : {VV : func(2 , [(Tuple @(0) @(1));
                                           @(1)]) | []}
-bind 111 GHC.Num.$42$ : {VV : func(1 , [@(0); @(0); @(0)]) | []}
-bind 112 GHC.List.span : {VV : func(1 , [func(0 , [@(0); bool]);
+bind 110 GHC.Num.$42$ : {VV : func(1 , [@(0); @(0); @(0)]) | []}
+bind 111 GHC.List.span : {VV : func(1 , [func(0 , [@(0); bool]);
                                          [@(0)];
                                          (Tuple [@(0)] [@(0)])]) | []}
+bind 112 InterfaceAdapters.Weather.Tutorial.divide : {VV : func(0 , [int;
+                                                                     int;
+                                                                     int]) | []}
 bind 113 GHC.Num.negate : {VV : func(1 , [@(0); @(0)]) | []}
 bind 114 Data.Tuple.fst : {VV : func(2 , [(Tuple @(0) @(1));
                                           @(0)]) | []}

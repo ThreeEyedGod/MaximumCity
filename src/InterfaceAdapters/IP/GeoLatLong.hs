@@ -5,7 +5,7 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-@ LIQUID "--skip-module" @-}
 
-module InterfaceAdapters.IP.GeoLatLong (getLatLongforThis, getLLData) where
+module InterfaceAdapters.IP.GeoLatLong (getLatLongforThis, getLLData, fGDFromPlace, oCFGDFromPlace,fGDFromPlacePre, oCFGDFromPlacePre, getLLDataForThis) where
 import Data.Aeson
     ( 
       FromJSON,
@@ -47,36 +47,28 @@ getLatLongforThis1 town = do
           Data.ByteString.Char8.pack $ removeNonNumbers
             (show (Prelude.head (_data (geoipstuff :: ForwardGeoData))))
 
-{-
-getLatLongforThis1 :: String -> IO T.Text
-getLatLongforThis1 town = do
-    d <- geoIpFromPlace town
-    case d of
-      Left e -> do
-        f <- openCageFromPlace town
-        case f of
-          Left err -> return "Fail:getLatLongforThis | eitherDecode getOpenCageForwardGeoCodefor" 
-          Right geo_backup -> return $ openCageToText geo_backup
-      Right geoipstuff -> return $ geoIpToText geoipstuff
-
- -}
- 
-validateList :: (a -> Either e a) -> [a] -> Either e [a]
-validateList = traverse
 
 getLLDataForThis :: String -> IO T.Text
-getLLDataForThis town = getLLData town >>= gDToText
+getLLDataForThis town = getLLData town >>= geoDataToText
 
 getLLData :: String ->  IO (Either String (Either ForwardGeoData OpenCageForwardGeoData))
-getLLData s = SC.orM (fGDFromPlace s) (oCFGDFromPlace s)
+getLLData s = SC.orM (fGDFromPlacePre s >>= fGDFromPlace) (oCFGDFromPlacePre s >>= oCFGDFromPlace)
 
-fGDFromPlace :: String -> IO (Either String (Either ForwardGeoData OpenCageForwardGeoData))
-fGDFromPlace s = eitherDecode <$> getPositionStackForwardGeoCodefor s
+fGDFromPlacePre :: String -> IO (Either String ForwardGeoData)
+fGDFromPlacePre s = eitherDecode <$> getPositionStackForwardGeoCodefor s
 
-oCFGDFromPlace :: String -> IO (Either String (Either ForwardGeoData OpenCageForwardGeoData))
-oCFGDFromPlace s = eitherDecode <$> getOpenCageForwardGeoCodefor s
+fGDFromPlace :: Either String ForwardGeoData -> IO (Either String (Either ForwardGeoData OpenCageForwardGeoData))
+fGDFromPlace (Left x)  = pure $ Left x
+fGDFromPlace (Right y) = pure $ Right $ Left y 
 
-gDToText :: Either String (Either ForwardGeoData OpenCageForwardGeoData) -> IO T.Text
-gDToText (Left f)  = return $ T.pack f
-gDToText (Right (Left f))  = return $ Data.ByteString.Char8.pack $ removeNonNumbers (show (Prelude.head (_data (f :: ForwardGeoData))))
-gDToText (Right (Right f)) = return $ Data.ByteString.Char8.pack (show (lat (geometry (Prelude.head (results (f :: OpenCageForwardGeoData))))) ++ "," ++ show (lng (geometry (Prelude.head (results (f :: OpenCageForwardGeoData))))))
+oCFGDFromPlacePre :: String -> IO (Either String OpenCageForwardGeoData)
+oCFGDFromPlacePre s = eitherDecode <$> getOpenCageForwardGeoCodefor s
+
+oCFGDFromPlace :: Either String OpenCageForwardGeoData -> IO (Either String (Either ForwardGeoData OpenCageForwardGeoData))
+oCFGDFromPlace (Left x)  = pure $ Left x
+oCFGDFromPlace (Right y) = pure $ Right $ Right y 
+
+geoDataToText :: Either String (Either ForwardGeoData OpenCageForwardGeoData) -> IO T.Text
+geoDataToText (Left f)          = return $ T.pack f
+geoDataToText (Right (Left f))  = return $ Data.ByteString.Char8.pack $ removeNonNumbers (show (Prelude.head (_data (f :: ForwardGeoData))))
+geoDataToText (Right (Right f)) = return $ Data.ByteString.Char8.pack (show (lat (geometry (Prelude.head (results (f :: OpenCageForwardGeoData))))) ++ "," ++ show (lng (geometry (Prelude.head (results (f :: OpenCageForwardGeoData))))))
