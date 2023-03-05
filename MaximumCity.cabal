@@ -1,6 +1,6 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.35.1.
+-- This file has been generated from package.yaml by hpack version 0.35.0.
 --
 -- see: https://github.com/sol/hpack
 
@@ -43,6 +43,7 @@ library
       InterfaceAdapters.Utils.HttpHeadersPathDefinitions
       InterfaceAdapters.Utils.JSONHelper
       InterfaceAdapters.Utils.PdfHelper
+      InterfaceAdapters.Utils.ShortCircuit
       InterfaceAdapters.Water.MH.Core.ParserHelper
       InterfaceAdapters.Water.MH.Core.WaterLevelHeaders
       InterfaceAdapters.Water.MH.Core.WaterLevelLakes

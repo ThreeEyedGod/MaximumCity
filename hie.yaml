@@ -1,0 +1,19 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "MaximumCity:lib"
+
+    - path: "./app/Main.hs"
+      component: "MaximumCity:exe:bootstrap"
+
+    - path: "./app/Paths_MaximumCity.hs"
+      component: "MaximumCity:exe:bootstrap"
+
+    - path: "./test"
+      component: "MaximumCity:test:MaximumCity-test"
+
+    - path: "././Main.hs"
+      component: "MaximumCity:bench:MaximumCity-benchmark"
+
+    - path: "././Paths_MaximumCity.hs"
+      component: "MaximumCity:bench:MaximumCity-benchmark"
