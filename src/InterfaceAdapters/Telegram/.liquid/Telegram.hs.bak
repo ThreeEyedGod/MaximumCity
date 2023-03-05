@@ -60,6 +60,7 @@ import Data.Aeson
       Value (Object, Bool)
        )
 import qualified Data.Text.Lazy.Lens as T
+import InterfaceAdapters.Utils.EnvPolHelper (runGetKey)
 
 type TC = (Token, Manager)
 type AllInputs  = (H.ResponseBody, Maybe Update)
@@ -113,7 +114,7 @@ _handleUpdate _ u                                     = liftIO $ putStrLn $ "Unh
 getMeta :: Maybe Update -> (T.Text, (T.Text, T.Text))
 getMeta (Just Update {message = Just m}) = (uuid, (whatUserTyped, parseResponse))
   where
-    uuid = getUserId (from m)
+    uuid          = getUserId (from m)
     whatUserTyped = T.toLower $ T.dropWhileEnd (== ' ') (fromMaybe "" (text m))
     parseResponse = parseGetResponse whatUserTyped uuid
 getMeta Nothing                          = ("getMeta no data", ("usertyped missing","so no response"))
@@ -126,5 +127,5 @@ parseGetResponse whatUserTyped uuid
   | ("/" `T.isInfixOf` whatUserTyped) || ("*" `T.isInfixOf` whatUserTyped) || ("-" `T.isInfixOf` whatUserTyped) = "\nPlace Name seems odd\n"
   | otherwise = whatUserTyped
   where
-    hlpMessage = "Hi! I am @MaximumCityBot \nEnter a place name For ex: \nMumbai, \nPune \nMaharashtra \nBhivandi\n " :: T.Text
+    hlpMessage  = "Hi! I am @MaximumCityBot \nEnter a place name For ex: \nMumbai, \nPune \nMaharashtra \nBhivandi\n " :: T.Text
     prfsMessage = parsePrefs uuid (T.strip $ T.drop 6 whatUserTyped) -- over at @module Preferences

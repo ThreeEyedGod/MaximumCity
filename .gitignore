@@ -54,6 +54,17 @@ TAGS
 # other
 .DS_Store
 
+# liquid
+src/ExternalInterfaces/.liquid
+src/InterfaceAdapters/.liquid
+src/InterfaceAdapters/IP/.liquid
+src/InterfaceAdapters/Parameters/.liquid
+src/InterfaceAdapters/Telegram/.liquid
+src/InterfaceAdapters/Utils/.liquid
+src/InterfaceAdapters/Water/MH/Core/.liquid
+src/InterfaceAdapters/Weather/.liquid
+src/UseCases/.liquid
+
 # history
 .history/src
 .history/test

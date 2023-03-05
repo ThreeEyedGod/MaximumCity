@@ -50,7 +50,7 @@ library
       InterfaceAdapters.Weather.OpenWeatherAPI
       InterfaceAdapters.Weather.PirateWeatherAPI
       InterfaceAdapters.Weather.PirateWeatherHeaders
-      InterfaceAdapters.Weather.Tutorial
+      InterfaceAdapters.Weather.TestRefinedTypes
       InterfaceAdapters.Weather.Weather
       InterfaceAdapters.Weather.WWITelegramPirate
       InterfaceAdapters.Weather.WWIWebPirate
