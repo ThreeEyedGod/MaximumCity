@@ -20,7 +20,13 @@ getLatLongforThis :: String -> IO T.Text
 getLatLongforThis town = getLLData town >>= geoDataJSONToText
 
 getLLData :: String ->  IO (Either String (Either ForwardGeoData OpenCageForwardGeoData))
-getLLData s = orM (getPositionStackJSON s >>= makeNestedEitherPositionStack) (getOpenCageJSON s >>= makeNestedEitherOpenCage) -- lazy evaluate first failover to second
+getLLData s = orM (nestedEitherPosStackJSON s) (nestedEitherOpenCageJSON s)-- lazy evaluate first failover to second
+
+nestedEitherPosStackJSON :: String ->  IO (Either String (Either ForwardGeoData OpenCageForwardGeoData))
+nestedEitherPosStackJSON s = getPositionStackJSON s >>= makeNestedEitherPositionStack
+
+nestedEitherOpenCageJSON :: String ->  IO (Either String (Either ForwardGeoData OpenCageForwardGeoData))
+nestedEitherOpenCageJSON s = getOpenCageJSON s >>= makeNestedEitherOpenCage
 
 getPositionStackJSON :: String -> IO (Either String ForwardGeoData)
 getPositionStackJSON s = eitherDecode <$> getPositionStackForwardGeoCodefor s
