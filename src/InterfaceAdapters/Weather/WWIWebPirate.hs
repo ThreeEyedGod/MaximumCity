@@ -1,12 +1,8 @@
 {-# LANGUAGE GADTs, TypeInType, ScopedTypeVariables, StandaloneDeriving, TemplateHaskell, LambdaCase, BlockArguments, FlexibleContexts, TypeOperators, DataKinds, PolyKinds #-}
-
 {-# LANGUAGE TypeFamilies        #-}
 {-@ LIQUID "--skip-module" @-}
 
-module InterfaceAdapters.Weather.WWIWebPirate
-  (
-    runWWIWebPirate
-  )
+module InterfaceAdapters.Weather.WWIWebPirate ( runWWIWebPirate )
 where
 
 import Polysemy ( Sem, Member, Embed, embed, interpret )
@@ -15,7 +11,6 @@ import Control.Monad.IO.Class ()
 import qualified Data.ByteString.Lazy.Char8 as LB
 import qualified Data.Text as Data.ByteString.Char8
 import qualified Data.Text as T
---import GHC.Integer.Logarithms ()
 import Data.Text.Encoding as TSE ()
 import Data.Text.Lazy.Encoding as TLE ()
 import Data.ByteString.UTF8 as BSU ()
@@ -35,8 +30,7 @@ import Data.Aeson
 
 import InterfaceAdapters.Utils.HttpHeadersPathDefinitions as H ()
 import InterfaceAdapters.Weather.PirateWeatherAPI ()
-import UseCases.WWI
-    ( TheWeatherThere, UserAsk(..), WWI(GetWeatherTown) )
+import UseCases.WWI ( TheWeatherThere, UserAsk(..), WWI(GetWeatherTown) )
 import UseCases.AgricultureUseCase ()
 import qualified InterfaceAdapters.Weather.Weather as IWW
 import InterfaceAdapters.Preferences ()

@@ -83,7 +83,6 @@ getDarkSkyjson (ll , kee)
 
 -- Entry functions
 _getWeatherForTown :: String -> IO Text
--- _getWeatherForTown town = getLatLongPirateKey town >>= getDarkSkyjson >>= (pure . _extractWeatherN)
 _getWeatherForTown town = townDarkSky town >>= (pure . currentweatherForecast)
 
 weatherCurrentForecast :: Preferences -> String -> IO Text
@@ -111,10 +110,7 @@ onlyWeatherCurrent town  = townDarkSky town Data.Functor.<&> currentWeather
 
 _extractWeatherN :: Either String DarkSky -> Text
 _extractWeatherN = currentweatherForecast
-{- _extractWeatherN (Left _) = "Missing DarkSky"
-_extractWeatherN dS@(Right d) = fromMaybe "Missing DarkSky " (weatherCurrent dS) <> fromMaybe "Missing Forecast " (weatherForecastN (dly_data (daily d)))
- -}
--- Process an error string or Darksky to extract either weather, alerts or forecast 
+
 weatherCurrent:: Either String DarkSky -> Maybe Text
 weatherCurrent (Right d) = Just $ Data.ByteString.Char8.pack $ parseNowWeather (currently d)
 weatherCurrent (Left _) = Nothing
@@ -186,38 +182,3 @@ getAllDaysForecastMini (x : xs) =
                               "  "]
 
 
-{- getAllalerts :: [DarkSkyAlert] -> String
-getAllalerts [] = []
-getAllalerts (x : xs) = 
-          Prelude.unlines [   (catSS "ALERT! " $ alrt_title $ x ),
-                              (catSS "Heads Up: " $ alrt_description $ x ),
-                              "  "] 
-                              ++ getAllalerts xs
-
- -}
-
-{- currentweatherAlertsForecast :: Either String DarkSky -> Text
-currentweatherAlertsForecast dS  = (fromMaybe "Missing DarkSky " $ weatherCurrent dS) <> (fromMaybe "No Alerts issued " $ weatherAlerts dS) <> (fromMaybe "No Forecast available " $ weatherForecast dS)
-
-currentweatherAlerts :: Either String DarkSky -> Text
-currentweatherAlerts dS  = (fromMaybe "Missing DarkSky " $ weatherCurrent dS) <> (fromMaybe "No Alerts issued " $ weatherAlerts dS)
- -}
-{- currentAlertsForecast :: Either String DarkSky -> Text
-currentAlertsForecast dS  = (fromMaybe "No Alerts issued " $ weatherAlerts dS) <> (fromMaybe "No Forecast available " $ weatherForecast dS)
- -}
-
-{- weatherCurrentAlerts :: String -> IO Text
-weatherCurrentAlerts town  = townDarkSky town >>= (\x -> pure $ currentweatherAlerts x)
- -}
-
-{- weatherAlertsForecast :: String -> IO Text
-weatherAlertsForecast town  = townDarkSky town >>= (\x -> pure $ currentAlertsForecast x)
- -}
-
-{- weatherAlerts :: Either String DarkSky -> Maybe Text
-weatherAlerts dS
-  | (isRight dS) && (isJust . maybeHead $ (alerts d)) = Just $ Data.ByteString.Char8.pack $ getAllalerts (alerts d)
-  | otherwise = Nothing
-  where
-    Right d = dS
- -}
