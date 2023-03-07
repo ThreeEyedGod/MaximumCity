@@ -1,24 +1,18 @@
 {-# LANGUAGE BlockArguments, GADTs, FlexibleContexts, FlexibleInstances, DataKinds, PolyKinds, ScopedTypeVariables #-}
 {-@ LIQUID "--skip-module" @-}
 
-module UseCases.AgricultureUseCase
-(
-      getInfo
-)
+module UseCases.AgricultureUseCase (getInfo)
 where
 
-import Polysemy ( Sem, Member, Embed, embed )
-
+import           Polysemy ( Sem, Member, Embed, embed )
 import           Polysemy.Error
 import           Polysemy.Input           ()
 import           Polysemy.Trace           (Trace, trace)
 import           UseCases.WWI             (WWI, PlaceName, TheWeatherThere, getWeatherTown, sendBackMsg, UserAsk (..), UserMsg (..))
-import InterfaceAdapters.Preferences
-    ( modalUser, setPreferences, getPreferences )
-import InterfaceAdapters.Telegram.Telegram
-    ( TelegramMessage, gettheTelegram, getMeta )
+import           InterfaceAdapters.Preferences ( modalUser, setPreferences, getPreferences )
+import           InterfaceAdapters.Telegram.Telegram ( TelegramMessage, gettheTelegram, getMeta )
 import           InterfaceAdapters.Utils.Helper
-import AWSLambda (responseBody)
+import           AWSLambda (responseBody)
 import qualified Data.Text as T
 class UserInput x where
       getInfo :: (Member (Embed IO) r, Member WWI r) => x -> Sem r TheWeatherThere

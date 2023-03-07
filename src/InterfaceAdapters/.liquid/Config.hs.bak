@@ -21,9 +21,9 @@ data Config = Config {
 , verbose     :: Bool    -- ^ True enables logging
 }
 
-data Backend = PirateWeather | OpenWeather deriving (Show, Eq)
+data Backend  = PirateWeather | OpenWeather deriving (Show, Eq)
 data Frontend = Telegram | Signal | Web | Whatsapp | CL deriving (Show, Eq)
-data GeoEnd = PositionStack | OpenCage deriving (Show, Eq)
+data GeoEnd   = PositionStack | OpenCage deriving (Show, Eq)
 data Gateway  = AWSAPIRest | Other deriving (Show, Eq)
 
 -- | load application config. This would load a config file or read commandline args or use AWS Paramter Store?

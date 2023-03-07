@@ -83,7 +83,7 @@ badEnv cs env ex
       | otherwise = do
           let err = ioeGetErrorString ex ++ " " ++ env ++ "; " ++ cs
           logMessage err
-          return $ Left $ SomeIOError $ err
+          return $ Left $ SomeIOError err
 
 -- handle is basically a guard  - a shorter catch ! https://hackage.haskell.org/package/base-4.15.0.0/docs/Control-Exception.html#v:handle
 -- note: badEnv has 2 arguments; 2nd one is the exception
@@ -103,7 +103,7 @@ key k = do
     Right token -> pure $ Right token
 
 
--- composeMaybe
+-- composeMaybe unused as of now
 (<..>) ::  (a -> Maybe b) -> (b -> Maybe c) -> (a -> Maybe c)
 f <..> g = \x ->
   case f x of

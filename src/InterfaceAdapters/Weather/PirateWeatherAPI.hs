@@ -86,9 +86,9 @@ _getWeatherForTown :: String -> IO Text
 _getWeatherForTown town = townDarkSky town >>= (pure . currentweatherForecast)
 
 weatherCurrentForecast :: Preferences -> String -> IO Text
-weatherCurrentForecast Preferences {userdata = _, usersize = Mini, usertimespan = RightNow} town = townDarkSky town Data.Functor.<&> currentweatherForecast
+weatherCurrentForecast Preferences {userdata = _, usersize = Mini, usertimespan = RightNow} town     = townDarkSky town Data.Functor.<&> currentweatherForecast
 weatherCurrentForecast Preferences {userdata = _, usersize = Mini, usertimespan = NearForecast} town = townDarkSky town Data.Functor.<&> currentweatherForecastMini
-weatherCurrentForecast Preferences {userdata = _, usersize = _, usertimespan = _} town = townDarkSky town Data.Functor.<&> currentweatherForecast
+weatherCurrentForecast Preferences {userdata = _, usersize = _, usertimespan = _} town               = townDarkSky town Data.Functor.<&> currentweatherForecast
 
 weatherCurrentForecastMini :: String -> IO Text
 weatherCurrentForecastMini town = townDarkSky town Data.Functor.<&> currentweatherForecastMini

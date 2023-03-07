@@ -1,6 +1,5 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE DuplicateRecordFields #-}
-{-# LANGUAGE NamedFieldPuns #-}
 -- the following two directives are absolutely needed for runLambda 
 -- to compile and work 
 {-# LANGUAGE DataKinds #-}
@@ -18,7 +17,7 @@ import ExternalInterfaces.ServantShim (makeHandler)
 import InterfaceAdapters.Config
 
 main :: IO ()
-main = handle catchAllHandler $ redirectmain
+main = handle catchAllHandler redirectmain
 
 catchAllHandler (SomeException e) =
   putStrLn $ "[caught] " <> show e

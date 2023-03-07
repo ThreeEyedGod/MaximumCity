@@ -107,17 +107,14 @@ parsePrefs uuid prefsText
 -- {"userdata":"Weather", "usersize": "Mini","usertimespan":"NearForecast"}
 createPrefsJSON :: T.Text -> T.Text
 createPrefsJSON plainText = do
-  let udata = "{\"userdata\": " :: T.Text
-  let usize = "\"usersize\": " :: T.Text
+  let udata     = "{\"userdata\": " :: T.Text
+  let usize     = "\"usersize\": " :: T.Text
   let utimespan = "\"usertimespan\": " :: T.Text
   let listPrefs = DTM.splitWords $ T.toLower plainText
   let sortedList = prefsSort listPrefs
   let udataPref =  head sortedList
   let usizePref = head $ tail sortedList
   let utimespanPref = last sortedList
-  --let udataPref = "\"Weather\"" :: T.Text
-  --let usizePref = "\"Mini\"" :: T.Text
-  --let utimespanPref = "\"RightNow\"" :: T.Text
   let totalPref = udata <> "\"" <> udataPref <> "\"" <>  "," <> usize <> "\"" <> usizePref <> "\"" <>  "," <> utimespan <> "\"" <> utimespanPref <> "\"" <>  "}"
   totalPref
 

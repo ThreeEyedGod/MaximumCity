@@ -1,4 +1,4 @@
-{-# LANGUAGE GADTs, TypeInType, ScopedTypeVariables, StandaloneDeriving, TemplateHaskell, LambdaCase, BlockArguments, FlexibleContexts, TypeOperators, DataKinds, PolyKinds #-}
+{-# LANGUAGE GADTs, TypeInType, ScopedTypeVariables, BlockArguments, FlexibleContexts, TypeOperators #-}
 {-# LANGUAGE TypeFamilies        #-}
 {-@ LIQUID "--skip-module" @-}
 
@@ -32,11 +32,11 @@ import InterfaceAdapters.Utils.HttpHeadersPathDefinitions as H ()
 import InterfaceAdapters.Weather.PirateWeatherAPI ()
 import UseCases.WWI ( TheWeatherThere, UserAsk(..), WWI(GetWeatherTown) )
 import UseCases.AgricultureUseCase ()
-import qualified InterfaceAdapters.Weather.Weather as IWW
+import InterfaceAdapters.Weather.Weather (getWeather)
 import InterfaceAdapters.Preferences ()
 
 runWWIWebPirate :: (Member (Embed IO) r) => Sem (WWI : r) a -> Sem r a
 runWWIWebPirate = interpret (\(GetWeatherTown req) -> embed (interfaceWebPirate req))
 
 interfaceWebPirate :: UserAsk -> IO TheWeatherThere
-interfaceWebPirate UserAsk {placeName = pl, prefs = _ } = IWW.getWeather Nothing (Just pl)
+interfaceWebPirate UserAsk {placeName = pl, prefs = _ } = getWeather Nothing (Just pl)
