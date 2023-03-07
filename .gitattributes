@@ -1,2 +1,2 @@
 *.zip linguist-vendored
-.stack-work/* linguist-generated
+.stack-work/** linguist-generated
