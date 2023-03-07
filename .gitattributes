@@ -1,0 +1,2 @@
+*.zip linguist-vendored
+.stack-work/* linguist-generated
