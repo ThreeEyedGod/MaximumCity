@@ -1,3 +1,6 @@
-**/*.zip linguist-vendored
+IP2LOCATION-LITE-DB11.IPV6.BIN.ZIP linguist-vendored
+function.zip linguist-generated
 .stack-work/** linguist-generated=true
 **/.liquid/ linguist-generated=true
+.vscode//* linguist-generated
+build linguist-generated
