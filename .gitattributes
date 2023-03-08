@@ -1,2 +1,3 @@
 **/*.zip linguist-vendored
 .stack-work/** linguist-generated=true
+**/.liquid linguist-generated=true
