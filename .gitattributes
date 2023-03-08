@@ -1,2 +1,2 @@
-*.zip linguist-vendored
-.stack-work/** linguist-generated
+**/*.zip linguist-vendored
+.stack-work/** linguist-generated=true
