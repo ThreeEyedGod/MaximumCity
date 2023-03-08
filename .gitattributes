@@ -4,3 +4,4 @@ function.zip linguist-generated
 **/.liquid/ linguist-generated=true
 .vscode//* linguist-generated
 build linguist-generated
+aeson linguist-generated
