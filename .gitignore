@@ -64,6 +64,7 @@ src/InterfaceAdapters/Utils/.liquid
 src/InterfaceAdapters/Water/MH/Core/.liquid
 src/InterfaceAdapters/Weather/.liquid
 src/UseCases/.liquid
+**/.liquid/
 
 # history
 .history/src
