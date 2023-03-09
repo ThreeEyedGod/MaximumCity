@@ -5,3 +5,4 @@ function.zip linguist-generated=true
 .vscode//* linguist-generated=true
 build linguist-generated=true
 aeson linguist-generated=true
+*.md linguist-documentation=true
