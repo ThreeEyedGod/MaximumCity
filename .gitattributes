@@ -1,8 +1,12 @@
 IP2LOCATION-LITE-DB11.IPV6.BIN.ZIP linguist-vendored=true
 function.zip linguist-generated=true
 .stack-work/** linguist-generated=true
-**/.liquid/ linguist-generated=true
-.vscode//* linguist-generated=true
-build linguist-generated=true
-aeson linguist-generated=true
+.stack-work/* linguist-generated=true
+**/.liquid/* linguist-generated=true
+**/.liquid/* linguist-generated=true
+.vscode/* linguist-generated=true
+build//* linguist-generated=true
+aeson/* linguist-generated=true
 *.md linguist-documentation=true
+*.yaml linguist-vendored
+*.lock linguist-vendored
