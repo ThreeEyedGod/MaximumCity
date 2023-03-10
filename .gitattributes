@@ -8,5 +8,5 @@ function.zip linguist-generated=true
 build//* linguist-generated=true
 aeson/* linguist-generated=true
 *.md linguist-documentation=true
-*.yaml linguist-vendored
-*.lock linguist-vendored
+*.lock linguist-generated
+*cabal linguist-generated
