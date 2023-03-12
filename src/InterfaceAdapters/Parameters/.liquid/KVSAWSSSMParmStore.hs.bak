@@ -14,8 +14,8 @@ import           InterfaceAdapters.Parameters.KVS (KVS (..))
 import           Polysemy
 import           System.Directory  (doesFileExist, listDirectory, removeFile)
 import           qualified Data.List.NonEmpty as NonEmpty (fromList)
-import Data.Maybe
-import Data.String.Interpolate ( i )
+import           Data.Maybe
+import           Data.String.Interpolate ( i )
 
 import Data.ByteString            as B
 import Data.ByteString.Lazy       as BL
@@ -31,7 +31,6 @@ import           Amazonka.S3.Types
 import           Language.Haskell.TH
 import           Amazonka (Service)
 import           Control.Lens
-
 import           GHC.Generics
 import InterfaceAdapters.Parameters.AWSSSMParmStore (ParameterName (..), ParameterValue (..), doGetParameter, doPutParameter)
 import InterfaceAdapters.Parameters.Types

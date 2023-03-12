@@ -1,6 +1,6 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.35.0.
+-- This file has been generated from package.yaml by hpack version 0.35.1.
 --
 -- see: https://github.com/sol/hpack
 
@@ -42,6 +42,7 @@ library
       InterfaceAdapters.Utils.Helper
       InterfaceAdapters.Utils.HttpHeadersPathDefinitions
       InterfaceAdapters.Utils.JSONHelper
+      InterfaceAdapters.Utils.ParsingLHJSON
       InterfaceAdapters.Utils.PdfHelper
       InterfaceAdapters.Utils.ShortCircuit
       InterfaceAdapters.Water.MH.Core.ParserHelper
@@ -110,6 +111,7 @@ library
     , polysemy
     , polysemy-plugin
     , protolude >=0.3.0
+    , raw-strings-qq
     , servant
     , servant-server
     , serverless-haskell >=0.12.6
@@ -187,6 +189,7 @@ executable bootstrap
     , polysemy
     , polysemy-plugin
     , protolude >=0.3.0
+    , raw-strings-qq
     , servant
     , servant-server
     , serverless-haskell >=0.12.6
@@ -272,6 +275,7 @@ test-suite MaximumCity-test
     , process >=1.6.9.0
     , protolude >=0.3.0
     , random-strings >=0.1.1.0
+    , raw-strings-qq
     , servant
     , servant-server
     , serverless-haskell >=0.12.6
@@ -345,6 +349,7 @@ benchmark MaximumCity-benchmark
     , polysemy
     , polysemy-plugin
     , protolude >=0.3.0
+    , raw-strings-qq
     , servant
     , servant-server
     , serverless-haskell >=0.12.6

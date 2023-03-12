@@ -6,7 +6,6 @@ module ExternalInterfaces.ServantShim
   ) where
 
 import           Protolude
-
 import           AWSLambda.Events.APIGateway
 import           Data.Aeson                  (Value, decode, encode)
 import           Data.Aeson.Embedded         (Embedded)
@@ -28,8 +27,7 @@ import           Network.Wai.Internal        (Request (..), Response (..),
                                               ResponseReceived (..))
 
 
-type APIGatewayHandler
-   = APIGatewayProxyRequest (Embedded Value) -> IO (APIGatewayProxyResponse (Embedded Value))
+type APIGatewayHandler = APIGatewayProxyRequest (Embedded Value) -> IO (APIGatewayProxyResponse (Embedded Value))
 
 -- | Constructs a APIGatewayHandler for a request to this AWS Lambda function.
 --
@@ -81,12 +79,10 @@ addCorsHeaders headers = allowOrigin : allowCredentials : headers
 
 responseFromBody :: Maybe Value -> APIGatewayProxyResponse (Embedded Value)
 --responseFromBody Nothing = responseBadRequest -- telegram repeatedly sends request if it was sent this
-responseFromBody Nothing = responseOK
-responseFromBody (Just body) =
-  responseOK & responseBodyEmbedded ?~ body & agprsHeaders %~ addCorsHeaders
+responseFromBody Nothing     = responseOK
+responseFromBody (Just body) = responseOK & responseBodyEmbedded ?~ body & agprsHeaders %~ addCorsHeaders
 
-proxyToRequest ::
-     IORef B.ByteString -> APIGatewayProxyRequest (Embedded Value) -> Request
+proxyToRequest :: IORef B.ByteString -> APIGatewayProxyRequest (Embedded Value) -> Request
 proxyToRequest bodyRef apiGWRequest =
   defaultRequest
     { requestMethod = apiGWRequest ^. agprqHttpMethod
@@ -100,10 +96,10 @@ proxyToRequest bodyRef apiGWRequest =
     , requestBodyLength = ChunkedBody
     }
   where
-    rawPath = apiGWRequest ^. agprqPath
+    rawPath   = apiGWRequest ^. agprqPath
     pathParts = drop 1 . T.splitOn "/" $ T.decodeUtf8 rawPath
-    query = renderQuery True $ apiGWRequest ^. agprqQueryStringParameters
-    ioBody = do
+    query     = renderQuery True $ apiGWRequest ^. agprqQueryStringParameters
+    ioBody    = do
       b <- readIORef bodyRef
       writeIORef bodyRef B.empty
       pure b

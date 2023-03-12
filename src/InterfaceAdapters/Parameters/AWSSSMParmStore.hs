@@ -1,5 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TypeFamilies #-}
+
 {-@ LIQUID "--skip-module" @-}
 
 module InterfaceAdapters.Parameters.AWSSSMParmStore
@@ -17,7 +18,7 @@ import Control.Monad (void)
 import Data.Aeson.Encoding (text)
 import qualified Data.List.NonEmpty as NonEmpty (fromList)
 import Data.Monoid ((<>))
-import Data.Text (Text)
+import Data.Text (Text, null)
 import qualified Data.Text.IO as Text (putStrLn)
 import GHC.Generics
 import InterfaceAdapters.Parameters.SSMImports
@@ -26,6 +27,8 @@ import System.Directory (getHomeDirectory)
 import System.FilePath ((</>))
 import qualified System.IO as IO
 import Amazonka.SSM.Types.ParameterType
+-- see https://github.com/ucsd-progsys/liquidhaskell/issues/1094
+-- import Language.Haskell.Liquid.ProofCombinators
 
 awsEnvIdentity :: IO (Env' Identity) 
 awsEnvIdentity =   do 

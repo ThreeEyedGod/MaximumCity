@@ -8,7 +8,6 @@ module InterfaceAdapters.Water.MH.Core.WaterLevelLakes where
 
 import InterfaceAdapters.Water.MH.Core.WaterLevelHeaders
 import InterfaceAdapters.Utils.PdfHelper
-import InterfaceAdapters.Utils.Helper
 import Data.Attoparsec.ByteString as Att
 import qualified Data.List as DL
 import Data.Attoparsec.ByteString.Char8 (skipSpace, isDigit_w8, manyTill, isHorizontalSpace, endOfLine, char, decimal, space, double, letter_ascii)
