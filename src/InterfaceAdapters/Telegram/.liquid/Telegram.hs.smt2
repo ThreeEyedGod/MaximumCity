@@ -349,22 +349,10 @@
 
 
 
-
-
-
-
 (assert (distinct GHC.Types.GT GHC.Types.EQ GHC.Types.LT))
 
 
-
-
 (assert (distinct GHC.Types.False GHC.Types.True))
-
-
-
-
-
-
 (push 1)
 (push 1)
 (pop 1)

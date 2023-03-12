@@ -300,14 +300,11 @@
 
 
 
-
 (assert (distinct GHC.Types.GT GHC.Types.EQ GHC.Types.LT))
 (assert (distinct InterfaceAdapters.Preferences.Detailed InterfaceAdapters.Preferences.Mini InterfaceAdapters.Preferences.Standard))
 
-
 (assert (distinct GHC.Types.False GHC.Types.True))
 (assert (distinct InterfaceAdapters.Preferences.NearForecast InterfaceAdapters.Preferences.Alerts InterfaceAdapters.Preferences.LongRange InterfaceAdapters.Preferences.RightNow))
-
 (assert (= (strLen lit$36$Pattern$32$match$40$es$41$$32$are$32$non$45$exhaustive) 36))
 (push 1)
 (push 1)

@@ -81,5 +81,6 @@ filterInvalid = snd . partitionEithers . Prelude.map nonEmptyData
 {-@ nonEmptyData :: {x:String | len x > 0 } -> rv : (Either String {rght:TextNE | txtLen rght == len x})   @-}
 nonEmptyData :: String -> Either String Text
 nonEmptyData x = case x of
-    [] -> Left x
+    [] -> Left "Invalid"
+    "" -> Left "Invalid"
     _  -> Right $ T.pack x

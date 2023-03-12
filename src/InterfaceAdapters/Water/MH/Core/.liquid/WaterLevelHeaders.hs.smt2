@@ -366,14 +366,10 @@
 
 
 
-
-
 (assert (distinct GHC.Types.GT GHC.Types.EQ GHC.Types.LT))
 
 (assert (distinct Data.Time.Calendar.Week.Sunday Data.Time.Calendar.Week.Wednesday Data.Time.Calendar.Week.Saturday Data.Time.Calendar.Week.Friday Data.Time.Calendar.Week.Tuesday Data.Time.Calendar.Week.Monday Data.Time.Calendar.Week.Thursday))
 (assert (distinct GHC.Types.False GHC.Types.True))
-
-
 
 
 (push 1)

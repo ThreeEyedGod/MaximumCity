@@ -192,6 +192,7 @@
 (declare-fun GHC.Real.toInteger () Int)
 (declare-fun Data.Aeson.Types.Generic.$36$fIsRecordM1isRecord () Int)
 (declare-fun InterfaceAdapters.IP.GeoIpAPI.$36$fFromJSONGeoIp () Int)
+(declare-fun Data.Aeson.Types.Internal.defaultOptions () Int)
 (declare-fun Data.DList.Internal.$36$fMonoidDList () Int)
 (declare-fun Data.Foldable.null () Int)
 (declare-fun Data.Aeson.Types.ToJSON.C$58$ToJSONKey () Int)
@@ -387,7 +388,6 @@
 (declare-fun Data.Aeson.Types.ToJSON.$36$fFromStringValue () Int)
 (declare-fun x_Tuple21 () Int)
 (declare-fun Data.Aeson.Types.Internal.DotNetTime () Int)
-(declare-fun Data.Aeson.Types.Internal.defaultTaggedObject () Int)
 (declare-fun GHC.List.repeat () Int)
 (declare-fun Data.Text.Encoding.Error.EncodeError () Int)
 (declare-fun head () Int)
@@ -553,24 +553,14 @@
 
 
 
-
-
 (assert (distinct GHC.Types.Int32Rep GHC.Types.Int16Rep GHC.Types.LiftedRep GHC.Types.FloatRep GHC.Types.AddrRep GHC.Types.Int64Rep GHC.Types.WordRep GHC.Types.Int8Rep GHC.Types.DoubleRep GHC.Types.IntRep GHC.Types.UnliftedRep GHC.Types.Word64Rep GHC.Types.Word16Rep GHC.Types.Word8Rep GHC.Types.Word32Rep))
 
 (assert (distinct GHC.Float.FFFixed GHC.Float.FFGeneric GHC.Float.FFExponent))
 
 
-
-
-
-
 (assert (distinct GHC.Types.GT GHC.Types.EQ GHC.Types.LT))
 
-
 (assert (distinct GHC.Generics.SourceLazy GHC.Generics.SourceStrict GHC.Generics.NoSourceStrictness))
-
-
-
 
 
 
@@ -581,16 +571,12 @@
 
 
 (assert (distinct GHC.Generics.SourceNoUnpack GHC.Generics.NoSourceUnpackedness GHC.Generics.SourceUnpack))
-
 (assert (distinct GHC.Types.False GHC.Types.True))
 
 
 (assert (distinct GHC.IO.Unmasked GHC.IO.MaskedInterruptible GHC.IO.MaskedUninterruptible))
 (assert (distinct GHC.Generics.DecidedUnpack GHC.Generics.DecidedLazy GHC.Generics.DecidedStrict))
 (assert (distinct GHC.Unicode.DashPunctuation GHC.Unicode.InitialQuote GHC.Unicode.NonSpacingMark GHC.Unicode.DecimalNumber GHC.Unicode.NotAssigned GHC.Unicode.Control GHC.Unicode.ModifierSymbol GHC.Unicode.Format GHC.Unicode.OpenPunctuation GHC.Unicode.OtherNumber GHC.Unicode.LowercaseLetter GHC.Unicode.LetterNumber GHC.Unicode.ParagraphSeparator GHC.Unicode.ModifierLetter GHC.Unicode.CurrencySymbol GHC.Unicode.LineSeparator GHC.Unicode.OtherPunctuation GHC.Unicode.UppercaseLetter GHC.Unicode.EnclosingMark GHC.Unicode.OtherLetter GHC.Unicode.PrivateUse GHC.Unicode.FinalQuote GHC.Unicode.ClosePunctuation GHC.Unicode.TitlecaseLetter GHC.Unicode.Space GHC.Unicode.OtherSymbol GHC.Unicode.ConnectorPunctuation GHC.Unicode.SpacingCombiningMark GHC.Unicode.MathSymbol GHC.Unicode.Surrogate))
-
-
-
 
 
 (push 1)

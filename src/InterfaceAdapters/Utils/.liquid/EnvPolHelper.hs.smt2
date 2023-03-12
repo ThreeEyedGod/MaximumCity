@@ -313,7 +313,6 @@
 
 (assert (distinct GHC.Types.Int32Rep GHC.Types.Int16Rep GHC.Types.LiftedRep GHC.Types.FloatRep GHC.Types.AddrRep GHC.Types.Int64Rep GHC.Types.WordRep GHC.Types.Int8Rep GHC.Types.DoubleRep GHC.Types.IntRep GHC.Types.UnliftedRep GHC.Types.Word64Rep GHC.Types.Word16Rep GHC.Types.Word8Rep GHC.Types.Word32Rep))
 (assert (distinct GHC.Types.GT GHC.Types.EQ GHC.Types.LT))
-
 (assert (distinct GHC.Types.False GHC.Types.True))
 (push 1)
 (push 1)
