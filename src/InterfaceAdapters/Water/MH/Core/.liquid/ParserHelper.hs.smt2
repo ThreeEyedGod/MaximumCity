@@ -382,10 +382,21 @@
 (declare-fun lam_arg$35$$35$7$35$$35$10 () Real)
 
 
+
+
+
 (assert (distinct GHC.Types.Int32Rep GHC.Types.Int16Rep GHC.Types.LiftedRep GHC.Types.FloatRep GHC.Types.AddrRep GHC.Types.Int64Rep GHC.Types.WordRep GHC.Types.Int8Rep GHC.Types.DoubleRep GHC.Types.IntRep GHC.Types.UnliftedRep GHC.Types.Word64Rep GHC.Types.Word16Rep GHC.Types.Word8Rep GHC.Types.Word32Rep))
+
+
+
+
+
 (assert (distinct GHC.Types.GT GHC.Types.EQ GHC.Types.LT))
 
+
 (assert (distinct GHC.Types.False GHC.Types.True))
+
+
 (assert (distinct GHC.Unicode.DashPunctuation GHC.Unicode.InitialQuote GHC.Unicode.NonSpacingMark GHC.Unicode.DecimalNumber GHC.Unicode.NotAssigned GHC.Unicode.Control GHC.Unicode.ModifierSymbol GHC.Unicode.Format GHC.Unicode.OpenPunctuation GHC.Unicode.OtherNumber GHC.Unicode.LowercaseLetter GHC.Unicode.LetterNumber GHC.Unicode.ParagraphSeparator GHC.Unicode.ModifierLetter GHC.Unicode.CurrencySymbol GHC.Unicode.LineSeparator GHC.Unicode.OtherPunctuation GHC.Unicode.UppercaseLetter GHC.Unicode.EnclosingMark GHC.Unicode.OtherLetter GHC.Unicode.PrivateUse GHC.Unicode.FinalQuote GHC.Unicode.ClosePunctuation GHC.Unicode.TitlecaseLetter GHC.Unicode.Space GHC.Unicode.OtherSymbol GHC.Unicode.ConnectorPunctuation GHC.Unicode.SpacingCombiningMark GHC.Unicode.MathSymbol GHC.Unicode.Surrogate))
 (push 1)
 (push 1)

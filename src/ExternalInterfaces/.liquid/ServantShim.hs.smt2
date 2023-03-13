@@ -37,7 +37,9 @@
 (declare-fun totalityError () Int)
 (declare-fun Data.ByteString.Internal.$36$WPS () Int)
 (declare-fun GHC.Types.$91$$93$ () Int)
+(declare-fun Data.HashMap.Internal.$36$WCollision () Int)
 (declare-fun GHC.Base.$36$fFunctorIO () Int)
+(declare-fun Network.Wai.defaultRequest4 () Int)
 (declare-fun Control.Concurrent.QSem.QSem () Int)
 (declare-fun GHC.Real.divMod () Int)
 (declare-fun Network.Wai.Internal.ResponseStream () Int)
@@ -76,7 +78,6 @@
 (declare-fun GHC.IO.Exception.ExitSuccess () Int)
 (declare-fun Data.Semigroup.Internal.Dual () Int)
 (declare-fun GHC.ExecutionStack.Internal.SrcLoc () Int)
-(declare-fun Network.Wai.defaultRequest () Int)
 (declare-fun GHC.Real.div () Int)
 (declare-fun AWSLambda.Events.APIGateway.$36$WAPIGatewayProxyRequest () Int)
 (declare-fun Data.Functor.$60$$36$$62$ () Int)
@@ -142,8 +143,10 @@
 (declare-fun Data.Aeson.Types.Internal.Array () Int)
 (declare-fun Network.Wai.Internal.ResponseBuilder () Int)
 (declare-fun GHC.Exception.Type.SomeException () Int)
+(declare-fun Data.Unique.Really.Unique () Int)
 (declare-fun Data.Functor.Const.$36$fFunctorConst () Int)
 (declare-fun Data.Semigroup.Internal.Any () Int)
+(declare-fun Data.HashMap.Internal.Leaf () Int)
 (declare-fun Data.Foldable.length () Int)
 (declare-fun Data.Aeson.Types.FromJSON.$36$fFromJSONValue () Int)
 (declare-fun GHC.IO.IOMode.ReadWriteMode () Int)
@@ -217,6 +220,7 @@
 (declare-fun Data.CaseInsensitive.Internal.$36$WCI () Int)
 (declare-fun Data.Semigroup.Option () Int)
 (declare-fun cast_as_int () Int)
+(declare-fun Data.HashMap.Internal.$36$WLeaf () Int)
 (declare-fun GHC.Num.$43$ () Int)
 (declare-fun GHC.Base.$36$fMonadIO () Int)
 (declare-fun Data.Aeson.Types.Internal.$36$WObject () Int)
@@ -224,9 +228,11 @@
 (declare-fun len () Int)
 (declare-fun AWSLambda.Events.APIGateway.responseBodyEmbedded () Int)
 (declare-fun Data.Type.Equality.Refl () Int)
+(declare-fun Data.HashMap.Internal.Full () Int)
 (declare-fun GHC.Types.LT () Int)
 (declare-fun GHC.Tuple.$40$$44$$44$$41$ () Int)
 (declare-fun papp1 () Int)
+(declare-fun Data.HashMap.Internal.Empty () Int)
 (declare-fun GHC.IO.Exception.EOF () Int)
 (declare-fun Data.ByteString.Internal.$36$fMonoidByteString () Int)
 (declare-fun GHC.List.drop () Int)
@@ -234,6 +240,7 @@
 (declare-fun GHC.IO.IOMode.AppendMode () Int)
 (declare-fun papp6 () Int)
 (declare-fun GHC.Real.mod () Int)
+(declare-fun Data.HashMap.Internal.Collision () Int)
 (declare-fun GHC.Classes.C$58$IP () Int)
 (declare-fun Data.Either.Left () Int)
 (declare-fun Data.Functor.Identity.$36$fFunctorIdentity () Int)
@@ -315,6 +322,8 @@
 (declare-fun Data.Functor.Contravariant.$36$fContravariantConst () Int)
 (declare-fun GHC.List.filter () Int)
 (declare-fun x_Tuple21 () Int)
+(declare-fun Data.HashMap.Internal.$36$WFull () Int)
+(declare-fun Data.HashMap.Internal.$36$WBitmapIndexed () Int)
 (declare-fun GHC.List.repeat () Int)
 (declare-fun Data.Text.Encoding.Error.EncodeError () Int)
 (declare-fun head () Int)
@@ -339,6 +348,7 @@
 (declare-fun Network.HTTP.Types.Header.$36$WByteRangeSuffix () Int)
 (declare-fun GHC.IO.Exception.SystemError () Int)
 (declare-fun GHC.Err.error () Int)
+(declare-fun Data.HashMap.Internal.BitmapIndexed () Int)
 (declare-fun GHC.Classes.compare () Int)
 (declare-fun Network.Wai.Internal.ResponseFile () Int)
 (declare-fun GHC.Types.TrNameS () Int)
@@ -446,9 +456,14 @@
 
 
 
+
 (assert (distinct GHC.IO.Exception.SystemError GHC.IO.Exception.InvalidArgument GHC.IO.Exception.ProtocolError GHC.IO.Exception.AlreadyExists GHC.IO.Exception.OtherError GHC.IO.Exception.TimeExpired GHC.IO.Exception.ResourceBusy GHC.IO.Exception.IllegalOperation GHC.IO.Exception.Interrupted GHC.IO.Exception.EOF GHC.IO.Exception.PermissionDenied GHC.IO.Exception.UserError GHC.IO.Exception.NoSuchThing GHC.IO.Exception.HardwareFault GHC.IO.Exception.InappropriateType GHC.IO.Exception.ResourceExhausted GHC.IO.Exception.UnsupportedOperation GHC.IO.Exception.UnsatisfiedConstraints GHC.IO.Exception.ResourceVanished))
 (assert (distinct Network.HTTP.Types.Method.PATCH Network.HTTP.Types.Method.CONNECT Network.HTTP.Types.Method.TRACE Network.HTTP.Types.Method.GET Network.HTTP.Types.Method.POST Network.HTTP.Types.Method.PUT Network.HTTP.Types.Method.OPTIONS Network.HTTP.Types.Method.HEAD Network.HTTP.Types.Method.DELETE))
+
 (assert (distinct GHC.Types.GT GHC.Types.EQ GHC.Types.LT))
+
+
+
 
 
 
@@ -456,7 +471,13 @@
 (assert (distinct GHC.Types.False GHC.Types.True))
 (assert (distinct GHC.IO.Unmasked GHC.IO.MaskedInterruptible GHC.IO.MaskedUninterruptible))
 
+
+
 (assert (distinct GHC.IO.IOMode.AppendMode GHC.IO.IOMode.ReadWriteMode GHC.IO.IOMode.ReadMode GHC.IO.IOMode.WriteMode))
+
+
+
+
 (push 1)
 (push 1)
 (pop 1)

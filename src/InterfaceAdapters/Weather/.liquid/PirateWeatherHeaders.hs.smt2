@@ -129,7 +129,6 @@
 (declare-fun GHC.List.scanl1 () Int)
 (declare-fun GHC.Real.toInteger () Int)
 (declare-fun Data.Aeson.Types.Generic.$36$fIsRecordM1isRecord () Int)
-(declare-fun Data.Aeson.Types.Internal.defaultOptions () Int)
 (declare-fun Data.Foldable.null () Int)
 (declare-fun Data.Aeson.Types.Internal.Bool () Int)
 (declare-fun InterfaceAdapters.Weather.PirateWeatherHeaders.$36$fFromJSONDarkSkyDataPoint () Int)
@@ -255,6 +254,7 @@
 (declare-fun InterfaceAdapters.Weather.PirateWeatherHeaders.DarkSkyFlags () Int)
 (declare-fun GHC.List.filter () Int)
 (declare-fun x_Tuple21 () Int)
+(declare-fun Data.Aeson.Types.Internal.defaultTaggedObject () Int)
 (declare-fun GHC.List.repeat () Int)
 (declare-fun head () Int)
 (declare-fun InterfaceAdapters.Weather.PirateWeatherHeaders.$36$fGenericDarkSkyAlert () Int)
@@ -410,7 +410,12 @@
 
 
 
+
+
+
+
 (assert (distinct GHC.Types.GT GHC.Types.EQ GHC.Types.LT))
+
 
 
 
@@ -425,10 +430,12 @@
 
 (assert (distinct GHC.Generics.SourceNoUnpack GHC.Generics.NoSourceUnpackedness GHC.Generics.SourceUnpack))
 
+
 (assert (distinct GHC.Types.False GHC.Types.True))
 
 
 (assert (distinct GHC.Generics.DecidedUnpack GHC.Generics.DecidedLazy GHC.Generics.DecidedStrict))
+
 
 (push 1)
 (push 1)

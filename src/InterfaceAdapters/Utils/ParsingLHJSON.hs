@@ -65,12 +65,13 @@ processAPI json = do
                 _ -> print "Input data has incorrect shape"
             where
                 parsedLocs = case locs of
+                    []           -> Left "invalid destinations value-null"
                     (x : xx: xs) -> Right . filterInvalid $ locs
-                    _            -> Left "invalid destinations value"
+                    _            -> Left "invalid destinations value-other"
 
                 parsedData = case dat of
-                    [] -> Left "Invalid"
-                    "" -> Left "Invalid"
+                    [] -> Left "Invalid-null"
+                    "" -> Left "Invalid-empty-string"
                     _  -> Right . T.pack $ dat
 
 
