@@ -28,6 +28,9 @@ import Data.Text.Unsafe as UT
 
 jsonValid   = [r| { "locations": ["Europe", "US", "Asia"], "payload": "Important" } |] :: String
 jsonInvalid = [r| { "locations": ["Europe"], "payload": "Important" } |] :: String
+jsonInvalidX = [r| { "locations": [], "payload": "Important" } |] :: String
+jsonInvalidY = [r| { "locations": [], "payload": "" } |] :: String
+jsonInvalidZ = [r| { } |] :: String
 
 -- | Raw data that will firstly be parsed by Aeson and then predicate-parsed by LH helpers
 data RawData = RawData
@@ -51,7 +54,7 @@ apiCallProvideRedundancy (first: second: rest) dat =
 
 test :: [IO ()]
 --test = mapM_ (processAPI . eitherDecode) [jsonValid, jsonInvalid]
-test = Prelude.map (processAPI . eitherDecode . fromString) [jsonValid, jsonInvalid]
+test = Prelude.map (processAPI . eitherDecode . fromString) [jsonValid, jsonInvalid, jsonInvalidX, jsonInvalidY, jsonInvalidZ]
 
 
 processAPI :: Either String RawData -> IO ()
@@ -66,7 +69,8 @@ processAPI json = do
             where
                 parsedLocs = case locs of
                     []           -> Left "invalid destinations value-null"
-                    (x : xx: xs) -> Right . filterInvalid $ locs
+                    [x]          -> Left "Invalid! Only 1 element. TextNE needs min of 2! "
+                    (x : xx: xs) -> Right . filterInvalid $ (x : xx: xs) 
                     _            -> Left "invalid destinations value-other"
 
                 parsedData = case dat of
@@ -82,6 +86,6 @@ filterInvalid = snd . partitionEithers . Prelude.map nonEmptyData
 {-@ nonEmptyData :: {x:String | len x > 0 } -> rv : (Either String {rght:TextNE | txtLen rght == len x})   @-}
 nonEmptyData :: String -> Either String Text
 nonEmptyData x = case x of
-    [] -> Left "Invalid"
-    "" -> Left "Invalid"
-    _  -> Right $ T.pack x
+    []  -> Left "Invalid"
+    [x] -> Left "Invalid ! Only 1 element. TextNE needs min of 2! "
+    _   -> Right $ T.pack x
