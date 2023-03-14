@@ -28,7 +28,9 @@ import Data.Text.Unsafe as UT
 
 jsonValid   = [r| { "locations": ["Europe", "US", "Asia"], "payload": "Important" } |] :: String
 jsonInvalid = [r| { "locations": ["Europe"], "payload": "Important" } |] :: String
+
 jsonInvalidX = [r| { "locations": [], "payload": "Important" } |] :: String
+jsonInvalidXX = [r| { "locations": ["",""], "payload": "Important" } |] :: String
 jsonInvalidY = [r| { "locations": [], "payload": "" } |] :: String
 jsonInvalidZ = [r| { } |] :: String
 
@@ -54,7 +56,7 @@ apiCallProvideRedundancy (first: second: rest) dat =
 
 test :: [IO ()]
 --test = mapM_ (processAPI . eitherDecode) [jsonValid, jsonInvalid]
-test = Prelude.map (processAPI . eitherDecode . fromString) [jsonValid, jsonInvalid, jsonInvalidX, jsonInvalidY, jsonInvalidZ]
+test = Prelude.map (processAPI . eitherDecode . fromString) [jsonValid]
 
 
 processAPI :: Either String RawData -> IO ()
@@ -69,23 +71,21 @@ processAPI json = do
             where
                 parsedLocs = case locs of
                     []           -> Left "invalid destinations value-null"
-                    [x]          -> Left "Invalid! Only 1 element. TextNE needs min of 2! "
-                    (x : xx: xs) -> Right . filterInvalid $ (x : xx: xs) 
+                    [x]          -> Left "Invalid! Only 1 element. Destinations needs min of 2! "
+                    (x : xx: xs) -> Right . filterInvalid $ locs
                     _            -> Left "invalid destinations value-other"
 
                 parsedData = case dat of
-                    [] -> Left "Invalid-null"
-                    "" -> Left "Invalid-empty-string"
-                    _  -> Right . T.pack $ dat
+                    (x:_)   -> Right . T.pack $ dat
+                    _       -> Left "Invalid-null or other"
 
-
-{-@ filterInvalid :: xs:[String] -> rv:[TextNE]  @-}
+{-@  filterInvalid :: x:[String] -> rv:[TextNE] @-}
 filterInvalid :: [String] -> [Text]
-filterInvalid = snd . partitionEithers . Prelude.map nonEmptyData
+filterInvalid = snd . partitionEithers . Prelude.map nonEmptyData 
 
-{-@ nonEmptyData :: {x:String | len x > 0 } -> rv : (Either String {rght:TextNE | txtLen rght == len x})   @-}
+{-@ nonEmptyData :: x:String  -> rv : (Either String {rght:TextNE | txtLen rght == len x})   @-}
 nonEmptyData :: String -> Either String Text
 nonEmptyData x = case x of
-    []  -> Left "Invalid"
-    [x] -> Left "Invalid ! Only 1 element. TextNE needs min of 2! "
-    _   -> Right $ T.pack x
+    [] -> Left x
+    "" -> Left x
+    _  -> Right $ T.pack x
