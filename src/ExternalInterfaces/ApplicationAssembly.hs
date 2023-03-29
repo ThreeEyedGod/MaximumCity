@@ -14,7 +14,7 @@ import           Polysemy
 import           Polysemy.Error
 import           Polysemy.Input                           (Input, runInputConst)
 import           Polysemy.Trace                           (Trace, traceToIO, ignoreTrace, traceToStdout)
-import           Servant.Server
+import           Servant.Server (Application, ServerT, Handler(..), errBody, err412, hoistServer, serve)
 import           Data.Aeson.Types (ToJSON, FromJSON)
 
 import           InterfaceAdapters.Config

@@ -106,18 +106,18 @@ parsePrefs uuid prefsText
 
 -- {"userdata":"Weather", "usersize": "Mini","usertimespan":"NearForecast"}
 createPrefsJSON :: T.Text -> T.Text
-createPrefsJSON plainText = do
-  let udata     = "{\"userdata\": " :: T.Text
-  let usize     = "\"usersize\": " :: T.Text
-  let utimespan = "\"usertimespan\": " :: T.Text
-  let listPrefs = DTM.splitWords $ T.toLower plainText
-  let sortedList = prefsSort listPrefs
-  let udataPref =  head sortedList
-  let usizePref = head $ tail sortedList
-  let utimespanPref = last sortedList
-  let totalPref = udata <> "\"" <> udataPref <> "\"" <>  "," <> usize <> "\"" <> usizePref <> "\"" <>  "," <> utimespan <> "\"" <> utimespanPref <> "\"" <>  "}"
-  totalPref
-
+createPrefsJSON plainText = totalPref
+  where
+    udata         = "{\"userdata\": " :: T.Text
+    usize         = "\"usersize\": " :: T.Text
+    utimespan     = "\"usertimespan\": " :: T.Text
+    listPrefs     = DTM.splitWords $ T.toLower plainText
+    sortedList    = prefsSort listPrefs
+    udataPref     =  head sortedList
+    usizePref     = head $ tail sortedList
+    utimespanPref = last sortedList
+    totalPref     = udata <> "\"" <> udataPref <> "\"" <>  "," <> usize <> "\"" <> usizePref <> "\"" <>  "," <> utimespan <> "\"" <> utimespanPref <> "\"" <>  "}"
+  
 sortByPrefs :: T.Text -> T.Text -> Ordering
 sortByPrefs x y
   | x `T.isInfixOf` T.toLower "Weather | WaterLevels | WeatherWaterLevels | Monsoon | All" && y `T.isInfixOf` T.toLower "Mini | Standard | Detailed"  = LT

@@ -19,25 +19,24 @@ Put mouse over identifiers to see inferred types
 <span class=hs-linenum> 7: </span>
 <span class=hs-linenum> 8: </span><span class='hs-keyword'>module</span> <span class='hs-conid'>Main</span> <span class='hs-keyword'>where</span>
 <span class=hs-linenum> 9: </span>
-<span class=hs-linenum>10: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Control.Exception</span>
+<span class=hs-linenum>10: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Control.Exception</span> <span class='hs-layout'>(</span><span class='hs-varid'>handle</span><span class='hs-layout'>,</span> <span class='hs-conid'>SomeException</span><span class='hs-layout'>(</span><span class='hs-keyglyph'>..</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span>
 <span class=hs-linenum>11: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Prelude</span>
-<span class=hs-linenum>12: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>AWSLambda.Events.APIGateway</span>
-<span class=hs-linenum>13: </span>
-<span class=hs-linenum>14: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>ExternalInterfaces.ApplicationAssembly</span> <span class='hs-layout'>(</span><span class='hs-varid'>createApp</span><span class='hs-layout'>,</span> <span class='hs-varid'>servApp</span><span class='hs-layout'>)</span>
-<span class=hs-linenum>15: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>ExternalInterfaces.ServantShim</span> <span class='hs-layout'>(</span><span class='hs-varid'>makeHandler</span><span class='hs-layout'>)</span>
-<span class=hs-linenum>16: </span>
-<span class=hs-linenum>17: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>InterfaceAdapters.Config</span>
-<span class=hs-linenum>18: </span>
-<span class=hs-linenum>19: </span><span class='hs-definition'>main</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>IO</span> <span class='hs-conid'>()</span>
-<span class=hs-linenum>20: </span><span class='hs-definition'>main</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>handle</span> <span class='hs-varid'>catchAllHandler</span> <span class='hs-varid'>redirectmain</span>
-<span class=hs-linenum>21: </span>
-<span class=hs-linenum>22: </span><span class='hs-definition'>catchAllHandler</span> <span class='hs-layout'>(</span><span class='hs-conid'>SomeException</span> <span class='hs-varid'>e</span><span class='hs-layout'>)</span> <span class='hs-keyglyph'>=</span>
-<span class=hs-linenum>23: </span>  <span class='hs-varid'>putStrLn</span> <span class='hs-varop'>$</span> <span class='hs-str'>"[caught] "</span> <span class='hs-varop'>&lt;&gt;</span> <span class='hs-varid'>show</span> <span class='hs-varid'>e</span>
-<span class=hs-linenum>24: </span>
-<span class=hs-linenum>25: </span><span class='hs-definition'>redirectmain</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>IO</span> <span class='hs-conid'>()</span>
-<span class=hs-linenum>26: </span><span class='hs-definition'>redirectmain</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>handle</span> <span class='hs-varid'>catchAllHandler</span> <span class='hs-varop'>$</span> <span class='hs-keyword'>do</span>
-<span class=hs-linenum>27: </span>      <span class='hs-varid'>app</span> <span class='hs-keyglyph'>&lt;-</span> <span class='hs-varid'>servApp</span> <span class='hs-comment'>-- | in ApplicationAssembly </span>
-<span class=hs-linenum>28: </span>      <span class='hs-varid'>apiGatewayMain</span> <span class='hs-varop'>$</span> <span class='hs-varid'>makeHandler</span> <span class='hs-varid'>app</span> <span class='hs-comment'>-- | makeHandler is in ServantShim</span>
+<span class=hs-linenum>12: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>AWSLambda.Events.APIGateway</span> <span class='hs-layout'>(</span><span class='hs-varid'>apiGatewayMain</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>13: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>ExternalInterfaces.ApplicationAssembly</span> <span class='hs-layout'>(</span><span class='hs-varid'>createApp</span><span class='hs-layout'>,</span> <span class='hs-varid'>servApp</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>14: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>ExternalInterfaces.ServantShim</span> <span class='hs-layout'>(</span><span class='hs-varid'>makeHandler</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>15: </span>
+<span class=hs-linenum>16: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>InterfaceAdapters.Config</span>
+<span class=hs-linenum>17: </span>
+<span class=hs-linenum>18: </span><span class='hs-definition'>main</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>IO</span> <span class='hs-conid'>()</span>
+<span class=hs-linenum>19: </span><span class='hs-definition'>main</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>handle</span> <span class='hs-varid'>catchAllHandler</span> <span class='hs-varid'>redirectmain</span>
+<span class=hs-linenum>20: </span>
+<span class=hs-linenum>21: </span><span class='hs-definition'>catchAllHandler</span> <span class='hs-layout'>(</span><span class='hs-conid'>SomeException</span> <span class='hs-varid'>e</span><span class='hs-layout'>)</span> <span class='hs-keyglyph'>=</span>
+<span class=hs-linenum>22: </span>  <span class='hs-varid'>putStrLn</span> <span class='hs-varop'>$</span> <span class='hs-str'>"[caught] "</span> <span class='hs-varop'>&lt;&gt;</span> <span class='hs-varid'>show</span> <span class='hs-varid'>e</span>
+<span class=hs-linenum>23: </span>
+<span class=hs-linenum>24: </span><span class='hs-definition'>redirectmain</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>IO</span> <span class='hs-conid'>()</span>
+<span class=hs-linenum>25: </span><span class='hs-definition'>redirectmain</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>handle</span> <span class='hs-varid'>catchAllHandler</span> <span class='hs-varop'>$</span> <span class='hs-keyword'>do</span>
+<span class=hs-linenum>26: </span>      <span class='hs-varid'>app</span> <span class='hs-keyglyph'>&lt;-</span> <span class='hs-varid'>servApp</span> <span class='hs-comment'>-- | in ApplicationAssembly </span>
+<span class=hs-linenum>27: </span>      <span class='hs-varid'>apiGatewayMain</span> <span class='hs-varop'>$</span> <span class='hs-varid'>makeHandler</span> <span class='hs-varid'>app</span> <span class='hs-comment'>-- | makeHandler is in ServantShim</span>
 </pre>
 </body>
 </html>

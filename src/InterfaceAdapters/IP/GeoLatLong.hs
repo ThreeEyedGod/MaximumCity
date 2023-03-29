@@ -19,6 +19,7 @@ import InterfaceAdapters.Utils.ShortCircuit (orM)
 getLatLongforThis :: String -> IO T.Text
 getLatLongforThis town = getLLData town >>= geoDataJSONToText
 
+-- short circuit second if first succeeds orM from shortcircuit module
 getLLData :: String ->  IO (Either String (Either ForwardGeoData OpenCageForwardGeoData))
 getLLData s = orM (nestedEitherPosStackJSON s) (nestedEitherOpenCageJSON s)-- lazy evaluate first failover to second
 

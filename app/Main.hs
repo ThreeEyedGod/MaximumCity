@@ -7,10 +7,9 @@
 
 module Main where
 
-import Control.Exception
+import Control.Exception (handle, SomeException(..))
 import Prelude
-import AWSLambda.Events.APIGateway
-
+import AWSLambda.Events.APIGateway (apiGatewayMain)
 import ExternalInterfaces.ApplicationAssembly (createApp, servApp)
 import ExternalInterfaces.ServantShim (makeHandler)
 

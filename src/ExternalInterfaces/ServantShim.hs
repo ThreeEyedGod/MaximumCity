@@ -6,7 +6,7 @@ module ExternalInterfaces.ServantShim
   ) where
 
 import           Protolude
-import           AWSLambda.Events.APIGateway
+import           AWSLambda.Events.APIGateway (APIGatewayProxyRequest, APIGatewayProxyResponse, requestBodyEmbedded, responseOK, responseBodyEmbedded, agprsHeaders, agprqHttpMethod, agprqHeaders, agprqQueryStringParameters, agprqPath, agprqQueryStringParameters )
 import           Data.Aeson                  (Value, decode, encode)
 import           Data.Aeson.Embedded         (Embedded)
 import           Data.ByteString.Builder     (toLazyByteString)
