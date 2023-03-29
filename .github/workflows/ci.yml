@@ -25,7 +25,7 @@ jobs:
     strategy:
       matrix:
         stack: ["2.9.3"]
-        ghc: ["9.2.7"]
+        ghc: ["9.2.6"]
 
     # Note: the last condition in the "if" below works off of the "main" branch
     steps:
