@@ -15,7 +15,7 @@ on:
      - 'app/**'
      - 'src/**'
      - 'test/**'
-     - ./ci.yml
+     - '.github/workflows/**'
 
 jobs:
   stack:
