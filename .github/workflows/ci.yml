@@ -27,8 +27,9 @@ jobs:
       matrix:
         stack: ["2.9.3"]
         ghc: ["9.6.1"]
+        cabal: ["3.10.1.0"]
     # https://github.com/actions/runner-images/blob/main/images/linux/Ubuntu2204-Readme.md
-    
+
     # Note: the last condition in the "if" below works off of the "main" branch
     steps:
     - uses: actions/checkout@v2
