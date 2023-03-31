@@ -27,7 +27,6 @@ jobs:
       matrix:
         stack: ["latest"]
         ghc: ["9.6.1", "9.2.7", "9.2.6", "9.0.2"]
-        ghc-ver: ["9.6.1", "9.2.7", "9.2.6", "9.0.2"]
         cabal: ["3.10.1.0"]
         ghcup: ["latest"]
         setup-method: ghcup
@@ -54,7 +53,6 @@ jobs:
         ghc-version: ${{ matrix.ghc }}
         stack-version: ${{ matrix.stack }}
         cabal-version: ${{ matrix.cabal }}
-        ghcup-version: ${{ matrix.ghcup }}
         
     - uses: actions/cache@v2
       name: Cache multiple paths
