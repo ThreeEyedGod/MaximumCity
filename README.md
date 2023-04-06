@@ -4,12 +4,13 @@
 [![Latest Release](https://img.shields.io/github/v/release/ThreeEyedGod/MaximumCity?color=%233D9970)](https://img.shields.io/github/v/release/ThreeEyedGod/MaximumCity?color=%233D9970)
 
 
-The idea behind this project is that of an experimental ["serverless" computing service](https://www.protocol.com/newsletters/protocol-enterprise/serverless-container-aws?rebelltitem=1#rebelltitem1), that allows developers to write applications without having to know anything about the cloud hardware on which their applications will run -  often and also  referred to sometimes as "Function-as-a-Service" or Lambda. Orignated from my-haskell-lambda in this Git - now deprecated.
+The idea behind this project is that of an experimental ["serverless" computing service](https://www.protocol.com/newsletters/protocol-enterprise/serverless-container-aws?rebelltitem=1#rebelltitem1), that allows developers to write applications without having to know anything about the cloud hardware on which their applications will run -  often and also  referred to sometimes as "Function-as-a-Service" or Lambda. 
+
 
 Synopsis
 ---------
 
-MaximumCity is code built on Haskell. It comprises of a program deployed to AWS lambda, whose workflows are accessible using AWS API Gateway. An effect library is used for Separation of Concerns. The development environment includes a CI pipeline using Github Actions. QuickTest and Hspec for unit testing.  The IDE is VSCode with Haskell for Visual Studio Code extension on a MacOS. Major Libraries include Polysemy, Servant, AWS Lambda runtime, Attoparsec and pdf-toolbox. 
+MaximumCity is code built on Haskell. It comprises of a program deployed to AWS lambda, whose workflows are accessible using AWS API Gateway. An effect library is used for Separation of Concerns. The development environment includes a CI pipeline using Github Actions. QuickTest and Hspec for unit testing.  Libraries used include LiquidHaskell (refinement types), Polysemy (effect library), Servant, AWS Lambda runtime, Attoparsec and pdf-toolbox. 
 
 ### Functionality  
 Provides a telegram interface for a Weather sourcing task which uses caller's IP or location to get weather from a implementation of [DarkSky](https://twitter.com/alexanderrey007/status/1370733643279269889).

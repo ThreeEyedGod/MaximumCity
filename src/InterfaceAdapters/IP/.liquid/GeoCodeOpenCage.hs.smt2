@@ -604,7 +604,6 @@
 
 
 
-
 (assert (distinct Data.Aeson.Types.Internal.UntaggedValue Data.Aeson.Types.Internal.ObjectWithSingleField Data.Aeson.Types.Internal.TwoElemArray))
 
 (assert (distinct GHC.Generics.SourceNoUnpack GHC.Generics.NoSourceUnpackedness GHC.Generics.SourceUnpack))
@@ -612,6 +611,7 @@
 (assert (distinct GHC.Types.False GHC.Types.True))
 
 (assert (distinct GHC.IO.Unmasked GHC.IO.MaskedInterruptible GHC.IO.MaskedUninterruptible))
+
 
 
 
