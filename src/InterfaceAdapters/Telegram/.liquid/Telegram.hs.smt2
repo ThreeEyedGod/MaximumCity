@@ -352,8 +352,8 @@
 
 
 
-(assert (distinct GHC.Types.GT GHC.Types.EQ GHC.Types.LT))
 
+(assert (distinct GHC.Types.GT GHC.Types.EQ GHC.Types.LT))
 
 
 

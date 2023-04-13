@@ -444,7 +444,6 @@
 
 
 
-
 (assert (distinct GHC.IO.Exception.SystemError GHC.IO.Exception.InvalidArgument GHC.IO.Exception.ProtocolError GHC.IO.Exception.AlreadyExists GHC.IO.Exception.OtherError GHC.IO.Exception.TimeExpired GHC.IO.Exception.ResourceBusy GHC.IO.Exception.IllegalOperation GHC.IO.Exception.Interrupted GHC.IO.Exception.EOF GHC.IO.Exception.PermissionDenied GHC.IO.Exception.UserError GHC.IO.Exception.NoSuchThing GHC.IO.Exception.HardwareFault GHC.IO.Exception.InappropriateType GHC.IO.Exception.ResourceExhausted GHC.IO.Exception.UnsupportedOperation GHC.IO.Exception.UnsatisfiedConstraints GHC.IO.Exception.ResourceVanished))
 (assert (distinct Network.HTTP.Types.Method.PATCH Network.HTTP.Types.Method.CONNECT Network.HTTP.Types.Method.TRACE Network.HTTP.Types.Method.GET Network.HTTP.Types.Method.POST Network.HTTP.Types.Method.PUT Network.HTTP.Types.Method.OPTIONS Network.HTTP.Types.Method.HEAD Network.HTTP.Types.Method.DELETE))
 
@@ -456,14 +455,15 @@
 
 
 
-
 (assert (distinct GHC.Types.False GHC.Types.True))
-
 (assert (distinct GHC.IO.Unmasked GHC.IO.MaskedInterruptible GHC.IO.MaskedUninterruptible))
 
 
 
 (assert (distinct GHC.IO.IOMode.AppendMode GHC.IO.IOMode.ReadWriteMode GHC.IO.IOMode.ReadMode GHC.IO.IOMode.WriteMode))
+
+
+
 
 (push 1)
 (push 1)

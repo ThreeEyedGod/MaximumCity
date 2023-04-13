@@ -16,6 +16,8 @@ import           InterfaceAdapters.Telegram.Telegram ( TelegramMessage, gettheTe
 import           InterfaceAdapters.Utils.Helper
 import           AWSLambda (responseBody)
 import qualified Data.Text as T
+import Data.Text (compareLength)
+import Data.Either (fromRight)
 import Data.ByteString.Lazy.UTF8 (fromString) -- from utf8-string
 import Text.RawString.QQ
 import Data.Aeson (eitherDecode)
@@ -27,24 +29,35 @@ class UserInput x where
 
 instance UserInput TelegramMessage where
   getInfo updt
-      | tlgm == resp = do
+      -- | (tlgm == resp) && (respValid /= "") = do                  
+      | tlgm == respValid = do                  
                   thisuserprefs <- embed (getPreferences uuid)
-                  responseBody <- getWeatherTown $ UserAsk {placeName = gettheTelegram updt, prefs = thisuserprefs}
-                  let msg = (responseBody, Just updt) :: UserMsg
-                  sendBackMsg msg
-                  pure (fst msg)
+                  responseBody <- getWeatherTown $ UserAsk {placeName = respValid, prefs = thisuserprefs}
+                  -- let msg = (responseBody, Just updt) :: UserMsg
+                  -- sendBackMsg msg
+                  sendBackMsg $ theMsg responseBody updt
+                  -- pure (fst msg)
+                  pure . fst $ theMsg responseBody updt
       | (isValidPreferencesJSON . eitherDecode . encodeUtf8 . fromStrict) resp  = do -- if preferences are valid and a JSON format ....
       --      | "{" `T.isInfixOf` resp  = do -- if preferences are valid and a JSON format ....
                   x <- embed (setPreferences uuid resp)
-                  let msg = (resp, Just updt) :: UserMsg
+                  sendBackMsg $ theMsg resp updt
+                  pure . fst $ theMsg resp updt
+{-                   let msg = (resp, Just updt) :: UserMsg
                   sendBackMsg msg
                   pure (fst msg)
-      | otherwise  = do
-                  let msg = (resp, Just updt) :: UserMsg
-                  sendBackMsg msg
-                  pure (fst msg)
+ -}      | otherwise  = do
+                  -- let msg = (resp, Just updt) :: UserMsg
+                  -- sendBackMsg msg
+                  sendBackMsg $ theMsg resp updt
+                  -- pure (fst msg)
+                  pure . fst $ theMsg resp updt
       where
             (uuid, (tlgm, resp)) = getMeta (Just updt)
+            respValid = filterInvalid resp
+
+theMsg :: T.Text -> TelegramMessage -> UserMsg
+theMsg r u = (r, Just u) :: UserMsg
 
 instance UserInput PlaceName where
        getInfo plName = embed (getPreferences modalUser) >>=  (\thisuserprefs -> getWeatherTown $ UserAsk {placeName = plName, prefs = thisuserprefs})
@@ -59,3 +72,20 @@ isValidPreferencesJSON json = case json of
 
 test1 :: [Bool]
 test1 = Prelude.map (isValidPreferencesJSON . eitherDecode . fromString) [jsonValid, jsonInvalid]
+
+-- Specs: http://ucsd-progsys.github.io/liquidhaskell/specifications/
+{-@ measure txtLen :: Text -> Int @-}
+{-@ assume T.pack :: i:String -> {o:T.Text | len i == txtLen o } @-}
+-----------------------------------------------------------
+-- Domain Data
+{-@ type TextPlaceLike = {v:T.Text | 17 > txtLen v} @-}
+
+{-@  filterInvalid :: x:T.Text -> rv:TextPlaceLike @-}
+filterInvalid :: T.Text -> T.Text
+filterInvalid this = fromRight "" $ placeLike this
+
+{-@ placeLike :: x:T.Text  -> rv : (Either String {rght:TextPlaceLike | txtLen rght == len x})   @-}
+placeLike :: T.Text -> Either T.Text T.Text
+placeLike x = case compareLength x 17 of
+    GT -> Right x
+    _  -> Left x

@@ -110,6 +110,10 @@ f <..> g = \x ->
     Nothing -> Nothing
     Just x' -> g x'
 
+-- compose Two Functions in order with the same argument returning second Function
+(<...>) ::  (a -> b) -> (a -> c) -> a -> c
+(<...>) f g = f >> g 
+
 _returnStdFail :: InFunction -> CalleeFunction -> Text
 _returnStdFail withinFunction calledFunction = pack $ "Fail:" ++ withinFunction ++ " | " ++ calledFunction
 

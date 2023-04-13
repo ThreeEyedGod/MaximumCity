@@ -576,19 +576,19 @@
 
 
 
+
 (assert (distinct Data.Aeson.Types.Internal.UntaggedValue Data.Aeson.Types.Internal.ObjectWithSingleField Data.Aeson.Types.Internal.TwoElemArray))
 
 
 (assert (distinct GHC.Generics.SourceNoUnpack GHC.Generics.NoSourceUnpackedness GHC.Generics.SourceUnpack))
 
-
 (assert (distinct GHC.Types.False GHC.Types.True))
 
 
 (assert (distinct GHC.IO.Unmasked GHC.IO.MaskedInterruptible GHC.IO.MaskedUninterruptible))
-
 (assert (distinct GHC.Generics.DecidedUnpack GHC.Generics.DecidedLazy GHC.Generics.DecidedStrict))
 (assert (distinct GHC.Unicode.DashPunctuation GHC.Unicode.InitialQuote GHC.Unicode.NonSpacingMark GHC.Unicode.DecimalNumber GHC.Unicode.NotAssigned GHC.Unicode.Control GHC.Unicode.ModifierSymbol GHC.Unicode.Format GHC.Unicode.OpenPunctuation GHC.Unicode.OtherNumber GHC.Unicode.LowercaseLetter GHC.Unicode.LetterNumber GHC.Unicode.ParagraphSeparator GHC.Unicode.ModifierLetter GHC.Unicode.CurrencySymbol GHC.Unicode.LineSeparator GHC.Unicode.OtherPunctuation GHC.Unicode.UppercaseLetter GHC.Unicode.EnclosingMark GHC.Unicode.OtherLetter GHC.Unicode.PrivateUse GHC.Unicode.FinalQuote GHC.Unicode.ClosePunctuation GHC.Unicode.TitlecaseLetter GHC.Unicode.Space GHC.Unicode.OtherSymbol GHC.Unicode.ConnectorPunctuation GHC.Unicode.SpacingCombiningMark GHC.Unicode.MathSymbol GHC.Unicode.Surrogate))
+
 
 
 
