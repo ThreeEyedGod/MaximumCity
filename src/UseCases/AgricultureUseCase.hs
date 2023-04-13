@@ -84,8 +84,8 @@ test1 = Prelude.map (isValidPreferencesJSON . eitherDecode . fromString) [jsonVa
 filterInvalid :: T.Text -> T.Text
 filterInvalid this = fromRight "" $ placeLike this
 
-{-@ placeLike :: x:T.Text  -> rv : (Either String {rght:TextPlaceLike | txtLen rght == len x})   @-}
+{-@ placeLike :: x:T.Text  -> rv : (Either T.Text {rght:TextPlaceLike | txtLen rght == len x})   @-}
 placeLike :: T.Text -> Either T.Text T.Text
 placeLike x = case compareLength x 17 of
-    GT -> Right x
-    _  -> Left x
+    GT -> Left x
+    _  -> Right x
