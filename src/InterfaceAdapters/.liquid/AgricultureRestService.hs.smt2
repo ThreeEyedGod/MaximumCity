@@ -301,7 +301,9 @@
 (declare-fun lam_arg$35$$35$7$35$$35$0 () Int)
 
 
+
 (assert (distinct GHC.Types.Int32Rep GHC.Types.Int16Rep GHC.Types.LiftedRep GHC.Types.FloatRep GHC.Types.AddrRep GHC.Types.Int64Rep GHC.Types.WordRep GHC.Types.Int8Rep GHC.Types.DoubleRep GHC.Types.IntRep GHC.Types.UnliftedRep GHC.Types.Word64Rep GHC.Types.Word16Rep GHC.Types.Word8Rep GHC.Types.Word32Rep))
+
 
 (assert (distinct Network.HTTP.Types.Method.PATCH Network.HTTP.Types.Method.CONNECT Network.HTTP.Types.Method.TRACE Network.HTTP.Types.Method.GET Network.HTTP.Types.Method.POST Network.HTTP.Types.Method.PUT Network.HTTP.Types.Method.OPTIONS Network.HTTP.Types.Method.HEAD Network.HTTP.Types.Method.DELETE))
 (assert (distinct GHC.Types.GT GHC.Types.EQ GHC.Types.LT))

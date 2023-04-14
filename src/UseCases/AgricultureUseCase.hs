@@ -26,31 +26,32 @@ import Data.Text.Lazy (fromStrict)
 
 class UserInput x where
       getInfo :: (Member (Embed IO) r, Member WWI r) => x -> Sem r TheWeatherThere
+      apiGet :: (Member (Embed IO) r, Member WWI r) => x -> Sem r TheWeatherThere
+      apiSet :: (Member (Embed IO) r, Member WWI r) => x -> Sem r ()
 
 instance UserInput TelegramMessage where
+  apiGet updt = do
+                  thisuserprefs <- embed (getPreferences uid)
+                  getWeatherTown $ UserAsk {placeName = resp, prefs = thisuserprefs}
+            where 
+                  (uid, (tlgm, resp)) = getMeta (Just updt)
+
+  apiSet updt = embed (setPreferences uid resp) where
+                  (uid, (tlgm, resp)) = getMeta (Just updt)
+
   getInfo updt
-      -- | (tlgm == resp) && (respValid /= "") = do                  
       | tlgm == respValid = do                  
-                  thisuserprefs <- embed (getPreferences uuid)
-                  responseBody <- getWeatherTown $ UserAsk {placeName = respValid, prefs = thisuserprefs}
-                  -- let msg = (responseBody, Just updt) :: UserMsg
-                  -- sendBackMsg msg
+                  --thisuserprefs <- embed (getPreferences uuid)
+                  --responseBody <- getWeatherTown $ UserAsk {placeName = respValid, prefs = thisuserprefs}
+                  responseBody <- apiGet updt
                   sendBackMsg $ theMsg responseBody updt
-                  -- pure (fst msg)
                   pure . fst $ theMsg responseBody updt
       | (isValidPreferencesJSON . eitherDecode . encodeUtf8 . fromStrict) resp  = do -- if preferences are valid and a JSON format ....
-      --      | "{" `T.isInfixOf` resp  = do -- if preferences are valid and a JSON format ....
                   x <- embed (setPreferences uuid resp)
                   sendBackMsg $ theMsg resp updt
                   pure . fst $ theMsg resp updt
-{-                   let msg = (resp, Just updt) :: UserMsg
-                  sendBackMsg msg
-                  pure (fst msg)
- -}      | otherwise  = do
-                  -- let msg = (resp, Just updt) :: UserMsg
-                  -- sendBackMsg msg
+      | otherwise  = do
                   sendBackMsg $ theMsg resp updt
-                  -- pure (fst msg)
                   pure . fst $ theMsg resp updt
       where
             (uuid, (tlgm, resp)) = getMeta (Just updt)
@@ -87,5 +88,5 @@ filterInvalid this = fromRight "" $ placeLike this
 {-@ placeLike :: x:T.Text  -> rv : (Either T.Text {rght:TextPlaceLike | txtLen rght == len x})   @-}
 placeLike :: T.Text -> Either T.Text T.Text
 placeLike x = case compareLength x 17 of
-    GT -> Left x
+    GT -> Left "invalid"
     _  -> Right x
