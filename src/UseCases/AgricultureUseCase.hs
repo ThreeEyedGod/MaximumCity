@@ -1,22 +1,34 @@
 {-# LANGUAGE BlockArguments, GADTs, FlexibleContexts, FlexibleInstances, DataKinds, PolyKinds, ScopedTypeVariables #-}
 {-# LANGUAGE QuasiQuotes #-}
+{-# Language PartialTypeSignatures #-}
+{-# Language NamedWildCards #-}
+{-# LANGUAGE OverloadedStrings #-}
 
-{-@ LIQUID "--skip-module" @-}
+{-@ LIQUID "--no-totality" @-}
+--{-@ LIQUID "--skip-module" @-}
 
-module UseCases.AgricultureUseCase (getInfo)
+module UseCases.AgricultureUseCase (getInfoTlgm, getInfoPlainText)
 where
 
-import           Polysemy ( Sem, Member, Embed, embed )
+import           Polysemy ( Sem, Member, Embed, embed, Members)
 import           Polysemy.Error
 import           Polysemy.Input           ()
 import           Polysemy.Trace           (Trace, trace)
 import           UseCases.WWI             (WWI, PlaceName, TheWeatherThere, getWeatherTown, sendBackMsg, UserAsk (..), UserMsg (..))
 import           InterfaceAdapters.Preferences ( modalUser, setPreferences, getPreferences, Preferences (..) )
-import           InterfaceAdapters.Telegram.Telegram ( TelegramMessage, gettheTelegram, getMeta )
+import           InterfaceAdapters.Telegram.Telegram (
+        getUserIdNumber
+      , User (user_id, user_first_name , user_last_name, user_username, user_language_code)
+      , getUpdate_id
+      , TelegramMessage (..)
+      , gettheTelegram
+      , getMeta
+      , getUserId
+      , Update(Update, message, update_id))
 import           InterfaceAdapters.Utils.Helper
 import           AWSLambda (responseBody)
-import qualified Data.Text as T
-import Data.Text (compareLength)
+import qualified Data.Text.Internal as T
+import qualified Data.Text as M
 import Data.Either (fromRight)
 import Data.ByteString.Lazy.UTF8 (fromString) -- from utf8-string
 import Text.RawString.QQ
@@ -24,69 +36,81 @@ import Data.Aeson (eitherDecode)
 import Data.Text.Lazy.Encoding (encodeUtf8)
 import Data.Text.Lazy (fromStrict)
 
-class UserInput x where
-      getInfo :: (Member (Embed IO) r, Member WWI r) => x -> Sem r TheWeatherThere
-      apiGet :: (Member (Embed IO) r, Member WWI r) => x -> Sem r TheWeatherThere
-      apiSet :: (Member (Embed IO) r, Member WWI r) => x -> Sem r ()
+import Web.Telegram.API.Bot.Data (Message, Message (..), Message(text),User(..))
 
-instance UserInput TelegramMessage where
-  apiGet updt = do
+-- Liquid Haskell imports
+import Polysemy.Internal (Sem (..))
+import qualified Data.Text.Lazy as Tx
+import qualified Data.Text.Internal.Lazy as TL
+
+getInfoTlgm :: (Member (Embed IO) r, Member WWI r) => TelegramMessage -> Sem r TheWeatherThere
+getInfoTlgm updt@(Update {message = Just m})
+      | (isValidPreferencesJSON . eitherDecode . encodeUtf8 . fromStrict) resp  = do -- if preferences are valid and a JSON format ....
+                   -- x <- embed (setPreferences uuid resp)
+                  apiSetTlgm updt 
+                  sendBackMsg $ theMsg resp updt
+                  pure . fst $ theMsg resp updt
+      | otherwise = do
+                  case M.unpack respChecked of
+                        (u1:u2:rx) -> do
+                              responseBody <- apiGetTlgm (Update {update_id = updateid} {message = Just Message {text = Just $ M.pack (u1:u2:rx)}{from = Just User {user_id = getUserIdNumber (from m)}}})
+                              sendBackMsg $ theMsg responseBody updt
+                              pure . fst $ theMsg responseBody updt
+                        _          -> do 
+                              sendBackMsg $ theMsg resp updt
+                              pure . fst $ theMsg resp updt
+      where
+            --(uuid, (tlgm, resp)) = getMeta (Just updt)
+            resp = gettheTelegram updt
+            updateid = getUpdate_id updt
+            respChecked = filterInvalid resp
+getInfoTlgm updt@(Update {message = Nothing}) = pure . fst $ theMsg "Update:message=nothing!!" updt
+
+-- Domain Data
+{-@ measure txtLen :: T.Text -> Int @-}
+{-@ measure gettheTelegram :: TelegramMessage -> T.Text @-}
+{-@ type ValidInboundMsg = {tlgm: TelegramMessage | 1 < txtLen (gettheTelegram tlgm) }  @-}
+
+{-@ apiGetTlgm :: ValidInboundMsg -> Sem _ _ @-}
+apiGetTlgm :: (Member (Embed IO) r, Member WWI r) => TelegramMessage -> Sem r TheWeatherThere
+apiGetTlgm updt = do
                   thisuserprefs <- embed (getPreferences uid)
                   getWeatherTown $ UserAsk {placeName = resp, prefs = thisuserprefs}
             where 
                   (uid, (tlgm, resp)) = getMeta (Just updt)
 
-  apiSet updt = embed (setPreferences uid resp) where
+apiSetTlgm :: (Member (Embed IO) r, Member WWI r) => TelegramMessage -> Sem r ()
+apiSetTlgm updt = embed (setPreferences uid resp) where
                   (uid, (tlgm, resp)) = getMeta (Just updt)
-
-  getInfo updt
-      | tlgm == respValid = do                  
-                  --thisuserprefs <- embed (getPreferences uuid)
-                  --responseBody <- getWeatherTown $ UserAsk {placeName = respValid, prefs = thisuserprefs}
-                  responseBody <- apiGet updt
-                  sendBackMsg $ theMsg responseBody updt
-                  pure . fst $ theMsg responseBody updt
-      | (isValidPreferencesJSON . eitherDecode . encodeUtf8 . fromStrict) resp  = do -- if preferences are valid and a JSON format ....
-                  x <- embed (setPreferences uuid resp)
-                  sendBackMsg $ theMsg resp updt
-                  pure . fst $ theMsg resp updt
-      | otherwise  = do
-                  sendBackMsg $ theMsg resp updt
-                  pure . fst $ theMsg resp updt
-      where
-            (uuid, (tlgm, resp)) = getMeta (Just updt)
-            respValid = filterInvalid resp
 
 theMsg :: T.Text -> TelegramMessage -> UserMsg
 theMsg r u = (r, Just u) :: UserMsg
 
-instance UserInput PlaceName where
-       getInfo plName = embed (getPreferences modalUser) >>=  (\thisuserprefs -> getWeatherTown $ UserAsk {placeName = plName, prefs = thisuserprefs})
+getInfoPlainText :: (Member (Embed IO) r, Member WWI r) => PlaceName -> Sem r TheWeatherThere
+getInfoPlainText plName = embed (getPreferences modalUser) >>=  (\thisuserprefs -> getWeatherTown $ UserAsk {placeName = plName, prefs = thisuserprefs})
 
-jsonValid     = [r| { "userdata": "Weather", "usersize": "Mini", "usertimespan": "RightNow" } |] :: String
-jsonInvalid   = [r| { "userdata1": "Weather", "usersize": "Mini", "usertimespan": "RightNow" } |] :: String
+apiGetPlainText :: (Member (Embed IO) r, Member WWI r) => PlaceName -> Sem r TheWeatherThere
+apiGetPlainText plName  = embed (getPreferences modalUser) >>=  (\thisuserprefs -> getWeatherTown $ UserAsk {placeName = plName, prefs = thisuserprefs})
+
+apiSetPlainText :: (Member (Embed IO) r, Member WWI r) => PlaceName -> Sem r ()
+apiSetPlainText plName  = pure ()
 
 isValidPreferencesJSON :: Either String Preferences -> Bool
 isValidPreferencesJSON json = case json of 
             Left invalid                          -> False 
             Right (Preferences uData uSize uSpan) -> True
 
-test1 :: [Bool]
-test1 = Prelude.map (isValidPreferencesJSON . eitherDecode . fromString) [jsonValid, jsonInvalid]
-
--- Specs: http://ucsd-progsys.github.io/liquidhaskell/specifications/
-{-@ measure txtLen :: Text -> Int @-}
-{-@ assume T.pack :: i:String -> {o:T.Text | len i == txtLen o } @-}
------------------------------------------------------------
--- Domain Data
-{-@ type TextPlaceLike = {v:T.Text | 17 > txtLen v} @-}
-
-{-@  filterInvalid :: x:T.Text -> rv:TextPlaceLike @-}
+{-@  filterInvalid :: x:T.Text -> o:T.Text @-}
 filterInvalid :: T.Text -> T.Text
-filterInvalid this = fromRight "" $ placeLike this
+filterInvalid this = fromRight "invalid place" $ placeLike this
+{-@ assume M.pack :: i:String -> {o:T.Text | len i == txtLen o } @-}
+{-@ assume M.unpack :: i:T.Text -> {o:String | len o == txtLen i } @-}
+{-@ assume Data.String.fromString :: x:_ -> {v:_ | v ~~ x} @-}
 
-{-@ placeLike :: x:T.Text  -> rv : (Either T.Text {rght:TextPlaceLike | txtLen rght == len x})   @-}
+{-@ placeLike :: x:T.Text  -> rv : (Either T.Text {rght:T.Text | 1 < txtLen rght && txtLen x == txtLen rght}) @-}
 placeLike :: T.Text -> Either T.Text T.Text
-placeLike x = case compareLength x 17 of
-    GT -> Left "invalid"
-    _  -> Right x
+placeLike empty  = Left "Invalid"
+placeLike y      = case M.unpack y of 
+                        (u:v:_) -> Right y
+                        _       -> Left "Invalid"  
+                        

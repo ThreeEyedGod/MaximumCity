@@ -30,7 +30,7 @@ Put mouse over identifiers to see inferred types
 <span class=hs-linenum>18: </span>      <span class='hs-conid'>PlainText</span><span class='hs-layout'>,</span>
 <span class=hs-linenum>19: </span>      <span class='hs-conid'>Summary</span><span class='hs-layout'>,</span>
 <span class=hs-linenum>20: </span>      <span class='hs-conid'>HasServer</span><span class='hs-layout'>(</span><span class='hs-conid'>ServerT</span><span class='hs-layout'>)</span> <span class='hs-layout'>)</span>
-<span class=hs-linenum>21: </span><span class='hs-keyword'>import</span>           <span class='hs-conid'>UseCases.AgricultureUseCase</span> <span class='hs-layout'>(</span><span class='hs-varid'>getInfo</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>21: </span><span class='hs-keyword'>import</span>           <span class='hs-conid'>UseCases.AgricultureUseCase</span> <span class='hs-layout'>(</span><span class='hs-varid'>getInfoTlgm</span><span class='hs-layout'>,</span> <span class='hs-varid'>getInfoPlainText</span><span class='hs-layout'>)</span>
 <span class=hs-linenum>22: </span><span class='hs-keyword'>import</span>           <span class='hs-conid'>UseCases.WWI</span> <span class='hs-layout'>(</span><span class='hs-conid'>TheWeatherThere</span><span class='hs-layout'>,</span> <span class='hs-conid'>PlaceName</span><span class='hs-layout'>,</span> <span class='hs-conid'>WWI</span><span class='hs-layout'>)</span>
 <span class=hs-linenum>23: </span><span class='hs-keyword'>import</span>           <span class='hs-conid'>InterfaceAdapters.Telegram.Telegram</span>
 <span class=hs-linenum>24: </span><span class='hs-keyword'>import</span>           <span class='hs-conid'>InterfaceAdapters.Weather.WWITelegramPirate</span>
@@ -49,7 +49,7 @@ Put mouse over identifiers to see inferred types
 <span class=hs-linenum>37: </span>
 <span class=hs-linenum>38: </span><span class='hs-comment'>-- | implements the AgricultureAPI</span>
 <span class=hs-linenum>39: </span><span class='hs-definition'>agricultureServer</span> <span class='hs-keyglyph'>::</span> <span class='hs-layout'>(</span><span class='hs-conid'>Member</span> <span class='hs-layout'>(</span><span class='hs-conid'>Embed</span> <span class='hs-conid'>IO</span><span class='hs-layout'>)</span> <span class='hs-varid'>r</span><span class='hs-layout'>,</span> <span class='hs-conid'>Member</span> <span class='hs-conid'>WWI</span> <span class='hs-varid'>r</span><span class='hs-layout'>)</span> <span class='hs-keyglyph'>=&gt;</span> <span class='hs-conid'>ServerT</span> <span class='hs-conid'>AgricultureAPI</span> <span class='hs-layout'>(</span><span class='hs-conid'>Sem</span> <span class='hs-varid'>r</span><span class='hs-layout'>)</span>
-<span class=hs-linenum>40: </span><span class='hs-definition'>agricultureServer</span> <span class='hs-keyglyph'>=</span>  <span class='hs-varid'>getInfo</span> <span class='hs-conop'>:&lt;|&gt;</span>  <span class='hs-varid'>getInfo</span>
+<span class=hs-linenum>40: </span><span class='hs-definition'>agricultureServer</span> <span class='hs-keyglyph'>=</span>  <span class='hs-varid'>getInfoTlgm</span> <span class='hs-conop'>:&lt;|&gt;</span>  <span class='hs-varid'>getInfoPlainText</span>
 <span class=hs-linenum>41: </span>
 <span class=hs-linenum>42: </span><span class='hs-comment'>-- | boilerplate needed to guide type inference</span>
 <span class=hs-linenum>43: </span><span class='hs-definition'>agricultureAPI</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>Proxy</span> <span class='hs-conid'>AgricultureAPI</span>

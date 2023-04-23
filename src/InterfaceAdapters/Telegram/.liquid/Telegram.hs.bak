@@ -15,6 +15,11 @@ module InterfaceAdapters.Telegram.Telegram (
   , parseGetResponse
   , parsePrefs
   , getMeta
+  , Update(Update, message, update_id)
+  , Message (..)
+  , getUpdate_id
+  , User (user_id, user_first_name , user_last_name, user_username, user_language_code) 
+  , getUserIdNumber
 ) where
 import GHC.Generics (Generic)
 import qualified Data.ByteString as BS
@@ -33,7 +38,7 @@ import           Data.Monoid ((<>))
 import InterfaceAdapters.Preferences (parsePrefs, )
 
 import Web.Telegram.API.Bot
-    ( Update(Update, message),
+    ( Update(Update, message, update_id),
       Token(..),
       TelegramClient,
       ChatId(ChatId),
@@ -100,6 +105,10 @@ getUserId :: Maybe User -> T.Text
 getUserId (Just u) = T.pack . show $ user_id u
 getUserId Nothing  = ""
 
+getUserIdNumber :: Maybe User -> Int
+getUserIdNumber (Just u) = user_id u
+getUserIdNumber Nothing  = 0 -- to be handled
+
 getTelegram :: Maybe T.Text -> Maybe T.Text
 getTelegram tape = rightToMaybe $ eitherDecode (LB.fromStrict (T.encodeUtf8 (fromMaybe "" tape)))
 
@@ -110,6 +119,10 @@ _pushTelegramMsg msg cid  = void (sendMessageM $ sendMessageRequest cid msg)
 _handleUpdate :: T.Text -> Maybe Update -> TelegramClient ()
 _handleUpdate helper (Just Update {message = Just m}) = _pushTelegramMsg helper $ ChatId (chat_id (chat m))
 _handleUpdate _ u                                     = liftIO $ putStrLn $ "Unhandled message: " ++ show u
+
+getUpdate_id :: Update -> Int 
+getUpdate_id u = update_id u
+
 
 getMeta :: Maybe Update -> (T.Text, (T.Text, T.Text))
 getMeta (Just Update {message = Just m}) = (uuid, (whatUserTyped, parseResponse))

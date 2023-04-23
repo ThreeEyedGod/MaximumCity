@@ -280,12 +280,12 @@
 
 (assert (distinct InterfaceAdapters.Config.PositionStack InterfaceAdapters.Config.OpenCage))
 
-
 (assert (distinct InterfaceAdapters.Config.Other InterfaceAdapters.Config.AWSAPIRest))
 (assert (distinct GHC.Types.GT GHC.Types.EQ GHC.Types.LT))
 
 (assert (distinct InterfaceAdapters.Config.Telegram InterfaceAdapters.Config.Web InterfaceAdapters.Config.Signal InterfaceAdapters.Config.Whatsapp InterfaceAdapters.Config.CL))
 (assert (distinct GHC.Types.False GHC.Types.True))
+
 
 
 

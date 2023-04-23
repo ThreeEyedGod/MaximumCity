@@ -18,7 +18,7 @@ import Servant
       PlainText,
       Summary,
       HasServer(ServerT) )
-import           UseCases.AgricultureUseCase (getInfo)
+import           UseCases.AgricultureUseCase (getInfoTlgm, getInfoPlainText)
 import           UseCases.WWI (TheWeatherThere, PlaceName, WWI)
 import           InterfaceAdapters.Telegram.Telegram
 import           InterfaceAdapters.Weather.WWITelegramPirate
@@ -37,7 +37,7 @@ type AgricultureAPI =
 
 -- | implements the AgricultureAPI
 agricultureServer :: (Member (Embed IO) r, Member WWI r) => ServerT AgricultureAPI (Sem r)
-agricultureServer =  getInfo :<|>  getInfo
+agricultureServer =  getInfoTlgm :<|>  getInfoPlainText
 
 -- | boilerplate needed to guide type inference
 agricultureAPI :: Proxy AgricultureAPI
