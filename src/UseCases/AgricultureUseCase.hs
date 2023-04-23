@@ -53,14 +53,13 @@ getInfoTlgm updt@(Update {message = Just m})
             if resp == tlgm then
                   case M.unpack respChecked of
                         (u1:u2:rx) -> do
-                              --responseBody <- apiGetTlgm (Update {update_id = updateid} {message = Just Message {text = Just $ M.pack (u1:u2:rx)}{from = Just User {user_id = getUserIdNumber (from m)}}})
-                              responseBody <- apiGetTlgm updt
+                              responseBody <- apiGetTlgm (Update {update_id = updateid} {message = Just Message {text = Just $ M.pack (u1:u2:rx)}{from = Just User {user_id = getUserIdNumber (from m)}}})
                               sendBackMsg $ theMsg responseBody updt
                               pure . fst $ theMsg responseBody updt
                         _          -> do 
                               sendBackMsg $ theMsg resp updt
                               pure . fst $ theMsg resp updt
-              else do
+            else do
                         sendBackMsg $ theMsg resp updt
                         pure . fst $ theMsg resp updt
       where
@@ -113,7 +112,6 @@ filterInvalid this = fromRight "invalid place" $ placeLike this
 
 {-@ placeLike :: x:T.Text  -> rv : (Either T.Text {rght:T.Text | 1 < txtLen rght && txtLen x == txtLen rght}) @-}
 placeLike :: T.Text -> Either T.Text T.Text
-placeLike empty  = Left "Invalid"
 placeLike y      = case M.unpack y of 
                         (u:v:_) -> Right y
                         _       -> Left "Invalid"  
