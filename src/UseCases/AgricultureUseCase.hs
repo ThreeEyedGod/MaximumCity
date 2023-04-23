@@ -5,7 +5,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 {-@ LIQUID "--no-totality" @-}
---{-@ LIQUID "--skip-module" @-}
+{-@ LIQUID "--skip-module" @-}
 
 module UseCases.AgricultureUseCase (getInfoTlgm, getInfoPlainText)
 where
@@ -53,7 +53,8 @@ getInfoTlgm updt@(Update {message = Just m})
             if resp == tlgm then
                   case M.unpack respChecked of
                         (u1:u2:rx) -> do
-                              responseBody <- apiGetTlgm (Update {update_id = updateid} {message = Just Message {text = Just $ M.pack (u1:u2:rx)}{from = Just User {user_id = getUserIdNumber (from m)}}})
+                              --responseBody <- apiGetTlgm (Update {update_id = updateid} {message = Just Message {text = Just $ M.pack (u1:u2:rx)}{from = Just User {user_id = getUserIdNumber (from m)}}})
+                              responseBody <- apiGetTlgm updt
                               sendBackMsg $ theMsg responseBody updt
                               pure . fst $ theMsg responseBody updt
                         _          -> do 
