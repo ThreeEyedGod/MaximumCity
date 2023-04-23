@@ -46,7 +46,6 @@
 (declare-fun Web.Telegram.API.Bot.Data.Game () Int)
 (declare-fun InterfaceAdapters.Preferences.Monsoon () Int)
 (declare-fun InterfaceAdapters.Preferences.getPreferences () Int)
-(declare-fun InterfaceAdapters.Telegram.Telegram.gettheTelegram () Int)
 (declare-fun Web.Telegram.API.Bot.Data.MessageEntity () Int)
 (declare-fun Web.Telegram.API.Bot.Data.ShippingQuery () Int)
 (declare-fun GHC.List.scanl () Int)
@@ -116,6 +115,7 @@
 (declare-fun GHC.List.iterate () Int)
 (declare-fun Data.Text.Internal.Text () Int)
 (declare-fun Polysemy.Internal.$36$fApplicativeSem () Int)
+(declare-fun Data.Text.$36$fEqText () Int)
 (declare-fun GHC.Types.Int8Rep () Int)
 (declare-fun addrLen () Int)
 (declare-fun GHC.Real.$36$W$58$$37$ () Int)
@@ -406,6 +406,7 @@
 (assert (distinct InterfaceAdapters.Preferences.Weather InterfaceAdapters.Preferences.All InterfaceAdapters.Preferences.WeatherWaterLevels InterfaceAdapters.Preferences.WaterLevels InterfaceAdapters.Preferences.Monsoon))
 
 (assert (distinct GHC.Types.Int32Rep GHC.Types.Int16Rep GHC.Types.LiftedRep GHC.Types.FloatRep GHC.Types.AddrRep GHC.Types.Int64Rep GHC.Types.WordRep GHC.Types.Int8Rep GHC.Types.DoubleRep GHC.Types.IntRep GHC.Types.UnliftedRep GHC.Types.Word64Rep GHC.Types.Word16Rep GHC.Types.Word8Rep GHC.Types.Word32Rep))
+
 
 (assert (distinct GHC.Types.GT GHC.Types.EQ GHC.Types.LT))
 (assert (distinct InterfaceAdapters.Preferences.Detailed InterfaceAdapters.Preferences.Mini InterfaceAdapters.Preferences.Standard))
