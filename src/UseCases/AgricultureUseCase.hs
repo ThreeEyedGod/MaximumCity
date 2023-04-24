@@ -5,7 +5,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 {-@ LIQUID "--no-totality" @-}
-{-@ LIQUID "--skip-module" @-}
+--{-@ LIQUID "--skip-module" @-}
 
 module UseCases.AgricultureUseCase (getInfoTlgm, getInfoPlainText)
 where
@@ -57,8 +57,8 @@ getInfoTlgm updt@(Update {message = Just m})
                               sendBackMsg $ theMsg responseBody updt
                               pure . fst $ theMsg responseBody updt
                         _          -> do 
-                              sendBackMsg $ theMsg resp updt
-                              pure . fst $ theMsg resp updt
+                              sendBackMsg $ theMsg "Place Name is too small" updt
+                              pure . fst $ theMsg "Place Name is too small" updt
             else do
                         sendBackMsg $ theMsg resp updt
                         pure . fst $ theMsg resp updt
@@ -105,7 +105,7 @@ isValidPreferencesJSON json = case json of
 
 {-@  filterInvalid :: x:T.Text -> o:T.Text @-}
 filterInvalid :: T.Text -> T.Text
-filterInvalid this = fromRight "invalid place" $ placeLike this
+filterInvalid this = fromRight "" $ placeLike this
 {-@ assume M.pack :: i:String -> {o:T.Text | len i == txtLen o } @-}
 {-@ assume M.unpack :: i:T.Text -> {o:String | len o == txtLen i } @-}
 {-@ assume Data.String.fromString :: x:_ -> {v:_ | v ~~ x} @-}
