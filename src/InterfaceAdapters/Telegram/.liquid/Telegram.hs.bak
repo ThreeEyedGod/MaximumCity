@@ -12,7 +12,6 @@ module InterfaceAdapters.Telegram.Telegram (
   , getUserId
   , _callTelegramClient
   , TelegramMessage
-  , parseGetResponse
   , parsePrefs
   , getMeta
   , Update(Update, message, update_id)

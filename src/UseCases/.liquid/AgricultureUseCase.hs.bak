@@ -47,27 +47,25 @@ getInfoTlgm :: (Member (Embed IO) r, Member WWI r) => TelegramMessage -> Sem r T
 getInfoTlgm updt@(Update {message = Just m})
       | (isValidPreferencesJSON . eitherDecode . encodeUtf8 . fromStrict) resp  = do -- if preferences are valid and a JSON format ....
                   apiSetTlgm updt 
-                  sendBackMsg $ theMsg resp updt
-                  pure . fst $ theMsg resp updt
+                  outBoundRespond resp updt
       | otherwise = do
             if resp == tlgm then
                   case M.unpack respChecked of
                         (u1:u2:rx) -> do
-                              responseBody <- apiGetTlgm (Update {update_id = updateid} {message = Just Message {text = Just $ M.pack (u1:u2:rx)}{from = Just User {user_id = getUserIdNumber (from m)}}})
-                              sendBackMsg $ theMsg responseBody updt
-                              pure . fst $ theMsg responseBody updt
-                        _          -> do 
-                              sendBackMsg $ theMsg "Place Name is too small" updt
-                              pure . fst $ theMsg "Place Name is too small" updt
-            else do
-                        sendBackMsg $ theMsg resp updt
-                        pure . fst $ theMsg resp updt
+                              responseBody <- apiGetTlgm (Update {update_id = getUpdate_id updt} {message = Just Message {text = Just $ M.pack (u1:u2:rx)}{from = Just User {user_id = getUserIdNumber (from m)}}})
+                              outBoundRespond responseBody updt
+                        _          ->  outBoundRespond "Place Name is too small" updt
+            else 
+                        outBoundRespond resp updt
       where
             (uuid, (tlgm, resp)) = getMeta (Just updt)
-            --resp = gettheTelegram updt
-            updateid = getUpdate_id updt
-            respChecked = filterInvalid resp
+            respChecked = rejectInvalid resp
 getInfoTlgm updt@(Update {message = Nothing}) = pure . fst $ theMsg "Update:message=nothing!!" updt
+
+outBoundRespond :: (Member WWI r)  => T.Text -> TelegramMessage -> Sem r TheWeatherThere
+outBoundRespond r u = do
+                        sendBackMsg $ theMsg r u
+                        pure . fst $ theMsg r u
 
 -- Domain Data
 {-@ measure txtLen :: T.Text -> Int @-}
@@ -103,9 +101,10 @@ isValidPreferencesJSON json = case json of
             Left invalid                          -> False 
             Right (Preferences uData uSize uSpan) -> True
 
-{-@  filterInvalid :: x:T.Text -> o:T.Text @-}
-filterInvalid :: T.Text -> T.Text
-filterInvalid this = fromRight "" $ placeLike this
+{-@  rejectInvalid :: x:T.Text -> o:T.Text @-}
+rejectInvalid :: T.Text -> T.Text
+rejectInvalid this = fromRight "" $ placeLike this
+
 {-@ assume M.pack :: i:String -> {o:T.Text | len i == txtLen o } @-}
 {-@ assume M.unpack :: i:T.Text -> {o:String | len o == txtLen i } @-}
 {-@ assume Data.String.fromString :: x:_ -> {v:_ | v ~~ x} @-}
