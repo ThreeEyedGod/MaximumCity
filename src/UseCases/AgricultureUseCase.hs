@@ -49,7 +49,7 @@ getInfoTlgm updt@(Update {message = Just m})
                   apiSetTlgm updt 
                   outBoundRespond resp updt
       | otherwise = do
-            if resp == tlgm then
+            if resp == tlgm then -- yeah klugy
                   case (M.unpack respChecked, length (M.unpack respChecked) < 29) of
                         (u1:u2:rx, True)  -> do
                               responseBody <- apiGetTlgm (Update {update_id = getUpdate_id updt} {message = Just Message {text = Just $ M.pack (u1:u2:rx)}{from = Just User {user_id = getUserIdNumber (from m)}}})
@@ -68,10 +68,8 @@ outBoundRespond r u = do
                         sendBackMsg $ theMsg r u
                         pure . fst $ theMsg r u
 
--- Domain Data
 {-@ measure txtLen :: T.Text -> Int @-}
 {-@ measure gettheTelegram :: TelegramMessage -> T.Text @-}
-{-@ predicate Btwn Lo V Hi = (Lo <= V && V <= Hi) @-}
 {-@ predicate BtwnXclu Lo V Hi = (Lo < V && V < Hi) @-}
 {-@ type ValidInboundMsg = {tlgm: TelegramMessage | BtwnXclu 1 (txtLen (gettheTelegram tlgm)) 29 }  @-}
 
@@ -122,7 +120,7 @@ placeLikeMinText y      = case M.unpack y of
                         (u:v:_) -> Right y
                         _       -> Left "Invalid"  
 
--- Venkatanarasimharajuvaripeta in Andhra Pradesh
+-- 28 char long Venkatanarasimharajuvaripeta is a place in Andhra Pradesh
 {-@ placeLikeMaxText :: x:T.Text  -> rv : (Either T.Text {rght:T.Text | 29 > txtLen rght && txtLen x == txtLen rght}) @-}
 placeLikeMaxText :: T.Text -> Either T.Text T.Text
 placeLikeMaxText y      = case M.unpack y of 

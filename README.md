@@ -10,10 +10,10 @@ The idea behind this project is that of an experimental ["serverless" computing 
 Synopsis
 ---------
 
-MaximumCity is code built on Haskell. It comprises of a program deployed to AWS lambda, whose workflows are accessible using AWS API Gateway. An effect library is used for Separation of Concerns. The development environment includes a CI pipeline using Github Actions. QuickTest and Hspec for unit testing.  Libraries used include LiquidHaskell (refinement types), Polysemy (effect library), Servant, AWS Lambda runtime, Attoparsec and pdf-toolbox. 
+MaximumCity is built on Haskell. It comprises of a program deployed to AWS lambda, with APIs are accessible using AWS API Gateway. An effect library is used for Separation of Concerns. The development environment includes a CI pipeline using Github Actions. QuickTest and Hspec for unit testing.  Libraries used include LiquidHaskell (refinement types), Polysemy (effect library), Servant, AWS Lambda runtime, Attoparsec and pdf-toolbox. AWS Parameter Store is used for storing client preferences. AWS Lambda Environment variables for Configuration. 
 
-### Functionality  
+### Core Functionality  
 Provides a telegram interface for a Weather sourcing task which uses caller's IP or location to get weather from a implementation of [DarkSky](https://twitter.com/alexanderrey007/status/1370733643279269889).
 
 ## The Program
-Takes a place name entered in MaximumCity Bot. Gets latlong for that from positionstack and also grabs your IP address (to the extent telegram provides some details) and determines the weather for that location from public weather sources. 
+Takes a place name entered in MaximumCity Bot. Gets latlong for that from opencage GeoCode and determines the weather and water levels for that location from public  sources. Preferences may be set from the telegram client. 
