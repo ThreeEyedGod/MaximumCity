@@ -64,6 +64,7 @@ getInfoTlgm updt@(Update {message = Just m})
             respChecked = rejectInvalid resp
 getInfoTlgm updt@(Update {message = Nothing}) = pure . fst $ theMsg "Update:message=nothing!!" updt
 
+-- reFactor this code
 outBoundRespond :: (Member WWI r)  => T.Text -> TelegramMessage -> Sem r TheWeatherThere
 outBoundRespond r u = do
                         sendBackMsg $ theMsg r u
@@ -74,7 +75,7 @@ outBoundRespond r u = do
 {-@ measure gettheTelegram :: TelegramMessage -> T.Text @-}
 {-@ predicate Btwn Lo V Hi = (Lo <= V && V <= Hi) @-}
 {-@ predicate BtwnXclu Lo V Hi = (Lo < V && V < Hi) @-}
-{-@ type ValidInboundMsg = {tlgm: TelegramMessage | 1 < txtLen (gettheTelegram tlgm)  && 29 > txtLen (gettheTelegram tlgm)}  @-}
+{-@ type ValidInboundMsg = {tlgm: TelegramMessage | BtwnXclu 1 (txtLen (gettheTelegram tlgm)) 29 }  @-}
 
 {-@ apiGetTlgm :: ValidInboundMsg -> Sem _ _ @-}
 apiGetTlgm :: (Member (Embed IO) r, Member WWI r) => TelegramMessage -> Sem r TheWeatherThere
@@ -105,6 +106,7 @@ isValidPreferencesJSON json = case json of
             Left invalid                          -> False 
             Right (Preferences uData uSize uSpan) -> True
 
+-- TO DO - use shortcircuit to do only one of the Left's !
 {-@  rejectInvalid :: x:T.Text -> o:T.Text @-}
 rejectInvalid :: T.Text -> T.Text
 rejectInvalid this = case (rejectionsLeft,oksRight) of 

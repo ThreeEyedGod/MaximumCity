@@ -21,7 +21,7 @@ getLatLongforThis town = getLLData town >>= geoDataJSONToText
 
 -- short circuit second if first succeeds orM from shortcircuit module
 getLLData :: String ->  IO (Either String (Either ForwardGeoData OpenCageForwardGeoData))
-getLLData s = orM (nestedEitherOpenCageJSON s) (nestedEitherPosStackJSON s) -- lazy evaluate first failover to second
+getLLData s = orM (nestedEitherPosStackJSON s) (nestedEitherOpenCageJSON s) -- lazy evaluate first failover to second
 
 nestedEitherPosStackJSON :: String ->  IO (Either String (Either ForwardGeoData OpenCageForwardGeoData))
 nestedEitherPosStackJSON s = getPositionStackJSON s >>= makeNestedEitherPositionStack
@@ -44,6 +44,6 @@ makeNestedEitherOpenCage (Left x)  = pure $ Left x
 makeNestedEitherOpenCage (Right y) = pure $ Right $ Right y 
 
 geoDataJSONToText :: Either String (Either ForwardGeoData OpenCageForwardGeoData) -> IO T.Text
-geoDataJSONToText (Left f)          = return $ T.pack f
+geoDataJSONToText (Left f)          = return $ T.pack "Fail:geoDataJSONToText"
 geoDataJSONToText (Right (Left f))  = return $ Data.ByteString.Char8.pack $ removeNonNumbers (show (Prelude.head (_data (f :: ForwardGeoData))))
 geoDataJSONToText (Right (Right f)) = return $ Data.ByteString.Char8.pack (show (lat (geometry (Prelude.head (results (f :: OpenCageForwardGeoData))))) ++ "," ++ show (lng (geometry (Prelude.head (results (f :: OpenCageForwardGeoData))))))

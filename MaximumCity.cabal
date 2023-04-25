@@ -42,7 +42,6 @@ library
       InterfaceAdapters.Utils.Helper
       InterfaceAdapters.Utils.HttpHeadersPathDefinitions
       InterfaceAdapters.Utils.JSONHelper
-      InterfaceAdapters.Utils.ParsingLHJSON
       InterfaceAdapters.Utils.PdfHelper
       InterfaceAdapters.Utils.ShortCircuit
       InterfaceAdapters.Water.MH.Core.ParserHelper
@@ -51,7 +50,6 @@ library
       InterfaceAdapters.Weather.OpenWeatherAPI
       InterfaceAdapters.Weather.PirateWeatherAPI
       InterfaceAdapters.Weather.PirateWeatherHeaders
-      InterfaceAdapters.Weather.TestRefinedTypes
       InterfaceAdapters.Weather.Weather
       InterfaceAdapters.Weather.WWITelegramPirate
       InterfaceAdapters.Weather.WWIWebPirate
