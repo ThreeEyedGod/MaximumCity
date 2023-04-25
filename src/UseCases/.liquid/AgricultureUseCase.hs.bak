@@ -35,6 +35,8 @@ import Text.RawString.QQ
 import Data.Aeson (eitherDecode)
 import Data.Text.Lazy.Encoding (encodeUtf8)
 import Data.Text.Lazy (fromStrict)
+import InterfaceAdapters.Utils.ShortCircuit (HasTrue, Shortcircuit (..), andM, firstFalseOf, firstFalseOfM)
+import Data.Either (isRight, partitionEithers)
 
 import Web.Telegram.API.Bot.Data (Message, Message (..), Message(text),User(..))
 
@@ -50,11 +52,11 @@ getInfoTlgm updt@(Update {message = Just m})
                   outBoundRespond resp updt
       | otherwise = do
             if resp == tlgm then
-                  case M.unpack respChecked of
-                        (u1:u2:rx) -> do
+                  case (M.unpack respChecked, length (M.unpack respChecked) < 29) of
+                        (u1:u2:rx, True)  -> do
                               responseBody <- apiGetTlgm (Update {update_id = getUpdate_id updt} {message = Just Message {text = Just $ M.pack (u1:u2:rx)}{from = Just User {user_id = getUserIdNumber (from m)}}})
                               outBoundRespond responseBody updt
-                        _          ->  outBoundRespond "Place Name is too small" updt
+                        _          ->  outBoundRespond "Place Name is of incorrect length" updt
             else 
                         outBoundRespond resp updt
       where
@@ -70,7 +72,7 @@ outBoundRespond r u = do
 -- Domain Data
 {-@ measure txtLen :: T.Text -> Int @-}
 {-@ measure gettheTelegram :: TelegramMessage -> T.Text @-}
-{-@ type ValidInboundMsg = {tlgm: TelegramMessage | 1 < txtLen (gettheTelegram tlgm) }  @-}
+{-@ type ValidInboundMsg = {tlgm: TelegramMessage | 1 < txtLen (gettheTelegram tlgm)  && 29 > txtLen (gettheTelegram tlgm)}  @-}
 
 {-@ apiGetTlgm :: ValidInboundMsg -> Sem _ _ @-}
 apiGetTlgm :: (Member (Embed IO) r, Member WWI r) => TelegramMessage -> Sem r TheWeatherThere
@@ -103,14 +105,24 @@ isValidPreferencesJSON json = case json of
 
 {-@  rejectInvalid :: x:T.Text -> o:T.Text @-}
 rejectInvalid :: T.Text -> T.Text
-rejectInvalid this = fromRight "" $ placeLike this
+rejectInvalid this = case (rejectionsLeft,oksRight) of 
+                  ([], x:_) -> x -- i.e no (Left _) rejections and at least one (Right _) List item
+                  _         -> "" 
+            where (rejectionsLeft,oksRight) = partitionEithers [placeLikeMinText this, placeLikeMaxText this]
 
 {-@ assume M.pack :: i:String -> {o:T.Text | len i == txtLen o } @-}
 {-@ assume M.unpack :: i:T.Text -> {o:String | len o == txtLen i } @-}
 {-@ assume Data.String.fromString :: x:_ -> {v:_ | v ~~ x} @-}
 
-{-@ placeLike :: x:T.Text  -> rv : (Either T.Text {rght:T.Text | 1 < txtLen rght && txtLen x == txtLen rght}) @-}
-placeLike :: T.Text -> Either T.Text T.Text
-placeLike y      = case M.unpack y of 
+{-@ placeLikeMinText :: x:T.Text  -> rv : (Either T.Text {rght:T.Text | 1 < txtLen rght && txtLen x == txtLen rght}) @-}
+placeLikeMinText :: T.Text -> Either T.Text T.Text
+placeLikeMinText y      = case M.unpack y of 
                         (u:v:_) -> Right y
                         _       -> Left "Invalid"  
+
+-- Venkatanarasimharajuvaripeta in Andhra Pradesh
+{-@ placeLikeMaxText :: x:T.Text  -> rv : (Either T.Text {rght:T.Text | 29 > txtLen rght && txtLen x == txtLen rght}) @-}
+placeLikeMaxText :: T.Text -> Either T.Text T.Text
+placeLikeMaxText y      = case M.unpack y of 
+                        (a:b:c:d:e:f:g:h:i:j:k:l:m:n:o:p:q:r:s:t:u:v:w:x:y:z:a1:a2:a3:_) -> Left "Invalid"
+                        _       -> Right y

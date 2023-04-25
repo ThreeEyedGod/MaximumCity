@@ -24,11 +24,13 @@ module InterfaceAdapters.Utils.ShortCircuit
 , (&&)
 , firstTrueOf
 , lastFalseOf
+, firstFalseOf
   -- * Monadic short circuits
 , orM
 , andM
 , firstTrueOfM
 , lastFalseOfM
+, firstFalseOfM
 )
 where
   
@@ -88,6 +90,9 @@ firstTrueOf = foldr (||) false
 lastFalseOf :: (Shortcircuit a, HasTrue a) => [a] -> a
 lastFalseOf = foldr (&&) true
 
+firstFalseOf :: (Shortcircuit a, HasTrue a) => [a] -> a
+firstFalseOf = foldl (&&) true
+
 -- | Short-circuit two actions, performing the second only if the first returned a false-ish value.
 orM :: (Monad m, Shortcircuit a) => m a -> m a -> m a
 orM a b = a >>= \x -> (return x ?? b) x
@@ -103,6 +108,9 @@ firstTrueOfM = foldr orM (return false)
 -- | Short-circuit a list of actions, performing only until a false-ish value is found, or the list exhausted.
 lastFalseOfM :: (Monad m, Shortcircuit a, HasTrue a) => [m a] -> m a
 lastFalseOfM = foldr andM (return true)
+
+firstFalseOfM :: (Monad m, Shortcircuit a, HasTrue a) => [m a] -> m a
+firstFalseOfM = foldl andM (return true)
 
 instance HasTrue Bool where
     true = True
