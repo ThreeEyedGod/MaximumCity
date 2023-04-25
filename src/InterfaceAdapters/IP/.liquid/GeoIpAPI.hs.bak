@@ -20,7 +20,6 @@ import InterfaceAdapters.Utils.Helper
 import Data.Text.Lazy as TL
 import Data.Text.Lazy.Encoding as TLE
 import Data.Char as DC
-import InterfaceAdapters.IP.GeoCodeOpenCage (getOpenCageForwardGeoCodefor, OpenCageForwardGeoData (..), OpenCageResultData(..), OpenCageLocdata(..))
 import InterfaceAdapters.Utils.JSONHelper
 
 data Locdata = Locdata

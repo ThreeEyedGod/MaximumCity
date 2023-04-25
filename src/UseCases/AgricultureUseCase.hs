@@ -1,5 +1,4 @@
 {-# LANGUAGE BlockArguments, GADTs, FlexibleContexts, FlexibleInstances, DataKinds, PolyKinds, ScopedTypeVariables #-}
-{-# LANGUAGE QuasiQuotes #-}
 {-# Language PartialTypeSignatures #-}
 {-# Language NamedWildCards #-}
 {-# LANGUAGE OverloadedStrings #-}
@@ -29,14 +28,13 @@ import           InterfaceAdapters.Utils.Helper
 import           AWSLambda (responseBody)
 import qualified Data.Text.Internal as T
 import qualified Data.Text as M
-import Data.Either (fromRight)
 import Data.ByteString.Lazy.UTF8 (fromString) -- from utf8-string
 import Text.RawString.QQ
 import Data.Aeson (eitherDecode)
 import Data.Text.Lazy.Encoding (encodeUtf8)
 import Data.Text.Lazy (fromStrict)
 import InterfaceAdapters.Utils.ShortCircuit (HasTrue, Shortcircuit (..), andM, firstFalseOf, firstFalseOfM)
-import Data.Either (isRight, partitionEithers)
+import Data.Either (fromRight, isRight, partitionEithers)
 
 import Web.Telegram.API.Bot.Data (Message, Message (..), Message(text),User(..))
 

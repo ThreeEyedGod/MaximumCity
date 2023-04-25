@@ -120,7 +120,7 @@ _handleUpdate helper (Just Update {message = Just m}) = _pushTelegramMsg helper 
 _handleUpdate _ u                                     = liftIO $ putStrLn $ "Unhandled message: " ++ show u
 
 getUpdate_id :: Update -> Int 
-getUpdate_id u = update_id u
+getUpdate_id = update_id
 
 
 getMeta :: Maybe Update -> (T.Text, (T.Text, T.Text))
