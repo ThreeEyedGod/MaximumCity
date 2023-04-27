@@ -75,15 +75,15 @@ badEnv cs env ex
       | Prelude.null env =  do
           let err = "Environment key not set: " ++ env ++ "; " ++ cs
           logMessage err
-          return $ Left $ EmptyKeyError err
+          pure $ Left $ EmptyKeyError err
       | isDoesNotExistError ex = do
           let err = "Environment key value not set: " ++ env ++ "; " ++ cs
           logMessage err
-          return $ Left $ MissingEnvError err
+          pure $ Left $ MissingEnvError err
       | otherwise = do
           let err = ioeGetErrorString ex ++ " " ++ env ++ "; " ++ cs
           logMessage err
-          return $ Left $ SomeIOError err
+          pure $ Left $ SomeIOError err
 
 -- handle is basically a guard  - a shorter catch ! https://hackage.haskell.org/package/base-4.15.0.0/docs/Control-Exception.html#v:handle
 -- note: badEnv has 2 arguments; 2nd one is the exception
@@ -92,7 +92,7 @@ getKey :: HasCallStack => String -> IO (Either EnvError String)
 getKey env = handle (badEnv (prettyCallStack callStack) env) $ Right <$> getEnv env
 
 orDieonNothing :: Maybe a -> String -> Either String a
-Just a  `orDieonNothing` _      = return a
+Just a  `orDieonNothing` _      = pure a
 Nothing `orDieonNothing` string = Left string
 
 key :: String -> IO (Either ErrLeftString String)

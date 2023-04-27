@@ -10,22 +10,21 @@
 <body>
 <hr>
 Put mouse over identifiers to see inferred types
-<pre><span class=hs-linenum> 1: </span>
-<span class=hs-linenum> 2: </span><span class='hs-comment'>{-# LANGUAGE DuplicateRecordFields #-}</span>
-<span class=hs-linenum> 3: </span>
-<span class=hs-linenum> 4: </span><span class='hs-keyword'>module</span> <span class='hs-conid'>InterfaceAdapters.Utils.JSONHelper</span> <span class='hs-keyword'>where</span>
-<span class=hs-linenum> 5: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Data.Aeson</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>Q</span> <span class='hs-conid'>()</span>
-<span class=hs-linenum> 6: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Data.Text</span> <span class='hs-layout'>(</span> <span class='hs-conid'>Text</span> <span class='hs-layout'>)</span>
-<span class=hs-linenum> 7: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Control.Applicative</span> <span class='hs-conid'>()</span>
-<span class=hs-linenum> 8: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Control.Monad</span> <span class='hs-layout'>(</span> <span class='hs-conid'>Monad</span><span class='hs-layout'>(</span><span class='hs-layout'>(</span><span class='hs-varop'>&gt;&gt;</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span> <span class='hs-varid'>return</span><span class='hs-layout'>)</span> <span class='hs-layout'>)</span>
-<span class=hs-linenum> 9: </span><span class='hs-keyword'>import</span> <span class='hs-keyword'>qualified</span> <span class='hs-conid'>Data.ByteString.Lazy</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>B</span>
-<span class=hs-linenum>10: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Network.HTTP.Conduit</span> <span class='hs-layout'>(</span><span class='hs-varid'>simpleHttp</span><span class='hs-layout'>)</span>
-<span class=hs-linenum>11: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Control.Exception</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>X</span> <span class='hs-layout'>(</span> <span class='hs-conid'>SomeException</span><span class='hs-layout'>,</span> <span class='hs-varid'>catch</span> <span class='hs-layout'>)</span>
-<span class=hs-linenum>12: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>GHC.Generics</span> <span class='hs-conid'>()</span>
-<span class=hs-linenum>13: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Prelude</span>
-<span class=hs-linenum>14: </span><span class='hs-keyword'>import</span> <span class='hs-keyword'>qualified</span> <span class='hs-conid'>Data.Text</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>Data.ByteString.Char8</span>
-<span class=hs-linenum>15: </span>
-<span class=hs-linenum>16: </span><span class='hs-comment'>{-- testing 
+<pre><span class=hs-linenum> 1: </span><span class='hs-comment'>{-# LANGUAGE DuplicateRecordFields #-}</span>
+<span class=hs-linenum> 2: </span>
+<span class=hs-linenum> 3: </span><span class='hs-keyword'>module</span> <span class='hs-conid'>InterfaceAdapters.Utils.JSONHelper</span> <span class='hs-keyword'>where</span>
+<span class=hs-linenum> 4: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Data.Aeson</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>Q</span> <span class='hs-conid'>()</span>
+<span class=hs-linenum> 5: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Data.Text</span> <span class='hs-layout'>(</span> <span class='hs-conid'>Text</span> <span class='hs-layout'>)</span>
+<span class=hs-linenum> 6: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Control.Applicative</span> <span class='hs-conid'>()</span>
+<span class=hs-linenum> 7: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Control.Monad</span> <span class='hs-layout'>(</span> <span class='hs-conid'>Monad</span><span class='hs-layout'>(</span><span class='hs-layout'>(</span><span class='hs-varop'>&gt;&gt;</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span> <span class='hs-varid'>return</span><span class='hs-layout'>)</span> <span class='hs-layout'>)</span>
+<span class=hs-linenum> 8: </span><span class='hs-keyword'>import</span> <span class='hs-keyword'>qualified</span> <span class='hs-conid'>Data.ByteString.Lazy</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>B</span>
+<span class=hs-linenum> 9: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Network.HTTP.Conduit</span> <span class='hs-layout'>(</span><span class='hs-varid'>simpleHttp</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>10: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Control.Exception</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>X</span> <span class='hs-layout'>(</span> <span class='hs-conid'>SomeException</span><span class='hs-layout'>,</span> <span class='hs-varid'>catch</span> <span class='hs-layout'>)</span>
+<span class=hs-linenum>11: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>GHC.Generics</span> <span class='hs-conid'>()</span>
+<span class=hs-linenum>12: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Prelude</span>
+<span class=hs-linenum>13: </span><span class='hs-keyword'>import</span> <span class='hs-keyword'>qualified</span> <span class='hs-conid'>Data.Text</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>Data.ByteString.Char8</span>
+<span class=hs-linenum>14: </span>
+<span class=hs-linenum>15: </span><span class='hs-comment'>{-- testing 
 import Data.Aeson
 import Data.ByteString.Lazy
 import Data.ByteString.Lazy.Char8 (unlines)
@@ -85,16 +84,16 @@ tryS = case decode testJson :: Maybe [Person] of
     Nothing -&gt; Prelude.putStrLn "Couldn't parse the JSON data"
 
 -- end testing --}</span>
+<span class=hs-linenum>75: </span>
 <span class=hs-linenum>76: </span>
-<span class=hs-linenum>77: </span>
-<span class=hs-linenum>78: </span><span class='hs-definition'>jsonURL</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>String</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>Text</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>String</span>
-<span class=hs-linenum>79: </span><span class='hs-definition'>jsonURL</span> <span class='hs-varid'>u</span> <span class='hs-varid'>q</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>u</span> <span class='hs-varop'>++</span> <span class='hs-conid'>Data.ByteString.Char8.unpack</span> <span class='hs-varid'>q</span>
-<span class=hs-linenum>80: </span>
-<span class=hs-linenum>81: </span><span class='hs-definition'>exceptionHandler</span> <span class='hs-keyglyph'>::</span>  <span class='hs-conid'>SomeException</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>IO</span> <span class='hs-conid'>B.ByteString</span>
-<span class=hs-linenum>82: </span><span class='hs-definition'>exceptionHandler</span> <span class='hs-varid'>e</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>putStrLn</span> <span class='hs-str'>"Caught an exception "</span> <span class='hs-varop'>&gt;&gt;</span> <span class='hs-varid'>return</span> <span class='hs-conid'>B.empty</span>
-<span class=hs-linenum>83: </span>
-<span class=hs-linenum>84: </span><span class='hs-definition'>getJSON</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>String</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>Text</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>IO</span> <span class='hs-conid'>B.ByteString</span>
-<span class=hs-linenum>85: </span><span class='hs-definition'>getJSON</span> <span class='hs-varid'>url</span> <span class='hs-varid'>parm</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>simpleHttp</span> <span class='hs-layout'>(</span><span class='hs-varid'>jsonURL</span> <span class='hs-varid'>url</span> <span class='hs-varid'>parm</span><span class='hs-layout'>)</span> <span class='hs-varop'>`X.catch`</span> <span class='hs-varid'>exceptionHandler</span>
+<span class=hs-linenum>77: </span><span class='hs-definition'>jsonURL</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>String</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>Text</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>String</span>
+<span class=hs-linenum>78: </span><span class='hs-definition'>jsonURL</span> <span class='hs-varid'>u</span> <span class='hs-varid'>q</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>u</span> <span class='hs-varop'>++</span> <span class='hs-conid'>Data.ByteString.Char8.unpack</span> <span class='hs-varid'>q</span>
+<span class=hs-linenum>79: </span>
+<span class=hs-linenum>80: </span><span class='hs-definition'>exceptionHandler</span> <span class='hs-keyglyph'>::</span>  <span class='hs-conid'>SomeException</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>IO</span> <span class='hs-conid'>B.ByteString</span>
+<span class=hs-linenum>81: </span><span class='hs-definition'>exceptionHandler</span> <span class='hs-varid'>e</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>putStrLn</span> <span class='hs-str'>"Caught an exception "</span> <span class='hs-varop'>&gt;&gt;</span> <span class='hs-varid'>pure</span> <span class='hs-conid'>B.empty</span>
+<span class=hs-linenum>82: </span>
+<span class=hs-linenum>83: </span><span class='hs-definition'>getJSON</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>String</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>Text</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>IO</span> <span class='hs-conid'>B.ByteString</span>
+<span class=hs-linenum>84: </span><span class='hs-definition'>getJSON</span> <span class='hs-varid'>url</span> <span class='hs-varid'>parm</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>simpleHttp</span> <span class='hs-layout'>(</span><span class='hs-varid'>jsonURL</span> <span class='hs-varid'>url</span> <span class='hs-varid'>parm</span><span class='hs-layout'>)</span> <span class='hs-varop'>`X.catch`</span> <span class='hs-varid'>exceptionHandler</span>
 </pre>
 </body>
 </html>

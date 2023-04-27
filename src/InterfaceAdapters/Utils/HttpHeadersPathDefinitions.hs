@@ -1,4 +1,3 @@
-
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DuplicateRecordFields #-}
@@ -69,7 +68,7 @@ extractXForwardedForHeader :: LB.ByteString -> IO T.Text
 extractXForwardedForHeader headers = do
   let f = eitherDecode headers :: Either String Headers
   case f of
-    Left _ -> trace ("f = " ++ show f) $ return "Fail:extractXForwardedForHeader | eitherDecode header"
+    Left _ -> trace ("f = " ++ show f) $ pure "Fail:extractXForwardedForHeader | eitherDecode header"
     Right allHeaders -> getInfoFromIpAddr (T.unpack (xForwardedFor allHeaders))
     --Right allHeaders -> getInfoFromIpAddr (Data.ByteString.Char8.unpack (xForwardedFor allHeaders))
 

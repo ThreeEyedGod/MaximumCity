@@ -7,7 +7,7 @@
 
 module ExternalInterfaces.ApplicationAssembly where
 
-import           Control.Monad.Except
+import           Control.Monad.Except (ExceptT (..))
 import           Data.ByteString.Lazy.Char8               (pack)
 import           Data.Function                            ((&))
 import           Polysemy
@@ -15,7 +15,6 @@ import           Polysemy.Error
 import           Polysemy.Input                           (Input, runInputConst)
 import           Polysemy.Trace                           (Trace, traceToIO, ignoreTrace, traceToStdout)
 import           Servant.Server (Application, ServerT, Handler(..), errBody, err412, hoistServer, serve)
-import           Data.Aeson.Types (ToJSON, FromJSON)
 
 import           InterfaceAdapters.Config
 import           InterfaceAdapters.AgricultureRestService

@@ -36,7 +36,7 @@ getPDFProperties url  = do
 
       maybe_info <- documentInfo doc
       title <- case maybe_info of
-          Nothing -> return Nothing
+          Nothing -> pure Nothing
           Just info -> infoTitle info
 
       root <- documentCatalog doc >>= catalogPageNode

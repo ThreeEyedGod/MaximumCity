@@ -107,6 +107,7 @@
 (declare-fun Data.Aeson.Types.Internal.$36$WNumber () Int)
 (declare-fun GHC.Generics.C$58$Generic () Int)
 (declare-fun GHC.Classes.$36$fOrdInt () Int)
+(declare-fun GHC.Base.pure () Int)
 (declare-fun GHC.TypeLits.C$58$KnownSymbol () Int)
 (declare-fun GHC.Base.$62$$62$$61$ () Int)
 (declare-fun Data.Aeson.eitherDecode () Int)
@@ -208,12 +209,12 @@
 (declare-fun Data.Aeson.Types.Generic.$36$fProductSize$58$$42$$58$ () Int)
 (declare-fun GHC.List.head () Int)
 (declare-fun Data.ByteString.Lazy.Internal.$36$WChunk () Int)
+(declare-fun GHC.Base.$36$fApplicativeIO () Int)
 (declare-fun Data.Aeson.Types.FromJSON.$36$dmparseJSON () Int)
 (declare-fun cast_as_int () Int)
 (declare-fun GHC.Num.$43$ () Int)
 (declare-fun GHC.Types.F$35$ () Int)
 (declare-fun GHC.Exts.fromListN () Int)
-(declare-fun GHC.Base.$36$fMonadIO () Int)
 (declare-fun GHC.Generics.DecidedLazy () Int)
 (declare-fun Data.Aeson.Types.ToJSON.$36$fGToJSON$39$encarityM11 () Int)
 (declare-fun Data.Aeson.Types.Internal.$36$WObject () Int)
@@ -500,7 +501,6 @@
 
 
 
-
 (assert (distinct GHC.Generics.SourceNoUnpack GHC.Generics.NoSourceUnpackedness GHC.Generics.SourceUnpack))
 (assert (distinct GHC.Types.False GHC.Types.True))
 
@@ -509,6 +509,7 @@
 
 
 (assert (distinct GHC.Generics.DecidedUnpack GHC.Generics.DecidedLazy GHC.Generics.DecidedStrict))
+
 
 
 

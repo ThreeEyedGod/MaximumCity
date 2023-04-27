@@ -1,4 +1,3 @@
-
 {-# LANGUAGE OverloadedStrings, DeriveGeneric, DeriveAnyClass #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE DerivingStrategies #-}
@@ -57,7 +56,7 @@ data OpenCageComponentsData = OpenCageComponentsData {
 hyphentoUnderscore_toLower :: Char -> Char 
 hyphentoUnderscore_toLower x 
       | generalCategory x == DashPunctuation = '_'
-      | otherwise         = DC.toLower x
+      | otherwise                            = DC.toLower x
 
 instance FromJSON OpenCageComponentsData where
   parseJSON = genericParseJSON defaultOptions {
@@ -126,5 +125,5 @@ getOpenCageForwardGeoCodefor :: String -> IO B.ByteString
 getOpenCageForwardGeoCodefor town = do
           k <- getOpenCageSettings -- set this in AWS Env. Variables
           case k of 
-            Left errMsgString ->   return $ TLE.encodeUtf8 $ TL.pack errMsgString -- make String ByteString
+            Left errMsgString ->   pure $ TLE.encodeUtf8 $ TL.pack errMsgString -- make String ByteString
             Right key         ->   getJSON (jsonOpenCageURL ++ key ++ "&q=" ++ town) (T.pack "&pretty=1&no_annotations=1&countrycode=in&limit=1")

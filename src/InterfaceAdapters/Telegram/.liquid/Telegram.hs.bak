@@ -34,7 +34,7 @@ import InterfaceAdapters.Utils.Helper ( getKey )
 import InterfaceAdapters.Utils.HttpHeadersPathDefinitions as H
     ( ResponseBody )
 import           Data.Monoid ((<>))
-import InterfaceAdapters.Preferences (parsePrefs, )
+import InterfaceAdapters.Preferences (parsePrefs)
 
 import Web.Telegram.API.Bot
     ( Update(Update, message, update_id),
@@ -83,7 +83,7 @@ getTelegramSettings = do
     Right token -> do
       let t = Token ("bot" <> T.pack token)
       manager <- newManager tlsManagerSettings
-      trace ("Right  " ++ show token) $ return $ Right (t, manager)
+      trace ("Right  " ++ show token) $ pure $ Right (t, manager)
 
 _callTelegramClient :: Maybe TC -> AllInputs -> IO ()
 _callTelegramClient tc allin = runTC tc $ uncurry _handleUpdate allin

@@ -241,7 +241,6 @@
 (declare-fun GHC.List.take () Int)
 (declare-fun Servant.Client.Internal.HttpClient.$36$fFunctorClientM () Int)
 (declare-fun papp4 () Int)
-(declare-fun GHC.Base.return () Int)
 (declare-fun Data.Aeson.Types.Internal.$36$WString () Int)
 (declare-fun GHC.Stack.Types.PushCallStack () Int)
 (declare-fun GHC.Stack.Types.pushCallStack () Int)

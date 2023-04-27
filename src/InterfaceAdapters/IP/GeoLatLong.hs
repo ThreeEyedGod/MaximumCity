@@ -43,6 +43,6 @@ makeNestedEitherOpenCage (Left x)  = pure $ Left x
 makeNestedEitherOpenCage (Right y) = pure $ Right $ Right y 
 
 geoDataJSONToText :: Either String (Either ForwardGeoData OpenCageForwardGeoData) -> IO T.Text
-geoDataJSONToText (Left f)          = return $ T.pack "Fail:geoDataJSONToText"
-geoDataJSONToText (Right (Left f))  = return $ Data.ByteString.Char8.pack $ removeNonNumbers (show (Prelude.head (_data (f :: ForwardGeoData))))
-geoDataJSONToText (Right (Right f)) = return $ Data.ByteString.Char8.pack (show (lat (geometry (Prelude.head (results (f :: OpenCageForwardGeoData))))) ++ "," ++ show (lng (geometry (Prelude.head (results (f :: OpenCageForwardGeoData))))))
+geoDataJSONToText (Left f)          = pure $ T.pack "Fail:geoDataJSONToText"
+geoDataJSONToText (Right (Left f))  = pure $ Data.ByteString.Char8.pack $ removeNonNumbers (show (Prelude.head (_data (f :: ForwardGeoData))))
+geoDataJSONToText (Right (Right f)) = pure $ Data.ByteString.Char8.pack (show (lat (geometry (Prelude.head (results (f :: OpenCageForwardGeoData))))) ++ "," ++ show (lng (geometry (Prelude.head (results (f :: OpenCageForwardGeoData))))))

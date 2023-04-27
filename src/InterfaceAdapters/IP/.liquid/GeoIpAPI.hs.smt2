@@ -126,6 +126,7 @@
 (declare-fun Data.Aeson.Types.Internal.$36$WNumber () Int)
 (declare-fun GHC.Generics.C$58$Generic () Int)
 (declare-fun GHC.Classes.$36$fOrdInt () Int)
+(declare-fun GHC.Base.pure () Int)
 (declare-fun GHC.TypeLits.C$58$KnownSymbol () Int)
 (declare-fun GHC.Base.$62$$62$$61$ () Int)
 (declare-fun GHC.Unicode.TitlecaseLetter () Int)
@@ -249,6 +250,7 @@
 (declare-fun Data.Aeson.Types.Generic.$36$fProductSize$58$$42$$58$ () Int)
 (declare-fun GHC.List.head () Int)
 (declare-fun Data.ByteString.Lazy.Internal.$36$WChunk () Int)
+(declare-fun GHC.Base.$36$fApplicativeIO () Int)
 (declare-fun Data.Aeson.Types.FromJSON.$36$dmparseJSON () Int)
 (declare-fun Data.Aeson.Types.Internal.Options () Int)
 (declare-fun cast_as_int () Int)
@@ -584,6 +586,7 @@
 
 (assert (distinct GHC.IO.Unmasked GHC.IO.MaskedInterruptible GHC.IO.MaskedUninterruptible))
 (assert (distinct GHC.Generics.DecidedUnpack GHC.Generics.DecidedLazy GHC.Generics.DecidedStrict))
+
 (assert (distinct GHC.Unicode.DashPunctuation GHC.Unicode.InitialQuote GHC.Unicode.NonSpacingMark GHC.Unicode.DecimalNumber GHC.Unicode.NotAssigned GHC.Unicode.Control GHC.Unicode.ModifierSymbol GHC.Unicode.Format GHC.Unicode.OpenPunctuation GHC.Unicode.OtherNumber GHC.Unicode.LowercaseLetter GHC.Unicode.LetterNumber GHC.Unicode.ParagraphSeparator GHC.Unicode.ModifierLetter GHC.Unicode.CurrencySymbol GHC.Unicode.LineSeparator GHC.Unicode.OtherPunctuation GHC.Unicode.UppercaseLetter GHC.Unicode.EnclosingMark GHC.Unicode.OtherLetter GHC.Unicode.PrivateUse GHC.Unicode.FinalQuote GHC.Unicode.ClosePunctuation GHC.Unicode.TitlecaseLetter GHC.Unicode.Space GHC.Unicode.OtherSymbol GHC.Unicode.ConnectorPunctuation GHC.Unicode.SpacingCombiningMark GHC.Unicode.MathSymbol GHC.Unicode.Surrogate))
 
 

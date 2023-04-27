@@ -1,4 +1,3 @@
-
 {-# LANGUAGE OverloadedStrings, DeriveGeneric, DeriveAnyClass #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE DeriveGeneric #-}
@@ -56,7 +55,7 @@ instance FromJSON GeoIp
 instance ToJSON GeoIp
 
 statusExceptionHandler ::  SomeException -> IO B.ByteString
-statusExceptionHandler e = putStrLn "Bad Error" >> return B.empty
+statusExceptionHandler e = putStrLn "Bad Error" >> pure B.empty
 
 -- Gets LatLong for an IP 
 jsonGeoIpURL :: String

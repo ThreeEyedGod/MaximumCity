@@ -133,6 +133,7 @@
 (declare-fun Data.Aeson.Types.Internal.$36$WNumber () Int)
 (declare-fun GHC.Generics.C$58$Generic () Int)
 (declare-fun GHC.Classes.$36$fOrdInt () Int)
+(declare-fun GHC.Base.pure () Int)
 (declare-fun GHC.TypeLits.C$58$KnownSymbol () Int)
 (declare-fun GHC.Base.$62$$62$$61$ () Int)
 (declare-fun GHC.Unicode.TitlecaseLetter () Int)
@@ -256,6 +257,7 @@
 (declare-fun GHC.List.head () Int)
 (declare-fun Data.ByteString.Lazy.Internal.$36$WChunk () Int)
 (declare-fun InterfaceAdapters.IP.GeoCodeOpenCage.$36$fShowOpenCageResultData () Int)
+(declare-fun GHC.Base.$36$fApplicativeIO () Int)
 (declare-fun Data.Aeson.Types.FromJSON.$36$dmparseJSON () Int)
 (declare-fun InterfaceAdapters.IP.GeoCodeOpenCage.$36$fShowOpenCageLocdata () Int)
 (declare-fun Data.Aeson.Types.Internal.Options () Int)
@@ -380,7 +382,6 @@
 (declare-fun Data.Aeson.Types.FromJSON.$36$fRecordFromJSON$39$arityM11 () Int)
 (declare-fun GHC.Types.Int16Rep () Int)
 (declare-fun papp4 () Int)
-(declare-fun GHC.Base.return () Int)
 (declare-fun GHC.Types.$36$WKindRepTYPE () Int)
 (declare-fun Data.Aeson.Types.ToJSON.$36$fTaggedObjectencarityM1 () Int)
 (declare-fun Data.Aeson.Types.Internal.Success () Int)
@@ -616,6 +617,7 @@
 
 
 (assert (distinct GHC.Generics.DecidedUnpack GHC.Generics.DecidedLazy GHC.Generics.DecidedStrict))
+
 
 
 

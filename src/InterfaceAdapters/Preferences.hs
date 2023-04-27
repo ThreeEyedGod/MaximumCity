@@ -5,7 +5,7 @@
 {-@ LIQUID "--skip-module" @-}
 
 
-module InterfaceAdapters.Preferences where
+module InterfaceAdapters.Preferences (modalUser, Agdata (..), Datasize (..), getPreferences, setPreferences, Preferences (..), Timespan (..), parsePrefs) where
 
 import Data.Maybe
 import Polysemy
@@ -70,8 +70,8 @@ getPreferences user_id = do
   case y of
     Left err -> do
         logMessage "No Preferences for user id. Getting one for modal user"
-        return Preferences {userdata = Weather, usersize = Mini, usertimespan = NearForecast}
-    Right prefs -> return prefs
+        pure Preferences {userdata = Weather, usersize = Mini, usertimespan = NearForecast}
+    Right prefs -> pure prefs
 
 data MyPreferences m a where
   ReadPrefs :: String -> MyPreferences m Preferences

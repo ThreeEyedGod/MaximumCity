@@ -83,12 +83,12 @@ getAllDivData :: String -> IO (Maybe [RegionEntry])
 getAllDivData s = do
      w <- getWLL
      case w of
-         Left err -> return Nothing
+         Left err -> pure Nothing
          Right waterLevel -> do
                 let cpjs = getSpecificProjectSizeDataCategoryProjects s waterLevel
                 let ld = getSpecificProjectSizeDataCategoryProjectsLineData cpjs
                 case ld of
-                    Nothing -> return Nothing
+                    Nothing -> pure Nothing
                     Just linedata -> pure (Just linedata)
 
 
@@ -97,8 +97,8 @@ toTuple :: [RegionEntry] -> [(DB.ByteString, RegionWaterData)]
 toTuple = map (\ x -> (revenueRegion x, waterData x))
 
 extractDivisionData :: DB.ByteString -> Maybe [RegionEntry] -> IO (Maybe RegionWaterData)
-extractDivisionData _ Nothing          = return Nothing
-extractDivisionData division (Just xs) = return $ lookup division (toTuple xs)
+extractDivisionData _ Nothing          = pure Nothing
+extractDivisionData division (Just xs) = pure $ lookup division (toTuple xs)
 
 
 getPercentLiveToday :: RegionWaterData -> PercentLiveStorage
@@ -148,7 +148,7 @@ getWaterLakeLevelForPlace_LiveToday_wrtStorage pl = do
     maybe_allDivData <- getAllDivData "All"
     x <- extractDivisionData (BSU.fromString nrstRegion) maybe_allDivData
     case x of
-        Just y -> return  ( Just (BSU.fromString nrstRegion) , Just $ getPercentLiveToday y)
-        Nothing -> return ( Just (BSU.fromString nrstRegion) , Nothing)
+        Just y -> pure  ( Just (BSU.fromString nrstRegion) , Just $ getPercentLiveToday y)
+        Nothing -> pure ( Just (BSU.fromString nrstRegion) , Nothing)
 
 -- | End Maharashtra  ********

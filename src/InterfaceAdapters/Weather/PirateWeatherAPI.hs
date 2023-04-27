@@ -55,7 +55,7 @@ getPirateWeatherSettings = do
   tk <- getKey "PIRATE_WEATHER_TOKEN"
   case tk of
     Left msg -> pure $ Left "Pirate Weather Token error"
-    Right token -> return $ Right token
+    Right token -> pure $ Right token
 
 jsonPirateWeatherURL :: String
 jsonPirateWeatherURL = "https://api.pirateweather.net/forecast/"
@@ -72,14 +72,14 @@ townDarkSky town = getLatLongPirateKey town >>= getDarkSkyjson
 
 getDarkSkyjson :: (LatLong , Either String Key) -> IO (Either String DarkSky)
 getDarkSkyjson (ll , kee)
-  | "Fail:" `isPrefixOf` ll = return $ Left $ unpack $ _returnStdFail "getDarkSkyjson" "Missing Lat Long"
-  | isLeft kee = return $ Left $ unpack $ _returnStdFail "getDarkSkyjson" "Missing Pirate Key"
+  | "Fail:" `isPrefixOf` ll = pure $ Left $ unpack $ _returnStdFail "getDarkSkyjson" "Missing Lat Long"
+  | isLeft kee = pure $ Left $ unpack $ _returnStdFail "getDarkSkyjson" "Missing Pirate Key"
   | otherwise  =  do
         let t = pack (unpack ll ++ "?exclude=minutely,hourly,alerts")
         x <- (eitherDecode <$> getJSON (theURL (fromRight defaultKey kee)) t) :: IO (Either String DarkSky) -- Http Call to PIrate Net !
         case x of
-          Left e -> return $ Left $ unpack $ _returnStdFail "getDarkSkyjson" "Missing DarkSky json"
-          Right stuff -> return $ Right stuff
+          Left e -> pure $ Left $ unpack $ _returnStdFail "getDarkSkyjson" "Missing DarkSky json"
+          Right stuff -> pure $ Right stuff
 
 -- Entry functions
 _getWeatherForTown :: String -> IO Text

@@ -45,7 +45,7 @@ type WeatherText = T.Text
 
 _getTownNameWeatherFromIp :: PlaceName -> IO TheWeatherThere
 _getTownNameWeatherFromIp town
-  | "Fail" `T.isPrefixOf` town = return "Fail:getTownNameWeatherFromIp | town"
+  | "Fail" `T.isPrefixOf` town = pure "Fail:getTownNameWeatherFromIp | town"
   | otherwise = _getTownNameWeatherFromTown town
 
 -- | water levels of lakes in a region as percent of same time last year or full capacity
@@ -75,8 +75,8 @@ getWeather _ (Just pl)      = _getTownNameWeatherFromTown pl
 getWeather Nothing Nothing  = pure ("Hmmm... Something Deeply Wrong" :: TheWeatherThere)
 
 getAgInfo ::  UserAsk -> IO TheWeatherThere
-getAgInfo UserAsk {placeName = "/prefs", prefs = _ } = return $ Data.ByteString.Char8.pack "/Preferences related  "
-getAgInfo UserAsk {placeName = "/start", prefs = _ } = return $ Data.ByteString.Char8.pack "/Start related  "
+getAgInfo UserAsk {placeName = "/prefs", prefs = _ } = pure $ Data.ByteString.Char8.pack "/Preferences related  "
+getAgInfo UserAsk {placeName = "/start", prefs = _ } = pure $ Data.ByteString.Char8.pack "/Start related  "
 
 getAgInfo UserAsk {placeName = pl, prefs = pfs@Preferences {userdata = Weather, usersize = _, usertimespan = _}} = weatherCurrentForecast pfs $ Data.ByteString.Char8.unpack pl
 -- getAgInfo UserAsk {placeName = pl, prefs = Preferences {userdata = Weather, usersize = Mini, usertimespan = RightNow}} = weatherCurrentForecastMini $ Data.ByteString.Char8.unpack pl

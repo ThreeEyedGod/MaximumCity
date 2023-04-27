@@ -3,7 +3,7 @@
 
 -- | Effectful implmentation of Environment getting functions. Not yet used
 
-module InterfaceAdapters.Utils.EnvPolHelper where
+module InterfaceAdapters.Utils.EnvPolHelper (runGetKey) where
 
 import Polysemy
 import System.Environment

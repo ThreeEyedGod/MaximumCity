@@ -10,90 +10,89 @@
 <body>
 <hr>
 Put mouse over identifiers to see inferred types
-<pre><span class=hs-linenum> 1: </span>
-<span class=hs-linenum> 2: </span><span class='hs-comment'>{-# LANGUAGE DeriveAnyClass #-}</span>
-<span class=hs-linenum> 3: </span><span class='hs-comment'>{-# LANGUAGE DeriveGeneric #-}</span>
-<span class=hs-linenum> 4: </span><span class='hs-comment'>{-# LANGUAGE DuplicateRecordFields #-}</span>
-<span class=hs-linenum> 5: </span><span class='hs-comment'>{-# LANGUAGE OverloadedStrings #-}</span>
-<span class=hs-linenum> 6: </span><span class='hs-comment'>{-# LANGUAGE RankNTypes #-}</span>
-<span class=hs-linenum> 7: </span><span class='hs-comment'>{-# OPTIONS_GHC -Wno-orphans #-}</span>
-<span class=hs-linenum> 8: </span>
-<span class=hs-linenum> 9: </span><span class='hs-keyword'>module</span> <span class='hs-conid'>InterfaceAdapters.Utils.HttpHeadersPathDefinitions</span>
-<span class=hs-linenum>10: </span><span class='hs-keyword'>where</span>
-<span class=hs-linenum>11: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Data.Aeson</span>
-<span class=hs-linenum>12: </span>  <span class='hs-layout'>(</span> <span class='hs-conid'>FromJSON</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseJSON</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span>
-<span class=hs-linenum>13: </span>    <span class='hs-conid'>KeyValue</span> <span class='hs-layout'>(</span><span class='hs-layout'>(</span><span class='hs-varop'>.=</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span>
-<span class=hs-linenum>14: </span>    <span class='hs-conid'>ToJSON</span> <span class='hs-layout'>(</span><span class='hs-varid'>toJSON</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span>
-<span class=hs-linenum>15: </span>    <span class='hs-conid'>Value</span> <span class='hs-layout'>(</span><span class='hs-conid'>Object</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span>
-<span class=hs-linenum>16: </span>    <span class='hs-varid'>encode</span><span class='hs-layout'>,</span>
-<span class=hs-linenum>17: </span>    <span class='hs-varid'>object</span><span class='hs-layout'>,</span>
-<span class=hs-linenum>18: </span>    <span class='hs-layout'>(</span><span class='hs-varop'>.:</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span>
-<span class=hs-linenum>19: </span>    <span class='hs-varid'>eitherDecode</span>
-<span class=hs-linenum>20: </span>  <span class='hs-layout'>)</span>
-<span class=hs-linenum>21: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>GHC.Generics</span> <span class='hs-layout'>(</span><span class='hs-conid'>Generic</span><span class='hs-layout'>)</span>
-<span class=hs-linenum>22: </span><span class='hs-keyword'>import</span> <span class='hs-keyword'>qualified</span> <span class='hs-conid'>Data.Text</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>T</span>
-<span class=hs-linenum>23: </span><span class='hs-keyword'>import</span> <span class='hs-keyword'>qualified</span> <span class='hs-conid'>Data.Text.Encoding</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>T</span>
-<span class=hs-linenum>24: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Control.Monad</span> <span class='hs-layout'>(</span><span class='hs-conid'>MonadPlus</span> <span class='hs-layout'>(</span><span class='hs-varid'>mzero</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span>
-<span class=hs-linenum>25: </span><span class='hs-keyword'>import</span> <span class='hs-keyword'>qualified</span> <span class='hs-conid'>Data.ByteString.Lazy.Char8</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>BS8</span>
-<span class=hs-linenum>26: </span><span class='hs-keyword'>import</span> <span class='hs-keyword'>qualified</span> <span class='hs-conid'>Data.ByteString.Lazy.Char8</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>LB</span>
-<span class=hs-linenum>27: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Data.ByteString.Char8</span>
-<span class=hs-linenum>28: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Debug.Trace</span>
-<span class=hs-linenum>29: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>InterfaceAdapters.IP.IP2Location</span>
-<span class=hs-linenum>30: </span>
-<span class=hs-linenum>31: </span><span class='hs-keyword'>data</span> <span class='hs-conid'>Path</span> <span class='hs-keyglyph'>=</span> <span class='hs-conid'>Path</span>
-<span class=hs-linenum>32: </span>  <span class='hs-layout'>{</span>
-<span class=hs-linenum>33: </span>    <span class='hs-varid'>ipath</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>T.Text</span>
-<span class=hs-linenum>34: </span>  <span class='hs-layout'>}</span> <span class='hs-keyword'>deriving</span> <span class='hs-layout'>(</span><span class='hs-conid'>Generic</span><span class='hs-layout'>)</span>
-<span class=hs-linenum>35: </span><span class='hs-keyword'>instance</span> <span class='hs-conid'>FromJSON</span> <span class='hs-conid'>Path</span>
-<span class=hs-linenum>36: </span><span class='hs-keyword'>instance</span> <span class='hs-conid'>ToJSON</span> <span class='hs-conid'>Path</span>
-<span class=hs-linenum>37: </span>
-<span class=hs-linenum>38: </span><span class='hs-keyword'>type</span> <span class='hs-conid'>ResponseBody</span> <span class='hs-keyglyph'>=</span> <span class='hs-conid'>T.Text</span>
-<span class=hs-linenum>39: </span>
-<span class=hs-linenum>40: </span><span class='hs-keyword'>data</span> <span class='hs-conid'>Headers</span> <span class='hs-keyglyph'>=</span> <span class='hs-conid'>Headers</span>
-<span class=hs-linenum>41: </span>  <span class='hs-layout'>{</span>
-<span class=hs-linenum>42: </span>    <span class='hs-varid'>xForwardedFor</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>T.Text</span>
-<span class=hs-linenum>43: </span>  <span class='hs-layout'>}</span> <span class='hs-keyword'>deriving</span> <span class='hs-layout'>(</span><span class='hs-conid'>Show</span><span class='hs-layout'>,</span> <span class='hs-conid'>Generic</span><span class='hs-layout'>)</span>
-<span class=hs-linenum>44: </span>
-<span class=hs-linenum>45: </span><span class='hs-keyword'>instance</span> <span class='hs-conid'>FromJSON</span> <span class='hs-conid'>Headers</span> <span class='hs-keyword'>where</span>
-<span class=hs-linenum>46: </span>  <span class='hs-varid'>parseJSON</span> <span class='hs-layout'>(</span><span class='hs-conid'>Object</span> <span class='hs-varid'>v</span><span class='hs-layout'>)</span> <span class='hs-keyglyph'>=</span> <span class='hs-keyword'>do</span>
-<span class=hs-linenum>47: </span>    <span class='hs-varid'>xForwardedFor</span> <span class='hs-keyglyph'>&lt;-</span> <span class='hs-varid'>v</span> <span class='hs-varop'>.:</span> <span class='hs-str'>"X-Forwarded-For"</span>
-<span class=hs-linenum>48: </span>    <span class='hs-varid'>return</span> <span class='hs-varop'>$</span> <span class='hs-conid'>Headers</span> <span class='hs-varid'>xForwardedFor</span>
-<span class=hs-linenum>49: </span>  <span class='hs-varid'>parseJSON</span> <span class='hs-keyword'>_</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>mzero</span>
-<span class=hs-linenum>50: </span>
-<span class=hs-linenum>51: </span><span class='hs-keyword'>instance</span> <span class='hs-conid'>ToJSON</span> <span class='hs-conid'>Headers</span> <span class='hs-keyword'>where</span>
-<span class=hs-linenum>52: </span>  <span class='hs-varid'>toJSON</span> <span class='hs-layout'>(</span><span class='hs-conid'>Headers</span> <span class='hs-varid'>xForwardedFor</span><span class='hs-layout'>)</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>object</span> <span class='hs-keyglyph'>[</span><span class='hs-str'>"xForwardedFor"</span> <span class='hs-varop'>.=</span> <span class='hs-varid'>xForwardedFor</span><span class='hs-keyglyph'>]</span>
-<span class=hs-linenum>53: </span>
-<span class=hs-linenum>54: </span><span class='hs-keyword'>data</span> <span class='hs-conid'>Response</span> <span class='hs-keyglyph'>=</span> <span class='hs-conid'>Response</span>
-<span class=hs-linenum>55: </span>  <span class='hs-layout'>{</span> <span class='hs-varid'>statusCode</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>Int</span><span class='hs-layout'>,</span>
-<span class=hs-linenum>56: </span>    <span class='hs-varid'>headers</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>Value</span><span class='hs-layout'>,</span>
-<span class=hs-linenum>57: </span>    <span class='hs-varid'>body</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>T.Text</span><span class='hs-layout'>,</span>
-<span class=hs-linenum>58: </span>    <span class='hs-varid'>isBase64Encoded</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>Bool</span>
-<span class=hs-linenum>59: </span>  <span class='hs-layout'>}</span> <span class='hs-keyword'>deriving</span> <span class='hs-layout'>(</span><span class='hs-conid'>Generic</span><span class='hs-layout'>,</span> <span class='hs-conid'>ToJSON</span><span class='hs-layout'>)</span>
-<span class=hs-linenum>60: </span>
-<span class=hs-linenum>61: </span><span class='hs-keyword'>data</span> <span class='hs-conid'>Event</span> <span class='hs-keyglyph'>=</span> <span class='hs-conid'>Event</span>
-<span class=hs-linenum>62: </span>  <span class='hs-layout'>{</span>
-<span class=hs-linenum>63: </span>    <span class='hs-varid'>path</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>Value</span><span class='hs-layout'>,</span>
-<span class=hs-linenum>64: </span>    <span class='hs-varid'>headers</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>Value</span><span class='hs-layout'>,</span>
-<span class=hs-linenum>65: </span>    <span class='hs-varid'>body</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>Maybe</span> <span class='hs-conid'>T.Text</span>
-<span class=hs-linenum>66: </span>  <span class='hs-layout'>}</span> <span class='hs-keyword'>deriving</span> <span class='hs-layout'>(</span><span class='hs-conid'>Generic</span><span class='hs-layout'>,</span> <span class='hs-conid'>FromJSON</span><span class='hs-layout'>,</span> <span class='hs-conid'>ToJSON</span><span class='hs-layout'>)</span>
-<span class=hs-linenum>67: </span>
-<span class=hs-linenum>68: </span><span class='hs-definition'>extractXForwardedForHeader</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>LB.ByteString</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>IO</span> <span class='hs-conid'>T.Text</span>
-<span class=hs-linenum>69: </span><span class='hs-definition'>extractXForwardedForHeader</span> <span class='hs-varid'>headers</span> <span class='hs-keyglyph'>=</span> <span class='hs-keyword'>do</span>
-<span class=hs-linenum>70: </span>  <span class='hs-keyword'>let</span> <span class='hs-varid'>f</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>eitherDecode</span> <span class='hs-varid'>headers</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>Either</span> <span class='hs-conid'>String</span> <span class='hs-conid'>Headers</span>
-<span class=hs-linenum>71: </span>  <span class='hs-keyword'>case</span> <span class='hs-varid'>f</span> <span class='hs-keyword'>of</span>
-<span class=hs-linenum>72: </span>    <span class='hs-conid'>Left</span> <span class='hs-keyword'>_</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-varid'>trace</span> <span class='hs-layout'>(</span><span class='hs-str'>"f = "</span> <span class='hs-varop'>++</span> <span class='hs-varid'>show</span> <span class='hs-varid'>f</span><span class='hs-layout'>)</span> <span class='hs-varop'>$</span> <span class='hs-varid'>return</span> <span class='hs-str'>"Fail:extractXForwardedForHeader | eitherDecode header"</span>
-<span class=hs-linenum>73: </span>    <span class='hs-conid'>Right</span> <span class='hs-varid'>allHeaders</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-varid'>getInfoFromIpAddr</span> <span class='hs-layout'>(</span><span class='hs-conid'>T.unpack</span> <span class='hs-layout'>(</span><span class='hs-varid'>xForwardedFor</span> <span class='hs-varid'>allHeaders</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span>
-<span class=hs-linenum>74: </span>    <span class='hs-comment'>--Right allHeaders -&gt; getInfoFromIpAddr (Data.ByteString.Char8.unpack (xForwardedFor allHeaders))</span>
-<span class=hs-linenum>75: </span>
-<span class=hs-linenum>76: </span><span class='hs-definition'>preProcessPath</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>Value</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>LB.ByteString</span>
-<span class=hs-linenum>77: </span><span class='hs-definition'>preProcessPath</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>encode</span>
-<span class=hs-linenum>78: </span>
-<span class=hs-linenum>79: </span><span class='hs-definition'>getPath</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>LB.ByteString</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>T.Text</span>
-<span class=hs-linenum>80: </span><span class='hs-definition'>getPath</span> <span class='hs-varid'>p</span>  <span class='hs-keyglyph'>=</span> <span class='hs-keyword'>do</span>
-<span class=hs-linenum>81: </span>  <span class='hs-keyword'>let</span> <span class='hs-varid'>f</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>eitherDecode</span> <span class='hs-varid'>p</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>Either</span> <span class='hs-conid'>String</span> <span class='hs-conid'>Path</span>
-<span class=hs-linenum>82: </span>  <span class='hs-keyword'>case</span> <span class='hs-varid'>f</span> <span class='hs-keyword'>of</span>
-<span class=hs-linenum>83: </span>    <span class='hs-conid'>Left</span> <span class='hs-keyword'>_</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-str'>"Fail:getPath | No path"</span>
-<span class=hs-linenum>84: </span>    <span class='hs-conid'>Right</span> <span class='hs-varid'>aPath</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-varid'>ipath</span> <span class='hs-varid'>aPath</span>
+<pre><span class=hs-linenum> 1: </span><span class='hs-comment'>{-# LANGUAGE DeriveAnyClass #-}</span>
+<span class=hs-linenum> 2: </span><span class='hs-comment'>{-# LANGUAGE DeriveGeneric #-}</span>
+<span class=hs-linenum> 3: </span><span class='hs-comment'>{-# LANGUAGE DuplicateRecordFields #-}</span>
+<span class=hs-linenum> 4: </span><span class='hs-comment'>{-# LANGUAGE OverloadedStrings #-}</span>
+<span class=hs-linenum> 5: </span><span class='hs-comment'>{-# LANGUAGE RankNTypes #-}</span>
+<span class=hs-linenum> 6: </span><span class='hs-comment'>{-# OPTIONS_GHC -Wno-orphans #-}</span>
+<span class=hs-linenum> 7: </span>
+<span class=hs-linenum> 8: </span><span class='hs-keyword'>module</span> <span class='hs-conid'>InterfaceAdapters.Utils.HttpHeadersPathDefinitions</span>
+<span class=hs-linenum> 9: </span><span class='hs-keyword'>where</span>
+<span class=hs-linenum>10: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Data.Aeson</span>
+<span class=hs-linenum>11: </span>  <span class='hs-layout'>(</span> <span class='hs-conid'>FromJSON</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseJSON</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>12: </span>    <span class='hs-conid'>KeyValue</span> <span class='hs-layout'>(</span><span class='hs-layout'>(</span><span class='hs-varop'>.=</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>13: </span>    <span class='hs-conid'>ToJSON</span> <span class='hs-layout'>(</span><span class='hs-varid'>toJSON</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>14: </span>    <span class='hs-conid'>Value</span> <span class='hs-layout'>(</span><span class='hs-conid'>Object</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>15: </span>    <span class='hs-varid'>encode</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>16: </span>    <span class='hs-varid'>object</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>17: </span>    <span class='hs-layout'>(</span><span class='hs-varop'>.:</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>18: </span>    <span class='hs-varid'>eitherDecode</span>
+<span class=hs-linenum>19: </span>  <span class='hs-layout'>)</span>
+<span class=hs-linenum>20: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>GHC.Generics</span> <span class='hs-layout'>(</span><span class='hs-conid'>Generic</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>21: </span><span class='hs-keyword'>import</span> <span class='hs-keyword'>qualified</span> <span class='hs-conid'>Data.Text</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>T</span>
+<span class=hs-linenum>22: </span><span class='hs-keyword'>import</span> <span class='hs-keyword'>qualified</span> <span class='hs-conid'>Data.Text.Encoding</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>T</span>
+<span class=hs-linenum>23: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Control.Monad</span> <span class='hs-layout'>(</span><span class='hs-conid'>MonadPlus</span> <span class='hs-layout'>(</span><span class='hs-varid'>mzero</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>24: </span><span class='hs-keyword'>import</span> <span class='hs-keyword'>qualified</span> <span class='hs-conid'>Data.ByteString.Lazy.Char8</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>BS8</span>
+<span class=hs-linenum>25: </span><span class='hs-keyword'>import</span> <span class='hs-keyword'>qualified</span> <span class='hs-conid'>Data.ByteString.Lazy.Char8</span> <span class='hs-keyword'>as</span> <span class='hs-conid'>LB</span>
+<span class=hs-linenum>26: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Data.ByteString.Char8</span>
+<span class=hs-linenum>27: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>Debug.Trace</span>
+<span class=hs-linenum>28: </span><span class='hs-keyword'>import</span> <span class='hs-conid'>InterfaceAdapters.IP.IP2Location</span>
+<span class=hs-linenum>29: </span>
+<span class=hs-linenum>30: </span><span class='hs-keyword'>data</span> <span class='hs-conid'>Path</span> <span class='hs-keyglyph'>=</span> <span class='hs-conid'>Path</span>
+<span class=hs-linenum>31: </span>  <span class='hs-layout'>{</span>
+<span class=hs-linenum>32: </span>    <span class='hs-varid'>ipath</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>T.Text</span>
+<span class=hs-linenum>33: </span>  <span class='hs-layout'>}</span> <span class='hs-keyword'>deriving</span> <span class='hs-layout'>(</span><span class='hs-conid'>Generic</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>34: </span><span class='hs-keyword'>instance</span> <span class='hs-conid'>FromJSON</span> <span class='hs-conid'>Path</span>
+<span class=hs-linenum>35: </span><span class='hs-keyword'>instance</span> <span class='hs-conid'>ToJSON</span> <span class='hs-conid'>Path</span>
+<span class=hs-linenum>36: </span>
+<span class=hs-linenum>37: </span><span class='hs-keyword'>type</span> <span class='hs-conid'>ResponseBody</span> <span class='hs-keyglyph'>=</span> <span class='hs-conid'>T.Text</span>
+<span class=hs-linenum>38: </span>
+<span class=hs-linenum>39: </span><span class='hs-keyword'>data</span> <span class='hs-conid'>Headers</span> <span class='hs-keyglyph'>=</span> <span class='hs-conid'>Headers</span>
+<span class=hs-linenum>40: </span>  <span class='hs-layout'>{</span>
+<span class=hs-linenum>41: </span>    <span class='hs-varid'>xForwardedFor</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>T.Text</span>
+<span class=hs-linenum>42: </span>  <span class='hs-layout'>}</span> <span class='hs-keyword'>deriving</span> <span class='hs-layout'>(</span><span class='hs-conid'>Show</span><span class='hs-layout'>,</span> <span class='hs-conid'>Generic</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>43: </span>
+<span class=hs-linenum>44: </span><span class='hs-keyword'>instance</span> <span class='hs-conid'>FromJSON</span> <span class='hs-conid'>Headers</span> <span class='hs-keyword'>where</span>
+<span class=hs-linenum>45: </span>  <span class='hs-varid'>parseJSON</span> <span class='hs-layout'>(</span><span class='hs-conid'>Object</span> <span class='hs-varid'>v</span><span class='hs-layout'>)</span> <span class='hs-keyglyph'>=</span> <span class='hs-keyword'>do</span>
+<span class=hs-linenum>46: </span>    <span class='hs-varid'>xForwardedFor</span> <span class='hs-keyglyph'>&lt;-</span> <span class='hs-varid'>v</span> <span class='hs-varop'>.:</span> <span class='hs-str'>"X-Forwarded-For"</span>
+<span class=hs-linenum>47: </span>    <span class='hs-varid'>return</span> <span class='hs-varop'>$</span> <span class='hs-conid'>Headers</span> <span class='hs-varid'>xForwardedFor</span>
+<span class=hs-linenum>48: </span>  <span class='hs-varid'>parseJSON</span> <span class='hs-keyword'>_</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>mzero</span>
+<span class=hs-linenum>49: </span>
+<span class=hs-linenum>50: </span><span class='hs-keyword'>instance</span> <span class='hs-conid'>ToJSON</span> <span class='hs-conid'>Headers</span> <span class='hs-keyword'>where</span>
+<span class=hs-linenum>51: </span>  <span class='hs-varid'>toJSON</span> <span class='hs-layout'>(</span><span class='hs-conid'>Headers</span> <span class='hs-varid'>xForwardedFor</span><span class='hs-layout'>)</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>object</span> <span class='hs-keyglyph'>[</span><span class='hs-str'>"xForwardedFor"</span> <span class='hs-varop'>.=</span> <span class='hs-varid'>xForwardedFor</span><span class='hs-keyglyph'>]</span>
+<span class=hs-linenum>52: </span>
+<span class=hs-linenum>53: </span><span class='hs-keyword'>data</span> <span class='hs-conid'>Response</span> <span class='hs-keyglyph'>=</span> <span class='hs-conid'>Response</span>
+<span class=hs-linenum>54: </span>  <span class='hs-layout'>{</span> <span class='hs-varid'>statusCode</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>Int</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>55: </span>    <span class='hs-varid'>headers</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>Value</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>56: </span>    <span class='hs-varid'>body</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>T.Text</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>57: </span>    <span class='hs-varid'>isBase64Encoded</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>Bool</span>
+<span class=hs-linenum>58: </span>  <span class='hs-layout'>}</span> <span class='hs-keyword'>deriving</span> <span class='hs-layout'>(</span><span class='hs-conid'>Generic</span><span class='hs-layout'>,</span> <span class='hs-conid'>ToJSON</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>59: </span>
+<span class=hs-linenum>60: </span><span class='hs-keyword'>data</span> <span class='hs-conid'>Event</span> <span class='hs-keyglyph'>=</span> <span class='hs-conid'>Event</span>
+<span class=hs-linenum>61: </span>  <span class='hs-layout'>{</span>
+<span class=hs-linenum>62: </span>    <span class='hs-varid'>path</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>Value</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>63: </span>    <span class='hs-varid'>headers</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>Value</span><span class='hs-layout'>,</span>
+<span class=hs-linenum>64: </span>    <span class='hs-varid'>body</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>Maybe</span> <span class='hs-conid'>T.Text</span>
+<span class=hs-linenum>65: </span>  <span class='hs-layout'>}</span> <span class='hs-keyword'>deriving</span> <span class='hs-layout'>(</span><span class='hs-conid'>Generic</span><span class='hs-layout'>,</span> <span class='hs-conid'>FromJSON</span><span class='hs-layout'>,</span> <span class='hs-conid'>ToJSON</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>66: </span>
+<span class=hs-linenum>67: </span><span class='hs-definition'>extractXForwardedForHeader</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>LB.ByteString</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>IO</span> <span class='hs-conid'>T.Text</span>
+<span class=hs-linenum>68: </span><span class='hs-definition'>extractXForwardedForHeader</span> <span class='hs-varid'>headers</span> <span class='hs-keyglyph'>=</span> <span class='hs-keyword'>do</span>
+<span class=hs-linenum>69: </span>  <span class='hs-keyword'>let</span> <span class='hs-varid'>f</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>eitherDecode</span> <span class='hs-varid'>headers</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>Either</span> <span class='hs-conid'>String</span> <span class='hs-conid'>Headers</span>
+<span class=hs-linenum>70: </span>  <span class='hs-keyword'>case</span> <span class='hs-varid'>f</span> <span class='hs-keyword'>of</span>
+<span class=hs-linenum>71: </span>    <span class='hs-conid'>Left</span> <span class='hs-keyword'>_</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-varid'>trace</span> <span class='hs-layout'>(</span><span class='hs-str'>"f = "</span> <span class='hs-varop'>++</span> <span class='hs-varid'>show</span> <span class='hs-varid'>f</span><span class='hs-layout'>)</span> <span class='hs-varop'>$</span> <span class='hs-varid'>pure</span> <span class='hs-str'>"Fail:extractXForwardedForHeader | eitherDecode header"</span>
+<span class=hs-linenum>72: </span>    <span class='hs-conid'>Right</span> <span class='hs-varid'>allHeaders</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-varid'>getInfoFromIpAddr</span> <span class='hs-layout'>(</span><span class='hs-conid'>T.unpack</span> <span class='hs-layout'>(</span><span class='hs-varid'>xForwardedFor</span> <span class='hs-varid'>allHeaders</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span>
+<span class=hs-linenum>73: </span>    <span class='hs-comment'>--Right allHeaders -&gt; getInfoFromIpAddr (Data.ByteString.Char8.unpack (xForwardedFor allHeaders))</span>
+<span class=hs-linenum>74: </span>
+<span class=hs-linenum>75: </span><span class='hs-definition'>preProcessPath</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>Value</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>LB.ByteString</span>
+<span class=hs-linenum>76: </span><span class='hs-definition'>preProcessPath</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>encode</span>
+<span class=hs-linenum>77: </span>
+<span class=hs-linenum>78: </span><span class='hs-definition'>getPath</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>LB.ByteString</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>T.Text</span>
+<span class=hs-linenum>79: </span><span class='hs-definition'>getPath</span> <span class='hs-varid'>p</span>  <span class='hs-keyglyph'>=</span> <span class='hs-keyword'>do</span>
+<span class=hs-linenum>80: </span>  <span class='hs-keyword'>let</span> <span class='hs-varid'>f</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>eitherDecode</span> <span class='hs-varid'>p</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>Either</span> <span class='hs-conid'>String</span> <span class='hs-conid'>Path</span>
+<span class=hs-linenum>81: </span>  <span class='hs-keyword'>case</span> <span class='hs-varid'>f</span> <span class='hs-keyword'>of</span>
+<span class=hs-linenum>82: </span>    <span class='hs-conid'>Left</span> <span class='hs-keyword'>_</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-str'>"Fail:getPath | No path"</span>
+<span class=hs-linenum>83: </span>    <span class='hs-conid'>Right</span> <span class='hs-varid'>aPath</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-varid'>ipath</span> <span class='hs-varid'>aPath</span>
 </pre>
 </body>
 </html>

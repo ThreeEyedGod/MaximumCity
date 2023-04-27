@@ -66,6 +66,7 @@
 (declare-fun GHC.Base.$43$$43$ () Int)
 (declare-fun GHC.Maybe.Just () Int)
 (declare-fun x_Tuple22 () Int)
+(declare-fun GHC.Base.pure () Int)
 (declare-fun GHC.Real.fromIntegral () Int)
 (declare-fun GHC.IO.Exception.IOError () Int)
 (declare-fun GHC.List.tail () Int)
@@ -108,6 +109,7 @@
 (declare-fun Network.HTTP.Conduit.simpleHttp () Int)
 (declare-fun GHC.List.head () Int)
 (declare-fun Data.ByteString.Lazy.Internal.$36$WChunk () Int)
+(declare-fun GHC.Base.$36$fApplicativeIO () Int)
 (declare-fun cast_as_int () Int)
 (declare-fun GHC.Num.$43$ () Int)
 (declare-fun GHC.Base.$36$fMonadIO () Int)
@@ -149,7 +151,6 @@
 (declare-fun GHC.Base.. () Int)
 (declare-fun GHC.List.take () Int)
 (declare-fun papp4 () Int)
-(declare-fun GHC.Base.return () Int)
 (declare-fun GHC.Stack.Types.PushCallStack () Int)
 (declare-fun GHC.Real.quotRem () Int)
 (declare-fun GHC.Classes.$60$$61$ () Int)
@@ -257,6 +258,7 @@
 
 
 (assert (distinct GHC.Types.False GHC.Types.True))
+
 
 
 (push 1)

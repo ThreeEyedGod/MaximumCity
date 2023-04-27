@@ -67,6 +67,7 @@
 (declare-fun GHC.Maybe.Just () Int)
 (declare-fun x_Tuple22 () Int)
 (declare-fun InterfaceAdapters.Config.Signal () Int)
+(declare-fun GHC.Base.pure () Int)
 (declare-fun GHC.Real.fromIntegral () Int)
 (declare-fun GHC.IO.Exception.IOError () Int)
 (declare-fun GHC.Types.$36$tcBool () Int)
@@ -113,10 +114,10 @@
 (declare-fun cast_as () Int)
 (declare-fun GHC.Types.KindRepApp () Int)
 (declare-fun GHC.List.head () Int)
+(declare-fun GHC.Base.$36$fApplicativeIO () Int)
 (declare-fun cast_as_int () Int)
 (declare-fun InterfaceAdapters.Config.Telegram () Int)
 (declare-fun GHC.Num.$43$ () Int)
-(declare-fun GHC.Base.$36$fMonadIO () Int)
 (declare-fun len () Int)
 (declare-fun InterfaceAdapters.Config.OpenWeather () Int)
 (declare-fun GHC.Types.LT () Int)
@@ -169,7 +170,6 @@
 (declare-fun GHC.Base.. () Int)
 (declare-fun GHC.List.take () Int)
 (declare-fun papp4 () Int)
-(declare-fun GHC.Base.return () Int)
 (declare-fun GHC.Types.$36$WKindRepTYPE () Int)
 (declare-fun GHC.Stack.Types.PushCallStack () Int)
 (declare-fun GHC.Real.quotRem () Int)
@@ -282,11 +282,11 @@
 
 (assert (distinct InterfaceAdapters.Config.Other InterfaceAdapters.Config.AWSAPIRest))
 (assert (distinct GHC.Types.GT GHC.Types.EQ GHC.Types.LT))
-
 (assert (distinct InterfaceAdapters.Config.Telegram InterfaceAdapters.Config.Web InterfaceAdapters.Config.Signal InterfaceAdapters.Config.Whatsapp InterfaceAdapters.Config.CL))
 
 
 (assert (distinct GHC.Types.False GHC.Types.True))
+
 
 
 

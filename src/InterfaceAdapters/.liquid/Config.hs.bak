@@ -29,5 +29,5 @@ data Gateway  = AWSAPIRest | Other deriving (Show, Eq)
 -- | load application config. This would load a config file or read commandline args or use AWS Paramter Store?
 -- | port, verbose are unused
 loadConfig :: IO Config
-loadConfig = return Config {port = 8080, backend = PirateWeather, frontend = Telegram, geoend = OpenCage, gateway = AWSAPIRest,  verbose = True}
+loadConfig = pure Config {port = 8080, backend = PirateWeather, frontend = Telegram, geoend = OpenCage, gateway = AWSAPIRest,  verbose = True}
 
