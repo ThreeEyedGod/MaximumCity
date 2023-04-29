@@ -42,7 +42,7 @@ getPDFProperties url  = do
       root <- documentCatalog doc >>= catalogPageNode
       total <- pageNodeNKids root
 
-      return (root, total, title)
+      pure (root, total, title)
 
 getPagesofPDFfromTo :: URL -> FirstPage -> LastPage -> IO T.Text 
 getPagesofPDFfromTo url pageBeg pageEnd = do

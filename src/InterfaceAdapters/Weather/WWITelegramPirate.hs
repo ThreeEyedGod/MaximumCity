@@ -1,7 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE GADTs, TypeInType, ScopedTypeVariables, StandaloneDeriving #-}
 {-# LANGUAGE TemplateHaskell, LambdaCase, BlockArguments, GADTs
-           , FlexibleContexts, TypeOperators, DataKinds, PolyKinds, ScopedTypeVariables #-}
+           , FlexibleContexts, TypeOperators, DataKinds, PolyKinds, ScopedTypeVariables, TypeInType #-}
 {-# LANGUAGE TypeFamilies        #-}
 {-@ LIQUID "--skip-module" @-}
 
@@ -38,7 +37,7 @@ import Data.Aeson
       Value (Object)
        )
 
-import InterfaceAdapters.Utils.HttpHeadersPathDefinitions as H ()
+--import InterfaceAdapters.Utils.HttpHeadersPathDefinitions as H ()
 import InterfaceAdapters.Weather.PirateWeatherAPI ()
 import UseCases.WWI ( TheWeatherThere, UserAsk, UserMsg, WWI(..) )
 import UseCases.AgricultureUseCase ()

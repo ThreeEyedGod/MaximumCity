@@ -39,7 +39,7 @@ awsEnvIdentity =   do
           { AWS.envLogger = logger,
             AWS.envRegion = AWS.Mumbai
           }
-  return env
+  pure env
 
 doGetParameter :: ParameterName -> IO Text
 doGetParameter pn = do 
@@ -49,7 +49,7 @@ doGetParameter pn = do
     let param = head $ result ^. getParametersResponse_parameters
     let pVal = param ^. parameter_value
     -- return $ (pVal, param ^. parameter_version)
-    return pVal
+    pure pVal
 
 doPutParameter :: ParameterName -> ParameterValue -> IO ()
 doPutParameter pn pv = do

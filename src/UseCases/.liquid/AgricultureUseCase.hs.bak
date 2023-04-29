@@ -48,25 +48,20 @@ getInfoTlgm updt@(Update {message = Just m})
       | (isValidPreferencesJSON . eitherDecode . encodeUtf8 . fromStrict) resp  = do -- if preferences are valid and a JSON format ....
                   apiSetTlgm updt 
                   outBoundRespond resp updt
-      | otherwise = do
-            if resp == tlgm then -- yeah klugy
+      | M.unpack respChecked /= "Invalid" = do
                   case (M.unpack respChecked, length (M.unpack respChecked) < 29) of
                         (u1:u2:rx, True)  -> do
                               responseBody <- apiGetTlgm (Update {update_id = getUpdate_id updt} {message = Just Message {text = Just $ M.pack (u1:u2:rx)}{from = Just User {user_id = getUserIdNumber (from m)}}})
                               outBoundRespond responseBody updt
                         _          ->  outBoundRespond "Place Name is of incorrect length" updt
-            else 
-                        outBoundRespond resp updt
+      | otherwise      = outBoundRespond resp updt
       where
             (uuid, (tlgm, resp)) = getMeta (Just updt)
             respChecked = rejectInvalid resp
 getInfoTlgm updt@(Update {message = Nothing}) = pure . fst $ theMsg "Update:message=nothing!!" updt
 
--- reFactor this code
 outBoundRespond :: (Member WWI r)  => T.Text -> TelegramMessage -> Sem r TheWeatherThere
-outBoundRespond r u = do
-                        sendBackMsg $ theMsg r u
-                        pure . fst $ theMsg r u
+outBoundRespond r u = (sendBackMsg $ theMsg r u) >> pure r
 
 {-@ measure txtLen :: T.Text -> Int @-}
 {-@ measure gettheTelegram :: TelegramMessage -> T.Text @-}
@@ -107,7 +102,7 @@ isValidPreferencesJSON json = case json of
 rejectInvalid :: T.Text -> T.Text
 rejectInvalid this = case (rejectionsLeft,oksRight) of 
                   ([], x:_) -> x -- i.e no (Left _) rejections and at least one (Right _) List item
-                  _         -> "" 
+                  _         -> "Invalid" 
             where (rejectionsLeft,oksRight) = partitionEithers [placeLikeMinText this, placeLikeMaxText this]
 
 {-@ assume M.pack :: i:String -> {o:T.Text | len i == txtLen o } @-}

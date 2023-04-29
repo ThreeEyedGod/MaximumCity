@@ -117,7 +117,6 @@
 (declare-fun GHC.List.iterate () Int)
 (declare-fun Data.Text.Internal.Text () Int)
 (declare-fun Polysemy.Internal.$36$fApplicativeSem () Int)
-(declare-fun Data.Text.$36$fEqText () Int)
 (declare-fun GHC.Types.Int8Rep () Int)
 (declare-fun addrLen () Int)
 (declare-fun GHC.Real.$36$W$58$$37$ () Int)
@@ -173,11 +172,13 @@
 (declare-fun cast_as_int () Int)
 (declare-fun GHC.Num.$43$ () Int)
 (declare-fun GHC.Types.F$35$ () Int)
+(declare-fun GHC.Classes.$36$fEq$91$$93$ () Int)
 (declare-fun GHC.Exts.fromListN () Int)
 (declare-fun Web.Telegram.API.Bot.Data.VideoNote () Int)
 (declare-fun Data.Aeson.Types.Internal.$36$WObject () Int)
 (declare-fun Web.Telegram.API.Bot.Data.ChosenInlineResult () Int)
 (declare-fun len () Int)
+(declare-fun GHC.Classes.$36$fEqChar () Int)
 (declare-fun UseCases.WWI.SendBackMsg () Int)
 (declare-fun GHC.Types.Int64Rep () Int)
 (declare-fun GHC.Types.LT () Int)
@@ -418,7 +419,6 @@
 (assert (distinct GHC.Types.Int32Rep GHC.Types.Int16Rep GHC.Types.LiftedRep GHC.Types.FloatRep GHC.Types.AddrRep GHC.Types.Int64Rep GHC.Types.WordRep GHC.Types.Int8Rep GHC.Types.DoubleRep GHC.Types.IntRep GHC.Types.UnliftedRep GHC.Types.Word64Rep GHC.Types.Word16Rep GHC.Types.Word8Rep GHC.Types.Word32Rep))
 
 
-
 (assert (distinct GHC.Types.GT GHC.Types.EQ GHC.Types.LT))
 (assert (distinct InterfaceAdapters.Preferences.Detailed InterfaceAdapters.Preferences.Mini InterfaceAdapters.Preferences.Standard))
 
@@ -426,6 +426,7 @@
 
 (assert (distinct GHC.Types.False GHC.Types.True))
 (assert (distinct InterfaceAdapters.Preferences.NearForecast InterfaceAdapters.Preferences.Alerts InterfaceAdapters.Preferences.LongRange InterfaceAdapters.Preferences.RightNow))
+
 (push 1)
 (push 1)
 (pop 1)

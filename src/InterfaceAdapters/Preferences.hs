@@ -25,7 +25,6 @@ import Data.Ord as O
 import InterfaceAdapters.Parameters.Types
     ( ParameterName, ParameterValue )
 import Amazonka.SSM (ParameterTier(ParameterTier_Advanced))
-import Data.Data (cast)
 import Amazonka (FromJSON, ToJSON, eitherDecode)
 import Amazonka.Prelude (Generic)
 import qualified Data.ByteString.Lazy as TL
