@@ -48,13 +48,13 @@ getInfoTlgm updt@(Update {message = Just m})
       | (isValidPreferencesJSON . eitherDecode . encodeUtf8 . fromStrict) resp  = do -- if preferences are valid and a JSON format ....
                   apiSetTlgm updt 
                   outBoundRespond resp updt
-      | M.unpack respChecked /= "Invalid" = do
-                  case (M.unpack respChecked, length (M.unpack respChecked) < 29) of
-                        (u1:u2:rx, True)  -> do
+      | otherwise = do
+                  case (respChecked == resp, M.unpack respChecked, length (M.unpack respChecked) < 29) of
+                        (False, _ , _)          -> outBoundRespond resp updt
+                        (True, u1:u2:rx, True)  -> do
                               responseBody <- apiGetTlgm (Update {update_id = getUpdate_id updt} {message = Just Message {text = Just $ M.pack (u1:u2:rx)}{from = Just User {user_id = getUserIdNumber (from m)}}})
                               outBoundRespond responseBody updt
                         _          ->  outBoundRespond "Place Name is of incorrect length" updt
-      | otherwise      = outBoundRespond resp updt
       where
             (uuid, (tlgm, resp)) = getMeta (Just updt)
             respChecked = rejectInvalid resp
