@@ -136,8 +136,8 @@ parseGetResponse :: T.Text -> T.Text -> T.Text
 parseGetResponse whatUserTyped uuid
   | ("/start" `T.isPrefixOf` whatUserTyped) || ("?" `T.isPrefixOf` whatUserTyped) || ("/help" `T.isPrefixOf` whatUserTyped) || ("help" `T.isPrefixOf` whatUserTyped) = hlpMessage
   | "/prefs" `T.isPrefixOf` whatUserTyped = prfsMessage
-  | ("/" `T.isInfixOf` whatUserTyped) || ("*" `T.isInfixOf` whatUserTyped) || ("-" `T.isInfixOf` whatUserTyped) = "\nPlace Name seems odd\n"
+  | ("/" `T.isInfixOf` whatUserTyped) || ("*" `T.isInfixOf` whatUserTyped) || ("-" `T.isInfixOf` whatUserTyped) = hlpMessage
   | otherwise = whatUserTyped
   where
-    hlpMessage  = "Hi! I am @MaximumCityBot \nEnter a place name For ex: \nMumbai, \nPune \nMaharashtra \nBhivandi\n " :: T.Text
+    hlpMessage  = "Hi! I am @MaximumCityBot \nEnter a place name between 2 and 29 chars For ex: \nMumbai, \nPune \nMaharashtra \nBhivandi\n " :: T.Text
     prfsMessage = parsePrefs uuid (T.strip $ T.drop 6 whatUserTyped) -- over at @module Preferences

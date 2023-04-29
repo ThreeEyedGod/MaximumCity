@@ -49,12 +49,12 @@ getInfoTlgm updt@(Update {message = Just m})
                   apiSetTlgm updt 
                   outBoundRespond resp updt
       | otherwise = do
-                  case (respChecked == resp, M.unpack respChecked, length (M.unpack respChecked) < 29) of
-                        (False, _ , _)          -> outBoundRespond resp updt
-                        (True, u1:u2:rx, True)  -> do
+                  case (respChecked == "Invalid", M.unpack respChecked, length (M.unpack resp) < 29) of
+                        (True, _ , _)            -> outBoundRespond "Place Name is of incorrect size" updt
+                        (False, u1:u2:rx, True)  -> do
                               responseBody <- apiGetTlgm (Update {update_id = getUpdate_id updt} {message = Just Message {text = Just $ M.pack (u1:u2:rx)}{from = Just User {user_id = getUserIdNumber (from m)}}})
                               outBoundRespond responseBody updt
-                        _          ->  outBoundRespond "Place Name is of incorrect length" updt
+                        _                        ->  outBoundRespond resp updt
       where
             (uuid, (tlgm, resp)) = getMeta (Just updt)
             respChecked = rejectInvalid resp
