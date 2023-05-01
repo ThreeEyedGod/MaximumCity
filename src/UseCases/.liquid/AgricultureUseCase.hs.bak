@@ -52,7 +52,7 @@ getInfoTlgm updt@(Update {message = Just m})
       | otherwise = do
                   case (respChecked == "Invalid", M.unpack respChecked, length (M.unpack resp) < 29, 4 > length (words (M.unpack resp))) of
                         (True, _ , _, _)            -> outBoundRespond "Place Name is incorrectly specified" updt
-                        (False, u1:u2:rx, True, False)  -> do
+                        (False, u1:u2:rx, True, True)  -> do
                               responseBody <- apiGetTlgm (Update {update_id = getUpdate_id updt} {message = Just Message {text = Just $ M.pack (u1:u2:rx)}{from = Just User {user_id = getUserIdNumber (from m)}}})
                               outBoundRespond responseBody updt
                         _                        ->  outBoundRespond resp updt
