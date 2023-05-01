@@ -17,7 +17,7 @@ import           Polysemy.Trace                           (Trace, traceToIO, ign
 import           Servant.Server (Application, ServerT, Handler(..), errBody, err412, hoistServer, serve)
 
 import           InterfaceAdapters.Config
-import           InterfaceAdapters.AgricultureRestService
+import           InterfaceAdapters.AgricultureRestService (AgricultureAPI, agricultureAPI, agricultureServer)
 import           InterfaceAdapters.Weather.WWITelegramPirate
 import           InterfaceAdapters.Weather.WWIWebPirate
 import           InterfaceAdapters.Parameters.KVSAWSSSMParmStore

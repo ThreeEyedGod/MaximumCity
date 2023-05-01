@@ -13,7 +13,6 @@ import AWSLambda.Events.APIGateway (apiGatewayMain)
 import ExternalInterfaces.ApplicationAssembly (createApp, servApp)
 import ExternalInterfaces.ServantShim (makeHandler)
 
-import InterfaceAdapters.Config
 
 main :: IO ()
 main = handle catchAllHandler redirectmain

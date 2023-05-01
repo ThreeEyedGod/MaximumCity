@@ -74,6 +74,7 @@
 (declare-fun Web.Telegram.API.Bot.Data.Message () Int)
 (declare-fun GHC.Tuple.$40$$44$$41$ () Int)
 (declare-fun GHC.Real.$94$ () Int)
+(declare-fun Data.OldList.words () Int)
 (declare-fun GHC.Classes.$61$$61$ () Int)
 (declare-fun InterfaceAdapters.Preferences.setPreferences () Int)
 (declare-fun GHC.List.$33$$33$ () Int)
@@ -167,6 +168,7 @@
 (declare-fun Data.Either.partitionEithers () Int)
 (declare-fun cast_as () Int)
 (declare-fun Data.Text.Internal.$36$WText () Int)
+(declare-fun UseCases.AgricultureUseCase.placeHasExcessiveWords () Int)
 (declare-fun GHC.List.head () Int)
 (declare-fun Data.ByteString.Lazy.Internal.$36$WChunk () Int)
 (declare-fun Polysemy.Trace.$36$WTrace () Int)
@@ -238,6 +240,7 @@
 (declare-fun Web.Telegram.API.Bot.Data.Voice () Int)
 (declare-fun GHC.Classes.max () Int)
 (declare-fun GHC.List.scanr () Int)
+(declare-fun GHC.Num.$36$fNumInt () Int)
 (declare-fun GHC.Real.recip () Int)
 (declare-fun Data.Text.$36$fIsStringText () Int)
 (declare-fun autolen () Int)
@@ -246,6 +249,7 @@
 (declare-fun AWSLambda.Events.APIGateway.APIGatewayProxyResponse () Int)
 (declare-fun GHC.Base.. () Int)
 (declare-fun GHC.List.take () Int)
+(declare-fun numSpaces () Int)
 (declare-fun InterfaceAdapters.Preferences.modalUser () Int)
 (declare-fun InterfaceAdapters.Preferences.Preferences () Int)
 (declare-fun GHC.Types.Int16Rep () Int)
@@ -412,6 +416,7 @@
 (declare-fun lam_arg$35$$35$6$35$$35$10 () Real)
 (declare-fun lam_arg$35$$35$7$35$$35$10 () Real)
 (assert (distinct GHC.Tuple.$40$$41$ GHC.Classes.C$58$$40$$37$$37$$41$))
+
 
 (assert (distinct InterfaceAdapters.Preferences.Weather InterfaceAdapters.Preferences.All InterfaceAdapters.Preferences.WeatherWaterLevels InterfaceAdapters.Preferences.WaterLevels InterfaceAdapters.Preferences.Monsoon))
 

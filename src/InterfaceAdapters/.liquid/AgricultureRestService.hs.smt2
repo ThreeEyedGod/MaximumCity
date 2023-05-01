@@ -185,6 +185,7 @@
 (declare-fun GHC.List.replicate () Int)
 (declare-fun GHC.Base.. () Int)
 (declare-fun GHC.List.take () Int)
+(declare-fun numSpaces () Int)
 (declare-fun GHC.Types.Int16Rep () Int)
 (declare-fun papp4 () Int)
 (declare-fun GHC.Types.eq_sel () Int)
