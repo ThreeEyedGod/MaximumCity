@@ -13,7 +13,7 @@ module InterfaceAdapters.Telegram.Telegram (
   , _callTelegramClient
   , TelegramMessage
   , parsePrefs
-  , getMeta
+  , preProcessTlgm
   , Update(Update, message, update_id)
   , Message (..)
   , getUpdate_id
@@ -123,14 +123,14 @@ getUpdate_id :: Update -> Int
 getUpdate_id = update_id
 
 
-getMeta :: Maybe Update -> (T.Text, (T.Text, T.Text))
-getMeta (Just Update {message = Just m}) = (uuid, (whatUserTyped, parseResponse))
+preProcessTlgm :: Maybe Update -> (T.Text, (T.Text, T.Text))
+preProcessTlgm (Just Update {message = Just m}) = (uuid, (whatUserTyped, parseResponse))
   where
     uuid          = getUserId (from m)
     whatUserTyped = T.toLower $ T.dropWhileEnd (== ' ') (fromMaybe "" (text m))
     parseResponse = parseGetResponse whatUserTyped uuid
-getMeta Nothing                          = ("getMeta no data", ("usertyped missing","so no response"))
-getMeta _                                = ("getMeta unkwown error", ("usertyped bad", "so no response"))
+preProcessTlgm Nothing                          = ("getMeta no data", ("usertyped missing","so no response"))
+preProcessTlgm _                                = ("getMeta unkwown error", ("usertyped bad", "so no response"))
 
 parseGetResponse :: T.Text -> T.Text -> T.Text
 parseGetResponse whatUserTyped uuid

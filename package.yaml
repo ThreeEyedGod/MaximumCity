@@ -79,6 +79,7 @@ dependencies:
 - liquid-ghc-prim
 - ghc >= 9.2.1
 - raw-strings-qq
+- utility-ht >= 0.0.1
 
 library:
   source-dirs: src

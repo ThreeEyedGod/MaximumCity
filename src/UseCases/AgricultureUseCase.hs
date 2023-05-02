@@ -21,7 +21,7 @@ import           InterfaceAdapters.Telegram.Telegram (
                               , getUpdate_id
                               , TelegramMessage (..)
                               , gettheTelegram
-                              , getMeta
+                              , preProcessTlgm
                               , getUserId
                               , Update(Update, message, update_id))
 import           InterfaceAdapters.Utils.Helper
@@ -43,6 +43,7 @@ import Polysemy.Internal (Sem (..))
 import qualified Data.Text.Lazy as Tx
 import qualified Data.Text.Internal.Lazy as TL
 import           Data.String
+import           Data.Bool.HT ((?:))
 
 getInfoTlgm :: (Member (Embed IO) r, Member WWI r) => TelegramMessage -> Sem r TheWeatherThere
 getInfoTlgm updt@(Update {message = Just m})
@@ -50,16 +51,20 @@ getInfoTlgm updt@(Update {message = Just m})
                   apiSetTlgm updt 
                   outBoundRespond resp updt
       | otherwise = do
-                  case (respChecked == "Invalid", M.unpack respChecked, length (M.unpack resp) < 29, 4 > length (words (M.unpack resp))) of
-                        (True, _ , _, _)            -> outBoundRespond "Place Name is incorrectly specified" updt
-                        (False, u1:u2:rx, True, True)  -> do
+                  case (M.unpack respChecked, resp, length (M.unpack resp) < 29, 4 > length (words (M.unpack resp))) of
+                        ("Invalid",_, _, _)            -> outBoundRespond "Place Name is incorrectly specified" updt
+                        (u1:u2:rx, respChecked, True, True)       -> do
                               responseBody <- apiGetTlgm (Update {update_id = getUpdate_id updt} {message = Just Message {text = Just $ M.pack (u1:u2:rx)}{from = Just User {user_id = getUserIdNumber (from m)}}})
                               outBoundRespond responseBody updt
-                        _                        ->  outBoundRespond resp updt
+                        _                            ->  outBoundRespond resp updt
       where
-            (uuid, (tlgm, resp)) = getMeta (Just updt)
-            respChecked = rejectInvalid resp
+            preF@(uuid, (tlgm, resp)) = preProcessTlgm (Just updt)
+            --respChecked = rejectInvalid resp
+            respChecked =  pairEq (snd preF) ?: (preFilterTlgm resp , snd (snd preF)) 
 getInfoTlgm updt@(Update {message = Nothing}) = pure . fst $ theMsg "Update:message=nothing!!" updt
+
+pairEq :: Eq b => (b,b) -> Bool 
+pairEq p = fst p == snd p
 
 outBoundRespond :: (Member WWI r)  => T.Text -> TelegramMessage -> Sem r TheWeatherThere
 outBoundRespond r u = (sendBackMsg $ theMsg r u) >> pure r
@@ -89,11 +94,11 @@ apiGetTlgm updt = do
                   thisuserprefs <- embed (getPreferences uid)
                   getWeatherTown $ UserAsk {placeName = resp, prefs = thisuserprefs}
             where 
-                  (uid, (tlgm, resp)) = getMeta (Just updt)
+                  (uid, (tlgm, resp)) = preProcessTlgm (Just updt)
 
 apiSetTlgm :: (Member (Embed IO) r, Member WWI r) => TelegramMessage -> Sem r ()
 apiSetTlgm updt = embed (setPreferences uid resp) where
-                  (uid, (tlgm, resp)) = getMeta (Just updt)
+                  (uid, (tlgm, resp)) = preProcessTlgm (Just updt)
 
 theMsg :: T.Text -> TelegramMessage -> UserMsg
 theMsg r u = (r, Just u) :: UserMsg
@@ -113,9 +118,9 @@ isValidPreferencesJSON json = case json of
             Right (Preferences uData uSize uSpan) -> True
 
 -- TO DO - use shortcircuit to do only one of the Left's !
-{-@  rejectInvalid :: x:T.Text -> o:T.Text @-}
-rejectInvalid :: T.Text -> T.Text
-rejectInvalid this = case (rejectionsLeft,oksRight) of 
+{-@  preFilterTlgm :: x:T.Text -> o:T.Text @-}
+preFilterTlgm :: T.Text -> T.Text
+preFilterTlgm this = case (rejectionsLeft,oksRight) of 
                   ([], x:_) -> x -- i.e no (Left _) rejections and at least one (Right _) List item
                   _         -> "Invalid" 
             where (rejectionsLeft,oksRight) = partitionEithers [placeLikeMinText this, placeLikeMaxText this, placeHasExcessiveWords this]
