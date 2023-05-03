@@ -35,32 +35,27 @@ import           Data.Text.Lazy.Encoding (encodeUtf8)
 import           Data.Text.Lazy (fromStrict)
 import           InterfaceAdapters.Utils.ShortCircuit (HasTrue, Shortcircuit (..), andM, firstFalseOf, firstFalseOfM)
 import           Data.Either (fromRight, isRight, partitionEithers)
-
 import           Web.Telegram.API.Bot.Data (Message, Message (..), Message(text),User(..))
+import           Data.Bool.HT ((?:))
 
 -- Liquid Haskell imports
-import Polysemy.Internal (Sem (..))
-import qualified Data.Text.Lazy as Tx
+import           Polysemy.Internal (Sem (..))
 import qualified Data.Text.Internal.Lazy as TL
 import           Data.String
-import           Data.Bool.HT ((?:))
 
 getInfoTlgm :: (Member (Embed IO) r, Member WWI r) => TelegramMessage -> Sem r TheWeatherThere
 getInfoTlgm updt@(Update {message = Just m})
-      | (isValidPreferencesJSON . eitherDecode . encodeUtf8 . fromStrict) resp  = do -- if preferences are valid and a JSON format ....
-                  apiSetTlgm updt 
-                  outBoundRespond resp updt
+      | (isValidPreferencesJSON . eitherDecode . encodeUtf8 . fromStrict) resp  = do apiSetTlgm updt >> outBoundRespond resp updt
       | otherwise = do
                   case (M.unpack respChecked, resp, length (M.unpack resp) < 29, 4 > length (words (M.unpack resp))) of
-                        ("Invalid",_, _, _)            -> outBoundRespond "Place Name is incorrectly specified" updt
+                        ("Invalid",_, _, _)                       -> outBoundRespond "Place Name is incorrectly specified" updt
                         (u1:u2:rx, respChecked, True, True)       -> do
                               responseBody <- apiGetTlgm (Update {update_id = getUpdate_id updt} {message = Just Message {text = Just $ M.pack (u1:u2:rx)}{from = Just User {user_id = getUserIdNumber (from m)}}})
                               outBoundRespond responseBody updt
-                        _                            ->  outBoundRespond resp updt
+                        _                                         ->  outBoundRespond resp updt
       where
             preF@(uuid, (tlgm, resp)) = preProcessTlgm (Just updt)
-            --respChecked = rejectInvalid resp
-            respChecked =  pairEq (snd preF) ?: (preFilterTlgm resp , snd (snd preF)) 
+            respChecked =  pairEq (snd preF) ?: (preFilterTlgm resp , resp) 
 getInfoTlgm updt@(Update {message = Nothing}) = pure . fst $ theMsg "Update:message=nothing!!" updt
 
 pairEq :: Eq b => (b,b) -> Bool 
@@ -83,8 +78,6 @@ numSpaces t = (length $ words (M.unpack t)) - 1
 {-@ predicate Lte X Y = X <= Y        @-}
 {-@ predicate Gt X Y = not (Lte X Y) @-}
 {-@ predicate Ne X Y = X /= Y @-}
-{-@ type TextNE = {v:T.Text | 0 < txtLen v} @-}
-{-@ type LegitMultiWordPlaceName = { v:T.Text | Lte (numSpaces v) 3}  @-}
 
 {-@ type ValidInboundMsg = {tlgm: TelegramMessage | Lte (numSpaces (gettheTelegram tlgm)) 3 && BtwnXclu 1 (txtLen (gettheTelegram tlgm)) 29 }  @-}
 
