@@ -120,3 +120,5 @@ _returnStdFail withinFunction calledFunction = pack $ "Fail:" ++ withinFunction 
 logMessage :: String -> IO ()
 logMessage s = putStrLn s >> hFlush stdout
 
+pairEq :: Eq b => (b,b) -> Bool 
+pairEq p = fst p == snd p

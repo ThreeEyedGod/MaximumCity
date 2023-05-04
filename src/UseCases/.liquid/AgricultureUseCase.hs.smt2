@@ -53,6 +53,7 @@
 (declare-fun GHC.Types.C$35$ () Int)
 (declare-fun GHC.Real.$47$ () Int)
 (declare-fun Polysemy.Internal.$36$fMonadSem () Int)
+(declare-fun InterfaceAdapters.Utils.Helper.pairEq () Int)
 (declare-fun InterfaceAdapters.Preferences.Standard () Int)
 (declare-fun GHC.Types.$58$ () Int)
 (declare-fun tail () Int)

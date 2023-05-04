@@ -58,8 +58,6 @@ getInfoTlgm updt@(Update {message = Just m})
             respChecked =  pairEq (snd preF) ?: (preFilterTlgm resp , resp) 
 getInfoTlgm updt@(Update {message = Nothing}) = pure . fst $ theMsg "Update:message=nothing!!" updt
 
-pairEq :: Eq b => (b,b) -> Bool 
-pairEq p = fst p == snd p
 
 outBoundRespond :: (Member WWI r)  => T.Text -> TelegramMessage -> Sem r TheWeatherThere
 outBoundRespond r u = (sendBackMsg $ theMsg r u) >> pure r

@@ -3,7 +3,7 @@
 {-# OPTIONS_GHC -Wno-orphans #-}
 {-@ LIQUID "--skip-module" @-}
 
-module InterfaceAdapters.Utils.PdfHelper where
+module InterfaceAdapters.Utils.PdfHelper (getPagesofPDFfromTo) where
 
 import Pdf.Document
 import qualified Data.Text as T
